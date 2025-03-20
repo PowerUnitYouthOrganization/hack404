@@ -1,2 +1,2 @@
 # powerhacks
-website for neohacks
+website for powerhacks

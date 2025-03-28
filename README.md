@@ -1,2 +1,2 @@
-# powerhacks
-website for powerhacks
+# hack404
+hack404

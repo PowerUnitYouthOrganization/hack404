@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Hack404",
-	description: "Coming soon!",
+	title: "hack404",
+	description: "coming soon!",
 };
 
 export default function RootLayout({

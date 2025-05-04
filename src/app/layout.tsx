@@ -21,6 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 const spaceMono = Space_Mono({
 	weight: "400",
 	variable: "--font-space-mono",
+	subsets: ["latin"],
 });
 
 export const metadata: Metadata = {

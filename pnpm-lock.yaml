@@ -11,9 +11,6 @@ importers:
       '@neondatabase/serverless':
         specifier: ^1.0.0
         version: 1.0.0
-      '@prisma/client':
-        specifier: ^6.5.0
-        version: 6.5.0(prisma@6.5.0(typescript@5.8.2))(typescript@5.8.2)
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
@@ -2789,11 +2786,12 @@ snapshots:
     optionalDependencies:
       prisma: 6.5.0(typescript@5.8.2)
       typescript: 5.8.2
+    optional: true
 
   '@prisma/config@6.5.0':
     dependencies:
-      esbuild: 0.25.1
-      esbuild-register: 3.6.0(esbuild@0.25.1)
+      esbuild: 0.25.3
+      esbuild-register: 3.6.0(esbuild@0.25.3)
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -3392,14 +3390,6 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.1.0
       is-symbol: 1.1.1
-
-  esbuild-register@3.6.0(esbuild@0.25.1):
-    dependencies:
-      debug: 4.4.0
-      esbuild: 0.25.1
-    transitivePeerDependencies:
-      - supports-color
-    optional: true
 
   esbuild-register@3.6.0(esbuild@0.25.3):
     dependencies:

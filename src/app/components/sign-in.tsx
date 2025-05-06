@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn } from "next-auth/react";
 
 interface SignInProps {
@@ -7,6 +6,9 @@ interface SignInProps {
 	label?: string;
 }
 
+/**
+ * Renders a button that triggers the sign-in process for a specific provider.
+ */
 export default function SignIn({ provider, label }: SignInProps) {
 	return (
 		<button

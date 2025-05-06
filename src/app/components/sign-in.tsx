@@ -2,12 +2,12 @@
 
 import { signIn } from "next-auth/react";
 
-interface SignInButtonProps {
+interface SignInProps {
 	provider: string;
 	label?: string;
 }
 
-export default function SignInButton({ provider, label }: SignInButtonProps) {
+export default function SignIn({ provider, label }: SignInProps) {
 	return (
 		<button
 			onClick={() => signIn(provider)}

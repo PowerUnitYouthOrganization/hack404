@@ -5,13 +5,17 @@ import {
 	text,
 	primaryKey,
 	integer,
+	serial,
+	varchar,
 } from "drizzle-orm/pg-core";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle";
-const pool = postgres(connectionString, { max: 1 });
+const pool = postgres(process.env.DATABASE_URL!, {
+	max: 1,
+	ssl: "require",
+});
 
 export const db = drizzle(pool);
 
@@ -97,3 +101,8 @@ export const authenticators = pgTable(
 		},
 	],
 );
+
+export const waitlistEmails = pgTable("waitlist_emails", {
+	id: serial("id").primaryKey(),
+	email: varchar("email", { length: 255 }).notNull().unique(),
+});

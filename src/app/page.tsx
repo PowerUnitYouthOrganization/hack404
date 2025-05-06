@@ -1,4 +1,4 @@
-import SignInButton from "./components/signin";
+import SignIn from "./components/sign-in";
 
 export default function Home() {
 	return (
@@ -13,8 +13,8 @@ export default function Home() {
 					a toronto based hackathon, coming soon.
 				</p>
 				<div className="ml-20 mt-1 flex flex-row gap-5">
-					<SignInButton provider="github" />
-					<SignInButton provider="google" />
+					<SignIn provider="github" />
+					<SignIn provider="google" />
 				</div>
 			</main>
 		</div>

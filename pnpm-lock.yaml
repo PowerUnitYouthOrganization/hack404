@@ -19,13 +19,16 @@ importers:
         version: 16.5.0
       drizzle-orm:
         specifier: ^0.43.1
-        version: 0.43.1(@neondatabase/serverless@1.0.0)(@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.12.0)(prisma@6.5.0(typescript@5.8.3))
+        version: 0.43.1(@neondatabase/serverless@1.0.0)(@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.12.0)(postgres@3.4.5)(prisma@6.5.0(typescript@5.8.3))
       next:
         specifier: 15.2.3
         version: 15.2.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-auth:
         specifier: 5.0.0-beta.27
         version: 5.0.0-beta.27(next@15.2.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+      postgres:
+        specifier: ^3.4.5
+        version: 3.4.5
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -2121,6 +2124,10 @@ packages:
   postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
+  postgres@3.4.5:
+    resolution: {integrity: sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg==}
+    engines: {node: '>=12'}
+
   preact-render-to-string@6.5.11:
     resolution: {integrity: sha512-ubnauqoGczeGISiOh6RjX0/cdaF8v/oDXIjO85XALCQjwQP+SB4RDXXtvZ6yTYSjG+PC1QRP2AhPgCEsM2EvUw==}
     peerDependencies:
@@ -3448,11 +3455,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.43.1(@neondatabase/serverless@1.0.0)(@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.12.0)(prisma@6.5.0(typescript@5.8.3)):
+  drizzle-orm@0.43.1(@neondatabase/serverless@1.0.0)(@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.12.0)(postgres@3.4.5)(prisma@6.5.0(typescript@5.8.3)):
     optionalDependencies:
       '@neondatabase/serverless': 1.0.0
       '@prisma/client': 6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3)
       '@types/pg': 8.12.0
+      postgres: 3.4.5
       prisma: 6.5.0(typescript@5.8.3)
 
   dunder-proto@1.0.1:
@@ -4498,6 +4506,8 @@ snapshots:
   postgres-interval@3.0.0: {}
 
   postgres-range@1.1.4: {}
+
+  postgres@3.4.5: {}
 
   preact-render-to-string@6.5.11(preact@10.24.3):
     dependencies:

@@ -1,9 +1,7 @@
-import "./globals.css";
-
-export default function Home() {
+export default function LandingPage() {
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-between p-8 sm:p-20">
-            <header className="w-full flex justify-between items-center text-lg">
+        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+            <header className="flex justify-between w-full px-8 sm:px-20 text-lg">
                 <div className="flex gap-8">
                     <button className="hover:underline">About us</button>
                     <button className="hover:underline">Instagram</button>
@@ -14,10 +12,8 @@ export default function Home() {
                 </div>
             </header>
 
-            <main className="flex flex-col items-center text-center gap-8">
-                <h1 className="text-8xl font-[FH Lecturis Rounded]">
-                    hack404
-                </h1>
+            <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start text-center sm:text-left">
+                <h1 className="text-8xl font-[FH Lecturis Rounded]">hack404</h1>
                 <p className="text-2xl font-[var(--font-space-grotesk)]">
                     hackathon tagline goes here
                 </p>
@@ -26,7 +22,7 @@ export default function Home() {
                 </p>
             </main>
 
-            <footer className="w-full flex flex-col items-center gap-4">
+            <footer className="flex flex-col items-center gap-4 w-full px-8 sm:px-20">
                 <p className="text-lg font-[var(--font-space-grotesk)]">
                     Join our waitlist — enter your email
                 </p>

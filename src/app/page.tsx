@@ -1,11 +1,15 @@
 import Header from "./components/header";
 import { IoMdArrowForward } from "react-icons/io";
 import GradientBorder from "./components/gradient-border";
+import HBorder from "./components/h-border";
+import Grid from "./components/grid";
 
 export default function Home() {
 	return (
 		<div className="min-h-screen flex flex-col">
+			<Grid />
 			<Header />
+			<HBorder />
 			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
 					<div className="flex justify-between items-start self-stretch">
@@ -38,13 +42,6 @@ export default function Home() {
 						className="placeholder:text-2xl text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
 					/>
 				</div>
-
-				{/* <div className="relative flex items-center justify-center w-[477px] h-[78px] bg-[url('/submit-button.svg')]">
-					<div className="flex gap-4 text-black">
-						<p>Submit</p>
-						<p>→</p>
-					</div>
-				</div> */}
 
 				<div className="relative flex items-center justify-center w-[477px] h-[78px]">
 					<svg

@@ -1,14 +1,18 @@
 import Header from "./components/header";
 import { IoMdArrowForward } from "react-icons/io";
 import GradientBorder from "./components/gradient-border";
+import HBorder from "./components/h-border";
+import Grid from "./components/grid";
 
 export default function Home() {
 	return (
 		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#4A32B0] via-[#20A0A0] to-[#8AA824] relative">
+      <Grid />
 			<div
 				className="absolute inset-0 -z-10 bg-[linear-gradient(white_0.5px,transparent_0.5px)] bg-[length:50px_50px] opacity-20"
 			></div>
 			<Header />
+			<HBorder />
 			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
 					<div className="flex justify-between items-start self-stretch">

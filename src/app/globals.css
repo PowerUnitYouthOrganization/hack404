@@ -66,4 +66,7 @@ p {
 	border-radius: 5px 0px 0px 5px;
 	border: 1px solid var(--Cyan-20, rgba(48, 242, 242, 0.2));
 	background: var(--Cyan-20, rgba(48, 242, 242, 0.2));
+	/* add blur */
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px); /* for Safari support */
 }

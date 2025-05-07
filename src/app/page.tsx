@@ -3,6 +3,7 @@ import { IoMdArrowForward } from "react-icons/io";
 import GradientBorder from "./components/gradient-border";
 import HBorder from "./components/h-border";
 import Grid from "./components/grid";
+import MagnifyingGlass from "./components/magnifying-glass";
 
 export default function Home() {
 	return (
@@ -32,6 +33,7 @@ export default function Home() {
 					/>
 				</div>
 			</main>
+			<MagnifyingGlass />
 
 			<GradientBorder reverse={true} />
 			<footer className="homepage-footer z-50">

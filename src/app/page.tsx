@@ -7,13 +7,13 @@ import Grid from "./components/grid";
 export default function Home() {
 	return (
 		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#4A32B0] via-[#20A0A0] to-[#8AA824] relative">
-      <Grid />
-			<div
-				className="absolute inset-0 -z-10 bg-[linear-gradient(white_0.5px,transparent_0.5px)] bg-[length:50px_50px] opacity-20"
-			></div>
-			<Header />
+			<Grid />
+			<div className="absolute inset-0 -z-10 bg-[linear-gradient(white_0.5px,transparent_0.5px)] bg-[length:50px_50px] opacity-20"></div>
+			<div className="z-50">
+				<Header />
+			</div>
 			<HBorder />
-			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
+			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left z-50">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
 					<div className="flex justify-between items-start self-stretch">
 						<h1 className="text-white font-[300] text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
@@ -34,7 +34,7 @@ export default function Home() {
 			</main>
 
 			<GradientBorder reverse={true} />
-			<footer className="homepage-footer">
+			<footer className="homepage-footer z-50">
 				<h1 className="text-2xl w-[300px] mr-40 text-white font-(family-name:--font-heading)">
 					Coming soon <br /> July 2025
 				</h1>

@@ -1,10 +1,13 @@
 export default function LandingPage() {
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-            <header className="flex justify-between w-full px-8 sm:px-20 text-lg">
+            <header className="flex justify-between items-center w-full text-sm sm:text-base">
                 <div className="flex gap-8">
                     <button className="hover:underline">About us</button>
-                    <button className="hover:underline">Instagram</button>
+                    <a href="https://www.instagram.com/hack404.ca?igsh=MTlwNmJiNWZzcTh2aQ%3D%3D" target="_blank" rel="noopener noreferrer"><button className="hover:underline">Instagram</button></a>
+                </div>
+                <div className="text-center">
+                    <span className="font-bold tracking-wide text-sm sm:text-base">hack404</span>
                 </div>
                 <div className="flex gap-8">
                     <button className="hover:underline">Sponsor us</button>

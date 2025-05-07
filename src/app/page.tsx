@@ -6,8 +6,11 @@ import Grid from "./components/grid";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen flex flex-col">
-			<Grid />
+		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#4A32B0] via-[#20A0A0] to-[#8AA824] relative">
+      <Grid />
+			<div
+				className="absolute inset-0 -z-10 bg-[linear-gradient(white_0.5px,transparent_0.5px)] bg-[length:50px_50px] opacity-20"
+			></div>
 			<Header />
 			<HBorder />
 			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
@@ -30,16 +33,23 @@ export default function Home() {
 				</div>
 			</main>
 
-			<GradientBorder />
+			<GradientBorder reverse={true} />
 			<footer className="homepage-footer">
-				<h1 className="text-2xl font-(family-name:--font-heading) w-[300px] mr-40">
+				<h1 className="text-2xl w-[300px] mr-40 text-white font-(family-name:--font-heading)">
 					Coming soon <br /> July 2025
 				</h1>
 				<div className="waitlist-input-box">
+					<div className="flex items-center gap-2">
+						<span className="placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light)">
+							Join our waitlist —
+						</span>
+						<span className="bg-gradient-to-r from-[#C3D4FF] via-[#9FEFEF] to-[#D3F4A4] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
+							enter your email
+						</span>
+					</div>
 					<input
 						type="text"
-						placeholder="Join our waitlist — enter your email"
-						className="placeholder:text-2xl text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
+						className="text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
 					/>
 				</div>
 

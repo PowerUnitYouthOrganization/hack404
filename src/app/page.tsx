@@ -4,7 +4,10 @@ import GradientBorder from "./components/gradient-border";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#3A2A9A] via-[#209A9A] to-[#829A24]">
+		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#4A32B0] via-[#20A0A0] to-[#8AA824] relative">
+			<div
+				className="absolute inset-0 -z-10 bg-[linear-gradient(white_0.5px,transparent_0.5px)] bg-[length:50px_50px] opacity-20"
+			></div>
 			<Header />
 			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
@@ -36,7 +39,7 @@ export default function Home() {
 						<span className="placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light)">
 							Join our waitlist —
 						</span>
-						<span className="bg-gradient-to-r from-[#D3E4FF] via-[#BFF4F4] to-[#E3F9B4] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
+						<span className="bg-gradient-to-r from-[#C3D4FF] via-[#9FEFEF] to-[#D3F4A4] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
 							enter your email
 						</span>
 					</div>
@@ -45,13 +48,6 @@ export default function Home() {
 						className="text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
 					/>
 				</div>
-
-				{/* <div className="relative flex items-center justify-center w-[477px] h-[78px] bg-[url('/submit-button.svg')]">
-					<div className="flex gap-4 text-black">
-						<p>Submit</p>
-						<p>→</p>
-					</div>
-				</div> */}
 
 				<div className="relative flex items-center justify-center w-[477px] h-[78px]">
 					<svg

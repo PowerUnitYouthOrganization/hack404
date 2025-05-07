@@ -13,11 +13,20 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: "FH Lecturis Rounded Light";
+	src: url("/fonts/FHLecturisRounded-Light.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
 :root {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-space-grotesk);
 	--font-mono: var(--font-space-mono);
+	--font-heading: "FH Lecturis Rounded";
+	--font-heading-light: "FH Lecturis Rounded Light";
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,6 +46,24 @@ p {
 	font-family: var(--font-space-grotesk);
 }
 
-h1 {
-	font-family: "FH Lecturis Rounded";
+.homepage-footer {
+	display: flex;
+	padding: 70px 64px;
+	height: 218px;
+	justify-content: space-between;
+	align-items: center;
+	border-top: 2px solid #c3f73a;
+}
+
+.waitlist-input-box {
+	display: flex;
+	height: 78px;
+	width: 100%;
+	align-items: center;
+	padding: 0px 24px 0px 24px;
+	gap: 122px;
+	flex-grow: 1;
+	border-radius: 5px 0px 0px 5px;
+	border: 1px solid var(--Cyan-20, rgba(48, 242, 242, 0.2));
+	background: var(--Cyan-20, rgba(48, 242, 242, 0.2));
 }

@@ -28,17 +28,15 @@ export default function Home() {
 
 			<GradientBorder reverse={true} />
 			<footer className="homepage-footer">
-				<h1 className="text-2xl w-[300px] mr-40">
-					<GradientBorder reverse={true}>
-						Coming soon <br /> July 2025
-					</GradientBorder>
+				<h1 className="text-2xl w-[300px] mr-40 text-white font-(family-name:--font-heading)">
+					Coming soon <br /> July 2025
 				</h1>
 				<div className="waitlist-input-box">
 					<div className="flex items-center gap-2">
 						<span className="placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light)">
 							Join our waitlist —
 						</span>
-						<span className="bg-gradient-to-r from-[#A3B4FF] via-[#7FD4D4] to-[#C3E87A] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
+						<span className="bg-gradient-to-r from-[#D3E4FF] via-[#BFF4F4] to-[#E3F9B4] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
 							enter your email
 						</span>
 					</div>

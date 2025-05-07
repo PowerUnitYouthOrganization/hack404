@@ -4,7 +4,7 @@ import GradientBorder from "./components/gradient-border";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen flex flex-col">
+		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#3A2A9A] via-[#209A9A] to-[#829A24]">
 			<Header />
 			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
@@ -26,16 +26,25 @@ export default function Home() {
 				</div>
 			</main>
 
-			<GradientBorder />
+			<GradientBorder reverse={true} />
 			<footer className="homepage-footer">
-				<h1 className="text-2xl font-(family-name:--font-heading) w-[300px] mr-40">
-					Coming soon <br /> July 2025
+				<h1 className="text-2xl w-[300px] mr-40">
+					<GradientBorder reverse={true}>
+						Coming soon <br /> July 2025
+					</GradientBorder>
 				</h1>
 				<div className="waitlist-input-box">
+					<div className="flex items-center gap-2">
+						<span className="placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light)">
+							Join our waitlist —
+						</span>
+						<span className="bg-gradient-to-r from-[#A3B4FF] via-[#7FD4D4] to-[#C3E87A] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
+							enter your email
+						</span>
+					</div>
 					<input
 						type="text"
-						placeholder="Join our waitlist — enter your email"
-						className="placeholder:text-2xl text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
+						className="text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
 					/>
 				</div>
 

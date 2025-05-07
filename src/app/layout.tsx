@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({

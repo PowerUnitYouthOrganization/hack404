@@ -1,5 +1,5 @@
 import Header from "./components/header";
-import arrow_forward from "./components/arrow-forward";
+// import arrow_forward from "./components/arrow-forward";
 
 export default function Home() {
 	return (

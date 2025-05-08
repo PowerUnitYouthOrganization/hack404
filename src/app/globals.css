@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-	--background: #0e1116;
-	--foreground: #171717;
+	--background: #0c0f14; /* Darker background */
+	--foreground: #141414; /* Darker foreground */
 	font-family: var(--font-space-grotesk);
 }
 
@@ -31,8 +31,8 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+		--background: #080808; /* Darker background for dark mode */
+		--foreground: #dcdcdc; /* Darker foreground for dark mode */
 	}
 }
 

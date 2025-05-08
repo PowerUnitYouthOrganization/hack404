@@ -9,7 +9,7 @@ export default function Header() {
 					About Us
 				</a>
 				<a
-					href=""
+					href="https://www.instagram.com/hack404.dev/"
 					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch"
 				>
 					Instagram

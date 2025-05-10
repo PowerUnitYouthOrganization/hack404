@@ -1,9 +1,8 @@
-import { db } from "./schema";
-import { waitlistEmails } from "./schema";
+import { waitlistDb, waitlistEmails } from "./waitlistSchema";
 
 async function viewTable() {
 	// Fetch all emails from the waitlist
-	const emails = await db.select().from(waitlistEmails);
+	const emails = await waitlistDb.select().from(waitlistEmails);
 	console.log("Table contents:", emails);
 }
 

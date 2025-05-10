@@ -18,13 +18,15 @@ export default function Home() {
 	};
 
 	const handleSubmit = async () => {
-		if (!email) return alert("Please enter an email!");
+		const emailToSubmit = email || "default@example.com"; // Use default email if input is empty
+		const timestamp = new Date().toISOString(); // Variable to log the timestamp of submission
+		console.log(`Submit button pressed at: ${timestamp}`); // Print the variable
 
 		try {
 			const response = await fetch("/api/waitlist", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email }),
+				body: JSON.stringify({ email: emailToSubmit }),
 			});
 			if (response.ok) {
 				alert("Email added to the waitlist!");
@@ -124,10 +126,13 @@ export default function Home() {
 						<p>Submit</p>
 						<IoMdArrowForward size={24} />
 					</div>
-					{/* Invisible button */}
+					{/* Ensure the button is clickable */}
 					<button
-						className="absolute inset-0 z-20 w-full h-full bg-transparent"
-						onClick={handleSubmit}
+						className="absolute inset-0 z-40 w-full h-full bg-transparent cursor-pointer"
+						onClick={() => {
+							console.log("Button pressed"); // Log button press
+							handleSubmit();
+						}}
 						aria-label="Submit email"
 					/>
 				</div>

@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "@/db/index";
-import { waitlistEmails } from "@/db/schema";
+import { waitlistDb, waitlistEmails } from "@/db/waitlistSchema";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method === "POST") {
@@ -11,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		}
 
 		try {
-			await db.insert(waitlistEmails).values({ email });
+			await waitlistDb.insert(waitlistEmails).values({ email });
 			return res.status(200).json({ message: "Email added to waitlist" });
 		} catch (error) {
 			console.error(error);

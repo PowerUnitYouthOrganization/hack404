@@ -36,10 +36,17 @@
 	}
 }
 
+html, body {
+	overflow: hidden; /* Remove scrollbars */
+	height: 100%; /* Ensure full height */
+}
+
+
 body {
 	background: var(--background);
 	color: var(--foreground);
 	font-family: var(--font-space-grotesk), Helvetica, sans-serif;
+	overflow: hidden; /* Remove scrollbars */
 }
 
 p {
@@ -69,4 +76,16 @@ p {
 	/* add blur */
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px); /* for Safari support */
+}
+
+.magnifying-glass {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border: 2px solid rgba(255, 255, 255, 0.5); /* White outline */
+	backdrop-filter: none; /* Clear background */
+	-webkit-backdrop-filter: none; /* Safari support */
+	pointer-events: none;
+	transform: translate(-50%, -50%);
 }

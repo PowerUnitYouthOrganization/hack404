@@ -1,19 +1,25 @@
 import Header from "./components/header";
 import { IoMdArrowForward } from "react-icons/io";
 import GradientBorder from "./components/gradient-border";
-import HBorder from "./components/h-border";
 import Grid from "./components/grid";
+import HBorder from "./components/h-border";
+import GradientBackground from "./components/gradient-background";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen flex flex-col bg-gradient-to-r from-[#4A32B0] via-[#20A0A0] to-[#8AA824] relative">
-      <Grid />
-			<div
-				className="absolute inset-0 -z-10 bg-[linear-gradient(white_0.5px,transparent_0.5px)] bg-[length:50px_50px] opacity-20"
-			></div>
+		<div className="min-h-screen flex flex-col relative">
+			{/* Interactive gradient background */}
+			<GradientBackground />
+
+			{/* Grid background */}
+			<div className="z-50">
+				<Grid />
+			</div>
+
+			{/* Header */}
 			<Header />
 			<HBorder />
-			<main className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
+			<div className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left z-50">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
 					<div className="flex justify-between items-start self-stretch">
 						<h1 className="text-white font-[300] text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
@@ -31,9 +37,15 @@ export default function Home() {
 						className="h-auto w-full"
 					/>
 				</div>
-			</main>
+			</div>
 
+			{/* Horizontal border */}
+			<HBorder />
+
+			{/* Gradient border */}
 			<GradientBorder reverse={true} />
+
+			{/* Footer */}
 			<footer className="homepage-footer">
 				<h1 className="text-2xl w-[300px] mr-40 text-white font-(family-name:--font-heading)">
 					Coming soon <br /> July 2025
@@ -47,12 +59,9 @@ export default function Home() {
 							enter your email
 						</span>
 					</div>
-					<input
-						type="text"
-						className="text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
-					/>
 				</div>
 
+				{/* Submit button */}
 				<div className="relative flex items-center justify-center w-[477px] h-[78px]">
 					<svg
 						className="absolute inset-0 z-0"
@@ -67,7 +76,6 @@ export default function Home() {
 							fill="white"
 						/>
 					</svg>
-
 					<div className="relative z-10 flex items-center justify-between gap-4 text-2xl text-black w-full mx-[24px] font-(family-name:--font-heading)">
 						<p>Submit</p>
 						<IoMdArrowForward size={24} />

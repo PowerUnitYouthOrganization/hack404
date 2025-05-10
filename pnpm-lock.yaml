@@ -50,6 +50,9 @@ importers:
       three:
         specifier: ^0.176.0
         version: 0.176.0
+      webpack:
+        specifier: ^5.99.8
+        version: 5.99.8(esbuild@0.25.4)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.1

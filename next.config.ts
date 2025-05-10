@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
 			},
 		},
 	},
+	webpack(config: import("webpack").Configuration) {
+		config.module?.rules?.push({
+			test: /^.*\.glsl$/,
+			use: "raw-loader",
+		});
+		return config;
+	},
 };
 
 export default nextConfig;

@@ -10,24 +10,22 @@ export default function Home() {
 		<div className="min-h-screen flex flex-col relative">
 			<Header />
 			<HBorder />
-			<div className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
-				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
-					<div className="flex justify-between items-start self-stretch">
-						<h1 className="text-white font-[300] text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
-							a toronto based <br /> hackathon
-						</h1>
-						<img
-							src="whitesmall.png"
-							alt=""
-							className="h-[80px] w-auto flex-shrink-0"
-						/>
-					</div>
+			<div className="flex-1 flex flex-col gap-8 items-start text-left p-[64px] justify-between text-white">
+				<div className="flex justify-between items-start self-stretch">
+					<h1 className="font-[300] text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
+						a toronto based <br /> hackathon
+					</h1>
 					<img
-						src="whitetext.png"
-						alt="hack404 big label"
-						className="h-auto w-full"
+						src="whitesmall.png"
+						alt=""
+						className="h-[80px] w-auto flex-shrink-0"
 					/>
 				</div>
+				<img
+					src="whitetext.png"
+					alt="hack404 big label"
+					className="h-auto w-full"
+				/>
 			</div>
 
 			{/* Horizontal border */}

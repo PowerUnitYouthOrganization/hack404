@@ -34,13 +34,16 @@ export default function GradientBackground() {
 		);
 		camera.position.z = 1;
 
-		const mouse = new THREE.Vector2();
+		const targetMouse = new THREE.Vector2();
+		const dampedMouse = new THREE.Vector2(); // starts at (0,0)
+		const dampening = 0.05; // smaller is more
+
 		const geo = new THREE.PlaneGeometry(1, 1);
 		const mat = new THREE.ShaderMaterial({
 			depthTest: false,
 			uniforms: {
 				uTime: { value: 0 },
-				uMouse: { value: mouse },
+				uMouse: { value: dampedMouse },
 			},
 			vertexShader,
 			fragmentShader,
@@ -49,15 +52,29 @@ export default function GradientBackground() {
 		const plane = new THREE.Mesh(geo, mat);
 		scene.add(plane);
 
+		const dotGeometry = new THREE.CircleGeometry(0.03, 32);
+		const dotMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff55 });
+		const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+		const aspect = window.innerWidth / window.innerHeight;
+		dot.scale.set(1 / aspect, 1, 1); // compensates for stretching
+		// for testing the damping, don't uncomment for final build
+		// scene.add(dot);
+
 		const animate = () => {
 			mat.uniforms.uTime.value = performance.now();
+
+			// Apply dampening via lerp
+			dampedMouse.lerp(targetMouse, dampening);
+
+			// dot.position.set(dampedMouse.x, dampedMouse.y, 0.01);
+
 			renderer.render(scene, camera);
 			requestAnimationFrame(animate);
 		};
 		requestAnimationFrame(animate);
 
 		const onMouseMove = (e: MouseEvent) => {
-			mouse.set(
+			targetMouse.set(
 				e.clientX / window.innerWidth - 0.5,
 				0.5 - e.clientY / window.innerHeight,
 			);

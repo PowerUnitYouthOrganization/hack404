@@ -59,10 +59,6 @@ export default function Home() {
 							enter your email
 						</span>
 					</div>
-					<input
-						type="text"
-						className="text-2xl flex-grow text-white font-(family-name:--font-heading-light) focus:border-transparent focus:outline-none"
-					/>
 				</div>
 
 				{/* Submit button */}

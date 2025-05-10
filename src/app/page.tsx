@@ -8,18 +8,9 @@ import GradientBackground from "./components/gradient-background";
 export default function Home() {
 	return (
 		<div className="min-h-screen flex flex-col relative">
-			{/* Interactive gradient background */}
-			<GradientBackground />
-
-			{/* Grid background */}
-			<div className="z-50">
-				<Grid />
-			</div>
-
-			{/* Header */}
 			<Header />
 			<HBorder />
-			<div className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left z-50">
+			<div className="flex-1 flex flex-col gap-8 items-center sm:items-start text-center sm:text-left">
 				<div className="flex-1 flex flex-col p-[64px] justify-between items-start">
 					<div className="flex justify-between items-start self-stretch">
 						<h1 className="text-white font-[300] text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
@@ -64,7 +55,7 @@ export default function Home() {
 				{/* Submit button */}
 				<div className="relative flex items-center justify-center w-[477px] h-[78px]">
 					<svg
-						className="absolute inset-0 z-0"
+						className="absolute inset-0 -z-10"
 						xmlns="http://www.w3.org/2000/svg"
 						width="282"
 						height="78"
@@ -76,12 +67,17 @@ export default function Home() {
 							fill="white"
 						/>
 					</svg>
-					<div className="relative z-10 flex items-center justify-between gap-4 text-2xl text-black w-full mx-[24px] font-(family-name:--font-heading)">
+					<div className="relative flex items-center justify-between gap-4 text-2xl text-black w-full mx-[24px] font-(family-name:--font-heading)">
 						<p>Submit</p>
 						<IoMdArrowForward size={24} />
 					</div>
 				</div>
 			</footer>
+
+			<div className="-z-20">
+				<Grid />
+			</div>
+			<GradientBackground />
 		</div>
 	);
 }

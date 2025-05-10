@@ -1,11 +1,44 @@
+"use client";
+
 import Header from "./components/header";
 import { IoMdArrowForward } from "react-icons/io";
 import GradientBorder from "./components/gradient-border";
 import Grid from "./components/grid";
 import HBorder from "./components/h-border";
 import GradientBackground from "./components/gradient-background";
+import { useState } from "react";
 
 export default function Home() {
+	const [email, setEmail] = useState("");
+	const [placeholder, setPlaceholder] = useState("enter your email");
+	const [isFocused, setIsFocused] = useState(false);
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value);
+	};
+
+	const handleSubmit = async () => {
+		if (!email) return alert("Please enter an email!");
+
+		try {
+			const response = await fetch("/api/waitlist", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email }),
+			});
+			if (response.ok) {
+				alert("Email added to the waitlist!");
+				setEmail(""); // Clear the input
+				setPlaceholder("Check your inbox!"); // Update placeholder
+			} else {
+				alert("Failed to add email. Please try again.");
+			}
+		} catch (error) {
+			console.error(error);
+			alert("An error occurred. Please try again.");
+		}
+	};
+
 	return (
 		<div className="min-h-screen flex flex-col relative">
 			{/* Interactive gradient background */}
@@ -50,21 +83,32 @@ export default function Home() {
 				<h1 className="text-2xl w-[300px] mr-40 text-white font-(family-name:--font-heading)">
 					Coming soon <br /> July 2025
 				</h1>
-				<div className="waitlist-input-box">
+				{/* Waitlist input box */}
+				<div className="waitlist-input-box relative z-10">
 					<div className="flex items-center gap-2">
-						<span className="placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light)">
+						<span
+							className={`placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light) ${
+								isFocused || email ? "hidden" : ""
+							}`}
+						>
 							Join our waitlist —
 						</span>
-						<span className="bg-gradient-to-r from-[#C3D4FF] via-[#9FEFEF] to-[#D3F4A4] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
-							enter your email
-						</span>
+						<input
+							type="email"
+							placeholder={placeholder}
+							className="bg-transparent outline-none text-2xl text-white font-(family-name:--font-heading-light)"
+							value={email}
+							onChange={handleInputChange}
+							onFocus={() => setIsFocused(true)}
+							onBlur={() => setIsFocused(false)}
+						/>
 					</div>
 				</div>
 
 				{/* Submit button */}
-				<div className="relative flex items-center justify-center w-[477px] h-[78px]">
+				<div className="relative flex items-center justify-center w-[477px] h-[78px] group">
 					<svg
-						className="absolute inset-0 z-0"
+						className="absolute inset-0 z-0 group-hover:scale-105 transition-transform duration-200"
 						xmlns="http://www.w3.org/2000/svg"
 						width="282"
 						height="78"
@@ -80,6 +124,12 @@ export default function Home() {
 						<p>Submit</p>
 						<IoMdArrowForward size={24} />
 					</div>
+					{/* Invisible button */}
+					<button
+						className="absolute inset-0 z-20 w-full h-full bg-transparent"
+						onClick={handleSubmit}
+						aria-label="Submit email"
+					/>
 				</div>
 			</footer>
 		</div>

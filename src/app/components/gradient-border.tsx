@@ -27,7 +27,7 @@ export default function GradientBorder({
 
 	return (
 		<div
-			className={`p-[1px] rounded-lg bg-gradient-to-r z-50 ${gradient}`}
+			className={`p-[1px] rounded-lg bg-gradient-to-r z-0 ${gradient}`}
 		></div>
 	);
 }

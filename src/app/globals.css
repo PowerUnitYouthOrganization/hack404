@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #0c0f14; /* Darker background */
+	--foreground: #141414; /* Darker foreground */
+	font-family: var(--font-space-grotesk);
 }
 
 @font-face {
@@ -12,30 +13,79 @@
 	font-style: normal;
 }
 
-@theme inline {
+@font-face {
+	font-family: "FH Lecturis Rounded Light";
+	src: url("/fonts/FHLecturisRounded-Light.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
+:root {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-space-grotesk);
 	--font-mono: var(--font-space-mono);
+	--font-heading: "FH Lecturis Rounded";
+	--font-heading-light: "FH Lecturis Rounded Light";
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+		--background: #080808; /* Darker background for dark mode */
+		--foreground: #dcdcdc; /* Darker foreground for dark mode */
 	}
 }
+
+html, body {
+	overflow: hidden; /* Remove scrollbars */
+	height: 100%; /* Ensure full height */
+}
+
 
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-space-grotesk), Helvetica, sans-serif;
+	overflow: hidden; /* Remove scrollbars */
 }
 
 p {
 	font-family: var(--font-space-grotesk);
 }
 
-h1 {
-	font-family: "FH Lecturis Rounded";
+.homepage-footer {
+	display: flex;
+	padding: 70px 64px;
+	height: 218px;
+	justify-content: space-between;
+	align-items: center;
+	/* border-top: 2px solid #c3f73a; */
+}
+
+.waitlist-input-box {
+	display: flex;
+	height: 78px;
+	width: 100%;
+	align-items: center;
+	padding: 0px 24px 0px 24px;
+	gap: 122px;
+	flex-grow: 1;
+	border-radius: 5px 0px 0px 5px;
+	border: 1px solid var(--Cyan-20, rgba(48, 242, 242, 0.2));
+	background: var(--Cyan-20, rgba(48, 242, 242, 0.2));
+	/* add blur */
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px); /* for Safari support */
+}
+
+.magnifying-glass {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border: 2px solid rgba(255, 255, 255, 0.5); /* White outline */
+	backdrop-filter: none; /* Clear background */
+	-webkit-backdrop-filter: none; /* Safari support */
+	pointer-events: none;
+	transform: translate(-50%, -50%);
 }

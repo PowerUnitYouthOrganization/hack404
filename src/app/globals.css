@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import "tailwindcss";
 
 :root {
 	--background: #0c0f14; /* Darker background */
 	--foreground: #141414; /* Darker foreground */
-	font-family: var(--font-space-grotesk);
+	font-family: "DM Sans";
 }
 
 @font-face {
@@ -20,10 +21,33 @@
 	font-style: normal;
 }
 
+.dm-sans {
+	font-family: "DM Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.dm-sans-bold {
+	font-family: "DM Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+}
+
+.dm-sans-italic {
+	font-family: "DM Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: italic;
+}
+
 :root {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-sans: var(--font-space-grotesk);
+	/* --font-sans: var(--font-space-grotesk);
+	--font-mono: var(--font-space-mono); */
+	--font-sans: "DM Sans";
 	--font-mono: var(--font-space-mono);
 	--font-heading: "FH Lecturis Rounded";
 	--font-heading-light: "FH Lecturis Rounded Light";

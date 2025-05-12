@@ -94,13 +94,13 @@ export default function Home() {
 							Coming soon <br /> Summer 2025
 						</h1>
 					)}
-          
+
 					{/* waitlist input and submit button */}
 					<div className="relative flex w-full">
 						<WaitlistBox />
 						{/* Submit button */}
 						<div
-							className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px] font-(family-name:--font-heading)"
+							className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]"
 							style={headerBinWidth ? { width: headerBinWidth } : undefined}
 						>
 							<p>Submit</p>

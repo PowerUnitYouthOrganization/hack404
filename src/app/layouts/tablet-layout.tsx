@@ -46,7 +46,7 @@ export default function TabletLayout() {
 					<WaitlistBox />
 
 					{/* Submit button */}
-					<div className="flex items-center justify-start text-black bg-white pl-6 max-w-[204px] font-(family-name:--font-heading)">
+					<div className="flex items-center justify-start text-black bg-white pl-6 max-w-[204px]">
 						<p>Submit</p>
 					</div>
 					<button

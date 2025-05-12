@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
-const WaitlistBox = () => {
+interface WaitlistBoxProps {
+  onEmailChange?: (email: string) => void;
+}
+
+const WaitlistBox = ({ onEmailChange }: WaitlistBoxProps) => {
 	const [email, setEmail] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
 
-	const handleChange = (e: any) => {
-		setEmail(e.target.value);
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newEmail = e.target.value;
+		setEmail(newEmail);
+		if (onEmailChange) {
+			onEmailChange(newEmail);
+		}
 	};
 
 	const handleFocus = () => {

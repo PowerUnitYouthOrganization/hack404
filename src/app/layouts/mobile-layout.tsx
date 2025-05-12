@@ -3,6 +3,7 @@ import GradientBorder from "@/app/components/gradient-border";
 import Grid from "@/app/components/grids/mobile-grid";
 import HBorder from "@/app/components/h-border";
 import GradientBackground from "@/app/components/gradient-background";
+import WaitlistBox from "../components/waitlist-box-small";
 
 export default function MobileLayout() {
 	return (
@@ -41,17 +42,14 @@ export default function MobileLayout() {
 				</div>
 
 				{/* waitlist input and submit button */}
-				<div className="flex w-full">
-					<div className="waitlist">
-						<span className="placeholder:text-white font-(family-name:--font-heading-light)">
-							Join our waitlist —
-						</span>
-						<span className="bg-gradient-to-r from-[#C3D4FF] via-[#9FEFEF] to-[#D3F4A4] bg-clip-text text-transparent font-(family-name:--font-heading-light)">
-							enter your email
-						</span>
-					</div>
+				<div className="relative flex w-full">
+					<WaitlistBox />
 
 					{/* Submit button */}
+					<button
+						className="absolute top-0 right-0 h-full max-w-[282px] w-[78px] opacity-50 cursor-pointer z-100"
+						onClick={() => alert("Button clicked!")}
+					></button>
 					<img src="button.svg" alt="" />
 				</div>
 			</footer>

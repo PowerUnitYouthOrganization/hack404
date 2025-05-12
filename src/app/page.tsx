@@ -8,6 +8,7 @@ import GradientBackground from "./components/gradient-background";
 import { useEffect, useState } from "react";
 import TabletLayout from "./layouts/tablet-layout";
 import MobileLayout from "./layouts/mobile-layout";
+import WaitlistBox from "./components/waitlist-box";
 
 /**
  * The main UI for desktop browsers.
@@ -19,15 +20,18 @@ export default function Home() {
 		isMobile: false,
 		isTablet: false,
 		isDesktop: false,
+		isUltrawide: false,
 	});
 
 	useEffect(() => {
 		const updateViewport = () => {
 			const width = window.innerWidth;
+			const height = window.innerHeight;
 			setViewport({
 				isMobile: width < 600,
 				isTablet: width >= 600 && width < 1150,
 				isDesktop: width >= 1024,
+				isUltrawide: width / height >= 1.85,
 			});
 		};
 
@@ -65,7 +69,7 @@ export default function Home() {
 					<img
 						src="whitetext.png"
 						alt="hack404 big label"
-						className="h-auto w-full"
+						className="h-full w-auto max-h-[45vh]"
 					/>
 				</div>
 
@@ -92,16 +96,8 @@ export default function Home() {
 					)}
 
 					{/* waitlist input and submit button */}
-					<div className="flex w-full">
-						<div className="waitlist">
-							<span className="placeholder:text-2xl text-2xl text-white font-(family-name:--font-heading-light)">
-								Join our waitlist —
-							</span>
-							<span className="bg-gradient-to-r from-[#C3D4FF] via-[#9FEFEF] to-[#D3F4A4] bg-clip-text text-transparent text-2xl font-(family-name:--font-heading-light)">
-								enter your email
-							</span>
-						</div>
-
+					<div className="relative flex w-full">
+						<WaitlistBox />
 						{/* Submit button */}
 						<div
 							className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px] font-(family-name:--font-heading)"
@@ -109,7 +105,14 @@ export default function Home() {
 						>
 							<p>Submit</p>
 						</div>
-						<img src="button.svg" alt="" />
+						<button
+							className="absolute top-0 right-0 w-full h-full max-w-[282px] opacity-50 cursor-pointer z-100"
+							onClick={() => alert("Button clicked!")}
+							style={
+								headerBinWidth ? { width: headerBinWidth + 48 } : undefined
+							}
+						></button>
+						<img src="button.svg" alt="submit button arrow" />
 					</div>
 				</footer>
 

@@ -37,7 +37,7 @@
 }
 
 /* Switch to column layout on small screens */
-@media (max-width: 768px) {
+@media (max-width: 1150) {
 	.homepage-footer {
 		flex-direction: column;
 		height: auto; /* optional: if 218px is too small for vertical layout */
@@ -46,7 +46,6 @@
 
 html,
 body {
-	overflow: hidden; /* Remove scrollbars */
 	height: 100%; /* Ensure full height */
 }
 
@@ -54,29 +53,19 @@ body {
 	background: var(--background);
 	color: var(--foreground);
 	font-family: var(--font-space-grotesk), Helvetica, sans-serif;
-	overflow: hidden; /* Remove scrollbars */
+	overflow-x: hidden; /* remove horizontal scroll */
 }
 
 p {
 	font-family: var(--font-space-grotesk);
 }
 
-.homepage-footer {
-	display: flex;
-	padding: 70px 64px;
-	height: 218px;
-	align-items: center;
-	/* border-top: 2px solid #c3f73a; */
-}
-
-.waitlist-input-box {
+.waitlist {
 	display: flex;
 	height: 78px;
 	width: 100%;
 	align-items: center;
 	padding: 0px 24px 0px 24px;
-	gap: 122px;
-	flex-grow: 1;
 	border-radius: 5px 0px 0px 5px;
 	border: 1px solid var(--Cyan-20, rgba(48, 242, 242, 0.2));
 	background: var(--Cyan-20, rgba(48, 242, 242, 0.2));

@@ -10,6 +10,8 @@ type layoutProps = {
 	setEmail: (email: string) => void;
 	headerBinWidth: number | null;
 	setHeaderBinWidth: (value: number | null) => void;
+	submitted: boolean;
+	setSubmitted: (value: boolean) => void;
 	handleSubmit: () => void | Promise<void>;
 };
 
@@ -18,6 +20,8 @@ export default function DesktopProps({
 	setEmail,
 	headerBinWidth,
 	setHeaderBinWidth,
+	submitted,
+	setSubmitted,
 	handleSubmit,
 }: layoutProps) {
 	return (
@@ -59,18 +63,23 @@ export default function DesktopProps({
 
 				{/* waitlist input and submit button */}
 				<div className="relative flex w-full">
-					<WaitlistBox email={email} setEmail={setEmail} />
+					<WaitlistBox
+						email={email}
+						setEmail={setEmail}
+						submitted={submitted}
+					/>
 					{/* Submit button */}
 					<div
 						className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]"
 						style={headerBinWidth ? { width: headerBinWidth } : undefined}
 					>
-						<p>Submit</p>
+						<p>{submitted ? "Submitted" : "Submit"}</p>
 					</div>
 					<button
 						className="absolute top-0 right-0 w-full h-full max-w-[282px] opacity-50 cursor-pointer z-100"
 						onClick={handleSubmit}
 						style={headerBinWidth ? { width: headerBinWidth + 48 } : undefined}
+						disabled={submitted}
 					></button>
 					<img src="button.svg" alt="submit button arrow" />
 				</div>

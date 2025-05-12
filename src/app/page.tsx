@@ -1,16 +1,9 @@
 "use client";
 
-import Header from "./components/header";
-import GradientBorder from "./components/gradient-border";
-import Grid from "./components/grids/desktop-grid";
-import HBorder from "./components/h-border";
-import GradientBackground from "./components/gradient-background";
 import { useEffect, useRef, useState } from "react";
 import TabletLayout from "./layouts/tablet-layout";
 import MobileLayout from "./layouts/mobile-layout";
 import DesktopLayout from "./layouts/desktop-layout";
-import WaitlistBox from "./components/waitlist-box";
-import waitlistSubmit from "./components/waitlist-submit";
 
 /**
  * The main UI for desktop browsers.
@@ -19,6 +12,7 @@ import waitlistSubmit from "./components/waitlist-submit";
 export default function Home() {
 	const [headerBinWidth, setHeaderBinWidth] = useState<number | null>(null);
 	const [email, setEmail] = useState("");
+	const [submitted, setSubmitted] = useState(false);
 	const [viewport, setViewport] = useState({
 		isMobile: false,
 		isTablet: false,
@@ -27,7 +21,13 @@ export default function Home() {
 	});
 
 	const handleSubmit = async () => {
-		if (email) await waitlistSubmit(email);
+		if (!email) return;
+		await fetch("/api/waitlist", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ email }),
+		});
+		setSubmitted(true);
 	};
 
 	useEffect(() => {
@@ -53,6 +53,8 @@ export default function Home() {
 		setEmail,
 		headerBinWidth,
 		setHeaderBinWidth,
+		submitted,
+		setSubmitted,
 		handleSubmit,
 	};
 

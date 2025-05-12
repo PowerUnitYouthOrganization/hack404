@@ -94,7 +94,7 @@ export default function Home() {
 							Coming soon <br /> Summer 2025
 						</h1>
 					)}
-
+          
 					{/* waitlist input and submit button */}
 					<div className="relative flex w-full">
 						<WaitlistBox />

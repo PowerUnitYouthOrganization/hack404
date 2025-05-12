@@ -1,11 +1,9 @@
-import Header from "@/app/components/small-header";
+import Header from "@/app/components/header";
 import GradientBorder from "@/app/components/gradient-border";
-import Grid from "@/app/components/grids/tablet-grid";
+import Grid from "@/app/components/grids/desktop-grid";
 import HBorder from "@/app/components/h-border";
 import GradientBackground from "@/app/components/gradient-background";
 import WaitlistBox from "../components/waitlist-box";
-import waitlistSubmit from "../components/waitlist-submit";
-import { useState } from "react";
 
 type layoutProps = {
 	email: string;
@@ -15,7 +13,7 @@ type layoutProps = {
 	handleSubmit: () => void | Promise<void>;
 };
 
-export default function TabletLayout({
+export default function DesktopProps({
 	email,
 	setEmail,
 	headerBinWidth,
@@ -24,23 +22,23 @@ export default function TabletLayout({
 }: layoutProps) {
 	return (
 		<div className="min-h-screen flex flex-col relative">
-			<Header />
+			<Header onLinkWidth={setHeaderBinWidth} />
 			<HBorder />
-			<div className="flex-1 flex flex-col gap-8 items-start text-left p-6 justify-between text-white">
+			<div className="flex-1 flex flex-col gap-8 items-start text-left p-[64px] justify-between text-white">
 				<div className="flex justify-between items-start self-stretch">
-					<h1 className="font-[300] text-2xl leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
+					<h1 className="font-[300] text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
 						a toronto based <br /> hackathon
 					</h1>
 					<img
 						src="whitesmall.png"
 						alt=""
-						className="h-[50px] w-auto flex-shrink-0"
+						className="h-[80px] w-auto flex-shrink-0"
 					/>
 				</div>
 				<img
 					src="whitetext.png"
 					alt="hack404 big label"
-					className="h-auto w-full"
+					className="h-full w-auto max-h-[45vh]"
 				/>
 			</div>
 
@@ -51,25 +49,30 @@ export default function TabletLayout({
 			<GradientBorder reverse={true} />
 
 			{/* Footer */}
-			<footer className="flex flex-col items-center m-6 gap-6">
-				<div className="flex justify-between w-full text-white">
-					<h1>Summer 2025</h1>
-					<h1>Coming soon</h1>
-				</div>
+			<footer className="flex items-center h-[218px] px-[64px] py-[70px]">
+				<h1
+					className="text-2xl text-white font-(family-name:--font-heading) flex-shrink-0 pr-4"
+					style={headerBinWidth ? { width: headerBinWidth } : undefined}
+				>
+					Coming soon <br /> Summer 2025
+				</h1>
 
 				{/* waitlist input and submit button */}
 				<div className="relative flex w-full">
 					<WaitlistBox email={email} setEmail={setEmail} />
-
 					{/* Submit button */}
-					<div className="flex items-center justify-start text-black bg-white pl-6 max-w-[204px]">
+					<div
+						className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]"
+						style={headerBinWidth ? { width: headerBinWidth } : undefined}
+					>
 						<p>Submit</p>
 					</div>
 					<button
-						className="absolute top-0 right-0 h-full max-w-[282px] w-[158px] opacity-50 cursor-pointer z-100"
+						className="absolute top-0 right-0 w-full h-full max-w-[282px] opacity-50 cursor-pointer z-100"
 						onClick={handleSubmit}
+						style={headerBinWidth ? { width: headerBinWidth + 48 } : undefined}
 					></button>
-					<img src="button.svg" alt="" />
+					<img src="button.svg" alt="submit button arrow" />
 				</div>
 			</footer>
 

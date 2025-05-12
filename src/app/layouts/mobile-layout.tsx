@@ -3,9 +3,25 @@ import GradientBorder from "@/app/components/gradient-border";
 import Grid from "@/app/components/grids/mobile-grid";
 import HBorder from "@/app/components/h-border";
 import GradientBackground from "@/app/components/gradient-background";
-import WaitlistBox from "../components/waitlist-box-small";
+import WaitlistBox from "../components/waitlist-box";
+import waitlistSubmit from "../components/waitlist-submit";
+import { useState } from "react";
 
-export default function MobileLayout() {
+type layoutProps = {
+	email: string;
+	setEmail: (email: string) => void;
+	headerBinWidth: number | null;
+	setHeaderBinWidth: (value: number | null) => void;
+	handleSubmit: () => void | Promise<void>;
+};
+
+export default function MobileLayout({
+	email,
+	setEmail,
+	headerBinWidth,
+	setHeaderBinWidth,
+	handleSubmit,
+}: layoutProps) {
 	return (
 		<div className="min-h-screen flex flex-col relative">
 			<Header />
@@ -43,12 +59,12 @@ export default function MobileLayout() {
 
 				{/* waitlist input and submit button */}
 				<div className="relative flex w-full">
-					<WaitlistBox />
+					<WaitlistBox email={email} setEmail={setEmail} />
 
 					{/* Submit button */}
 					<button
 						className="absolute top-0 right-0 h-full max-w-[282px] w-[78px] opacity-50 cursor-pointer z-100"
-						onClick={() => alert("Button clicked!")}
+						onClick={handleSubmit}
 					></button>
 					<img src="button.svg" alt="" />
 				</div>

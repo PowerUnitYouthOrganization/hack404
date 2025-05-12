@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 
-const WaitlistBox = () => {
+export type WaitlistBoxRef = {
+	getEmail: () => String;
+};
+
+const WaitlistBox = forwardRef((_, ref) => {
 	const [email, setEmail] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
+
+	useImperativeHandle(ref, () => ({
+		getEmail: () => email,
+	}));
 
 	const handleChange = (e: any) => {
 		setEmail(e.target.value);
@@ -41,6 +49,6 @@ const WaitlistBox = () => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default WaitlistBox;

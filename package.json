@@ -9,7 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@auth/drizzle-adapter": "^1.9.0",
+		"@auth/drizzle-adapter": "^1.9.1",
 		"@neondatabase/serverless": "^1.0.0",
 		"@react-three/drei": "^10.0.7",
 		"@react-three/fiber": "^9.1.2",
@@ -17,12 +17,13 @@
 		"drizzle-orm": "^0.43.1",
 		"html2canvas": "^1.4.1",
 		"next": "15.2.3",
-		"next-auth": "5.0.0-beta.27",
+		"next-auth": "^5.0.0-beta.27",
 		"postgres": "^3.4.5",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-icons": "^5.5.0",
 		"three": "^0.176.0",
+		"ts-node": "^10.9.2",
 		"webpack": "^5.99.8"
 	},
 	"devDependencies": {

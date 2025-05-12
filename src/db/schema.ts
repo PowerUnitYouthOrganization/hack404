@@ -1,4 +1,4 @@
-import {
+/* import {
 	boolean,
 	timestamp,
 	pgTable,
@@ -106,3 +106,5 @@ export const waitlistEmails = pgTable("waitlist_emails", {
 	id: serial("id").primaryKey(),
 	email: varchar("email", { length: 255 }).notNull().unique(),
 });
+
+*/

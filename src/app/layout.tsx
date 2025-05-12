@@ -25,7 +25,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
+				className={`dm-sans ${spaceMono.variable} antialiased`}
 				suppressHydrationWarning={true}
 			>
 				{children}

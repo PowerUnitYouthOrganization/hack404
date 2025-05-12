@@ -46,7 +46,7 @@ export default function Home() {
 		return MobileLayout(); //mobile
 	} else if (isTablet) {
 		return TabletLayout(); // tablet
-	} else {
+	} else if (isDesktop) {
 		// desktop
 		// DO NOT attempt to put this in a separate layout file. it screws with react hooks.
 		// actually do it if you want but you have been warned

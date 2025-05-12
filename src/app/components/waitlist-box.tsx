@@ -1,46 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const WaitlistBox = () => {
-	const [email, setEmail] = useState("");
-	const [isFocused, setIsFocused] = useState(false);
+interface WaitlistBoxProps {
+  onEmailChange?: (email: string) => void;
+}
 
-	const handleChange = (e: any) => {
-		setEmail(e.target.value);
-	};
+export default function WaitlistBox({ onEmailChange }: WaitlistBoxProps) {
+  const [email, setEmail] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
-	const handleFocus = () => {
-		setIsFocused(true);
-	};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    if (onEmailChange) {
+      onEmailChange(newEmail);
+    }
+  };
 
-	const handleBlur = () => {
-		setIsFocused(false);
-	};
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
-	return (
-		<div className="waitlist relative">
-			<input
-				type="email"
-				value={email}
-				onChange={handleChange}
-				onFocus={handleFocus}
-				onBlur={handleBlur}
-				placeholder=""
-				className="w-full py-4 pl-0 text-2xl text-white bg-transparent border-2 border-transparent rounded-md outline-none"
-			/>
-			<div className="absolute gap-1.5 w-full pointer-events-none">
-				<span
-					className={`relative text-2xl text-white transition-opacity ${email || isFocused ? "opacity-0" : "opacity-100"}`}
-				>
-					Join our waitlist —
-				</span>
-				<span
-					className={`relative text-2xl text-[#C3F73A] transition-opacity ${email || isFocused ? "opacity-0" : "opacity-100"}`}
-				>
-					enter your email
-				</span>
-			</div>
-		</div>
-	);
-};
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
-export default WaitlistBox;
+  return (
+    <div className="waitlist relative">
+      <input
+        type="email"
+        value={email}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        placeholder=""
+        className="w-full py-4 pl-0 text-2xl text-white bg-transparent border-2 border-transparent rounded-md outline-none"
+      />
+      <div className="absolute gap-1.5 w-full pointer-events-none">
+        <span
+          className={`relative text-2xl text-white transition-opacity ${email || isFocused ? "opacity-0" : "opacity-100"}`}
+        >
+          Join our waitlist —
+        </span>
+        <span
+          className={`relative text-2xl text-[#C3F73A] transition-opacity ${email || isFocused ? "opacity-0" : "opacity-100"}`}
+        >
+          enter your email
+        </span>
+      </div>
+    </div>
+  );
+}

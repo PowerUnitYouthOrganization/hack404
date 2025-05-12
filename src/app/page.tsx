@@ -22,6 +22,9 @@ export default function Home() {
 		isDesktop: false,
 		isUltrawide: false,
 	});
+	const [email, setEmail] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [lastSubmittedEmail, setLastSubmittedEmail] = useState("");
 
 	useEffect(() => {
 		const updateViewport = () => {
@@ -39,6 +42,48 @@ export default function Home() {
 		window.addEventListener("resize", updateViewport);
 		return () => window.removeEventListener("resize", updateViewport);
 	}, []);
+
+	const handleEmailChange = (newEmail: string) => {
+		setEmail(newEmail);
+	};
+
+	const handleSubmit = () => {
+		try {
+			// Don't allow submission if already in progress
+			if (isSubmitting) {
+				alert("Submission in progress. Please wait.");
+				return;
+			}
+
+			// Check if email is empty
+			if (!email.trim()) {
+				alert("Please enter an email address.");
+				return;
+			}
+
+			// Check if the same email is being submitted again
+			if (email === lastSubmittedEmail) {
+				alert("This email has already been submitted.");
+				return;
+			}
+
+			// Start submission process
+			setIsSubmitting(true);
+
+			// Here you would typically make an API call to your backend
+			// Simulating API call with setTimeout
+			setTimeout(() => {
+				// Store the submitted email to prevent duplicate submissions
+				setLastSubmittedEmail(email);
+				setIsSubmitting(false);
+				alert("Thank you for joining our waitlist!");
+			}, 1000);
+		} catch (error) {
+			setIsSubmitting(false);
+			alert("An error occurred. Please try again later.");
+			console.error("Submission error:", error);
+		}
+	};
 
 	const { isMobile, isTablet, isDesktop } = viewport;
 
@@ -97,20 +142,21 @@ export default function Home() {
 
 					{/* waitlist input and submit button */}
 					<div className="relative flex w-full">
-						<WaitlistBox />
+						<WaitlistBox onEmailChange={handleEmailChange} />
 						{/* Submit button */}
 						<div
 							className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]"
 							style={headerBinWidth ? { width: headerBinWidth } : undefined}
 						>
-							<p>Submit</p>
+							<p>{isSubmitting ? "Submitting..." : "Submit"}</p>
 						</div>
 						<button
 							className="absolute top-0 right-0 w-full h-full max-w-[282px] opacity-50 cursor-pointer z-100"
-							onClick={() => alert("Button clicked!")}
+							onClick={handleSubmit}
 							style={
 								headerBinWidth ? { width: headerBinWidth + 48 } : undefined
 							}
+							disabled={isSubmitting}
 						></button>
 						<img src="button.svg" alt="submit button arrow" />
 					</div>

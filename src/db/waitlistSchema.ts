@@ -1,4 +1,4 @@
-import { pgTable, varchar } from "drizzle-orm/pg-core";
+import { pgTable, varchar, serial } from "drizzle-orm/pg-core"; // Import serial for auto-incrementing ID
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 
@@ -10,7 +10,8 @@ const pool = postgres(process.env.DATABASE_URL!, {
 
 export const waitlistDb = drizzle(pool);
 
-// Define the waitlist table with one column for the user's email
+
 export const waitlistEmails = pgTable("waitlist_emails", {
-    email: varchar("email", { length: 255 }).primaryKey().notNull(),
+    id: serial("id").primaryKey(), 
+    email: varchar("email", { length: 255 }).notNull(), 
 });

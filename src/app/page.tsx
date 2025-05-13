@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TabletLayout from "./layouts/tablet-layout";
 import MobileLayout from "./layouts/mobile-layout";
 import DesktopLayout from "./layouts/desktop-layout";
+import { domainHasMX, isValidEmailFormat } from "./utils/emailValidation";
 
 /**
  * The main UI for desktop browsers.
@@ -34,19 +35,34 @@ export default function Home() {
 			return;
 		}
 
+		// Validate email format
+		if (!isValidEmailFormat(email)) {
+			alert("Please enter a valid email address.");
+			return;
+		}
+
 		// Start submission process
 		setIsSubmitting(true);
 
-		// Here you would typically make an API call to your backend
-		if (!email) return;
 		try {
+			// Check if domain has MX records
+			const hasMX = await domainHasMX(email);
+			if (!hasMX) {
+				setIsSubmitting(false);
+				alert("The email domain does not appear to be valid. Please check your email address.");
+				return;
+			}
+
+			// Make API call to backend
 			const res = await fetch("/api/waitlist", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ email }),
 			});
+
 			setIsSubmitting(false);
 			if (res.ok) {
+				setSubmitted(true);
 				alert("Thank you for joining our waitlist!");
 			} else if (res.status == 409) {
 				alert("You're already on the waitlist!");
@@ -54,6 +70,7 @@ export default function Home() {
 				alert("Something went wrong. Please try again.");
 			}
 		} catch (error: any) {
+			setIsSubmitting(false);
 			alert("Something went wrong. Please try again.");
 			return;
 		}

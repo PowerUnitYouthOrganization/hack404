@@ -109,71 +109,50 @@ export default function ResponsiveLayout({
 
 			{/* Footer */}
 			<footer className={footerLayout}>
-				{/* Different footer layout for desktop vs mobile/tablet */}
-				{isDesktop ? (
-					<>
+					{/* Coming soon text - different layout for desktop vs mobile/tablet */}
+					{isDesktop ? (
 						<h1 
 							className="text-2xl text-white font-(family-name:--font-heading) flex-shrink-0 pr-4"
 							style={headerBinWidth ? { width: headerBinWidth } : undefined}
 						>
 							Coming soon <br /> Summer 2025
 						</h1>
-						
-						{/* waitlist input and submit button */}
-						<div className="relative flex w-full">
-							<WaitlistBox
-								email={email}
-								setEmail={setEmail}
-								submitted={submitted}
-							/>
-							
-							{/* Submit button */}
-							<div
-								className={submitButtonClass}
-								style={headerBinWidth ? { width: headerBinWidth } : undefined}
-							>
-								<p>{submitText}</p>
-							</div>
-							<button
-								className="absolute top-0 right-0 w-full h-full max-w-[282px] opacity-50 cursor-pointer z-100"
-								onClick={handleSubmit}
-								style={headerBinWidth ? { width: headerBinWidth + 48 } : undefined}
-								disabled={isSubmitting || submitted}
-							></button>
-							<img src="button.svg" alt="submit button arrow" />
-						</div>
-					</>
-				) : (
-					<>
+					) : (
 						<div className="flex justify-between w-full text-white">
 							<h1>Summer 2025</h1>
 							<h1>Coming soon</h1>
 						</div>
-
-						{/* waitlist input and submit button */}
-						<div className="relative flex w-full">
-							<WaitlistBox
-								email={email}
-								setEmail={setEmail}
-								submitted={submitted}
-							/>
-
-							{/* Submit button */}
-							{!isMobile && (
-								<div className={submitButtonClass}>
-									<p>{submitText}</p>
-								</div>
-							)}
-							<button
-								className={`absolute top-0 right-0 h-full max-w-[282px] ${submitButtonWidth} opacity-50 cursor-pointer z-100`}
-								onClick={handleSubmit}
-								disabled={isSubmitting || submitted}
-							></button>
-							<img src="button.svg" alt="" />
-						</div>
-					</>
-				)}
-			</footer>
+					)}
+					
+					{/* Waitlist input and submit button - common for all layouts */}
+					<div className="relative flex w-full">
+						<WaitlistBox
+							email={email}
+							setEmail={setEmail}
+							submitted={submitted}
+						/>
+						
+						{/* Submit button - show text for desktop and tablet only */}
+						{!isMobile && (
+							<div 
+								className={submitButtonClass}
+								style={headerBinWidth ? { 
+									width: isDesktop ? headerBinWidth + 48 : headerBinWidth 
+								} : undefined}
+							>
+								<p>{submitText}</p>
+							</div>
+						)}
+						
+						{/* Clickable button overlay */}
+						<button
+							className={`absolute top-0 right-0 h-full ${isMobile ? submitButtonWidth : "w-full"} max-w-[282px] opacity-50 cursor-pointer z-100`}
+							onClick={handleSubmit}
+							disabled={isSubmitting || submitted}
+						></button>
+						<img src="button.svg" alt="submit button arrow" />
+					</div>
+				</footer>
 
 			{/* Grid background */}
 			<div className="-z-20">

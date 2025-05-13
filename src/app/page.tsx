@@ -42,7 +42,7 @@ export default function Home() {
 
 		// Start submission process
 		setIsSubmitting(true);
-
+		if (!email) return;
 		try {
 			// Make API call to backend (skipping complex MX validation)
 			const res = await fetch("/api/waitlist", {

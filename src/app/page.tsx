@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TabletLayout from "./layouts/tablet-layout";
-import MobileLayout from "./layouts/mobile-layout";
-import DesktopLayout from "./layouts/desktop-layout";
+import ResponsiveLayout from "./layouts/responsive-layout";
 
 /**
  * The main UI for desktop browsers.
@@ -96,12 +94,11 @@ export default function Home() {
 		setSubmitted,
 		handleSubmit,
 	};
-
-	if (isMobile) {
-		return <MobileLayout {...layoutProps} />;
-	} else if (isTablet) {
-		return <TabletLayout {...layoutProps} />;
-	} else if (isDesktop) {
-		return <DesktopLayout {...layoutProps} />;
-	}
+	
+	// Determine device type for responsive layout
+	let deviceType: "mobile" | "tablet" | "desktop" = "desktop";
+	if (isMobile) deviceType = "mobile";
+	else if (isTablet) deviceType = "tablet";
+	
+	return <ResponsiveLayout {...layoutProps} deviceType={deviceType} />;
 }

@@ -24,7 +24,7 @@ export default function Header({
 			<nav className="flex h-[64px] px-[64px] items-start gap-[24px] flex-shrink-0 w-full">
 				<a
 					href=""
-					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch"
+					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch text-white"
 					ref={elementRef}
 				>
 					About Us
@@ -33,7 +33,7 @@ export default function Header({
 					href="https://www.instagram.com/hack404.dev/"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch"
+					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch text-white"
 				>
 					Instagram
 				</a>
@@ -49,7 +49,7 @@ export default function Header({
 				</a>
 				<a
 					href=""
-					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch"
+					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch text-white"
 				>
 					Sponsor us
 				</a>

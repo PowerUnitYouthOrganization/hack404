@@ -41,7 +41,7 @@ export default function WaitlistBox({
 				<span
 					className={`relative text-2xl transition-opacity text-white ${
 						email || isFocused ? "opacity-0" : "opacity-100"
-					}`}
+					} [@media(max-width:1150px)]:text-base`}
 				>
 					{submitted
 						? "Thanks for joining, stay tuned!"
@@ -51,7 +51,7 @@ export default function WaitlistBox({
 					<span
 						className={`relative text-2xl text-[#C3F73A] transition-opacity ${
 							email || isFocused ? "opacity-0" : "opacity-100"
-						}`}
+						} [@media(max-width:1150px)]:text-base`}
 					>
 						enter your email
 					</span>

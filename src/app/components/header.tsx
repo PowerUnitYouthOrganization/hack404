@@ -54,7 +54,7 @@ export default function Header({
 					Sponsor us
 				</a>
 				<a
-					href=""
+					href="https://power-unit.org"
 					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch"
 				>
 					<img

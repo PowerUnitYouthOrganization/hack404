@@ -37,7 +37,6 @@ export default function Home() {
 		// Start submission process
 		setIsSubmitting(true);
 
-		// Here you would typically make an API call to your backend
 		if (!email) return;
 		try {
 			const res = await fetch("/api/waitlist", {

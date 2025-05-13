@@ -13,21 +13,17 @@ export default function WaitlistBox({
 }: WaitlistProps) {
 	const [isFocused, setIsFocused] = useState(false);
 
-export default function WaitlistBox({ onEmailChange }: WaitlistBoxProps) {
-  const [email, setEmail] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
+	const handleChange = (e: any) => {
+		setEmail(e.target.value);
+	};
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-    if (onEmailChange) {
-      onEmailChange(newEmail);
-    }
-  };
+	const handleFocus = () => {
+		setIsFocused(true);
+	};
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
+	const handleBlur = () => {
+		setIsFocused(false);
+	};
 
 	return (
 		<div className="waitlist relative">

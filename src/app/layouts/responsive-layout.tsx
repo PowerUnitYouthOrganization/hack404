@@ -159,9 +159,11 @@ export default function ResponsiveLayout({
 							/>
 
 							{/* Submit button */}
-							<div className={submitButtonClass}>
-								<p>{submitText}</p>
-							</div>
+							{!isMobile && (
+								<div className={submitButtonClass}>
+									<p>{submitText}</p>
+								</div>
+							)}
 							<button
 								className={`absolute top-0 right-0 h-full max-w-[282px] ${submitButtonWidth} opacity-50 cursor-pointer z-100`}
 								onClick={handleSubmit}

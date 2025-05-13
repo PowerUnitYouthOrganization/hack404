@@ -13,7 +13,7 @@ export default function WaitlistBox({
 }: WaitlistProps) {
 	const [isFocused, setIsFocused] = useState(false);
 
-  const handleChange = (e: any) => {
+	const handleChange = (e: any) => {
 		setEmail(e.target.value);
 	};
 
@@ -60,5 +60,3 @@ export default function WaitlistBox({
 		</div>
 	);
 }
-
-export default WaitlistBox;

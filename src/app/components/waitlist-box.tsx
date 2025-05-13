@@ -37,15 +37,14 @@ export default function WaitlistBox({
 				disabled={submitted}
 				className="w-full py-4 pl-0 text-2xl text-white bg-transparent border-2 border-transparent rounded-md outline-none  [@media(max-width:1150px)]:text-base"
 			/>
-			<div className="absolute top-0 left-0 gap-1.5 w-full h-full flex items-center pointer-events-none pl-6">
+			<div className="absolute top-0 left-0 gap-1.15 w-full h-full flex items-center pointer-events-none pl-6">
 				<span
 					className={`relative text-2xl transition-opacity text-white ${
 						email || isFocused ? "opacity-0" : "opacity-100"
 					} [@media(max-width:1150px)]:text-base`}
 				>
-					{submitted
-						? "Thanks for joining, stay tuned!"
-						: "Join our waitlist"}<span className="inline-block mx-1">—</span>
+					{submitted ? "Thanks for joining, stay tuned!" : "Join our waitlist"}
+					<span className="inline-block mx-1">—</span>
 				</span>
 				{!submitted && (
 					<span

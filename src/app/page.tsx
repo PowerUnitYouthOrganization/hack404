@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import TabletLayout from "./layouts/tablet-layout";
 import MobileLayout from "./layouts/mobile-layout";
 import DesktopLayout from "./layouts/desktop-layout";
@@ -12,6 +12,7 @@ import DesktopLayout from "./layouts/desktop-layout";
 export default function Home() {
 	const [headerBinWidth, setHeaderBinWidth] = useState<number | null>(null);
 	const [email, setEmail] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
 	const [viewport, setViewport] = useState({
 		isMobile: false,
@@ -21,13 +22,41 @@ export default function Home() {
 	});
 
 	const handleSubmit = async () => {
+		// Don't allow submission if already in progress
+		if (isSubmitting) {
+			alert("Submission in progress. Please wait.");
+			return;
+		}
+
+		// Check if email is empty
+		if (!email.trim()) {
+			alert("Please enter an email address.");
+			return;
+		}
+
+		// Start submission process
+		setIsSubmitting(true);
+
+		// Here you would typically make an API call to your backend
 		if (!email) return;
-		await fetch("/api/waitlist", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email }),
-		});
-		setSubmitted(true);
+		try {
+			const res = await fetch("/api/waitlist", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email }),
+			});
+			setIsSubmitting(false);
+			if (res.ok) {
+				alert("Thank you for joining our waitlist!");
+			} else if (res.status == 409) {
+				alert("You're already on the waitlist!");
+			} else {
+				alert("Something went wrong. Please try again.");
+			}
+		} catch (error: any) {
+			alert("Something went wrong. Please try again.");
+			return;
+		}
 	};
 
 	useEffect(() => {
@@ -53,6 +82,8 @@ export default function Home() {
 		setEmail,
 		headerBinWidth,
 		setHeaderBinWidth,
+		isSubmitting,
+		setIsSubmitting,
 		submitted,
 		setSubmitted,
 		handleSubmit,

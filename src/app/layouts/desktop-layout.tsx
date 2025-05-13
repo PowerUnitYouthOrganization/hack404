@@ -10,6 +10,8 @@ type layoutProps = {
 	setEmail: (email: string) => void;
 	headerBinWidth: number | null;
 	setHeaderBinWidth: (value: number | null) => void;
+	isSubmitting: boolean;
+	setIsSubmitting: (value: boolean) => void;
 	submitted: boolean;
 	setSubmitted: (value: boolean) => void;
 	handleSubmit: () => void | Promise<void>;
@@ -20,6 +22,8 @@ export default function DesktopProps({
 	setEmail,
 	headerBinWidth,
 	setHeaderBinWidth,
+	isSubmitting,
+	setIsSubmitting,
 	submitted,
 	setSubmitted,
 	handleSubmit,
@@ -73,13 +77,13 @@ export default function DesktopProps({
 						className="flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]"
 						style={headerBinWidth ? { width: headerBinWidth } : undefined}
 					>
-						<p>{submitted ? "Submitted" : "Submit"}</p>
+						<p>{isSubmitting ? "Submitting..." : "Submit"}</p>
 					</div>
 					<button
 						className="absolute top-0 right-0 w-full h-full max-w-[282px] opacity-50 cursor-pointer z-100"
 						onClick={handleSubmit}
 						style={headerBinWidth ? { width: headerBinWidth + 48 } : undefined}
-						disabled={submitted}
+						disabled={isSubmitting}
 					></button>
 					<img src="button.svg" alt="submit button arrow" />
 				</div>

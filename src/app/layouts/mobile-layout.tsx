@@ -10,6 +10,8 @@ type layoutProps = {
 	setEmail: (email: string) => void;
 	headerBinWidth: number | null;
 	setHeaderBinWidth: (value: number | null) => void;
+	isSubmitting: boolean;
+	setIsSubmitting: (value: boolean) => void;
 	submitted: boolean;
 	setSubmitted: (value: boolean) => void;
 	handleSubmit: () => void | Promise<void>;
@@ -20,6 +22,8 @@ export default function MobileLayout({
 	setEmail,
 	headerBinWidth,
 	setHeaderBinWidth,
+	isSubmitting,
+	setIsSubmitting,
 	submitted,
 	setSubmitted,
 	handleSubmit,

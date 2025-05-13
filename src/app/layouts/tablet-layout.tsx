@@ -3,9 +3,31 @@ import GradientBorder from "@/app/components/gradient-border";
 import Grid from "@/app/components/grids/tablet-grid";
 import HBorder from "@/app/components/h-border";
 import GradientBackground from "@/app/components/gradient-background";
-import WaitlistBox from "../components/waitlist-box-small";
+import WaitlistBox from "../components/waitlist-box";
 
-export default function TabletLayout() {
+type layoutProps = {
+	email: string;
+	setEmail: (email: string) => void;
+	headerBinWidth: number | null;
+	setHeaderBinWidth: (value: number | null) => void;
+	isSubmitting: boolean;
+	setIsSubmitting: (value: boolean) => void;
+	submitted: boolean;
+	setSubmitted: (value: boolean) => void;
+	handleSubmit: () => void | Promise<void>;
+};
+
+export default function TabletLayout({
+	email,
+	setEmail,
+	headerBinWidth,
+	setHeaderBinWidth,
+	isSubmitting,
+	setIsSubmitting,
+	submitted,
+	setSubmitted,
+	handleSubmit,
+}: layoutProps) {
 	return (
 		<div className="min-h-screen flex flex-col relative">
 			<Header />
@@ -43,15 +65,20 @@ export default function TabletLayout() {
 
 				{/* waitlist input and submit button */}
 				<div className="relative flex w-full">
-					<WaitlistBox />
+					<WaitlistBox
+						email={email}
+						setEmail={setEmail}
+						submitted={submitted}
+					/>
 
 					{/* Submit button */}
 					<div className="flex items-center justify-start text-black bg-white pl-6 max-w-[204px]">
-						<p>Submit</p>
+						<p>{submitted ? "Submitted" : "Submit"}</p>
 					</div>
 					<button
 						className="absolute top-0 right-0 h-full max-w-[282px] w-[158px] opacity-50 cursor-pointer z-100"
-						onClick={() => alert("Button clicked!")}
+						onClick={handleSubmit}
+						disabled={submitted}
 					></button>
 					<img src="button.svg" alt="" />
 				</div>

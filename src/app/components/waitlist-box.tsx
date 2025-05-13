@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type WaitlistProps = {
 	email: string;
@@ -13,17 +13,21 @@ export default function WaitlistBox({
 }: WaitlistProps) {
 	const [isFocused, setIsFocused] = useState(false);
 
-	const handleChange = (e: any) => {
-		setEmail(e.target.value);
-	};
+export default function WaitlistBox({ onEmailChange }: WaitlistBoxProps) {
+  const [email, setEmail] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
-	const handleFocus = () => {
-		setIsFocused(true);
-	};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    if (onEmailChange) {
+      onEmailChange(newEmail);
+    }
+  };
 
-	const handleBlur = () => {
-		setIsFocused(false);
-	};
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
 	return (
 		<div className="waitlist relative">

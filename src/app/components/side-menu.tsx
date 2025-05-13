@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import Grid from "./grids/mobile-grid";
+import Grid from "@/app/components/grid";
 import HBorder from "./h-border";
 
 type SideMenuProps = {

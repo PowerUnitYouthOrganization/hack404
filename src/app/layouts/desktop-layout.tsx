@@ -29,7 +29,10 @@ export default function DesktopProps({
 	handleSubmit,
 }: layoutProps) {
 	return (
-		<div className="min-h-screen flex flex-col relative">
+		<div
+			className="min-h-screen flex flex-col relative max-w-[2560px]"
+			style={{ maxWidth: `calc(100vh * (7 / 3))` }}
+		>
 			<Header onLinkWidth={setHeaderBinWidth} />
 			<HBorder />
 			<div className="flex-1 flex flex-col gap-8 items-start text-left p-[64px] justify-between text-white">
@@ -44,9 +47,10 @@ export default function DesktopProps({
 					/>
 				</div>
 				<img
+					id="whitetext"
 					src="whitetext.png"
 					alt="hack404 big label"
-					className="h-full w-auto max-h-[45vh]"
+					className="h-auto w-full"
 				/>
 			</div>
 

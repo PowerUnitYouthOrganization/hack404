@@ -48,7 +48,7 @@ export default function Header({
           />
         </a>
         <a
-          href=""
+          href="#about-us"
           className="flex flex-1 flex-col items-end justify-center gap-[10px] self-stretch text-white"
         >
           Sponsor us

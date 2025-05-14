@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ResponsiveLayout from "./layouts/responsive-layout";
 import { toast } from "sonner";
+import Head from "next/head";
 
 /**
  * The main UI for desktop browsers.

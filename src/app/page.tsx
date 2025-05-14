@@ -20,7 +20,6 @@ export default function Home() {
 		isDesktop: false,
 		isUltrawide: false,
 	});
-
 	const handleSubmit = async () => {
 		// Don't allow submission if already in progress
 		if (isSubmitting) {
@@ -34,15 +33,35 @@ export default function Home() {
 			return;
 		}
 
-		// Simple email format validation
-		if (!email.includes('@') || email.split('@')[0].length === 0 || email.split('@')[1].length === 0) {
-			alert("Please enter a valid email address.");
-			return;
-		}
-
 		// Start submission process
 		setIsSubmitting(true);
-		if (!email) return;
+		
+		try {
+			// Validate email with MX record check through our API
+			const validationResponse = await fetch('/api/validate-email', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email }),
+			});
+			
+			const validationResult = await validationResponse.json();
+			
+			if (!validationResult.valid) {
+				alert(validationResult.reason || "Invalid email address");
+				setIsSubmitting(false);
+				return;
+			}
+		} catch (error) {
+			console.error("Email validation error:", error);
+			// Fall back to basic validation if API call fails
+			if (!email.includes('@') || email.split('@')[0].length === 0 || email.split('@')[1].length === 0) {
+				alert("Please enter a valid email address.");
+				setIsSubmitting(false);
+				return;
+			}
+		}
 		try {
 			// Make API call to backend (skipping complex MX validation)
 			const res = await fetch("/api/waitlist", {

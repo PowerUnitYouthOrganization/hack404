@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Grid({
 	onLinkWidth,
@@ -11,15 +11,22 @@ export default function Grid({
 	// tablet: 640px - 1023px
 	// desktop: 1024px+
 
-	const type = (() => {
-		if (typeof window !== "undefined") {
-			const width = window.innerWidth;
-			if (width < 640) return "mobile";
-			if (width < 1024) return "tablet";
-			return "desktop";
-		}
-		return "desktop"; // default to desktop if window is not defined
-	})();
+	const [type, setType] = useState("desktop"); // default to desktop
+
+	useEffect(() => {
+		const updateType = () => {
+			if (typeof window !== "undefined") {
+				const width = window.innerWidth;
+				if (width < 640) setType("mobile");
+				else if (width < 1024) setType("tablet");
+				else setType("desktop");
+			}
+		};
+
+		updateType(); // initial call
+		window.addEventListener("resize", updateType);
+		return () => window.removeEventListener("resize", updateType);
+	}, []);
 
 	console.log(`${type} grid rendered`);
 	const elementRef = useRef<HTMLDivElement>(null);
@@ -36,7 +43,7 @@ export default function Grid({
 		return () => window.removeEventListener("resize", updateWidth);
 	}, [onLinkWidth]);
 
-	// Define configuration based on</div> type
+	// Define configuration based on type
 	const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
 	const padding = type === "desktop" ? "px-[64px]" : "px-6";
 	const maxWidthStyle =
@@ -44,7 +51,8 @@ export default function Grid({
 
 	return (
 		<div
-			className="fixed inset-0 z-10 flex h-screen w-full px-6 lg:px-[64px] gap-6 max-w-full lg:max-w-[calc(100vh*(7/3))]"
+			className={`fixed inset-0 z-10 flex h-screen w-full ${padding} gap-6`}
+			style={maxWidthStyle}
 		>
 			{Array.from({ length: columns }).map((_, i) => (
 				<div

@@ -1,12 +1,26 @@
 import { useEffect, useRef } from "react";
 
 export default function Grid({
-	type = "tablet",
 	onLinkWidth,
 }: {
-	type?: "mobile" | "tablet" | "desktop";
 	onLinkWidth?: (w: number) => void;
 }) {
+
+	// Breakpoints for different screen sizes
+	// mobile: 0px - 639px
+	// tablet: 640px - 1023px
+	// desktop: 1024px+
+
+	const type = (() => {
+		if (typeof window !== "undefined") {
+			const width = window.innerWidth;
+			if (width < 640) return "mobile";
+			if (width < 1024) return "tablet";
+			return "desktop";
+		}
+		return "desktop"; // default to desktop if window is not defined
+	})();
+
 	console.log(`${type} grid rendered`);
 	const elementRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +36,7 @@ export default function Grid({
 		return () => window.removeEventListener("resize", updateWidth);
 	}, [onLinkWidth]);
 
-	// Define configuration based on type
+	// Define configuration based on</div> type
 	const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
 	const padding = type === "desktop" ? "px-[64px]" : "px-6";
 	const maxWidthStyle =

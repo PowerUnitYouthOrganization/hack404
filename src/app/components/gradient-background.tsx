@@ -96,5 +96,5 @@ export default function GradientBackground() {
 		};
 	}, []);
 
-	return <div ref={containerRef} className="fixed inset-0 -z-30" />;
+	return <div ref={containerRef} className="fixed inset-0 -z-50" />;
 }

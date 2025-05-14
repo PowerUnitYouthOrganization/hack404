@@ -43,6 +43,7 @@
 		"drizzle-kit": "^0.31.1",
 		"eslint": "^9.26.0",
 		"eslint-config-next": "15.2.3",
+		"prettier": "3.5.3",
 		"raw-loader": "^4.0.2",
 		"tailwindcss": "^4.1.5",
 		"tsx": "^4.19.4",

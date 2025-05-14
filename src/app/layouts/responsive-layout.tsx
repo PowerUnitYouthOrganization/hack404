@@ -103,18 +103,18 @@ export default function ResponsiveLayout({
 							submitted={submitted}
 						/>
 						
-						{/* Submit button - show text for tablet and desktop only */}
-						<div className="hidden sm:flex items-center justify-start text-black bg-white pl-6 max-w-[204px] lg:text-2xl w-[158px] lg:w-[178px]">
-							<p>{submitText}</p>
-						</div>
 						
 						{/* Clickable button overlay */}
 						<button
-							className="absolute top-0 right-0 h-full sm:w-[158px] lg:w-[178px] max-w-[282px] opacity-50 cursor-pointer z-100"
+							className="flex flex-row items-center justify-start flex-shrink-0"
 							onClick={handleSubmit}
 							disabled={isSubmitting || submitted}
-						></button>
-						<img src="button.svg" alt="submit button arrow" />
+						>
+							{/* Submit button - show text for tablet and desktop only */}
+							<p className="hidden sm:flex items-center justify-start h-full text-black bg-white pl-6 max-w-[204px] lg:text-2xl w-24 lg:w-44">{submitText}</p>
+							<img className="h-full" src="button.svg" alt="submit button arrow" />
+						</button>
+						
 					</div>
 				</footer>
 			</div>

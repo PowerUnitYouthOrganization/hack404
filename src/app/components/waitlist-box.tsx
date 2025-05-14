@@ -26,7 +26,7 @@ export default function WaitlistBox({
 	};
 
 	return (
-		<div className="waitlist relative">
+		<div className="waitlist relative ">
 			<input
 				type="email"
 				value={email}
@@ -56,6 +56,7 @@ export default function WaitlistBox({
 					</span>
 				)}
 			</div>
+			
 		</div>
 	);
 }

@@ -15,7 +15,7 @@ const spaceMono = Space_Mono({
 
 export const metadata = {
 	title: "Hack404",
-	description: "Hackathon landing page",
+	description: "A Toronto-based hackathon. Sign up today!",
 };
 
 export default function RootLayout({

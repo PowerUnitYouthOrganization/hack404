@@ -12,7 +12,7 @@ export default function SideMenu({ open, onClose }: SideMenuProps) {
 		<AnimatePresence>
 			{open && (
 				<motion.div
-					className="fixed inset-0 bg-black z-50 h-screen"
+					className="fixed inset-0 bg-black z-50 h-dvh"
 					initial={{ x: "100%" }}
 					animate={{ x: 0 }}
 					exit={{ x: "100%" }}

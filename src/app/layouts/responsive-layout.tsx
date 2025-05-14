@@ -114,10 +114,7 @@ export default function ResponsiveLayout({
 
 	return (
 		<>
-			<div
-				className="min-h-screen flex flex-col relative"
-				style={containerStyle}
-			>
+			<div className="min-h-dvh flex flex-col relative" style={containerStyle}>
 				{/* Header: different components for desktop vs mobile/tablet */}
 				{isDesktop ? (
 					<Header onLinkWidth={setHeaderBinWidth} />
@@ -219,7 +216,7 @@ export default function ResponsiveLayout({
 			{/* About page and contact page (second screen) */}
 			<div
 				id="about-us"
-				className="min-h-screen flex flex-col relative justify-between"
+				className="min-h-dvh flex flex-col relative justify-between"
 				style={containerStyle}
 			>
 				<div

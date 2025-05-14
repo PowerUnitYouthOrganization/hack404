@@ -85,30 +85,26 @@ float snoise(vec4 v) {
 // === Main Shader Code ===
 
 void main() {
-    // Tweak this scale factor to change "blob" size (higher = smaller blobs)
     float scale = 0.5;
-    vec2 uMouseOffset = vec2(2.0, 1.0);
+    vec2 uMouseOffset = vec2(6.9, 6.25);
+    vec2 bgOffset = vec2(0.5, 1);
 
     // Feed scaled UV and mouse data into 4D noise
-    float noise = snoise(vec4(vUv * scale, uMouse * 0.75 + uMouseOffset));
+    float noise = snoise(vec4(vUv * scale + bgOffset, uMouse * 0.25 + uMouseOffset));
 
     // Normalize noise to range [0,1]
     float t = (noise + 1.0) * 0.5;
 
-    // Define 4 colors to blend across noise thresholds
-    vec3 color1 = vec3(0.054, 0.066, 0.086); // #0e1116
-    vec3 color2 = vec3(0.369, 0.290, 0.890); // #5e4ae3
-    vec3 color3 = vec3(0.188, 0.949, 0.949); // #30f2f2
-    vec3 color4 = vec3(0.765, 0.969, 0.227); // #c3f73a
+    vec3 color1 = vec3(0.369, 0.290, 0.890); // #5e4ae3 blue
+    vec3 color2 = vec3(0.188, 0.949, 0.949); // #30f2f2 cyan
+    vec3 color3 = vec3(0.765, 0.969, 0.227); // #c3f73a lime
 
     // color blending
-    vec3 blended1 = mix(color1, color2, smoothstep(0.0, 0.33, t));
-    vec3 blended2 = mix(color2, color3, smoothstep(0.33, 0.66, t));
-    vec3 blended3 = mix(color3, color4, smoothstep(0.66, 1.0, t));
+    vec3 blended1 = mix(color1, color2, smoothstep(0.33, 0.5, t));
+    vec3 blended2 = mix(color2, color3, smoothstep(0.5, 0.66, t));
 
-    // Combine all blends
-    vec3 finalColor = mix(blended1, blended2, smoothstep(0.0, 0.5, t));
-    finalColor = mix(finalColor, blended3, smoothstep(0.5, 1.0, t));
+    // Combine blends
+    vec3 finalColor = mix(blended1, blended2, smoothstep(0.0, 1.0, t));
 
     finalColor *= 0.7; // for darkening
     vec2 randomOffset = fract(sin(vUv * 3000.0) * 43758.5453123); // Randomize grain using a hash function

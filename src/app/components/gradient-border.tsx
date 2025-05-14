@@ -12,8 +12,8 @@ export default function GradientBorder({
 	children?: React.ReactNode;
 }) {
 	const gradient = reverse
-		? "from-[#829A24] via-[#209A9A] to-[#3A2A9A]"
-		: "from-[#3A2A9A] via-[#209A9A] to-[#829A24]";
+		? "from-[#C3F73A] via-[#30F2F2] to-[#5E4AE3]"
+		: "from-[#5E4AE3] via-[#30F2F2] to-[#C3F73A]";
 
 	if (children) {
 		return (

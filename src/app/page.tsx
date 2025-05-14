@@ -45,14 +45,17 @@ export default function Home() {
         body: JSON.stringify({ email }),
       });
 
-      const validationResult = await validationResponse.json();
+      const validationResult = (await validationResponse.json()) as {
+        valid: boolean;
+        reason?: string;
+      };
 
       if (!validationResult.valid) {
-        toast(validationResult.reason || "Invalid email address");
+        toast(validationResult.reason ?? "Invalid email address");
         setIsSubmitting(false);
         return;
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Email validation error:", error);
       // Fall back to basic validation if API call fails
       if (
@@ -82,7 +85,7 @@ export default function Home() {
       } else {
         toast("Something went wrong. Please try again.");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       setIsSubmitting(false);
       toast("Something went wrong. Please try again.");
       return;

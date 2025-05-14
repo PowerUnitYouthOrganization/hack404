@@ -1,11 +1,8 @@
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-});
+// Space Grotesk was defined but not used - removed
 
 const spaceMono = Space_Mono({
   weight: "400",

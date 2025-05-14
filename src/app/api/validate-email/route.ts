@@ -3,7 +3,7 @@ import { isValidEmailFormat, domainHasMX } from "@/app/utils/emailValidation";
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { email } = (await request.json()) as { email: string };
 
     // Basic format validation
     if (!isValidEmailFormat(email)) {

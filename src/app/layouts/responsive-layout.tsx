@@ -25,9 +25,9 @@ export default function ResponsiveLayout({
   headerBinWidth,
   setHeaderBinWidth,
   isSubmitting,
-  setIsSubmitting,
+  setIsSubmitting: _setIsSubmitting,
   submitted,
-  setSubmitted,
+  setSubmitted: _setSubmitted,
   handleSubmit,
   deviceType,
 }: LayoutProps) {
@@ -239,7 +239,7 @@ export default function ResponsiveLayout({
             >
               Hack404{" "}
               <span className="solid-white">
-                is coming soon! We're a hackathon based in
+                is coming soon! We&apos;re a hackathon based in
               </span>{" "}
               Toronto{" "}
               <span className="solid-white">

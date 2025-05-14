@@ -6,4 +6,4 @@ async function viewTable() {
   console.log("Table contents:", emails);
 }
 
-viewTable();
+void viewTable();

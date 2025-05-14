@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === "POST") {
-    const { email } = req.body;
+    const { email } = req.body as { email: string };
 
     // Basic validation
     if (!isValidEmailFormat(email)) {
@@ -31,9 +31,15 @@ export default async function handler(
         .insert(waitlistEmails)
         .values({ email: normalizedEmail });
       return res.status(200).json({ message: "Email added to waitlist" });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
-      if (error.code === "23505") {
+      // Type guard to check if error has a code property
+      if (
+        error &&
+        typeof error === "object" &&
+        "code" in error &&
+        error.code === "23505"
+      ) {
         return res.status(409).json({ error: "Email already on waitlist" });
       } else {
         return res.status(500).json({ error: "Internal server error" });

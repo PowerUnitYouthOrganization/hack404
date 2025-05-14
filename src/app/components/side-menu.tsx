@@ -5,10 +5,9 @@ import HBorder from "./h-border";
 type SideMenuProps = {
 	open: boolean;
 	onClose: () => void;
-	options: string[];
 };
 
-export default function SideMenu({ open, onClose, options }: SideMenuProps) {
+export default function SideMenu({ open, onClose }: SideMenuProps) {
 	return (
 		<AnimatePresence>
 			{open && (

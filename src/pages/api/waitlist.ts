@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { waitlistDb, waitlistEmails } from "@/db/waitlistSchema";
+import { isValidEmailFormat, domainHasMX } from "@/app/utils/emailValidation";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -8,9 +9,15 @@ export default async function handler(
 	if (req.method === "POST") {
 		const { email } = req.body;
 
-		// Basic validation - just check if email exists and has @ symbol with content on both sides
-		if (!email || !email.includes('@') || email.split('@')[0].length === 0 || email.split('@')[1].length === 0) {
+		// Basic validation
+		if (!isValidEmailFormat(email)) {
 			return res.status(400).json({ error: "Please enter a valid email address" });
+		}
+
+		// MX record validation
+		const hasMX = await domainHasMX(email);
+		if (!hasMX) {
+			return res.status(400).json({ error: "Email domain appears to be invalid or has no mail server" });
 		}
 
 		const normalizedEmail = email.toLowerCase().trim();

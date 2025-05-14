@@ -9,7 +9,6 @@ export default function Header() {
 				<a
 					href="#about-us"
 					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch text-white"
-					ref={elementRef}
 				>
 					About Us
 				</a>

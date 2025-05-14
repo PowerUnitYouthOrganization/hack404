@@ -9,8 +9,6 @@ import WaitlistBox from "../components/waitlist-box";
 type LayoutProps = {
 	email: string;
 	setEmail: (email: string) => void;
-	headerBinWidth: number | null;
-	setHeaderBinWidth: (value: number | null) => void;
 	isSubmitting: boolean;
 	setIsSubmitting: (value: boolean) => void;
 	submitted: boolean;
@@ -21,8 +19,6 @@ type LayoutProps = {
 export default function ResponsiveLayout({
 	email,
 	setEmail,
-	headerBinWidth,
-	setHeaderBinWidth,
 	isSubmitting,
 	setIsSubmitting,
 	submitted,
@@ -42,10 +38,10 @@ export default function ResponsiveLayout({
 		>
 			{/* Header: different components for desktop vs mobile/tablet */}
 			<div className="hidden lg:block">
-				<Header onLinkWidth={setHeaderBinWidth} />
+				<Header />
 			</div>
 			<div className="block lg:hidden">
-				<SmallHeader onLinkWidth={setHeaderBinWidth} />
+				<SmallHeader />
 			</div>
 			
 			<HBorder />
@@ -78,12 +74,13 @@ export default function ResponsiveLayout({
 			{/* Footer */}
 			<footer className="flex flex-col items-center m-6 gap-6 lg:flex-row lg:items-center lg:h-[218px] lg:px-[64px] lg:py-[70px] lg:m-0">
 					{/* Coming soon text - different layout for desktop vs mobile/tablet */}
-					<div className="hidden lg:block">
+					<div className="hidden lg:block flex-shrink-0">
 						<h1 
 							className="text-2xl text-white font-(family-name:--font-heading) flex-shrink-0 pr-4"
-							style={headerBinWidth ? { width: headerBinWidth } : undefined}
 						>
-							Coming soon <br /> Summer 2025
+							Coming soon <br />
+							Summer 2025
+							
 						</h1>
 					</div>
 					<div className="flex justify-between w-full text-white lg:hidden">
@@ -98,18 +95,15 @@ export default function ResponsiveLayout({
 							setEmail={setEmail}
 							submitted={submitted}
 						/>
-								{/* Submit button - show text for tablet and desktop only */}
-						<div className="hidden sm:flex items-center justify-start text-black bg-white pl-6 max-w-[204px] lg:text-2xl"
-							style={headerBinWidth ? { 
-								width: headerBinWidth + 48
-							} : undefined}
-						>
+						
+						{/* Submit button - show text for tablet and desktop only */}
+						<div className="hidden sm:flex items-center justify-start text-black bg-white pl-6 max-w-[204px] lg:text-2xl w-[158px] lg:w-[178px]">
 							<p>{submitText}</p>
 						</div>
 						
 						{/* Clickable button overlay */}
 						<button
-							className="absolute top-0 right-0 h-full w-full max-w-[282px] sm:w-full opacity-50 cursor-pointer z-100"
+							className="absolute top-0 right-0 h-full sm:w-[158px] lg:w-[178px] max-w-[282px] opacity-50 cursor-pointer z-100"
 							onClick={handleSubmit}
 							disabled={isSubmitting || submitted}
 						></button>

@@ -1,31 +1,13 @@
 import { useRef, useEffect } from "react";
 
-export default function Header({
-	onLinkWidth,
-}: {
-	onLinkWidth?: (w: number) => void;
-}) {
-	const elementRef = useRef<HTMLAnchorElement>(null);
-
-	useEffect(() => {
-		const updateWidth = () => {
-			if (elementRef.current && onLinkWidth) {
-				onLinkWidth(elementRef.current.offsetWidth);
-			}
-		};
-
-		updateWidth(); // initial call
-		window.addEventListener("resize", updateWidth);
-		return () => window.removeEventListener("resize", updateWidth);
-	}, [onLinkWidth]);
+export default function Header() {
+	// No longer need refs or effects for width measurement
 
 	return (
 		<header>
-			<nav className="flex h-[64px] px-[64px] items-start gap-[24px] flex-shrink-0 w-full">
-				<a
+			<nav className="flex h-[64px] px-[64px] items-start gap-[24px] flex-shrink-0 w-full">				<a
 					href=""
-					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch text-white"
-					ref={elementRef}
+					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch text-white w-[130px]"
 				>
 					About Us
 				</a>

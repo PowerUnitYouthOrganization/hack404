@@ -3,7 +3,7 @@
 
 :root {
 	--background: #0c0f14; /* Darker background */
-	--foreground: #141414; /* Darker foreground */
+	--foreground: #ffffff; /* Darker foreground */
 	font-family: "DM Sans";
 }
 
@@ -53,6 +53,7 @@
 	--font-heading-light: "FH Lecturis Rounded Light";
 }
 
+/* can probably remove this honestly */
 @media (prefers-color-scheme: dark) {
 	:root {
 		--background: #080808; /* Darker background for dark mode */

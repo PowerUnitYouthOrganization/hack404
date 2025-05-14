@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ResponsiveLayout from "./layouts/responsive-layout";
+import { toast } from "sonner"
 
 /**
  * The main UI for desktop browsers.
@@ -18,29 +19,48 @@ export default function Home() {
 		isDesktop: false,
 		isUltrawide: false,
 	});
-
 	const handleSubmit = async () => {
 		// Don't allow submission if already in progress
 		if (isSubmitting) {
-			alert("Submission in progress. Please wait.");
+			toast("Submission in progress. Please wait.");
 			return;
 		}
 
 		// Check if email is empty
 		if (!email.trim()) {
-			alert("Please enter an email address.");
-			return;
-		}
-
-		// Simple email format validation
-		if (!email.includes('@') || email.split('@')[0].length === 0 || email.split('@')[1].length === 0) {
-			alert("Please enter a valid email address.");
+			toast("Please enter an email address.");
 			return;
 		}
 
 		// Start submission process
 		setIsSubmitting(true);
-		if (!email) return;
+		
+		try {
+			// Validate email with MX record check through our API
+			const validationResponse = await fetch('/api/validate-email', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email }),
+			});
+			
+			const validationResult = await validationResponse.json();
+			
+			if (!validationResult.valid) {
+				toast(validationResult.reason || "Invalid email address");
+				setIsSubmitting(false);
+				return;
+			}
+		} catch (error) {
+			console.error("Email validation error:", error);
+			// Fall back to basic validation if API call fails
+			if (!email.includes('@') || email.split('@')[0].length === 0 || email.split('@')[1].length === 0) {
+				toast("Please enter a valid email address.");
+				setIsSubmitting(false);
+				return;
+			}
+		}
 		try {
 			// Make API call to backend (skipping complex MX validation)
 			const res = await fetch("/api/waitlist", {
@@ -52,15 +72,15 @@ export default function Home() {
 			setIsSubmitting(false);
 			if (res.ok) {
 				setSubmitted(true);
-				alert("Thank you for joining our waitlist!");
+				toast("Thank you for joining our waitlist!");
 			} else if (res.status == 409) {
-				alert("You're already on the waitlist!");
+				toast("You're already on the waitlist!");
 			} else {
-				alert("Something went wrong. Please try again.");
+				toast("Something went wrong. Please try again.");
 			}
 		} catch (error: any) {
 			setIsSubmitting(false);
-			alert("Something went wrong. Please try again.");
+			toast("Something went wrong. Please try again.");
 			return;
 		}
 	};

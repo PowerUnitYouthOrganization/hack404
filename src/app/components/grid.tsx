@@ -1,6 +1,6 @@
 export default function Grid() {
 	console.log("responsive grid rendered");
-	
+
 	return (
 		<div
 			className="fixed inset-0 z-10 flex h-screen w-full px-6 lg:px-[64px] gap-6 max-w-full lg:max-w-[calc(100vh*(7/3))]"

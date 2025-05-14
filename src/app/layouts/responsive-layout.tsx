@@ -116,15 +116,11 @@ export default function ResponsiveLayout({
 		<>
 			<div className="min-h-dvh flex flex-col relative" style={containerStyle}>
 				{/* Header: different components for desktop vs mobile/tablet */}
-				{isDesktop ? (
-					<Header onLinkWidth={setHeaderBinWidth} />
-				) : (
-					<SmallHeader onLinkWidth={setHeaderBinWidth} />
-				)}
+				{isDesktop ? <Header /> : <SmallHeader />}
 
 				{/* Grid and background */}
 				<div className="-z-20">
-					<Grid type={deviceType} />
+					<Grid type={deviceType} onLinkWidth={setHeaderBinWidth} />
 				</div>
 				<div className="black-screen" />
 				<GradientBackground />

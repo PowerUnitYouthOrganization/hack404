@@ -52,7 +52,7 @@ export default function WaitlistBox({
 							email || isFocused ? "opacity-0" : "opacity-100"
 						} [@media(max-width:1150px)]:text-base`}
 					>
-						enter your email
+						enter email
 					</span>
 				)}
 			</div>

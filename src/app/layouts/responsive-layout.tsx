@@ -131,15 +131,16 @@ export default function ResponsiveLayout({
 					{/* about us */}
 					<div className="absolute inset-0 bg-background -z-30" />
 					<div
-						className="flex flex-col gap-12 sm:flex-row sm:gap-6 items-start shrink-0 py-[30px] px-[24px] sm:px-[24px] sm:py-[64px] lg:px-[64px] lg:py-[70px]"
+						className="flex flex-col sm:flex-row gap-12 sm:gap-6 items-start shrink-0 py-[30px] px-[24px] sm:px-[24px] sm:py-[64px] lg:px-[64px] lg:py-[70px]"
 					>
 						<h1
-							className="text-2xl lg:text-[48px] font-(family-name:--font-heading) shrink-0 leading-[110%]"
+							className="text-2xl lg:text-4xl font-(family-name:--font-heading) shrink-0 leading-[110%] w-[130px]"
 						>
 							About us
 						</h1>
+						{/* there is DEFINITELY a better way to do this but im too tired */}
 						<p
-							className="text-[28px] sm:text-[32px] lg:text-[48px] tracking-[-0.84px] sm:tracking-[-0.96px] lg:tracking-[-1.44px] font-(family-name:--font-heading-light) leading-[110%] gradient-text"
+							className="text-[28px] tracking-[-0.84px] sm:text-[32px] sm:tracking-[-0.96px] lg:text-[48px] lg:tracking-[-1.44px] font-(family-name:--font-heading-light) leading-[110%] gradient-text"
 						>
 							Hack404{" "}
 							<span className="solid-white">
@@ -165,13 +166,13 @@ export default function ResponsiveLayout({
 					>
 						<div className="flex-col items-start gap-6">
 							<h1
-								className="text-2xl lg:text-[48px] font-(family-name:--font-heading) shrink-0"
+								className="text-2xl lg:text-4xl font-(family-name:--font-heading) shrink-0"
 							>
 								Contact
 							</h1>
-							{/* Contact information text */}
+							{/* Messy text formatting, fix later */}
 							<p
-								className="gradient-text text-base sm:text-[28px] lg:text-[28px] font-(family-name:--font-heading-light) leading-[110%] tracking-[-0.84px]"
+								className="gradient-text text-base sm:text-[28px] lg:text-[28px] font-(family-name:--font-heading-light) [line-height:110%] [letter-spacing:-0.84px]"
 							>
 								emma.xing@power-unit.org <br />
 								support@hack404.dev
@@ -179,7 +180,7 @@ export default function ResponsiveLayout({
 						</div>
 						<div className="hidden sm:block">
 							<h1
-								className="text-right leading-[110%] tracking-[-1.44px] text-[38px] sm:text-[40px] lg:text-[48px] font-(family-name:--font-heading-light)"
+								className="text-right [line-height:110%] [letter-spacing:-1.44px] text-[40px] lg:text-[48px] font-(family-name:--font-heading-light)"
 							>
 								a toronto based <br /> hackathon
 							</h1>
@@ -190,9 +191,9 @@ export default function ResponsiveLayout({
 				<div
 					className="grow flex flex-col gap-16 justify-between items-end h-full p-6 sm:px-6 sm:py-[38px] lg:p-16"
 				>
-					<div className="sm:hidden">
+					<div className="block sm:hidden">
 						<h1
-							className="text-right leading-[110%] tracking-[-1.44px] text-[38px] font-(family-name:--font-heading-light)"
+							className="text-right [line-height:110%] [letter-spacing:-1.44px] text-[38px] font-(family-name:--font-heading-light)"
 						>
 							a toronto based <br /> hackathon
 						</h1>
@@ -201,12 +202,12 @@ export default function ResponsiveLayout({
 						<img
 							src="whitefull.png"
 							alt=""
-							className="w-[135px] sm:w-auto"
+							className="w-[135px] sm:w-[130px]"
 						/>
 						<img
 							src="PUYOlogo.png"
 							alt=""
-							className="w-[135px] sm:w-auto"
+							className="w-[135px] sm:w-[130px]"
 						/>
 					</div>
 				</div>

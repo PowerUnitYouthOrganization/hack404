@@ -1,10 +1,15 @@
-export default function Grid({ type = "tablet" }: { type?: "mobile" | "tablet" | "desktop" }) {
+export default function Grid({
+	type = "tablet",
+}: {
+	type?: "mobile" | "tablet" | "desktop";
+}) {
 	console.log(`${type} grid rendered`);
-	
+
 	// Define configuration based on type
 	const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
 	const padding = type === "desktop" ? "px-[64px]" : "px-6";
-	const maxWidthStyle = type === "desktop" ? { maxWidth: `calc(100vh * (7 / 3))` } : undefined;
+	const maxWidthStyle =
+		type === "desktop" ? { maxWidth: `calc(100vh * (7 / 3))` } : undefined;
 
 	return (
 		<div
@@ -14,7 +19,7 @@ export default function Grid({ type = "tablet" }: { type?: "mobile" | "tablet" |
 			{Array.from({ length: columns }).map((_, i) => (
 				<div
 					key={i}
-					className={`flex-1 ${type === "tablet" ? (i < 2 ? "border-x" : "") : "border-x"}`}
+					className="flex-1 border-x"
 					style={{ borderColor: "rgba(48, 242, 242, 0.2)" }}
 				/>
 			))}

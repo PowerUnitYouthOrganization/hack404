@@ -9,8 +9,6 @@
 	--foreground: #ffffff; /* Darker foreground */
 	font-family: "DM Sans";
 	--radius: 0.625rem;
-	--background: oklch(1 0 0);
-	--foreground: oklch(0.145 0 0);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.145 0 0);
 	--popover: oklch(1 0 0);
@@ -80,8 +78,6 @@
 :root {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	/* --font-sans: var(--font-space-grotesk);
-	--font-mono: var(--font-space-mono); */
 	--font-sans: "DM Sans";
 	--font-mono: var(--font-space-mono);
 	--font-heading: "FH Lecturis Rounded";
@@ -116,16 +112,28 @@
 
 html,
 body {
-	height: 100%; /* Ensure full height */
+	height: 100%;
+	font-family: var(--font-sans), Helvetica, sans-serif;
+	scroll-behavior: smooth;
 }
 
 body {
-	font-family: var(--font-space-grotesk), Helvetica, sans-serif;
-	overflow-x: hidden; /* remove horizontal scroll */
+	overflow-x: hidden !important;
 }
 
-p {
-	font-family: var(--font-space-grotesk);
+.gradient-text {
+	background: linear-gradient(90deg, #c3f73a 0%, #30f2f2 50%, #5e4ae3 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* for the about me paragraph only */
+.solid-white {
+	color: white; /* Or any color you'd like */
+	background: none;
+	-webkit-background-clip: unset;
+	-webkit-text-fill-color: white; /* Reverts to solid color */
 }
 
 .waitlist {
@@ -142,24 +150,12 @@ p {
 	-webkit-backdrop-filter: blur(10px); /* for Safari support */
 }
 
-.magnifying-glass {
-	position: absolute;
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	border: 2px solid rgba(255, 255, 255, 0.5); /* White outline */
-	backdrop-filter: none; /* Clear background */
-	-webkit-backdrop-filter: none; /* Safari support */
-	pointer-events: none;
-	transform: translate(-50%, -50%);
-}
-
 .black-screen {
 	position: fixed;
 	inset: 0;
 	background: black;
 	z-index: -30;
-	animation: fadeOut 1s ease-out forwards;
+	animation: fadeOut 1.5s ease-out forwards;
 	animation-delay: 0.5s;
 }
 
@@ -212,8 +208,8 @@ p {
 }
 
 .dark {
-	--background: oklch(0.145 0 0);
-	--foreground: oklch(0.985 0 0);
+	--background: #0c0f14; /* Darker background */
+	--foreground: #ffffff; /* Darker foreground */
 	--card: oklch(0.205 0 0);
 	--card-foreground: oklch(0.985 0 0);
 	--popover: oklch(0.205 0 0);

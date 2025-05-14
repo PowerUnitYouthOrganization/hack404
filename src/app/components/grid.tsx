@@ -1,26 +1,9 @@
-import { useEffect, useRef } from "react";
-
 export default function Grid({
 	type = "tablet",
-	onLinkWidth,
 }: {
 	type?: "mobile" | "tablet" | "desktop";
-	onLinkWidth?: (w: number) => void;
 }) {
 	console.log(`${type} grid rendered`);
-	const elementRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const updateWidth = () => {
-			if (elementRef.current && onLinkWidth) {
-				onLinkWidth(elementRef.current.offsetWidth);
-			}
-		};
-
-		updateWidth(); // initial call
-		window.addEventListener("resize", updateWidth);
-		return () => window.removeEventListener("resize", updateWidth);
-	}, [onLinkWidth]);
 
 	// Define configuration based on type
 	const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
@@ -38,7 +21,6 @@ export default function Grid({
 					key={i}
 					className="flex-1 border-x"
 					style={{ borderColor: "rgba(48, 242, 242, 0.2)" }}
-					ref={elementRef}
 				/>
 			))}
 		</div>

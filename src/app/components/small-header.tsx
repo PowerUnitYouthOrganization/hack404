@@ -47,6 +47,19 @@ export default function Header({
 						className="flex justify-center items-center w-[109px] h-auto"
 					/>
 				</a>
+				{/* two empty for formatting, can switch to checking grid width later */}
+				<a
+					href=""
+					className="flex flex-col justify-center items-center gap-[10px] flex-1 self-stretch z-100"
+				>
+					{" "}
+				</a>
+				<a
+					href=""
+					className="flex flex-col justify-center items-center gap-[10px] flex-1 self-stretch z-100"
+				>
+					{" "}
+				</a>
 				<button
 					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch z-100"
 					onClick={toggleMenu}

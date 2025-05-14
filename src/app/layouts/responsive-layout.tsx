@@ -119,11 +119,15 @@ export default function ResponsiveLayout({
 				style={containerStyle}
 			>
 				{/* Header: different components for desktop vs mobile/tablet */}
-				{isDesktop ? <Header /> : <SmallHeader />}
+				{isDesktop ? (
+					<Header onLinkWidth={setHeaderBinWidth} />
+				) : (
+					<SmallHeader onLinkWidth={setHeaderBinWidth} />
+				)}
 
 				{/* Grid and background */}
 				<div className="-z-20">
-					<Grid type={deviceType} onLinkWidth={setHeaderBinWidth} />
+					<Grid type={deviceType} />
 				</div>
 				<div className="black-screen" />
 				<GradientBackground />

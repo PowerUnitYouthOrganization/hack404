@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { type NextApiRequest, type NextApiResponse } from "next";
 import { waitlistDb, waitlistEmails } from "@/db/waitlistSchema";
 import { isValidEmailFormat, domainHasMX } from "@/app/utils/emailValidation";
 
@@ -19,11 +19,9 @@ export default async function handler(
     // MX record validation
     const hasMX = await domainHasMX(email);
     if (!hasMX) {
-      return res
-        .status(400)
-        .json({
-          error: "Email domain appears to be invalid or has no mail server",
-        });
+      return res.status(400).json({
+        error: "Email domain appears to be invalid or has no mail server",
+      });
     }
 
     const normalizedEmail = email.toLowerCase().trim();

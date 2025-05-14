@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ResponsiveLayout from "./layouts/responsive-layout";
+import { toast } from "sonner"
 
 /**
  * The main UI for desktop browsers.
@@ -21,13 +22,13 @@ export default function Home() {
 	const handleSubmit = async () => {
 		// Don't allow submission if already in progress
 		if (isSubmitting) {
-			alert("Submission in progress. Please wait.");
+			toast("Submission in progress. Please wait.");
 			return;
 		}
 
 		// Check if email is empty
 		if (!email.trim()) {
-			alert("Please enter an email address.");
+			toast("Please enter an email address.");
 			return;
 		}
 
@@ -47,7 +48,7 @@ export default function Home() {
 			const validationResult = await validationResponse.json();
 			
 			if (!validationResult.valid) {
-				alert(validationResult.reason || "Invalid email address");
+				toast(validationResult.reason || "Invalid email address");
 				setIsSubmitting(false);
 				return;
 			}
@@ -55,7 +56,7 @@ export default function Home() {
 			console.error("Email validation error:", error);
 			// Fall back to basic validation if API call fails
 			if (!email.includes('@') || email.split('@')[0].length === 0 || email.split('@')[1].length === 0) {
-				alert("Please enter a valid email address.");
+				toast("Please enter a valid email address.");
 				setIsSubmitting(false);
 				return;
 			}
@@ -71,15 +72,15 @@ export default function Home() {
 			setIsSubmitting(false);
 			if (res.ok) {
 				setSubmitted(true);
-				alert("Thank you for joining our waitlist!");
+				toast("Thank you for joining our waitlist!");
 			} else if (res.status == 409) {
-				alert("You're already on the waitlist!");
+				toast("You're already on the waitlist!");
 			} else {
-				alert("Something went wrong. Please try again.");
+				toast("Something went wrong. Please try again.");
 			}
 		} catch (error: any) {
 			setIsSubmitting(false);
-			alert("Something went wrong. Please try again.");
+			toast("Something went wrong. Please try again.");
 			return;
 		}
 	};

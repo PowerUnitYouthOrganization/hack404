@@ -1,5 +1,6 @@
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const spaceGrotesk = Space_Grotesk({
 	variable: "--font-space-grotesk",
@@ -29,6 +30,7 @@ export default function RootLayout({
 				suppressHydrationWarning={true}
 			>
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	);

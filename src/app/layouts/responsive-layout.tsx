@@ -231,7 +231,7 @@ export default function ResponsiveLayout({
 						className={`${aboutLayout} items-start shrink-0 ${aboutPadding} `}
 					>
 						<h1
-							className={`${titleSize} font-(family-name:--font-heading) shrink-0`}
+							className={`${titleSize} font-(family-name:--font-heading) shrink-0 leading-[110%]`}
 							style={
 								!isMobile && headerBinWidth
 									? { width: headerBinWidth }
@@ -240,13 +240,25 @@ export default function ResponsiveLayout({
 						>
 							About us
 						</h1>
+						{/* there is DEFINITELY a better way to do this but im too tired */}
 						<p
-							className={`${aboutTextStyle} font-(family-name:--font-heading-light) leading-[110%]`}
+							className={`${aboutTextStyle} font-(family-name:--font-heading-light) leading-[110%] gradient-text`}
 						>
-							Hack404 is coming soon. We're a Toronto-based hackathon for
-							secondary and post-secondary students, open to anyone from
-							beginners to experienced hackers. Sign up now, experience the tech
-							of the future.
+							Hack404{" "}
+							<span className="solid-white">
+								is coming soon! We're a hackathon based in
+							</span>{" "}
+							Toronto{" "}
+							<span className="solid-white">
+								for secondary and post-secondary students, open to anyone
+								from{" "}
+							</span>{" "}
+							beginners <span className="solid-white">to</span> experienced{" "}
+							<span className="solid-white"> hackers. </span>Sign up
+							<span className="solid-white">
+								{" "}
+								today and experience the tech of the future.
+							</span>
 						</p>
 					</div>
 					<HBorder />

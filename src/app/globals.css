@@ -128,6 +128,14 @@ body {
 	-webkit-text-fill-color: transparent;
 }
 
+/* for the about me paragraph only */
+.solid-white {
+	color: white; /* Or any color you'd like */
+	background: none;
+	-webkit-background-clip: unset;
+	-webkit-text-fill-color: white; /* Reverts to solid color */
+}
+
 .waitlist {
 	display: flex;
 	height: 78px;
@@ -142,24 +150,12 @@ body {
 	-webkit-backdrop-filter: blur(10px); /* for Safari support */
 }
 
-.magnifying-glass {
-	position: absolute;
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	border: 2px solid rgba(255, 255, 255, 0.5); /* White outline */
-	backdrop-filter: none; /* Clear background */
-	-webkit-backdrop-filter: none; /* Safari support */
-	pointer-events: none;
-	transform: translate(-50%, -50%);
-}
-
 .black-screen {
 	position: fixed;
 	inset: 0;
 	background: black;
 	z-index: -30;
-	animation: fadeOut 1s ease-out forwards;
+	animation: fadeOut 1.5s ease-out forwards;
 	animation-delay: 0.5s;
 }
 

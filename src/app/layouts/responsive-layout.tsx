@@ -16,7 +16,6 @@ type LayoutProps = {
 	submitted: boolean;
 	setSubmitted: (value: boolean) => void;
 	handleSubmit: () => void | Promise<void>;
-	deviceType: "mobile" | "tablet" | "desktop";
 };
 
 export default function ResponsiveLayout({
@@ -29,69 +28,38 @@ export default function ResponsiveLayout({
 	submitted,
 	setSubmitted,
 	handleSubmit,
-	deviceType,
 }: LayoutProps) {
-	// Determine dynamic values based on device type
-	const isDesktop = deviceType === "desktop";
-	const isMobile = deviceType === "mobile";
-	const isTablet = deviceType === "tablet";
+    console.log("responsive layout rendered");
 
-    console.log(`${deviceType} layout rendered`);
-
-	// Container styles
-	const containerStyle = {
-		maxWidth: isDesktop ? `calc(100vh * (7 / 3))` : undefined,
-	};
-
-	// Content padding
-	const contentPadding = isDesktop ? "p-[64px]" : "p-6";
-	
-	// Logo size
-	const logoSize = isDesktop ? "h-[80px]" : "h-[50px]";
-	
-	// Title text size
-	const titleSize = isDesktop ? "text-[48px]" : "text-2xl";
-	
-	// Footer layout
-	const footerLayout = isDesktop 
-		? "flex items-center h-[218px] px-[64px] py-[70px]" 
-		: "flex flex-col items-center m-6 gap-6";
-	
-	// Submit button width
-	const submitButtonWidth = isMobile ? "w-[78px]" : isTablet ? "w-[158px]" : ""; 
-	
-	// Submit text
-	const submitText = isDesktop 
-		? (isSubmitting ? "Submitting..." : "Submit") 
-		: (submitted ? "Submitted" : "Submit");
-	
-	// Submit button class
-	const submitButtonClass = isDesktop 
-		? "flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]" 
-		: "flex items-center justify-start text-black bg-white pl-6 max-w-[204px]";
+	// Submit text based on submission state
+	const submitText = isSubmitting 
+		? "Submitting..." 
+		: submitted ? "Submitted" : "Submit";
 	
 	return (
 		<div 
-			className="min-h-screen flex flex-col relative"
-			style={containerStyle}
+			className="min-h-screen flex flex-col relative lg:max-w-[calc(100vh*(7/3))]"
 		>
 			{/* Header: different components for desktop vs mobile/tablet */}
-			{isDesktop 
-				? <Header onLinkWidth={setHeaderBinWidth} /> 
-				: <SmallHeader onLinkWidth={setHeaderBinWidth} />}
+			<div className="hidden lg:block">
+				<Header onLinkWidth={setHeaderBinWidth} />
+			</div>
+			<div className="block lg:hidden">
+				<SmallHeader onLinkWidth={setHeaderBinWidth} />
+			</div>
 			
 			<HBorder />
 			
 			{/* Main content section */}
-			<div className={`flex-1 flex flex-col gap-8 items-start text-left ${contentPadding} justify-between text-white`}>
+			<div className="flex-1 flex flex-col gap-8 items-start text-left p-6 lg:p-[64px] justify-between text-white">
 				<div className="flex justify-between items-start self-stretch">
-					<h1 className={`font-[300] ${titleSize} leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)`}>
+					<h1 className="font-[300] text-2xl lg:text-[48px] leading-[110%] tracking-[-1.44px] font-(family-name:--font-heading-light)">
 						a toronto based <br /> hackathon
 					</h1>
 					<img
 						src="whitesmall.png"
 						alt=""
-						className={`${logoSize} w-auto flex-shrink-0`}
+						className="h-[50px] lg:h-[80px] w-auto flex-shrink-0"
 					/>
 				</div>
 				<img
@@ -108,45 +76,40 @@ export default function ResponsiveLayout({
 			<GradientBorder reverse={true} />
 
 			{/* Footer */}
-			<footer className={footerLayout}>
+			<footer className="flex flex-col items-center m-6 gap-6 lg:flex-row lg:items-center lg:h-[218px] lg:px-[64px] lg:py-[70px] lg:m-0">
 					{/* Coming soon text - different layout for desktop vs mobile/tablet */}
-					{isDesktop ? (
+					<div className="hidden lg:block">
 						<h1 
 							className="text-2xl text-white font-(family-name:--font-heading) flex-shrink-0 pr-4"
 							style={headerBinWidth ? { width: headerBinWidth } : undefined}
 						>
 							Coming soon <br /> Summer 2025
 						</h1>
-					) : (
-						<div className="flex justify-between w-full text-white">
-							<h1>Summer 2025</h1>
-							<h1>Coming soon</h1>
-						</div>
-					)}
+					</div>
+					<div className="flex justify-between w-full text-white lg:hidden">
+						<h1>Summer 2025</h1>
+						<h1>Coming soon</h1>
+					</div>
 					
-					{/* Waitlist input and submit button - common for all layouts */}
+					{/* Waitlist input and submit button */}
 					<div className="relative flex w-full">
 						<WaitlistBox
 							email={email}
 							setEmail={setEmail}
 							submitted={submitted}
 						/>
-						
-						{/* Submit button - show text for desktop and tablet only */}
-						{!isMobile && (
-							<div 
-								className={submitButtonClass}
-								style={headerBinWidth ? { 
-									width: isDesktop ? headerBinWidth + 48 : headerBinWidth 
-								} : undefined}
-							>
-								<p>{submitText}</p>
-							</div>
-						)}
+								{/* Submit button - show text for tablet and desktop only */}
+						<div className="hidden sm:flex items-center justify-start text-black bg-white pl-6 max-w-[204px] lg:text-2xl"
+							style={headerBinWidth ? { 
+								width: headerBinWidth + 48
+							} : undefined}
+						>
+							<p>{submitText}</p>
+						</div>
 						
 						{/* Clickable button overlay */}
 						<button
-							className={`absolute top-0 right-0 h-full ${isMobile ? submitButtonWidth : "w-full"} max-w-[282px] opacity-50 cursor-pointer z-100`}
+							className="absolute top-0 right-0 h-full w-full max-w-[282px] sm:w-full opacity-50 cursor-pointer z-100"
 							onClick={handleSubmit}
 							disabled={isSubmitting || submitted}
 						></button>
@@ -156,7 +119,7 @@ export default function ResponsiveLayout({
 
 			{/* Grid background */}
 			<div className="-z-20">
-				<Grid type={deviceType} />
+				<Grid />
 			</div>
 			<GradientBackground />
 		</div>

@@ -114,20 +114,13 @@ export default function ResponsiveLayout({
 
 	return (
 		<>
-			<div
-				className="min-h-screen flex flex-col relative"
-				style={containerStyle}
-			>
+			<div className="min-h-dvh flex flex-col relative" style={containerStyle}>
 				{/* Header: different components for desktop vs mobile/tablet */}
-				{isDesktop ? (
-					<Header onLinkWidth={setHeaderBinWidth} />
-				) : (
-					<SmallHeader onLinkWidth={setHeaderBinWidth} />
-				)}
+				{isDesktop ? <Header /> : <SmallHeader />}
 
 				{/* Grid and background */}
 				<div className="-z-20">
-					<Grid type={deviceType} />
+					<Grid type={deviceType} onLinkWidth={setHeaderBinWidth} />
 				</div>
 				<div className="black-screen" />
 				<GradientBackground />
@@ -219,7 +212,7 @@ export default function ResponsiveLayout({
 			{/* About page and contact page (second screen) */}
 			<div
 				id="about-us"
-				className="min-h-screen flex flex-col relative justify-between"
+				className="min-h-dvh flex flex-col relative justify-between"
 				style={containerStyle}
 			>
 				<div

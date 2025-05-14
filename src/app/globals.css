@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -52,27 +52,6 @@
 	src: url("/fonts/FHLecturisRounded-Light.woff2") format("woff2");
 	font-weight: normal;
 	font-style: normal;
-}
-
-.dm-sans {
-	font-family: "DM Sans", sans-serif;
-	font-optical-sizing: auto;
-	font-weight: 400;
-	font-style: normal;
-}
-
-.dm-sans-bold {
-	font-family: "DM Sans", sans-serif;
-	font-optical-sizing: auto;
-	font-weight: 600;
-	font-style: normal;
-}
-
-.dm-sans-italic {
-	font-family: "DM Sans", sans-serif;
-	font-optical-sizing: auto;
-	font-weight: 600;
-	font-style: italic;
 }
 
 :root {

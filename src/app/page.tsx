@@ -9,17 +9,9 @@ import { toast } from "sonner"
  * @returns the desktop view.
  */
 export default function Home() {
-	const [headerBinWidth, setHeaderBinWidth] = useState<number | null>(null);
 	const [email, setEmail] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [submitted, setSubmitted] = useState(false);
-	const [viewport, setViewport] = useState({
-		isMobile: false,
-		isTablet: false,
-		isDesktop: false,
-		isUltrawide: false,
-	});
-	const handleSubmit = async () => {
+	const [submitted, setSubmitted] = useState(false);const handleSubmit = async () => {
 		// Don't allow submission if already in progress
 		if (isSubmitting) {
 			toast("Submission in progress. Please wait.");
@@ -84,30 +76,9 @@ export default function Home() {
 			return;
 		}
 	};
-
-	useEffect(() => {
-		const updateViewport = () => {
-			const width = window.innerWidth;
-			const height = window.innerHeight;
-			setViewport({
-				isMobile: width < 600,
-				isTablet: width >= 600 && width < 1150,
-				isDesktop: width >= 1024,
-				isUltrawide: width / height >= 1.85,
-			});
-		};
-
-		updateViewport();
-		window.addEventListener("resize", updateViewport);
-		return () => window.removeEventListener("resize", updateViewport);
-	}, []);
-
-	const { isMobile, isTablet, isDesktop } = viewport;
 	const layoutProps = {
 		email,
 		setEmail,
-		headerBinWidth,
-		setHeaderBinWidth,
 		isSubmitting,
 		setIsSubmitting,
 		submitted,
@@ -115,10 +86,5 @@ export default function Home() {
 		handleSubmit,
 	};
 	
-	// Determine device type for responsive layout
-	let deviceType: "mobile" | "tablet" | "desktop" = "desktop";
-	if (isMobile) deviceType = "mobile";
-	else if (isTablet) deviceType = "tablet";
-	
-	return <ResponsiveLayout {...layoutProps} deviceType={deviceType} />;
+	return <ResponsiveLayout {...layoutProps} />;
 }

@@ -3,35 +3,35 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
 const spaceGrotesk = Space_Grotesk({
-	variable: "--font-space-grotesk",
-	subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
 });
 
 const spaceMono = Space_Mono({
-	weight: "400",
-	variable: "--font-space-mono",
-	subsets: ["latin"],
+  weight: "400",
+  variable: "--font-space-mono",
+  subsets: ["latin"],
 });
 
 export const metadata = {
-	title: "Hack404",
-	description: "Hackathon landing page",
+  title: "Hack404",
+  description: "Hackathon landing page",
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en">
-			<body
-				className={`dm-sans ${spaceMono.variable} antialiased`}
-				suppressHydrationWarning={true}
-			>
-				{children}
-				<Toaster />
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body
+        className={`dm-sans ${spaceMono.variable} antialiased`}
+        suppressHydrationWarning={true}
+      >
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  );
 }

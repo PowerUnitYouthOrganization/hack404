@@ -7,12 +7,12 @@ export async function domainHasMX(email: string): Promise<boolean> {
   if (!isValidEmailFormat(email)) {
     return false;
   }
-  
+
   try {
-    const domain = email.split('@')[1];
+    const domain = email.split("@")[1];
     // Using DNS module to check for MX records
-    const { promises: dns } = require('dns');
-    
+    const { promises: dns } = require("dns");
+
     try {
       // Check if the domain has MX records
       const mxRecords = await dns.resolveMx(domain);
@@ -28,7 +28,7 @@ export async function domainHasMX(email: string): Promise<boolean> {
       }
     }
   } catch (error) {
-    console.error('Error checking MX records:', error);
+    console.error("Error checking MX records:", error);
     return false;
   }
 }
@@ -40,8 +40,10 @@ export async function domainHasMX(email: string): Promise<boolean> {
  */
 export function isValidEmailFormat(email: string): boolean {
   // Basic email format check - just needs @ and something on both sides
-  return typeof email === 'string' && 
-    email.includes('@') && 
-    email.split('@')[0].length > 0 && 
-    email.split('@')[1].length > 0;
+  return (
+    typeof email === "string" &&
+    email.includes("@") &&
+    email.split("@")[0].length > 0 &&
+    email.split("@")[1].length > 0
+  );
 }

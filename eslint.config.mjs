@@ -3,6 +3,8 @@ import tseslint from "typescript-eslint";
 // @ts-ignore -- no types for this plugin
 import drizzle from "eslint-plugin-drizzle";
 import js from "@eslint/js";
+import prettierPlugin from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -18,13 +20,16 @@ export default tseslint.config(
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
       drizzle,
+      prettier: prettierPlugin,
     },
     extends: [
       ...tseslint.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
+      prettierConfig,
     ],
     rules: {
+      "prettier/prettier": "error",
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/consistent-type-imports": [

@@ -73,11 +73,11 @@ export default function ResponsiveLayout({
 					/>
 				</div>
 
-				{/* Horizontal border */}
-				<HBorder />
+        {/* Horizontal border */}
+        <HBorder />
 
-				{/* Gradient border */}
-				<GradientBorder reverse={true} />
+        {/* Gradient border */}
+        <GradientBorder reverse={true} />
 
 				{/* Submission Area */}
 				<footer className="flex flex-col items-center m-6 gap-6 lg:flex-row lg:items-center lg:h-[218px] lg:px-[64px] lg:py-[70px] lg:m-0">

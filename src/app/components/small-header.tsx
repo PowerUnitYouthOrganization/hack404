@@ -8,13 +8,13 @@ export default function Header() {
 		setMenuOpen(!menuOpen);
 	};
 
-	useEffect(() => {
-		if (menuOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "auto";
-		}
-	}, [menuOpen]);
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [menuOpen]);
 
 	return (
 		<header>

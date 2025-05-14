@@ -1,37 +1,34 @@
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
-const spaceGrotesk = Space_Grotesk({
-	variable: "--font-space-grotesk",
-	subsets: ["latin"],
-});
+// Space Grotesk was defined but not used - removed
 
 const spaceMono = Space_Mono({
-	weight: "400",
-	variable: "--font-space-mono",
-	subsets: ["latin"],
+  weight: "400",
+  variable: "--font-space-mono",
+  subsets: ["latin"],
 });
 
 export const metadata = {
-	title: "Hack404",
-	description: "A Toronto-based hackathon. Sign up today!",
+  title: "Hack404",
+  description: "Hackathon landing page",
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en">
-			<body
-				className={`dm-sans ${spaceMono.variable} antialiased`}
-				suppressHydrationWarning={true}
-			>
-				{children}
-				<Toaster />
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body
+        className={`dm-sans ${spaceMono.variable} antialiased`}
+        suppressHydrationWarning={true}
+      >
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  );
 }

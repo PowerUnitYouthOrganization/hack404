@@ -1,29 +1,12 @@
 import { useRef, useEffect, useState } from "react";
 import SideMenu from "./side-menu";
 
-export default function Header({
-	onLinkWidth,
-}: {
-	onLinkWidth?: (w: number) => void;
-}) {
+export default function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
-	const elementRef = useRef<HTMLAnchorElement>(null);
 
 	const toggleMenu = () => {
 		setMenuOpen(!menuOpen);
 	};
-
-	useEffect(() => {
-		const updateWidth = () => {
-			if (elementRef.current && onLinkWidth) {
-				onLinkWidth(elementRef.current.offsetWidth);
-			}
-		};
-
-		updateWidth(); // initial call
-		window.addEventListener("resize", updateWidth);
-		return () => window.removeEventListener("resize", updateWidth);
-	}, [onLinkWidth]);
 
 	useEffect(() => {
 		if (menuOpen) {
@@ -39,7 +22,6 @@ export default function Header({
 				<a
 					href=""
 					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch z-100"
-					ref={elementRef}
 				>
 					<img
 						src="whitefull.png"

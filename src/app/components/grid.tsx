@@ -30,8 +30,7 @@ export default function Grid({
 
 	return (
 		<div
-			className={`fixed inset-0 z-10 flex h-screen w-full ${padding} gap-6`}
-			style={maxWidthStyle}
+			className="fixed inset-0 z-10 flex h-screen w-full px-6 lg:px-[64px] gap-6 max-w-full lg:max-w-[calc(100vh*(7/3))]"
 		>
 			{Array.from({ length: columns }).map((_, i) => (
 				<div

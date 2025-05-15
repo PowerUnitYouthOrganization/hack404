@@ -15,7 +15,8 @@ const spaceMono = Space_Mono({
 
 export const metadata = {
   title: "Hack404",
-  description: "A Toronto-based hackathon for students of all skill levels.",
+  description:
+    "Hack404 is a Toronto-based hackathon launching Summer 2025. Join the waitlist and be part of the innovation.",
   keywords: [
     "hackathon",
     "coding",
@@ -29,12 +30,13 @@ export const metadata = {
   authors: [{ name: "Hack404 Team" }],
   openGraph: {
     title: "Hack404",
-    description: "A Toronto-based hackathon for students of all skill levels.",
+    description:
+      "Hack404 is a Toronto-based hackathon launching Summer 2025. Join the waitlist and be part of the innovation.",
     url: "https://hack404.dev",
     siteName: "Hack404",
     images: [
       {
-        url: "embedthumbnail.png",
+        url: "https://hack404.dev/embedthumbnail.png",
         alt: "Hack404 - Hackathon Platform",
       },
     ],
@@ -45,7 +47,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Hack404 | A Toronto based hackathon",
     description: "A Toronto-based hackathon for students of all skill levels.",
-    images: ["embedthumbnail.png"],
+    images: ["https://hack404.dev/embedthumbnail.png"],
   },
 };
 

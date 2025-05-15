@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     // Check if Resend is properly configured
     if (!resend) {
-      console.error("❌ Resend API key is missing. Please configure RESEND_API_KEY in your environment variables.");
+      console.error("Resend API key is missing. Please configure RESEND_API_KEY in your environment variables.");
       return NextResponse.json(
         { error: 'Email service not configured' },
         { status: 500 }
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     console.log("📧 Attempting to send email to:", email);
     
     if (!email) {
-      console.error("❌ No email provided");
+      console.error("No email provided");
       return NextResponse.json(
         { error: 'Email is required' },
         { status: 400 }

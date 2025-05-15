@@ -36,11 +36,11 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error('❌ Error adding contact:', error);
+      console.error('Error adding contact:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    console.log("✅ Contact added successfully:", data);
+    console.log("Contact added successfully:", data);
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Error in add contact API:', error);

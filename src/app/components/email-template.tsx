@@ -17,7 +17,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({}) => (
     <div style={{ marginTop: '20px', textAlign: 'left' }}>
       <img 
         src="https://hack404.dev/blackfull.png" 
-        alt="Hack404 Logo" 
+        alt="" 
         style={{ maxWidth: '150px', height: 'auto' }}
       />
     </div>

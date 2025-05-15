@@ -79,15 +79,7 @@ export default function Home() {
         toast("Thank you for joining our waitlist!");
         
         try {
-          // Send welcome email
-          await fetch("/api/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email }),
-          });
-          console.log("Welcome email sent");
-          
-          // Add as contact
+          // Add as contact (BEFORE sending email)
           await fetch("/api/add-contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -97,8 +89,16 @@ export default function Home() {
             }),
           });
           console.log("Contact added");
+          
+          // Send welcome email AFTER adding contact
+          await fetch("/api/send-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email }),
+          });
+          console.log("Welcome email sent");
         } catch (error) {
-          console.error("Failed to send welcome email or add contact:", error);
+          console.error("Failed to add contact or send welcome email:", error);
           // Don't show error to user as they're already on the waitlist
         }
       } else if (res.status == 409) {

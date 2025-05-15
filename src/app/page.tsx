@@ -10,14 +10,16 @@ import Head from "next/head";
  * @returns the desktop view.
  */
 export default function Home() {
-	const [email, setEmail] = useState("");
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [submitted, setSubmitted] = useState(false);const handleSubmit = async () => {
-		// Don't allow submission if already in progress
-		if (isSubmitting) {
-			toast("Submission in progress. Please wait.");
-			return;
-		}
+  const [headerBinWidth, setHeaderBinWidth] = useState<number | null>(null);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const handleSubmit = async () => {
+    // Don't allow submission if already in progress
+    if (isSubmitting) {
+      toast("Submission in progress. Please wait.");
+      return;
+    }
 
     // Check if email is empty
     if (!email.trim()) {
@@ -69,39 +71,40 @@ export default function Home() {
         body: JSON.stringify({ email }),
       });
 
-			setIsSubmitting(false);
-			if (res.ok) {
-				setSubmitted(true);
-				toast("Thank you for joining our waitlist!");
-			} else if (res.status == 409) {
-				toast("You're already on the waitlist!");
-			} else {
-				toast("Something went wrong. Please try again.");
-			}
-		} catch (error: any) {
-			setIsSubmitting(false);
-			toast("Something went wrong. Please try again.");
-			return;
-		}
-	};
-	const layoutProps = {
-		email,
-		setEmail,
-		isSubmitting,
-		setIsSubmitting,
-		submitted,
-		setSubmitted,
-		handleSubmit,
-	};
+      setIsSubmitting(false);
+      if (res.ok) {
+        setSubmitted(true);
+        toast("Thank you for joining our waitlist!");
+      } else if (res.status == 409) {
+        toast("You're already on the waitlist!");
+      } else {
+        toast("Something went wrong. Please try again.");
+      }
+    } catch (error: any) {
+      setIsSubmitting(false);
+      toast("Something went wrong. Please try again.");
+      return;
+    }
+  };
+  const layoutProps = {
+    email,
+    setEmail,
+    headerBinWidth,
+    setHeaderBinWidth,
+    isSubmitting,
+    setIsSubmitting,
+    submitted,
+    setSubmitted,
+    handleSubmit,
+  };
 
-
-	return (
-		<>
-			<Head>
-				<meta property="og:image" content="thumbnail.png" />
-				<meta name="twitter:image" content="thumbnail.png" />
-			</Head>
-			<ResponsiveLayout {...layoutProps} />
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <meta property="og:image" content="thumbnail.png" />
+        <meta name="twitter:image" content="thumbnail.png" />
+      </Head>
+      <ResponsiveLayout {...layoutProps} />
+    </>
+  );
 }

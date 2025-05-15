@@ -1,35 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Grid({
-	onLinkWidth,
+  onLinkWidth,
 }: {
-	onLinkWidth?: (w: number) => void;
+  onLinkWidth?: (w: number) => void;
 }) {
+  // Breakpoints for different screen sizes
+  // mobile: 0px - 639px
+  // tablet: 640px - 1023px
+  // desktop: 1024px+
 
-	// Breakpoints for different screen sizes
-	// mobile: 0px - 639px
-	// tablet: 640px - 1023px
-	// desktop: 1024px+
+  const [type, setType] = useState("desktop"); // default to desktop
 
-	const [type, setType] = useState("desktop"); // default to desktop
+  useEffect(() => {
+    const updateType = () => {
+      if (typeof window !== "undefined") {
+        const width = window.innerWidth;
+        if (width < 640) setType("mobile");
+        else if (width < 1024) setType("tablet");
+        else setType("desktop");
+      }
+    };
 
-	useEffect(() => {
-		const updateType = () => {
-			if (typeof window !== "undefined") {
-				const width = window.innerWidth;
-				if (width < 640) setType("mobile");
-				else if (width < 1024) setType("tablet");
-				else setType("desktop");
-			}
-		};
+    updateType(); // initial call
+    window.addEventListener("resize", updateType);
+    return () => window.removeEventListener("resize", updateType);
+  }, []);
 
-		updateType(); // initial call
-		window.addEventListener("resize", updateType);
-		return () => window.removeEventListener("resize", updateType);
-	}, []);
-
-	console.log(`${type} grid rendered`);
-	const elementRef = useRef<HTMLDivElement>(null);
+  console.log(`${type} grid rendered`);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateWidth = () => {

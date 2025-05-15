@@ -77,6 +77,22 @@ export default function Home() {
       if (res.ok) {
         setSubmitted(true);
         toast("Thank you for joining our waitlist!");
+        
+        try {
+          // Add as contact only
+          await fetch("/api/add-contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              email: email,
+              firstName: email.split('@')[0]
+            }),
+          });
+          console.log("Contact added");
+        } catch (contactError) {
+          console.error("Failed to add contact:", contactError);
+          // Don't show error to user as they're already on the waitlist
+        }
       } else if (res.status == 409) {
         toast("You're already on the waitlist!");
       } else {

@@ -34,7 +34,7 @@ export const metadata = {
     siteName: "Hack404",
     images: [
       {
-        url: "embedthumbnail.jpg",
+        url: "embedthumbnail.png",
         alt: "Hack404 - Hackathon Platform",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Hack404 | A Toronto based hackathon",
     description: "A Toronto-based hackathon for students of all skill levels.",
-    images: ["embedthumbnail.jpg"],
+    images: ["embedthumbnail.png"],
   },
 };
 

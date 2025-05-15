@@ -8,33 +8,37 @@ import WaitlistBox from "../components/waitlist-box";
 
 type LayoutProps = {
 	email: string;
-	setEmail: (email: string) => void;
-	isSubmitting: boolean;
-	setIsSubmitting: (value: boolean) => void;
-	submitted: boolean;
-	setSubmitted: (value: boolean) => void;
-	handleSubmit: () => void | Promise<void>;
+  setEmail: (email: string) => void;
+  headerBinWidth: number | null;
+  setHeaderBinWidth: (value: number | null) => void;
+  isSubmitting: boolean;
+  setIsSubmitting: (value: boolean) => void;
+  submitted: boolean;
+  setSubmitted: (value: boolean) => void;
+  handleSubmit: () => void | Promise<void>;
 };
 
 export default function ResponsiveLayout({
 	email,
-	setEmail,
-	isSubmitting,
-	setIsSubmitting,
-	submitted,
-	setSubmitted,
-	handleSubmit,
+  setEmail,
+  headerBinWidth,
+  setHeaderBinWidth,
+  isSubmitting,
+  setIsSubmitting,
+  submitted,
+  setSubmitted,
+  handleSubmit
 }: LayoutProps) {
     console.log("responsive layout rendered");
 
 	// Submit text based on submission state
-	const submitText = isSubmitting 
-		? "Submitting..." 
+	const submitText = isSubmitting
+		? "Submitting..."
 		: submitted ? "Submitted" : "Submit";
-	
+
 	return (
 		<>
-			<div 
+			<div
 				className="min-h-screen flex flex-col relative lg:max-w-[calc(100vh*(7/3))]"
 			>
 				{/* Header: different components for desktop vs mobile/tablet */}
@@ -44,16 +48,16 @@ export default function ResponsiveLayout({
 				<div className="block lg:hidden">
 					<SmallHeader />
 				</div>
-				
+
 				{/* Grid and background */}
 				<div className="-z-20">
-					<Grid />
+					<Grid onLinkWidth={setHeaderBinWidth}/>
 				</div>
 				<div className="black-screen" />
 				<GradientBackground />
-				
+
 				<HBorder />
-				
+
 				{/* Main content section */}
 				<div className="flex-1 flex flex-col gap-8 items-start text-left p-6 lg:p-[64px] justify-between text-white">
 					<div className="flex justify-between items-start self-stretch">
@@ -83,8 +87,9 @@ export default function ResponsiveLayout({
 				<footer className="flex flex-col items-center m-6 gap-6 lg:flex-row lg:items-center lg:h-[218px] lg:px-[64px] lg:py-[70px] lg:m-0">
 					{/* Coming soon text - different layout for desktop vs mobile/tablet */}
 					<div className="hidden lg:block flex-shrink-0">
-						<h1 
+						<h1
 							className="text-2xl text-white font-(family-name:--font-heading) flex-shrink-0 pr-4"
+							style={headerBinWidth ? { width: headerBinWidth } : undefined}
 						>
 							Coming soon <br />
 							Summer 2025
@@ -94,7 +99,7 @@ export default function ResponsiveLayout({
 						<h1>Summer 2025</h1>
 						<h1>Coming soon</h1>
 					</div>
-					
+
 					{/* Waitlist input and submit button */}
 					<div className="relative flex w-full">
 						<WaitlistBox
@@ -102,8 +107,8 @@ export default function ResponsiveLayout({
 							setEmail={setEmail}
 							submitted={submitted}
 						/>
-						
-						
+
+
 						{/* Clickable button overlay */}
 						<button
 							className="flex flex-row items-center justify-start flex-shrink-0"
@@ -114,7 +119,7 @@ export default function ResponsiveLayout({
 							<p className="hidden sm:flex items-center justify-start h-full text-black bg-white pl-6 max-w-[204px] lg:text-2xl w-24 lg:w-44">{submitText}</p>
 							<img className="h-full" src="button.svg" alt="submit button arrow" />
 						</button>
-						
+
 					</div>
 				</footer>
 			</div>
@@ -198,7 +203,7 @@ export default function ResponsiveLayout({
 							a toronto based <br /> hackathon
 						</h1>
 					</div>
-					<div className="flex justify-between items-end self-stretch">
+					<div className="flex justify-between items-end self-stretch grow">
 						<img
 							src="whitefull.png"
 							alt=""

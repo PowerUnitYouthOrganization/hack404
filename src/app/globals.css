@@ -40,114 +40,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-@font-face {
-  font-family: "FH Lecturis Rounded";
-  src: url("/fonts/FHLecturisRounded-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "FH Lecturis Rounded Light";
-  src: url("/fonts/FHLecturisRounded-Light.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-:root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: "DM Sans";
-  --font-mono: var(--font-space-mono);
-  --font-heading: "FH Lecturis Rounded";
-  --font-heading-light: "FH Lecturis Rounded Light";
-}
-
-/* can probably remove this honestly */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Darker background for dark mode */ /* Darker foreground for dark mode */
-  }
-}
-
-/* Switch to column layout on small screens */
-@media (max-width: 1150) {
-  .homepage-footer {
-    flex-direction: column;
-    height: auto; /* optional: if 218px is too small for vertical layout */
-  }
-}
-
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 1s ease-in forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-html,
-body {
-  height: 100%;
-  font-family: var(--font-sans), Helvetica, sans-serif;
-  scroll-behavior: smooth;
-}
-
-body {
-  overflow-x: hidden !important;
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, #c3f73a 0%, #30f2f2 50%, #5e4ae3 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* for the about me paragraph only */
-.solid-white {
-  color: white; /* Or any color you'd like */
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: white; /* Reverts to solid color */
-}
-
-.waitlist {
-  display: flex;
-  height: 78px;
-  width: 100%;
-  align-items: center;
-  padding: 0px 24px 0px 24px;
-  border-radius: 5px 0px 0px 5px;
-  border: 1px solid var(--Cyan-20, rgba(48, 242, 242, 0.2));
-  background: var(--Cyan-20, rgba(48, 242, 242, 0.2));
-  /* add blur */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* for Safari support */
-}
-
-.black-screen {
-  position: fixed;
-  inset: 0;
-  background: black;
-  z-index: -30;
-  animation: fadeOut 1.5s ease-out forwards;
-  animation-delay: 0.5s;
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -226,5 +118,102 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@font-face {
+  font-family: "FH Lecturis Rounded";
+  src: url("/fonts/FHLecturisRounded-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FH Lecturis Rounded Light";
+  src: url("/fonts/FHLecturisRounded-Light.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "DM Sans";
+  --font-mono: var(--font-space-mono);
+  --font-heading: "FH Lecturis Rounded";
+  --font-heading-light: "FH Lecturis Rounded Light";
+}
+
+/* can probably remove this honestly */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Darker background for dark mode */ /* Darker foreground for dark mode */
+  }
+}
+
+/* Switch to column layout on small screens */
+@media (max-width: 1150) {
+  .homepage-footer {
+    flex-direction: column;
+    height: auto; /* optional: if 218px is too small for vertical layout */
+  }
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font-sans), Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden !important;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #c3f73a 0%, #30f2f2 50%, #5e4ae3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* for the about me paragraph only */
+.solid-white {
+  color: white; /* Or any color you'd like */
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: white; /* Reverts to solid color */
+}
+
+.waitlist {
+  display: flex;
+  height: 78px;
+  width: 100%;
+  align-items: center;
+  padding: 0px 24px 0px 24px;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid var(--Cyan-20, rgba(48, 242, 242, 0.2));
+  background: var(--Cyan-20, rgba(48, 242, 242, 0.2));
+  /* add blur */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* for Safari support */
+}
+
+.black-screen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: -30;
+  animation: fadeOut 1.5s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
   }
 }

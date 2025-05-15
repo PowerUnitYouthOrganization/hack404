@@ -77,6 +77,36 @@ export default function Home() {
       if (res.ok) {
         setSubmitted(true);
         toast("Thank you for joining our waitlist!");
+        
+        // Send welcome email
+        try {
+          const firstName = email.split('@')[0]; // Use part before @ as first name
+          
+          // Send welcome email
+          await fetch("/api/send-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              email: email,
+              firstName: firstName
+            }),
+          });
+          console.log("Welcome email sent");
+          
+          // Add as contact
+          await fetch("/api/add-contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              email: email,
+              firstName: firstName
+            }),
+          });
+          console.log("Contact added");
+        } catch (emailError) {
+          console.error("Failed to send welcome email or add contact:", emailError);
+          // Don't show error to user as they're already on the waitlist
+        }
       } else if (res.status == 409) {
         toast("You're already on the waitlist!");
       } else {

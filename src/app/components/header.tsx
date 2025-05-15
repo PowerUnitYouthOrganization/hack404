@@ -38,28 +38,32 @@ export default function Header({
 					Instagram
 				</a>
 				<a
-					href=""
+					href="#"
 					className="flex flex-col justify-center items-center gap-[10px] flex-1 self-stretch"
 				>
 					<img
 						src="whitefull.png"
-						alt="Logo"
+						alt="Hack404 Logo"
 						className="flex justify-center items-center w-[109px] h-auto"
 					/>
 				</a>
 				<a
-					href=""
+					href="/Hack404 Sponsorship Package.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
 					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch text-white"
 				>
 					Sponsor us
 				</a>
 				<a
 					href="https://power-unit.org"
+					target="_blank"
+					rel="noopener noreferrer"
 					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch"
 				>
 					<img
 						src="PUYOlogo.png"
-						alt="Logo"
+						alt="Power Unit Logo"
 						className="flex justify-center items-center w-[49px] h-auto"
 					/>
 				</a>

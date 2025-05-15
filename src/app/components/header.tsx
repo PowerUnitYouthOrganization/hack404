@@ -19,6 +19,7 @@ export default function Header({
     return () => window.removeEventListener("resize", updateWidth);
   }, [onLinkWidth]);
 
+          
   return (
     <header>
       <nav className="flex h-[64px] w-full flex-shrink-0 items-start gap-[24px] px-[64px]">
@@ -48,7 +49,7 @@ export default function Header({
           />
         </a>
         <a
-          href=""
+          href="/Hack404 Sponsorship Package.pdf"
           className="flex flex-1 flex-col items-end justify-center gap-[10px] self-stretch text-white"
         >
           Sponsor us

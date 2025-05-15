@@ -15,11 +15,11 @@ export default function SignIn({ provider, label }: SignInProps) {
       onClick={() => signIn(provider)}
       className="rounded bg-black px-4 py-2 text-white transition hover:bg-gray-800"
     >
-      {label ?? `sign in with ${provider}`}
+      {label ?? `Sign in with ${provider}`}
     </button>
   );
 }
 
-// function capitalize(text: string) {
-// 	return text.charAt(0).toUpperCase() + text.slice(1);
-// }
+function capitalize(text: string) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}

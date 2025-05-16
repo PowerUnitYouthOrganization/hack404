@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useGridColWidth } from "../contexts/GridCtx";
 
 export default function Grid() {
 	// Breakpoints for different screen sizes
@@ -7,6 +8,8 @@ export default function Grid() {
 	// desktop: 1024px+
 
 	const [type, setType] = useState("desktop"); // default to desktop
+  const [colWidth, setColWidth] = useGridColWidth(); // default to 0
+	const firstColumnRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const updateType = () => {
@@ -22,6 +25,21 @@ export default function Grid() {
 		window.addEventListener("resize", updateType);
 		return () => window.removeEventListener("resize", updateType);
 	}, []);
+
+	// Effect to measure and set the column width
+	useEffect(() => {
+		const measureColumnWidth = () => {
+			if (firstColumnRef.current) {
+				const width = firstColumnRef.current.getBoundingClientRect().width;
+				setColWidth(width);
+				console.log(`Column width: ${width}px`);
+			}
+		};
+
+		measureColumnWidth();
+		window.addEventListener("resize", measureColumnWidth);
+		return () => window.removeEventListener("resize", measureColumnWidth);
+	}, [setColWidth, type]); // Re-measure when type changes
 
 	console.log(`${type} grid rendered`);
 
@@ -42,6 +60,7 @@ export default function Grid() {
 			{Array.from({ length: columns }).map((_, i) => (
 				<div
 					key={i}
+					ref={i === 0 ? firstColumnRef : undefined}
 					className="border-x"
 					style={{ borderColor: "rgba(48, 242, 242, 0.2)" }}
 				/>

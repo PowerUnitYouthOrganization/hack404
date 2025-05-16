@@ -5,6 +5,7 @@ import Grid from "@/app/components/grid";
 import HBorder from "@/app/components/h-border";
 import GradientBackground from "@/app/components/gradient-background";
 import WaitlistBox from "../components/waitlist-box";
+import { useGridColWidth } from "../contexts/GridCtx";
 
 type LayoutProps = {
 	email: string;
@@ -31,6 +32,8 @@ export default function ResponsiveLayout({
 	const submitText = isSubmitting 
 		? "Submitting..." 
 		: submitted ? "Submitted" : "Submit";
+	
+	const [colWidth] = useGridColWidth(); // Get the column width from context
 	
 	return (
 		<>
@@ -82,9 +85,9 @@ export default function ResponsiveLayout({
 				{/* Submission Area */}
 				<footer className="flex flex-col items-center m-6 gap-6 lg:flex-row lg:items-center lg:h-[218px] lg:px-[64px] lg:py-[70px] lg:m-0">
 					{/* Coming soon text - different layout for desktop vs mobile/tablet */}
-					<div className="hidden lg:block flex-shrink-0">
+					<div className="hidden lg:block" style={{ width: `calc(${colWidth}px - 1.5rem)` }}>
 						<h1 
-							className="text-2xl text-white font-(family-name:--font-heading) flex-shrink-0 pr-4"
+							className="text-2xl text-white font-(family-name:--font-heading) pr-4"
 						>
 							Coming soon <br />
 							Summer 2025
@@ -96,7 +99,7 @@ export default function ResponsiveLayout({
 					</div>
 					
 					{/* Waitlist input and submit button */}
-					<div className="relative flex w-full">
+					<div className="relative flex flex-1">
 						<WaitlistBox
 							email={email}
 							setEmail={setEmail}
@@ -134,7 +137,8 @@ export default function ResponsiveLayout({
 						className="flex flex-col sm:flex-row gap-12 sm:gap-6 items-start shrink-0 py-[30px] px-[24px] sm:px-[24px] sm:py-[64px] lg:px-[64px] lg:py-[70px]"
 					>
 						<h1
-							className="text-2xl lg:text-4xl font-(family-name:--font-heading) shrink-0 leading-[110%] w-[130px]"
+							className="text-4xl lg:text-5xl font-(family-name:--font-heading) shrink-0 leading-[110%]"
+							style={{ width: `calc(${colWidth}px - 1.5rem)` }}
 						>
 							About us
 						</h1>
@@ -166,7 +170,7 @@ export default function ResponsiveLayout({
 					>
 						<div className="flex-col items-start gap-6">
 							<h1
-								className="text-2xl lg:text-4xl font-(family-name:--font-heading) shrink-0"
+								className="text-4xl lg:text-5xl font-(family-name:--font-heading) shrink-0"
 							>
 								Contact
 							</h1>

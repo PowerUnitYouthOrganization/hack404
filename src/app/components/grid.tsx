@@ -21,10 +21,11 @@ export default function Grid() {
 			}
 		};
 
-		updateType(); // initial call
-		window.addEventListener("resize", updateType);
-		return () => window.removeEventListener("resize", updateType);
-	}, []);
+
+    updateType(); // initial call
+    window.addEventListener("resize", updateType);
+    return () => window.removeEventListener("resize", updateType);
+  }, []);
 
 	// Effect to measure and set the column width
 	useEffect(() => {
@@ -68,3 +69,4 @@ export default function Grid() {
 		</div>
 	);
 }
+

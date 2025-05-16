@@ -1,10 +1,6 @@
 import { useRef, useEffect } from "react";
 
 export default function Header() {
-	// No longer need refs or effects for width measurement
-
-	
-
   return (
     <header>
       <nav className="flex h-[64px] w-full flex-shrink-0 items-start gap-[24px] px-[64px]">

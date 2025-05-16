@@ -8,25 +8,29 @@ import WaitlistBox from "../components/waitlist-box";
 import { useGridColWidth } from "../contexts/GridCtx";
 
 type LayoutProps = {
-	email: string;
-	setEmail: (email: string) => void;
-	isSubmitting: boolean;
-	setIsSubmitting: (value: boolean) => void;
-	submitted: boolean;
-	setSubmitted: (value: boolean) => void;
-	handleSubmit: () => void | Promise<void>;
+  email: string;
+  setEmail: (email: string) => void;
+  headerBinWidth: number | null;
+  setHeaderBinWidth: (value: number | null) => void;
+  isSubmitting: boolean;
+  setIsSubmitting: (value: boolean) => void;
+  submitted: boolean;
+  setSubmitted: (value: boolean) => void;
+  handleSubmit: () => void | Promise<void>;
 };
 
 export default function ResponsiveLayout({
-	email,
-	setEmail,
-	isSubmitting,
-	setIsSubmitting,
-	submitted,
-	setSubmitted,
-	handleSubmit,
+  email,
+  setEmail,
+  headerBinWidth,
+  setHeaderBinWidth,
+  isSubmitting,
+  setIsSubmitting,
+  submitted,
+  setSubmitted,
+  handleSubmit,
 }: LayoutProps) {
-    console.log("responsive layout rendered");
+  console.log("responsive layout rendered");
 
 	// Submit text based on submission state
 	const submitText = isSubmitting 

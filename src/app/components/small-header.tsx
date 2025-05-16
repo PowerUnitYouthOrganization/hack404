@@ -2,11 +2,11 @@ import { useRef, useEffect, useState } from "react";
 import SideMenu from "./side-menu";
 
 export default function Header() {
-	const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-	const toggleMenu = () => {
-		setMenuOpen(!menuOpen);
-	};
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   useEffect(() => {
     if (menuOpen) {
@@ -16,27 +16,27 @@ export default function Header() {
     }
   }, [menuOpen]);
 
-	return (
-		<header>
-			<nav className="flex h-[64px] px-6 items-start gap-6 flex-shrink-0 w-full">
-				<a
-					href=""
-					className="flex flex-col justify-center items-start gap-[10px] flex-1 self-stretch z-100"
-				>
-					<img
-						src="whitefull.png"
-						alt="Logo"
-						className="flex justify-center items-center w-[109px] h-auto"
-					/>
-				</a>
-				<button
-					className="flex flex-col justify-center items-end gap-[10px] flex-1 self-stretch z-100"
-					onClick={toggleMenu}
-				>
-					{menuOpen ? "CLOSE" : "MENU"}
-				</button>
-			</nav>
-			<SideMenu open={menuOpen} onClose={toggleMenu} />
-		</header>
-	);
+  return (
+    <header>
+      <nav className="flex h-[64px] w-full flex-shrink-0 items-start gap-6 px-6">
+        <a
+          href=""
+          className="z-100 flex flex-1 flex-col items-start justify-center gap-[10px] self-stretch"
+        >
+          <img
+            src="whitefull.png"
+            alt="Logo"
+            className="flex h-auto w-[109px] items-center justify-center"
+          />
+        </a>
+        <button
+          className="z-100 flex flex-1 flex-col items-end justify-center gap-[10px] self-stretch"
+          onClick={toggleMenu}
+        >
+          {menuOpen ? "CLOSE" : "MENU"}
+        </button>
+      </nav>
+      <SideMenu open={menuOpen} onClose={toggleMenu} />
+    </header>
+  );
 }

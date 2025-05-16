@@ -1,11 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Grid({
-	onLinkWidth,
-}: {
-	onLinkWidth?: (w: number) => void;
-}) {
-
+export default function Grid() {
 	// Breakpoints for different screen sizes
 	// mobile: 0px - 639px
 	// tablet: 640px - 1023px
@@ -29,39 +24,28 @@ export default function Grid({
 	}, []);
 
 	console.log(`${type} grid rendered`);
-	const elementRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const updateWidth = () => {
-      if (elementRef.current && onLinkWidth) {
-        onLinkWidth(elementRef.current.offsetWidth);
-      }
-    };
+	// Define configuration based on type
+	const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
+	const padding = type === "desktop" ? "px-[64px]" : "px-6";
+	const maxWidthStyle =
+		type === "desktop" ? { maxWidth: `calc(100vh * (7 / 3))` } : undefined;
 
-    updateWidth(); // initial call
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [onLinkWidth]);
-
-  // Define configuration based on type
-  const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
-  const padding = type === "desktop" ? "px-[64px]" : "px-6";
-  const maxWidthStyle =
-    type === "desktop" ? { maxWidth: `calc(100vh * (7 / 3))` } : undefined;
-
-  return (
-    <div
-      className={`fixed inset-0 z-10 flex h-screen w-full ${padding} gap-6`}
-      style={maxWidthStyle}
-    >
-      {Array.from({ length: columns }).map((_, i) => (
-        <div
-          key={i}
-          className="flex-1 border-x"
-          style={{ borderColor: "rgba(48, 242, 242, 0.2)" }}
-          ref={elementRef}
-        />
-      ))}
-    </div>
-  );
+	return (
+		<div
+			className={`fixed inset-0 z-10 grid h-screen w-full ${padding} gap-6`}
+			style={{
+				...maxWidthStyle,
+				gridTemplateColumns: `repeat(var(--grid-columns), 1fr)`,
+			}}
+		>
+			{Array.from({ length: columns }).map((_, i) => (
+				<div
+					key={i}
+					className="border-x"
+					style={{ borderColor: "rgba(48, 242, 242, 0.2)" }}
+				/>
+			))}
+		</div>
+	);
 }

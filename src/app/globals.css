@@ -38,6 +38,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Grid system variables - default to desktop */
+  --grid-columns: 5;
+  --grid-padding: 64px;
+  --grid-gap: 24px;
+  
+  /* Utility classes for grid alignment */
+  --column-width: calc((100% - (var(--grid-padding) * 2) - (var(--grid-gap) * (var(--grid-columns) - 1))) / var(--grid-columns));
 }
 
 @font-face {
@@ -75,6 +83,20 @@
   .homepage-footer {
     flex-direction: column;
     height: auto; /* optional: if 218px is too small for vertical layout */
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --grid-columns: 4;
+    --grid-padding: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --grid-columns: 2;
+    --grid-padding: 24px;
   }
 }
 
@@ -166,7 +188,7 @@ body {
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-foreground: var (--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-input: var(--input);
@@ -227,4 +249,24 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.col-1 {
+  width: var(--column-width);
+}
+
+.col-2 {
+  width: calc(var(--column-width) * 2 + var(--grid-gap));
+}
+
+.col-3 {
+  width: calc(var(--column-width) * 3 + var(--grid-gap) * 2);
+}
+
+.col-4 {
+  width: calc(var(--column-width) * 4 + var(--grid-gap) * 3);
+}
+
+.col-5 {
+  width: calc(var(--column-width) * 5 + var(--grid-gap) * 4);
 }

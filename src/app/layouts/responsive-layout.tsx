@@ -99,7 +99,7 @@ export default function ResponsiveLayout({
 					</div>
 					
 					{/* Waitlist input and submit button */}
-					<div className="relative flex flex-1">
+					<div className="relative flex flex-1 w-full">
 						<WaitlistBox
 							email={email}
 							setEmail={setEmail}

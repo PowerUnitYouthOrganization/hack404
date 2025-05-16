@@ -29,7 +29,7 @@ export default function Header() {
           />
         </a>
         <a
-          href="#about-us"
+          href="/Hack404 Sponsorship Package.pdf"
           className="flex flex-1 flex-col items-end justify-center gap-[10px] self-stretch text-white"
         >
           Sponsor us

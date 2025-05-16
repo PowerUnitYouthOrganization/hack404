@@ -7,7 +7,7 @@ const resend = apiKey ? new Resend(apiKey) : null;
 export async function POST(request: Request) {
   try {
     if (!resend) {
-      console.error("❌ Resend API key is missing");
+      console.error("Resend API key is missing");
       return NextResponse.json(
         { error: 'Contact service not configured' },
         { status: 500 }
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     
     const { email, firstName } = await request.json();
     
-    console.log("👤 Adding contact to Resend:", email);
+    console.log("Adding contact to Resend:", email);
     
     if (!email) {
       return NextResponse.json(

@@ -65,7 +65,7 @@ export default function Home() {
       }
     }
     try {
-      // Make API call to backend (skipping complex MX validation)
+      // should probabl make this call within app
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

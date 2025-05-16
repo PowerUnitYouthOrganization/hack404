@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useGridColWidth } from "../contexts/GridCtx";
+import { useGridColWidth } from "../app/contexts/GridCtx";
 
 export default function Grid() {
 	// Breakpoints for different screen sizes

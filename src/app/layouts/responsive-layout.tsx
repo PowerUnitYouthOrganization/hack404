@@ -269,7 +269,6 @@ export default function ResponsiveLayout({
               <p
                 className={`gradient-text ${contactTextSize} [style="line-height:110%;letter-spacing:-0.84px"] font-(family-name:--font-heading-light)`}
               >
-                emma.xing@power-unit.org <br />
                 support@hack404.dev
               </p>
             </div>

@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import WaitlistEmail from '../../components/email-template';
 
 const apiKey = process.env.RESEND_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
@@ -28,27 +29,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send direct email with a clean template
+    // Send email using the React email component
     const { data, error } = await resend.emails.send({
       from: 'Hack404 <hello@hack404.dev>',
       to: [email],
       subject: 'Welcome to Hack404!',
-      html: `
-        <div style="font-family: 'FH Lecturis', Arial, sans-serif; padding: 20px; color: #333">
-          <p>Hey there, thank you for signing up for Hack404's information list!</p>
-          <p>We're excited for our first iteration happening this July 4-6. Stay tuned - hacker applications will open shortly.</p>
-          <p>In the meantime, check out our Instagram - <a href="https://www.instagram.com/hack404.dev/" style="color: #0366d6; text-decoration: none;">@hack404.dev</a>.</p>
-          <p>Sincerely,<br />The Hack404 Team</p>
-          
-          <div style="margin-top: 20px; text-align: left;">
-            <img 
-              src="https://resend-attachments.s3.amazonaws.com/ecYDid3FS9WKMEj" 
-              alt="Hack404 Logo" 
-              style="max-width: 150px; height: auto;"
-            />
-          </div>
-        </div>
-      `
+      react: WaitlistEmail() // Use the React component instead of HTML
     });
 
     if (error) {

@@ -54,6 +54,8 @@
 }
 
 @theme inline {
+	--breakpoint-desktop: 1150px;
+	--breakpoint-tablet: 640px;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);

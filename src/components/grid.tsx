@@ -8,7 +8,7 @@ export default function Grid() {
 	// desktop: 1024px+
 
 	const [type, setType] = useState("desktop"); // default to desktop
-  const [colWidth, setColWidth] = useGridColWidth(); // default to 0
+	const [colWidth, setColWidth] = useGridColWidth(); // default to 0
 	const firstColumnRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -16,16 +16,15 @@ export default function Grid() {
 			if (typeof window !== "undefined") {
 				const width = window.innerWidth;
 				if (width < 640) setType("mobile");
-				else if (width < 1024) setType("tablet");
+				else if (width < 1150) setType("tablet");
 				else setType("desktop");
 			}
 		};
 
-
-    updateType(); // initial call
-    window.addEventListener("resize", updateType);
-    return () => window.removeEventListener("resize", updateType);
-  }, []);
+		updateType(); // initial call
+		window.addEventListener("resize", updateType);
+		return () => window.removeEventListener("resize", updateType);
+	}, []);
 
 	// Effect to measure and set the column width
 	useEffect(() => {
@@ -69,4 +68,3 @@ export default function Grid() {
 		</div>
 	);
 }
-

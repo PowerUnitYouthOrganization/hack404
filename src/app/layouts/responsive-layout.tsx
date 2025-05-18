@@ -1,10 +1,11 @@
-import Header from "@/app/components/header";
-import SmallHeader from "@/app/components/small-header";
-import GradientBorder from "@/app/components/gradient-border";
-import Grid from "@/app/components/grid";
-import HBorder from "@/app/components/h-border";
-import GradientBackground from "@/app/components/gradient-background";
-import WaitlistBox from "../components/waitlist-box";
+import Header from "@/components/header";
+import SmallHeader from "@/components/small-header";
+import GradientBorder from "@/components/gradient-border";
+import Grid from "@/components/grid";
+import HBorder from "@/components/h-border";
+import GradientBackground from "@/components/gradient-background";
+import WaitlistBox from "../../components/waitlist-box";
+import { useGridColWidth } from "../contexts/GridCtx";
 
 type LayoutProps = {
   email: string;
@@ -38,6 +39,8 @@ export default function ResponsiveLayout({
       ? "Submitted"
       : "Submit";
 
+  const [colWidth] = useGridColWidth(); // Get the column width from context
+
   return (
     <>
       <div className="relative flex min-h-screen flex-col lg:max-w-[calc(100vh*(7/3))]">
@@ -51,7 +54,7 @@ export default function ResponsiveLayout({
 
         {/* Grid and background */}
         <div className="-z-20">
-          <Grid onLinkWidth={setHeaderBinWidth} />
+          <Grid />
         </div>
         <div className="black-screen" />
         <GradientBackground />
@@ -86,11 +89,11 @@ export default function ResponsiveLayout({
         {/* Submission Area */}
         <footer className="m-6 flex flex-col items-center gap-6 lg:m-0 lg:h-[218px] lg:flex-row lg:items-center lg:px-[64px] lg:py-[70px]">
           {/* Coming soon text - different layout for desktop vs mobile/tablet */}
-          <div className="hidden flex-shrink-0 lg:block">
-            <h1
-              className="flex-shrink-0 pr-4 font-(family-name:--font-heading) text-2xl text-white"
-              style={headerBinWidth ? { width: headerBinWidth } : undefined}
-            >
+          <div
+            className="hidden lg:block"
+            style={{ width: `calc(${colWidth}px - 1.5rem)` }}
+          >
+            <h1 className="pr-4 font-(family-name:--font-heading) text-2xl text-white">
               Coming soon <br />
               Summer 2025
             </h1>
@@ -101,7 +104,7 @@ export default function ResponsiveLayout({
           </div>
 
           {/* Waitlist input and submit button */}
-          <div className="relative flex w-full">
+          <div className="relative flex w-full flex-1">
             <WaitlistBox
               email={email}
               setEmail={setEmail}
@@ -138,7 +141,10 @@ export default function ResponsiveLayout({
           {/* about us */}
           <div className="bg-background absolute inset-0 -z-30" />
           <div className="flex shrink-0 flex-col items-start gap-12 px-[24px] py-[30px] sm:flex-row sm:gap-6 sm:px-[24px] sm:py-[64px] lg:px-[64px] lg:py-[70px]">
-            <h1 className="w-[130px] shrink-0 font-(family-name:--font-heading) text-2xl leading-[110%] lg:text-4xl">
+            <h1
+              className="shrink-0 font-(family-name:--font-heading) text-4xl leading-[110%] lg:text-5xl"
+              style={{ width: `calc(${colWidth}px - 1.5rem)` }}
+            >
               About us
             </h1>
             {/* there is DEFINITELY a better way to do this but im too tired */}
@@ -164,7 +170,7 @@ export default function ResponsiveLayout({
           {/* contact */}
           <div className="flex items-start justify-between self-stretch px-[24px] py-[30px] sm:px-[24px] sm:py-[64px] lg:px-[64px] lg:py-[70px]">
             <div className="flex-col items-start gap-6">
-              <h1 className="shrink-0 font-(family-name:--font-heading) text-2xl lg:text-4xl">
+              <h1 className="shrink-0 font-(family-name:--font-heading) text-4xl lg:text-5xl">
                 Contact
               </h1>
               {/* Messy text formatting, fix later */}
@@ -187,7 +193,7 @@ export default function ResponsiveLayout({
               a toronto based <br /> hackathon
             </h1>
           </div>
-          <div className="flex grow items-end justify-between self-stretch">
+          <div className="flex items-end justify-between self-stretch">
             <img
               src="whitefull.png"
               alt=""

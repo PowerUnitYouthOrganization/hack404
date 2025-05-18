@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import ResponsiveLayout from "./layouts/responsive-layout";
 import { toast } from "sonner";
 import Head from "next/head";
+import { GridColWidthProvider } from "@/app/contexts/GridCtx";
 
 /**
  * The main UI for desktop browsers.
@@ -64,7 +65,7 @@ export default function Home() {
       }
     }
     try {
-      // Make API call to backend (skipping complex MX validation)
+      // should probabl make this call within app
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -75,6 +76,30 @@ export default function Home() {
       if (res.ok) {
         setSubmitted(true);
         toast("Thank you for joining our waitlist!");
+        
+        try {
+          // Add as contact (BEFORE sending email)
+          await fetch("/api/add-contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              email: email,
+              firstName: email.split('@')[0]
+            }),
+          });
+          console.log("Contact added");
+          
+          // Send welcome email AFTER adding contact
+          await fetch("/api/send-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email }),
+          });
+          console.log("Welcome email sent");
+        } catch (error) {
+          console.error("Failed to add contact or send welcome email:", error);
+          // Don't show error to user as they're already on the waitlist
+        }
       } else if (res.status == 409) {
         toast("You're already on the waitlist!");
       } else {
@@ -98,13 +123,16 @@ export default function Home() {
     handleSubmit,
   };
 
-  return (
-    <>
-      <Head>
-        <meta property="og:image" content="thumbnail.png" />
-        <meta name="twitter:image" content="thumbnail.png" />
-      </Head>
-      <ResponsiveLayout {...layoutProps} />
-    </>
-  );
+	return (
+		<>
+			<Head>
+				<meta property="og:image" content="thumbnail.png" />
+				<meta name="twitter:image" content="thumbnail.png" />
+			</Head>
+      <GridColWidthProvider >
+			  <ResponsiveLayout {...layoutProps} />
+      </GridColWidthProvider>
+		</>
+	);
+
 }

@@ -187,13 +187,13 @@ export default function ResponsiveLayout({
 					</div>
 					<HBorder />
 				</div>
-				<div className="tablet:px-6 tablet:py-[38px] desktop:p-16 flex h-full grow flex-col items-end justify-between gap-16 p-6">
+				<div className="tablet:px-6 tablet:py-[38px] tablet:grow-0 desktop:p-16 flex h-full grow flex-col items-end justify-between gap-16 p-6">
 					<div className="tablet:hidden block">
 						<h1 className="text-right font-(family-name:--font-heading-light) text-[38px] [line-height:110%] [letter-spacing:-1.44px]">
 							a toronto based <br /> hackathon
 						</h1>
 					</div>
-					<div className="flex items-end justify-between self-stretch">
+					<div className="flex items-end justify-between self-stretch align-bottom">
 						<img
 							src="whitefull.png"
 							alt=""

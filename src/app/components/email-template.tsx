@@ -22,7 +22,7 @@ export default function WaitlistEmail() {
           @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap');
           
           @font-face {
-            font-family: 'FH Lecturis Rounded';
+            font-family: 'FH Lecturis';
             src: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FHLecturisRounded-Regular-4o0BAsoghq9sl7B7UXJRfPpapMub52.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
@@ -30,7 +30,7 @@ export default function WaitlistEmail() {
           }
           
           @font-face {
-            font-family: 'FH Lecturis Rounded';
+            font-family: 'FH Lecturis';
             src: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FHLecturisRounded-Bold-nSd4K1kDP1OIxsJGfKkX5PS0YBjNtX.woff2') format('woff2');
             font-weight: bold;
             font-style: normal;
@@ -38,7 +38,7 @@ export default function WaitlistEmail() {
           }
           
           @font-face {
-            font-family: 'FH Lecturis Rounded';
+            font-family: 'FH Lecturis';
             src: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FHLecturisRounded-Light-K2n9opf6PfzRcFavmZglLxCumrtEli.woff2') format('woff2');
             font-weight: 300;
             font-style: normal;
@@ -428,7 +428,7 @@ export default function WaitlistEmail() {
                 width: "50%", 
                 textAlign: "right", 
                 verticalAlign: "middle",
-                fontFamily: "'FH Lecturis Rounded', 'DM Sans', Arial, sans-serif",
+                fontFamily: "'FH Lecturis', 'DM Sans', Arial, sans-serif",
                 fontWeight: 300,
                 fontSize: "20px",
                 lineHeight: "100%",
@@ -444,7 +444,7 @@ export default function WaitlistEmail() {
           <Section className="main-content" style={{ padding: "0 36px", backgroundColor: "#0e1116" }}>
             <div className="heading-container" style={{ marginTop: "64px", marginBottom: "48px" }}>
               <Text style={{
-                fontFamily: "'FH Lecturis Rounded', 'DM Sans', Arial, sans-serif",
+                fontFamily: "'FH Lecturis', 'DM Sans', Arial, sans-serif",
                 fontWeight: "normal",
                 fontSize: "40px",
                 lineHeight: "100%",
@@ -524,7 +524,7 @@ export default function WaitlistEmail() {
                 <Column style={{ width: "50%", textAlign: "left", verticalAlign: "middle" }}>
                   <div style={{ display: "inline-block" }}>
                     <Text style={{
-                      fontFamily: "'FH Lecturis Rounded', 'DM Sans', Arial, sans-serif",
+                      fontFamily: "'FH Lecturis', 'DM Sans', Arial, sans-serif",
                       fontWeight: 300,
                       fontSize: "20px",
                       lineHeight: "100%",
@@ -535,7 +535,7 @@ export default function WaitlistEmail() {
                       Follow
                     </Text>
                     <Text style={{
-                      fontFamily: "'FH Lecturis Rounded', 'DM Sans', Arial, sans-serif",
+                      fontFamily: "'FH Lecturis', 'DM Sans', Arial, sans-serif",
                       fontWeight: 300,
                       fontSize: "36px",
                       lineHeight: "100%",
@@ -604,17 +604,19 @@ export default function WaitlistEmail() {
                   <Img 
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/PUYO%20Logo-jCW5IINcDKxVsB5Sx0XNmev4XawyxW.png" 
                     alt="Power Unit Youth Organization" 
-                    style={{ height: "40px", width: "auto" }}
+                    style={{ height: "40px", width: "auto", display: "inline-block" }}
                   />
                 </Column>
                 <Column style={{ width: "33.33%", textAlign: "center", verticalAlign: "middle" }}>
                   <Link href="https://hack404.dev" style={{
-                    fontFamily: "'FH Lecturis Rounded', 'DM Sans', Arial, sans-serif",
+                    fontFamily: "'FH Lecturis', 'DM Sans', Arial, sans-serif",
                     fontWeight: 300,
                     fontSize: "20px",
                     letterSpacing: "-0.6px",
                     textDecoration: "none",
-                    color: "#30f2f2"
+                    color: "#30f2f2",
+                    display: "inline-block",
+                    margin: "0 auto"
                   }}>
                     hack404.dev
                   </Link>
@@ -623,7 +625,7 @@ export default function WaitlistEmail() {
                   <Img 
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Colour%20Logo%20Clear.png-rxDX3o8b4wAZ9PbarkfCLjOcIsSSnP.jpeg" 
                     alt="hack404 Logo" 
-                    style={{ height: "40px", width: "auto" }}
+                    style={{ height: "40px", width: "auto", display: "inline-block", marginLeft: "auto" }}
                   />
                 </Column>
               </Row>

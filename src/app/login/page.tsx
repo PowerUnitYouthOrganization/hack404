@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
@@ -34,14 +33,16 @@ export default function SignIn() {
 				body: JSON.stringify({ email }),
 			});
 			const data = await response.json();
-			if (data.exists) {
-				console.error("Email already registered");
-				return;
+
+			if (!data.exists) {
+				console.log("new email! redirecting to profile creation");
+				// TODO: REDIRECT TO PROFILE CREATION PAGE
+				await signIn("resend", { email, redirectTo: "/" });
+				setIsLoading(false);
 			}
-			// Add your email registration logic here
+
 			console.log("Email registration with:", email);
-			// Use NextAuth.js to send a sign-in link to the email
-			await signIn("resend", { email });
+			await signIn("resend", { email, redirectTo: "/" });
 		} catch (error) {
 			console.error("Registration error:", error);
 		} finally {
@@ -49,13 +50,14 @@ export default function SignIn() {
 		}
 	};
 
+	/*
 	const handleGithubSignIn = async () => {
 		setIsLoading(true);
 		try {
 			// Add GitHub sign-in logic here
 			console.log("Signing in with GitHub");
 			signIn("github", {
-				redirectTo: "/", // TODO: change later
+				redirectTo: "/", // TODO: change later actually maybe not
 			});
 		} catch (error) {
 			console.error("GitHub sign-in error:", error);
@@ -78,93 +80,55 @@ export default function SignIn() {
 			setIsLoading(false);
 		}
 	};
+	*/
 
 	return (
-		<div className="bg-background flex min-h-screen items-center justify-center">
-			<div className="border-border bg-card w-full max-w-md space-y-8 rounded-lg border p-8 shadow-lg backdrop-blur-sm">
-				<div className="text-center">
-					<h1 className="font-heading text-4xl font-bold text-black">
-						Enter your email
-					</h1>
-					<p className="text-muted-foreground mt-2 text-sm">
-						Create your account to get started
-					</p>
-				</div>
+		<>
+			<form
+				onSubmit={handleEmailSubmit}
+				className="mt-8 space-y-6 mx-8 max-w-200"
+			>
+				<label htmlFor="email" className="font-lg text-white">
+					Email address
+				</label>
+				<Input
+					id="email"
+					name="email"
+					type="email"
+					autoComplete="email"
+					required
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					placeholder="your@email.com"
+					disabled={isLoading}
+				/>
+				<Button
+					type="submit"
+					className="bg-wpurple w-full text-black dark:text-white"
+					disabled={isLoading}
+				>
+					{isLoading ? "Signing in..." : "Sign in with Email"}
+				</Button>
+			</form>
 
-				<form onSubmit={handleEmailSubmit} className="mt-8 space-y-6">
-					<div className="space-y-2">
-						<label
-							htmlFor="email"
-							className="block text-sm font-medium text-black"
-						>
-							Email address
-						</label>
-						<Input
-							id="email"
-							name="email"
-							type="email"
-							autoComplete="email"
-							required
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							className="border-border bg-background/50 text-foreground w-full"
-							placeholder="your@email.com"
-							disabled={isLoading}
-						/>
-					</div>
-
-					<Button
-						type="submit"
-						className="bg-wpurple w-full text-black hover:opacity-90 dark:text-white"
-						disabled={isLoading}
-					>
-						{isLoading ? "Signing up..." : "Sign up with Email"}
-					</Button>
-				</form>
-
-				<div className="mt-6">
-					<div className="relative">
-						<div className="relative flex justify-center text-sm">
-							<span className="text-muted-foreground px-2">
-								Or continue with
-							</span>
-						</div>
-					</div>
-
-					<div className="mt-6 grid grid-cols-2 gap-3">
-						<Button
-							type="button"
-							onClick={handleGithubSignIn}
-							className="dark:bg-background dark:hover:bg-background/80 flex items-center justify-center gap-2 bg-black text-white hover:bg-black/90 dark:border dark:border-white/20"
-							disabled={isLoading}
-						>
-							<FaGithub className="h-5 w-5" />
-							<span>GitHub</span>
-						</Button>
-						<Button
-							type="button"
-							onClick={handleGoogleSignIn}
-							className="dark:bg-background dark:hover:bg-background/80 flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 dark:border dark:border-white/20 dark:text-white"
-							disabled={isLoading}
-						>
-							<FcGoogle className="h-5 w-5" />
-							<span>Google</span>
-						</Button>
-					</div>
-				</div>
-
-				<div className="mt-6 text-center text-sm">
-					<p className="text-muted-foreground">
-						Already have an account?{" "}
-						<Link
-							href="/login"
-							className="text-primary hover:text-primary/80 hover:underline"
-						>
-							Sign in
-						</Link>
-					</p>
-				</div>
-			</div>
-		</div>
+			{/* <div className="mt-6 grid grid-cols-2 gap-6">
+				<Button
+					type="button"
+					onClick={handleGithubSignIn}
+					disabled={isLoading}
+				>
+					<FaGithub className="h-5 w-5" />
+					<span>GitHub</span>
+				</Button>
+				<Button
+					type="button"
+					onClick={handleGoogleSignIn}
+					disabled={isLoading}
+				>
+					<FcGoogle className="h-5 w-5" />
+					<span>Google</span>
+				</Button>
+			</div> */}
+		</>
 	);
 }

@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import LoginStatus from "@/components/login-status";
+import { SessionProvider } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
@@ -25,6 +28,7 @@ export default function SignIn() {
 				return;
 			}
 			// Check if email is already registered
+			// if we never find a reason to use this, just delete it lol
 			const response = await fetch("/api/check-email", {
 				method: "POST",
 				headers: {
@@ -34,15 +38,10 @@ export default function SignIn() {
 			});
 			const data = await response.json();
 
-			if (!data.exists) {
-				console.log("new email! redirecting to profile creation");
-				// TODO: REDIRECT TO PROFILE CREATION PAGE
-				await signIn("resend", { email, redirectTo: "/" });
-				setIsLoading(false);
-			}
+			if (!data.exists) console.log("New email, register: ", email);
+			else console.log("Existing email, login: ", email);
 
-			console.log("Email registration with:", email);
-			await signIn("resend", { email, redirectTo: "/" });
+			await signIn("resend", { email, redirectTo: "/application" });
 		} catch (error) {
 			console.error("Registration error:", error);
 		} finally {
@@ -84,6 +83,13 @@ export default function SignIn() {
 
 	return (
 		<>
+			{/* Get session */}
+			<SessionProvider>
+				<LoginStatus />
+			</SessionProvider>
+
+			{/* Sign in form */}
+
 			<form
 				onSubmit={handleEmailSubmit}
 				className="mt-8 space-y-6 mx-8 max-w-200"

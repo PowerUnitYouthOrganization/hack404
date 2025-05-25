@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
     "@neondatabase/serverless": "^1.0.0",
+    "@radix-ui/react-slot": "^1.2.2",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
     "class-variance-authority": "^0.7.1",

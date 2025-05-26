@@ -112,12 +112,13 @@ export default function ResponsiveLayout({
         </div>
         
         {/* Banner Image Section - positioned to compress first half */}
-        <div className="relative w-full overflow-hidden px-16">
+        <div className="relative w-full overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e" 
             alt="Toronto skyline at night"
-            className="h-auto"
+            className="h-auto px-16"
           />
+		  <div className="absolute bottom-0 left-0 right-0 bg-background -z-10 h-3" />
         </div>
       </div>
       

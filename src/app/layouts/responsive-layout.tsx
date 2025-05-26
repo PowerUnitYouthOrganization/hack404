@@ -89,7 +89,7 @@ export default function ResponsiveLayout({
               />
             </ColSection>
           </div>
-          <div className="flex items-start  self-stretch">
+          <div className="flex items-start self-stretch">
             <ColSection width={1} offset="1.5rem">
               July 4 - 6, 2025
             </ColSection>
@@ -110,7 +110,17 @@ export default function ResponsiveLayout({
             </ColSection>
           </div>
         </div>
+        
+        {/* Banner Image Section - positioned to compress first half */}
+        <div className="relative w-full overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e" 
+            alt="Toronto skyline at night"
+            className="w-full h-auto object-cover"
+          />
+        </div>
       </div>
+      
       {/* ========================= SECOND HALF OF PAGE ========================= */}
       {/* About page and contact page (second screen) */}
       <div

@@ -130,7 +130,7 @@ export default function ResponsiveLayout({
       {/* About page and contact page (second screen) */}
       <div
         id="about-us"
-        className="desktop:max-w-[calc(100vh*(7/3))] relative flex min-h-screen flex-col justify-between"
+        className=" relative flex min-h-screen flex-col justify-between"
       >
         <div className="flex flex-col items-start justify-between text-left text-white">
           {/* about us */}

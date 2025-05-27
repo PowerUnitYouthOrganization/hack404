@@ -1,17 +1,17 @@
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { ReactNode } from "react";
 
-interface LaunchpadEvent {
+interface AgendaEvent {
 	name: string;
 	startTime: Date;
 	endTime: Date;
 	roomNumber: string;
 }
 
-interface LaunchpadContainerProps {
+interface AgendaContainerProps {
 	title: string;
 	icon?: ReactNode;
-	events: LaunchpadEvent[];
+	events: AgendaEvent[];
 	topOffset?: number;
 }
 
@@ -48,12 +48,12 @@ function getTimeUntilEvent(startTime: Date): string {
 	}
 }
 
-export default function LaunchpadContainer({
+export default function AgendaContainer({
 	title,
 	icon,
 	events,
 	topOffset = 218,
-}: LaunchpadContainerProps) {
+}: AgendaContainerProps) {
 	return (
 		<div
 			className="flex flex-col h-[calc(100dvh-200px)] flex-1 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white"

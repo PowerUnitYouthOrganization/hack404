@@ -4,6 +4,7 @@ import LaunchpadHeader from "@/components/launchpad/launchpad-header";
 import GradientBackground from "@/components/gradient-background";
 import AgendaContainer from "@/components/launchpad/agenda-container";
 import AnnouncementContainer from "@/components/launchpad/announcements-container";
+import Leaderboard from "@/components/launchpad/leaderboard";
 import { useEffect, useState } from "react";
 
 // could probably be moved to json or something
@@ -41,7 +42,8 @@ export default function Launchpad() {
 				const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 				const hours = Math.floor(
 					(diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-				); const minutes = Math.floor(
+				);
+				const minutes = Math.floor(
 					(diff % (1000 * 60 * 60)) / (1000 * 60),
 				);
 				const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -63,7 +65,7 @@ export default function Launchpad() {
 			<main className="flex flex-col items-start gap-9 flex-1 self-stretch overflow-y-hidden">
 				<div className="flex px-9 justify-between items-end self-stretch">
 					<div className="flex flex-col justify-center items-start">
-						<h1 className="text-[40px] leading-normal font-(family-name:--font-heading-light)">
+						<h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
 							Hello firstname!
 						</h1>
 						<sub className="text-wcyan font-light text-sm">
@@ -111,7 +113,42 @@ export default function Launchpad() {
 						events={announcements}
 						topOffset={218}
 					/>
-					<div className="flex pt-6 flex-col items-start gap-6 flex-1 self-stretch border-x border-[rgba(48,242,242,0.2)] backdrop-blur-[25px]"></div>
+					<div className="flex flex-col flex-1 gap-2 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
+						<div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">
+							<div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
+								<h1 className="flex-1 text-white font-light">
+									Project Submission
+								</h1>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="20px"
+									viewBox="0 -960 960 960"
+									width="20px"
+									fill="#e3e3e3"
+								>
+									<path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
+								</svg>
+							</div>
+							<div
+								className={`flex flex-col items-start justify-between self-stretch p-6 border-b border-[rgba(48, 242, 242, 0.20)] bg-[rgba(48, 242, 242, 0.10)] backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+							>
+								{/* Event Header */}
+								<div className="flex justify-between items-start self-stretch">
+									<div className="flex flex-col items-start gap-2">
+										<h2 className="font-medium">
+											Coming soon!
+										</h2>
+										<p className="font-light text-sm"></p>
+									</div>
+								</div>
+								{/* Event Details */}
+								<div className="flex justify-between items-end self-stretch">
+								</div>
+							</div>
+						</div>
+
+						<Leaderboard />
+					</div>
 				</div>
 			</main>
 		</div>

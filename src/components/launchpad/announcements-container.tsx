@@ -23,7 +23,7 @@ export default function AnnouncementContainer({
 }: AnnouncementContainerProps) {
 	return (
 		<div
-			className="flex flex-col h-[calc(100dvh-200px)] flex-1 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white"
+			className="flex flex-col max-h-[calc(100dvh-200px)] flex-1 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white"
 			style={{ height: `calc(100dvh - ${topOffset}px)` }}
 		>
 			{/* Fixed Header */}

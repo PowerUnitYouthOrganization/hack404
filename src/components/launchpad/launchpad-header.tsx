@@ -1,7 +1,8 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import QrCodeIcon from '@mui/icons-material/QrCode';
-import ProfileIcon from '@mui/icons-material/AccountCircle';
+import QrCodeIcon from "@mui/icons-material/QrCode";
+import ProfileIcon from "@mui/icons-material/AccountCircle";
 
 export default function LaunchpadHeader() {
 	return (
@@ -13,7 +14,9 @@ export default function LaunchpadHeader() {
 					width={26}
 					height={19}
 				/>
-				<h1 className="text-white text-2xl font-normal tracking-[-0.72px]">launchpad</h1>
+				<h1 className="text-white text-2xl font-(family-name:--font-heading) tracking-[-0.72px]">
+					launchpad
+				</h1>
 			</div>
 			{/* navbar */}
 			<div className="flex px-[22px] flex-col justify-center items-center gap-[10px] flex-1 self-stretch col-[2/3] row-[1/2]">
@@ -45,7 +48,7 @@ export default function LaunchpadHeader() {
 					<button className="flex pr-3 py-2 pl-4 justify-center items-center gap-4 self-stretch rounded-[100px] bg-[#C3F73A] text-black font-light">
 						{/* QR Code Icon */}
 						QR Code
-						<QrCodeIcon className="text-black"/>
+						<QrCodeIcon className="text-black" />
 					</button>
 				</div>
 			</div>

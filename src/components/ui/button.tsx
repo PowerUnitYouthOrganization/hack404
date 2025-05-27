@@ -20,6 +20,12 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        "launchpad-header":
+          "text-black flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded bg-[#30F2F2] hover:bg-[#30F2F2]/90",
+        "launchpad-active":
+          "text-black flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[#30F2F2] hover:bg-[#30F2F2]/90",
+        "launchpad-inactive":
+          "text-wcyan flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[rgba(48,242,242,0.20)] hover:bg-[#30F2F2]/90",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

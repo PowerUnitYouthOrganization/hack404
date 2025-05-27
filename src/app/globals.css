@@ -206,6 +206,10 @@ body {
 	overflow-x: hidden !important;
 }
 
+h1 {
+	font-family: var(--font-heading);
+}
+
 .gradient-text {
 	background: linear-gradient(90deg, #c3f73a 0%, #30f2f2 50%, #5e4ae3 100%);
 	background-clip: text;

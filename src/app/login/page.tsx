@@ -6,10 +6,12 @@ import { Input } from "@/components/ui/input";
 import LoginStatus from "@/components/login-status";
 import { SessionProvider } from "next-auth/react";
 import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	let profileDone = false; // This should be fetched from the server or context
 
 	const handleEmailSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -26,19 +28,34 @@ export default function SignIn() {
 			}
 			// Check if email is already registered
 			// if we never find a reason to use this, just delete it lol
-			const response = await fetch("/api/check-email", {
+			const emailResponse = await fetch("/api/email-exists", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ email }),
 			});
-			const data = await response.json();
+			const emailData = await emailResponse.json();
 
-			if (!data.exists) console.log("New email, register: ", email);
-			else console.log("Existing email, login: ", email);
+			if (!emailData.exists) { 
+				console.log("New email, register and send to profile: ", email);
+				window.location.href = "/profile";
+				return; 
+			} else {
+				console.log("Existing email, login: ", email)
+				const profileResponse = await fetch(
+					`/api/profile-done?email=${encodeURIComponent(email)}`,
+				);
+				const profileStatus = await profileResponse.json();
+				profileDone = profileStatus.profileDone || false;
+			};
 
-			await signIn("resend", { email, redirectTo: "/application" });
+			if (profileDone) {
+				await signIn("resend", { email, redirectTo: "/application" });
+			} else {
+				await signIn("resend", { email, redirectTo: "/profile" });
+			}
+
 		} catch (error) {
 			console.error("Registration error:", error);
 		} finally {

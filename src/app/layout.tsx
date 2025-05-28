@@ -11,7 +11,7 @@ const spaceMono = Space_Mono({
 });
 
 const dmSans = DM_Sans({
-	weight: ["400", "500", "700"],
+	weight: ["300", "400", "500", "700"],
 	variable: "--font-dm-sans",
 	subsets: ["latin"],
 });

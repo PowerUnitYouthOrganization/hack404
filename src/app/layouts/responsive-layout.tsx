@@ -155,11 +155,13 @@ export default function ResponsiveLayout({
 							</span>{" "}
 							Toronto{" "}
 							<span className="solid-white">
-								for secondary and post-secondary students, open to anyone
-								from{" "}
+								for secondary and post-secondary students, open
+								to anyone from{" "}
 							</span>{" "}
-							beginners <span className="solid-white">to</span> experienced{" "}
-							<span className="solid-white"> hackers. </span>Sign up
+							beginners <span className="solid-white">to</span>{" "}
+							experienced{" "}
+							<span className="solid-white"> hackers. </span>Sign
+							up
 							<span className="solid-white">
 								{" "}
 								today and experience the tech of the future.

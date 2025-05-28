@@ -25,7 +25,7 @@ const buttonVariants = cva(
         "launchpad-active":
           "text-black font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[#30F2F2] hover:bg-[#30F2F2]/90",
         "launchpad-inactive":
-          "text-wcyan font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[rgba(48,242,242,0.20)] hover:bg-[#30F2F2]/90",
+          "text-wcyan font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[rgba(48,242,242,0.20)] hover:bg-[#30F2F2]/90 hover:text-black",
         "rounded":
           "flex pr-3 py-2 pl-4 justify-center items-center gap-4 text-[16px] self-stretch rounded-[100px] font-light",
       },

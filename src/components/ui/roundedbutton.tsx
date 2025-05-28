@@ -15,8 +15,9 @@ export default function RoundedButton({
 		<div className="flex p-1 items-center gap-1 self-stretch rounded-[100px] bg-[rgba(48,242,242,0.20)] backdrop-blur-[25px]">
 			<Button
 				variant="rounded"
-				className={`bg-[${color}] ${className}`}
+				className={className}
 				disabled={disabled}
+				style={{backgroundColor: color}}
 			>
 				{children}
 			</Button>

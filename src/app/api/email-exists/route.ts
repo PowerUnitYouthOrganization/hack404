@@ -3,29 +3,32 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 /**
- * POST /api/check-email
+ * GET /api/email-exists?email=user@example.com
  * Check if an email is already registered in the user table.
  * @param {Request} req - The request object.
  * @returns {Promise<NextResponse>} - The response object.
  */
-export async function POST(req: Request): Promise<NextResponse> {
+export async function GET(req: Request): Promise<NextResponse> {
 	try {
-		const body = await req.json();
-		const { email } = body;
+		const { searchParams } = new URL(req.url);
+		const email = searchParams.get("email");
 
 		if (!email) {
-			return NextResponse.json({ error: "Email is required" }, { status: 400 });
+			return NextResponse.json(
+				{ error: "Email is required" },
+				{ status: 400 },
+			);
 		}
 
+		// More efficient: only select what we need and use limit
 		const existingUser = await db
-			.select()
+			.select({ id: users.id })
 			.from(users)
 			.where(eq(users.email, email.toLowerCase()))
-			.execute()
-			.then((results) => results[0]);
+			.limit(1);
 
 		return NextResponse.json({
-			exists: !!existingUser,
+			exists: existingUser.length > 0,
 		});
 	} catch (error) {
 		console.error("Error checking email:", error);

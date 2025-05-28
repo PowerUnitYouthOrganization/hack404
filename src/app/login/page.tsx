@@ -1,13 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoginStatus from "@/components/login-status";
 import { SessionProvider } from "next-auth/react";
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 
 export default function SignIn() {
@@ -49,38 +46,6 @@ export default function SignIn() {
 		}
 	};
 
-	/*
-	const handleGithubSignIn = async () => {
-		setIsLoading(true);
-		try {
-			// Add GitHub sign-in logic here
-			console.log("Signing in with GitHub");
-			signIn("github", {
-				redirectTo: "/", // TODO: change later actually maybe not
-			});
-		} catch (error) {
-			console.error("GitHub sign-in error:", error);
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	const handleGoogleSignIn = async () => {
-		setIsLoading(true);
-		try {
-			// Add Google sign-in logic here
-			console.log("Signing in with Google");
-			signIn("google", {
-				redirectTo: "/", // TODO: change later
-			});
-		} catch (error) {
-			console.error("Google sign-in error:", error);
-		} finally {
-			setIsLoading(false);
-		}
-	};
-	*/
-
 	return (
 		<>
 			{/* Get session */}
@@ -116,25 +81,6 @@ export default function SignIn() {
 					{isLoading ? "Signing in..." : "Sign in with Email"}
 				</Button>
 			</form>
-
-			{/* <div className="mt-6 grid grid-cols-2 gap-6">
-				<Button
-					type="button"
-					onClick={handleGithubSignIn}
-					disabled={isLoading}
-				>
-					<FaGithub className="h-5 w-5" />
-					<span>GitHub</span>
-				</Button>
-				<Button
-					type="button"
-					onClick={handleGoogleSignIn}
-					disabled={isLoading}
-				>
-					<FcGoogle className="h-5 w-5" />
-					<span>Google</span>
-				</Button>
-			</div> */}
 		</>
 	);
 }

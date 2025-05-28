@@ -45,7 +45,7 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 		{ label: "Agenda", value: "agenda" },
 		// { label: "Mentor", value: "mentor" },
 		{ label: "Resources", value: "resources" },
-		{ label: "Help", value: "help" },
+		{ label: "Map", value: "map" }
 	]
 	
 	return (

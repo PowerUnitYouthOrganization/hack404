@@ -7,6 +7,10 @@ import LoginStatus from "@/components/login-status";
 import { useSession, signIn } from "next-auth/react";
 import { isProfileComplete } from "@/app/utils/profileCompletion";
 
+/**
+ * LoginForm component handles user login via email.
+ * @returns Login form component that handles email login and redirects based on profile completion.
+ */
 export default function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [isLoading, setIsLoading] = useState(false);

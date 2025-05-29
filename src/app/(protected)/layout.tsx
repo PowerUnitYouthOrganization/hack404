@@ -10,8 +10,10 @@ export default async function ProtectedLayout({ children }: { children: React.Re
   const session = await auth();
 
   if (!session) {
+    console.log("User is not authenticated, redirecting to login");
     redirect("/login");
   }
 
+  console.log("Authenticated as user:", session.user?.email);
   return <>{children}</>;
 }

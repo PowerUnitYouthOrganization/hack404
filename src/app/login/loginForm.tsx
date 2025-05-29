@@ -17,7 +17,38 @@ export default function LoginForm() {
 	const { data: session, status } = useSession();
 
 	const handleEmailSubmit = async (e: React.FormEvent) => {
-		// ... your existing handleEmailSubmit logic
+		e.preventDefault();
+		setIsLoading(true);
+
+		try {
+			if (!email) {
+				console.error("Email is required");
+				return;
+			}
+			if (!/\S+@\S+\.\S+/.test(email)) {
+				console.error("Invalid email format");
+				return;
+			}
+			// Check if email is already registered
+			// if we never find a reason to use this, just delete it lol
+			const response = await fetch("/api/check-email", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			});
+			const data = await response.json();
+
+			if (!data.exists) console.log("New email, register: ", email);
+			else console.log("Existing email, login: ", email);
+
+			await signIn("resend", { email, redirectTo: "/application" });
+		} catch (error) {
+			console.error("Registration error:", error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	// Show loading while checking authentication

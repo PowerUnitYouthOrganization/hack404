@@ -1,10 +1,8 @@
 "use client";
 
-import LaunchpadHeader from "@/components/launchpad/launchpad-header";
-import GradientBackground from "@/components/gradient-background";
-import AgendaContainer from "@/components/launchpad/agenda-container";
-import AnnouncementContainer from "@/components/launchpad/announcements-container";
-import Leaderboard from "@/components/launchpad/leaderboard";
+import AgendaContainer from "@/app/(protected)/launchpad/agenda-container";
+import AnnouncementContainer from "@/app/(protected)/launchpad/announcements-container";
+import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import { useEffect, useState } from "react";
 
 // could probably be moved to json or something
@@ -26,9 +24,8 @@ interface Announcement {
  * This component serves as the main layout for the hacker dashboard page.
  * @returns Launchpad component
  */
-export default function Launchpad() {
+export default function Home() {
 	const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
-	const [activeTab, setActiveTab] = useState("home");
 
 	useEffect(() => {
 		// time until submission deadline or whatever date
@@ -60,13 +57,26 @@ export default function Launchpad() {
 	const announcements: Announcement[] = [];
 
 	return (
-		<div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
-			<GradientBackground />
-			<LaunchpadHeader
-				activeTab={activeTab}
-				setActiveTab={setActiveTab}
-			/>
-			<main className="flex px-2 items-start gap-2 flex-1 self-stretch border border-[rgba(48,242,242,0.2)]">
+		<main className="flex flex-col gap-9 w-full">
+			<div className="flex px-9 justify-between items-end self-stretch">
+				<div className="flex flex-col justify-center items-start">
+					<h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
+						Hello firstname!
+					</h1>
+					<sub className="text-wcyan font-light text-sm">
+						Welcome to Hack404
+					</sub>
+				</div>
+				<div className="flex flex-col justify-center items-end">
+					<h1 className="text-[40px] leading-normal font-(family-name:--font-heading-light)">
+						{timeLeft}
+					</h1>
+					<sub className="text-wcyan font-light text-sm">
+						until submission deadline
+					</sub>
+				</div>
+			</div>
+			<div className="flex px-2 items-start gap-2 flex-1 self-stretch border border-[rgba(48,242,242,0.2)]">
 				<AgendaContainer
 					title="Agenda"
 					icon={
@@ -133,7 +143,7 @@ export default function Launchpad() {
 
 					<Leaderboard />
 				</div>
-			</main>
-		</div>
+			</div>
+		</main>
 	);
 }

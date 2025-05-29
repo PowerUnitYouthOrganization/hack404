@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoginStatus from "@/components/login-status";
-import { SessionProvider } from "next-auth/react";
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import { SessionProvider, useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
+import LoginForm from "@/app/login/loginForm";
+import { isProfileComplete } from "@/app/utils/profileCompletion";
 
 export default function SignIn() {
 	const [email, setEmail] = useState("");
@@ -27,21 +26,37 @@ export default function SignIn() {
 				console.error("Invalid email format");
 				return;
 			}
-			// Check if email is already registered
-			// if we never find a reason to use this, just delete it lol
-			const response = await fetch("/api/check-email", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ email }),
-			});
-			const data = await response.json();
 
-			if (!data.exists) console.log("New email, register: ", email);
-			else console.log("Existing email, login: ", email);
+			const emailResponse = await fetch(
+				`/api/email-exists?email=${encodeURIComponent(email)}`,
+			);
+			const emailData = await emailResponse.json();
 
-			await signIn("resend", { email, redirectTo: "/application" });
+			if (!emailData.exists) {
+				console.log("New email, register and send to profile: ", email);
+				await signIn("resend", { email, redirectTo: "/profile" });
+				return;
+			} else {
+				console.log("Existing email, login: ", email);
+			}
+
+			if (await isProfileComplete(email)) {
+				console.log("Profile is complete, redirecting to application");
+				// Redirect to the application page if profile is complete
+				await signIn("resend", {
+					email,
+					redirectTo: "/application",
+				});
+			} else {
+				console.log(
+					"Profile is not complete, redirecting to profile page",
+				);
+				// Redirect to the profile page if profile is not complete
+				await signIn("resend", {
+					email,
+					redirectTo: "/profile",
+				});
+			}
 		} catch (error) {
 			console.error("Registration error:", error);
 		} finally {
@@ -49,92 +64,13 @@ export default function SignIn() {
 		}
 	};
 
-	/*
-	const handleGithubSignIn = async () => {
-		setIsLoading(true);
-		try {
-			// Add GitHub sign-in logic here
-			console.log("Signing in with GitHub");
-			signIn("github", {
-				redirectTo: "/", // TODO: change later actually maybe not
-			});
-		} catch (error) {
-			console.error("GitHub sign-in error:", error);
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	const handleGoogleSignIn = async () => {
-		setIsLoading(true);
-		try {
-			// Add Google sign-in logic here
-			console.log("Signing in with Google");
-			signIn("google", {
-				redirectTo: "/", // TODO: change later
-			});
-		} catch (error) {
-			console.error("Google sign-in error:", error);
-		} finally {
-			setIsLoading(false);
-		}
-	};
-	*/
-
 	return (
 		<>
 			{/* Get session */}
 			<SessionProvider>
 				<LoginStatus />
+				<LoginForm/>
 			</SessionProvider>
-
-			{/* Sign in form */}
-
-			<form
-				onSubmit={handleEmailSubmit}
-				className="mt-8 space-y-6 mx-8 max-w-200"
-			>
-				<label htmlFor="email" className="font-lg text-white">
-					Email address
-				</label>
-				<Input
-					id="email"
-					name="email"
-					type="email"
-					autoComplete="email"
-					required
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					placeholder="your@email.com"
-					disabled={isLoading}
-				/>
-				<Button
-					type="submit"
-					className="bg-wpurple w-full text-black dark:text-white"
-					disabled={isLoading}
-				>
-					{isLoading ? "Signing in..." : "Sign in with Email"}
-				</Button>
-			</form>
-
-			{/* <div className="mt-6 grid grid-cols-2 gap-6">
-				<Button
-					type="button"
-					onClick={handleGithubSignIn}
-					disabled={isLoading}
-				>
-					<FaGithub className="h-5 w-5" />
-					<span>GitHub</span>
-				</Button>
-				<Button
-					type="button"
-					onClick={handleGoogleSignIn}
-					disabled={isLoading}
-				>
-					<FcGoogle className="h-5 w-5" />
-					<span>Google</span>
-				</Button>
-			</div> */}
 		</>
 	);
 }

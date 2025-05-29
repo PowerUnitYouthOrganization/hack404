@@ -3,6 +3,7 @@ import RoundedButton from "@/components/ui/roundedbutton";
 import Image from "next/image";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
+import { signOut } from "@/lib/auth";
 
 interface LaunchpadHeaderProps {
 	activeTab: string;
@@ -58,6 +59,11 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 					<RoundedButton
 						color="rgba(48,242,242,0.20)"
 						className="pl-4 pr-2"
+						onClick={() => {
+							// Handle sign out logic here
+							alert('hi');
+						}}
+						disabled={false}
 					>
 						Sign Out
 						<ProfileIcon className="text-white" />

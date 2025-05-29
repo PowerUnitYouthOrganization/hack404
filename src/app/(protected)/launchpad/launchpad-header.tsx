@@ -1,10 +1,8 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import RoundedButton from "@/components/ui/roundedbutton";
 import Image from "next/image";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
-import { useState, useEffect } from "react";
 
 interface LaunchpadHeaderProps {
 	activeTab: string;
@@ -12,34 +10,6 @@ interface LaunchpadHeaderProps {
 }
 
 export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHeaderProps) {
-	const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
-
-	useEffect(() => {
-		// time until submission deadline or whatever date
-		const targetDate = new Date("2025-06-15T00:00:00");
-		const interval = setInterval(() => {
-			const now = new Date();
-			const diff = targetDate.getTime() - now.getTime();
-			if (diff <= 0) {
-				setTimeLeft("00d 00h 00m 00s");
-				clearInterval(interval);
-			} else {
-				const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-				const hours = Math.floor(
-					(diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-				);
-				const minutes = Math.floor(
-					(diff % (1000 * 60 * 60)) / (1000 * 60),
-				);
-				const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-				setTimeLeft(
-					`${days.toString().padStart(2, "0")}d ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`,
-				);
-			}
-		}, 1000);
-		return () => clearInterval(interval);
-	}, []);
-
 	const navItems = [
 		{ label: "Home", value: "home" },
 		{ label: "Agenda", value: "agenda" },
@@ -85,6 +55,14 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 				</div>
 				{/* profile and qr code buttons */}
 				<div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4]">
+					<RoundedButton
+						color="rgba(48,242,242,0.20)"
+						className="pl-4 pr-2"
+					>
+						Sign Out
+						<ProfileIcon className="text-white" />
+					</RoundedButton>
+
 					{/* change to shadcn buttons later */}
 					<RoundedButton
 						color="rgba(48,242,242,0.20)"

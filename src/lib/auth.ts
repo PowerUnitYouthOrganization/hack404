@@ -1,8 +1,8 @@
 import NextAuth, {type DefaultSession} from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { db, accounts, users, sessions, verificationTokens } from "./db/schema";
+import { db, accounts, users, sessions, verificationTokens } from "../db/schema";
 import Resend from "next-auth/providers/resend";
-import { sendVerificationRequest } from "./lib/authSendReq";
+import { sendVerificationRequest } from "./authSendReq";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	adapter: DrizzleAdapter(db, {

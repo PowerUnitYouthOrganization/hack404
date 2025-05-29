@@ -49,7 +49,7 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 	]
 	
 	return (
-		<header className="flex flex-col gap-3 w-full pb-9">
+		<header className="flex flex-col gap-3 w-full">
 			<div className="grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
 				<div className="flex px-3 items-center gap-5 flex-1 self-stretch row-[1/2] col-[1/2]">
 					<Image
@@ -100,24 +100,6 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 						QR Code
 						<QrCodeIcon className="text-black" />
 					</RoundedButton>
-				</div>
-			</div>
-			<div className="flex px-9 justify-between items-end self-stretch">
-				<div className="flex flex-col justify-center items-start">
-					<h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
-						Hello firstname!
-					</h1>
-					<sub className="text-wcyan font-light text-sm">
-						Welcome to Hack404
-					</sub>
-				</div>
-				<div className="flex flex-col justify-center items-end">
-					<h1 className="text-[40px] leading-normal font-(family-name:--font-heading-light)">
-						{timeLeft}
-					</h1>
-					<sub className="text-wcyan font-light text-sm">
-						until submission deadline
-					</sub>
 				</div>
 			</div>
 		</header>

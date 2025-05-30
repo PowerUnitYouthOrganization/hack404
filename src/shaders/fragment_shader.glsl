@@ -28,6 +28,11 @@ vec4 grad4(float j, vec4 ip) {
     return p;
 }
 
+// --- Cheap hash-based noise ---
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
 float snoise(vec4 v) {
     const vec2 C = vec2(0.138196601125010504, 0.309016994374947451);
     vec4 i = floor(v + dot(v, C.yyyy));
@@ -108,8 +113,13 @@ void main() {
 
     finalColor *= 0.7; // for darkening
     vec2 randomOffset = fract(sin(vUv * 3000.0) * 43758.5453123); // Randomize grain using a hash function
-    float grain = snoise(vec4(vUv * 2500.0 + randomOffset, vec2(0, 0))); // scale the noise frequency
-    finalColor += vec3(grain * 0.05); // Adjust the intensity of the grain
+
+    // Add grain via gl_FragCoord
+    float grain = hash(gl_FragCoord.xy) * 0.04;
+    finalColor += vec3(grain) * 1.25;
+    finalColor *= 0.9;
+    // float grain = snoise(vec4(vUv * 2500.0 + randomOffset, vec2(0, 0))); // scale the noise frequency
+    // finalColor += vec3(grain * 0.05); // Adjust the intensity of the grain
 
     gl_FragColor = vec4(finalColor, 1.0);
 }

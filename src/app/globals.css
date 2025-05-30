@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@plugin 'tailwind-scrollbar';
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -206,6 +208,7 @@ body {
 	overflow-x: hidden !important;
 }
 
+
 .gradient-text {
 	background: linear-gradient(90deg, #c3f73a 0%, #30f2f2 50%, #5e4ae3 100%);
 	background-clip: text;
@@ -243,6 +246,15 @@ body {
 	z-index: -30;
 	animation: fadeOut 1.5s ease-out forwards;
 	animation-delay: 0.5s;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 @keyframes fadeOut {

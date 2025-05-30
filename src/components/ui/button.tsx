@@ -20,9 +20,17 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        "launchpad-header":
+          "text-black flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded bg-[#30F2F2] hover:bg-[#30F2F2]/90",
+        "launchpad-active":
+          "text-black font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[#30F2F2] hover:bg-[#30F2F2]/90",
+        "launchpad-inactive":
+          "text-wcyan font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[rgba(48,242,242,0.20)] hover:bg-[#30F2F2]/90 hover:text-black",
+        "rounded":
+          "flex pr-3 py-2 pl-4 justify-center items-center gap-4 text-[16px] self-stretch rounded-[100px] font-light",
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        default: "",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
@@ -50,7 +58,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={`cursor-pointer ${cn(buttonVariants({ variant, size, className }))}`}
       {...props}
     />
   )

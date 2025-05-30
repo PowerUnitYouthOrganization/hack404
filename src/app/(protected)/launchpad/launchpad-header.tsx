@@ -1,17 +1,21 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import RoundedButton from "@/components/ui/roundedbutton";
 import Image from "next/image";
 import QrCodeIcon from "@mui/icons-material/QrCode";
-import ProfileIcon from "@mui/icons-material/AccountCircle";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useSession } from "next-auth/react";
 
 interface LaunchpadHeaderProps {
 	activeTab: string;
 	setActiveTab: (tab: string) => void;
-	avatarUrl?: string;
 }
 
-export default function LaunchpadHeader({ activeTab, setActiveTab, avatarUrl }: LaunchpadHeaderProps) {
+export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHeaderProps) {
+	const {data: session} = useSession();
+	const avatarUrl = session?.user?.image || "";
+
 	const navItems = [
 		{ label: "Home", value: "home" },
 		// { label: "Agenda", value: "agenda" },
@@ -69,13 +73,12 @@ export default function LaunchpadHeader({ activeTab, setActiveTab, avatarUrl }: 
 						Sign Out
 					</RoundedButton>
 
-					{/* change to shadcn buttons later */}
 					<RoundedButton
 						color="rgba(48,242,242,0.20)"
-						className="pl-4 pr-2"
+						className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"
 					>
 						Profile
-						<Avatar>
+						<Avatar className="w-6 h-6">
 							<AvatarImage src={avatarUrl}/>
 							<AvatarFallback></AvatarFallback>	
 						</Avatar>

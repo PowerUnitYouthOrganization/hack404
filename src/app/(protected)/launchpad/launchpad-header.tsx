@@ -23,14 +23,6 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 		// { label: "Resources", value: "resources" },
 		// { label: "Map", value: "map" }
 	]
-
-	const handleSignOut = async () => {
-		try {
-			await signOut({ redirect: true, callbackUrl: "/login" });
-		} catch (error) {
-			console.error("Error signing out:", error);
-		}
-	};
 	
 	return (
 		<header className="flex flex-col gap-3 w-full">
@@ -69,14 +61,6 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 				</div>
 				{/* profile and qr code buttons */}
 				<div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4]">
-					<RoundedButton
-						color="rgba(48,242,242,0.20)"
-						className="pl-4 pr-2"
-						onClick={() => {handleSignOut()}}
-					>
-						Sign Out
-					</RoundedButton>
-
 					<RoundedButton
 						color="rgba(48,242,242,0.20)"
 						className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"

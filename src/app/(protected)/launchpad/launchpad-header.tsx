@@ -3,7 +3,7 @@ import RoundedButton from "@/components/ui/roundedbutton";
 import Image from "next/image";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
-import { signOut } from "@/lib/auth";
+import { signOut } from "next-auth/react";
 
 interface LaunchpadHeaderProps {
 	activeTab: string;
@@ -18,6 +18,14 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 		{ label: "Resources", value: "resources" },
 		{ label: "Map", value: "map" }
 	]
+
+	const handleSignOut = async () => {
+		try {
+			await signOut({ redirect: true, callbackUrl: "/login" });
+		} catch (error) {
+			console.error("Error signing out:", error);
+		}
+	};
 	
 	return (
 		<header className="flex flex-col gap-3 w-full">
@@ -59,11 +67,7 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 					<RoundedButton
 						color="rgba(48,242,242,0.20)"
 						className="pl-4 pr-2"
-						onClick={() => {
-							// Handle sign out logic here
-							alert('hi');
-						}}
-						disabled={false}
+						onClick={() => {handleSignOut()}}
 					>
 						Sign Out
 						<ProfileIcon className="text-white" />

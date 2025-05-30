@@ -3,6 +3,7 @@
 import AgendaContainer from "@/app/(protected)/launchpad/agenda-container";
 import AnnouncementContainer from "@/app/(protected)/launchpad/announcements-container";
 import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 // could probably be moved to json or something
@@ -26,6 +27,8 @@ interface Announcement {
  */
 export default function Home() {
 	const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
+	const {data: session} = useSession();
+	const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
 
 	useEffect(() => {
 		// time until submission deadline or whatever date
@@ -61,7 +64,7 @@ export default function Home() {
 			<div className="flex px-9 justify-between items-end self-stretch">
 				<div className="flex flex-col justify-center items-start">
 					<h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
-						Hello firstname!
+						Hello {firstName}!
 					</h1>
 					<sub className="text-wcyan font-light text-sm">
 						Welcome to Hack404

@@ -1,17 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { avatarToCanvas, canvasToBlob } from "@/lib/avatar-to-image";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
 	Form,
@@ -37,6 +30,8 @@ const formSchema = z.object({
 });
 
 export default function RegistrationForm() {
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -47,13 +42,53 @@ export default function RegistrationForm() {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		try {
+			setIsSubmitting(true);
+
+			// Convert avatar to canvas and blob
+			const canvas = avatarToCanvas(avatar);
+			const blob = await canvasToBlob(canvas);
+
+			// Create form data
+			const formData = new FormData();
+			formData.append("failureProud", values.failureProud);
+			formData.append("forgetLearn", values.forgetLearn);
+			formData.append("workshops", JSON.stringify(values.workshops));
+			formData.append("avatarPixels", JSON.stringify(avatar));
+			formData.append("avatar", blob, "avatar.png");
+
+			// Submit to API
+			const response = await fetch("/api/upload-application", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(
+					errorData.error || "Failed to submit application",
+				);
+			}
+
+			const result = await response.json();
+			console.log("Application submitted:", result);
+
+			// Show success message or redirect
+			alert("Application submitted successfully!");
+			// window.location.href = '/launchpad';
+		} catch (error) {
+			console.error("Error submitting application:", error);
+			alert("Failed to submit application. Please try again.");
+		} finally {
+			setIsSubmitting(false);
+		}
 	}
 
 	const [avatar, setAvatar] = useState<string[][]>(
 		Array.from({ length: 8 }, () => Array(8).fill("#ffffff")),
 	);
+
 	const [selectedColor, setSelectedColor] = useState<string>("#3e4da3");
 
 	const workshops = [

@@ -4,6 +4,11 @@ import { db, profiles, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { mapFormDataToProfile } from "@/lib/profile-mapping";
 
+/**
+ * Handles the POST request to save user profile data.
+ * @param req NextRequest - The incoming request containing profile data.
+ * @returns 
+ */
 export async function POST(req: NextRequest) {
     try {
         const session = await auth();

@@ -3,20 +3,21 @@ import RoundedButton from "@/components/ui/roundedbutton";
 import Image from "next/image";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
-import { signOut } from "@/lib/auth";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface LaunchpadHeaderProps {
 	activeTab: string;
 	setActiveTab: (tab: string) => void;
+	avatarUrl?: string;
 }
 
-export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHeaderProps) {
+export default function LaunchpadHeader({ activeTab, setActiveTab, avatarUrl }: LaunchpadHeaderProps) {
 	const navItems = [
 		{ label: "Home", value: "home" },
-		{ label: "Agenda", value: "agenda" },
+		// { label: "Agenda", value: "agenda" },
 		// { label: "Mentor", value: "mentor" },
-		{ label: "Resources", value: "resources" },
-		{ label: "Map", value: "map" }
+		// { label: "Resources", value: "resources" },
+		// { label: "Map", value: "map" }
 	]
 	
 	return (
@@ -66,7 +67,6 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 						disabled={false}
 					>
 						Sign Out
-						<ProfileIcon className="text-white" />
 					</RoundedButton>
 
 					{/* change to shadcn buttons later */}
@@ -75,7 +75,10 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 						className="pl-4 pr-2"
 					>
 						Profile
-						<ProfileIcon className="text-white" />
+						<Avatar>
+							<AvatarImage src={avatarUrl}/>
+							<AvatarFallback></AvatarFallback>	
+						</Avatar>
 					</RoundedButton>
 					<RoundedButton
 						color="#C3F73A"

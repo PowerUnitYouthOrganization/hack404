@@ -20,7 +20,6 @@ export async function GET(req: Request): Promise<NextResponse> {
 			);
 		}
 
-		// More efficient: only select what we need and use limit
 		const existingUser = await db
 			.select({ id: users.id })
 			.from(users)

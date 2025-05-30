@@ -54,6 +54,26 @@ export const profiles = pgTable("profile", {
 	resume: text("resume"),
 });
 
+export const applications = pgTable("application", {
+	userId: text("userId")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	applicationSubmitted: boolean("applicationSubmitted")
+		.notNull()
+		.default(false),
+	applicationReviewed: boolean("applicationReviewed")
+		.notNull()
+		.default(false),
+	failureProud: text("failureProud").notNull(),
+	forgetLearn: text("forgetLearn").notNull(),
+	avatar: text("avatar").array().$type<string[][]>().notNull(),
+	avatarUrl: text("avatarUrl").notNull(),
+	workshops: text("workshops").array().$type<string[]>().notNull(),
+	createdAt: timestamp("createdAt", { mode: "date" })
+		.notNull()
+		.$defaultFn(() => new Date()),
+});
+
 export const accounts = pgTable(
 	"account",
 	{

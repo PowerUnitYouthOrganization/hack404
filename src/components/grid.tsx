@@ -46,14 +46,14 @@ export default function Grid() {
 	// Define configuration based on type
 	const columns = type === "mobile" ? 2 : type === "tablet" ? 4 : 5;
 	const padding = type === "desktop" ? "px-[64px]" : "px-6";
-	const maxWidthStyle =
-		type === "desktop" ? { maxWidth: `calc(100vh * (7 / 3))` } : undefined;
+	// const maxWidthStyle =
+	// 	type === "desktop" ? { maxWidth: `calc(100vh * (7 / 3))` } : undefined;
 
 	return (
 		<div
 			className={`fixed inset-0 z-10 grid h-screen w-full ${padding} gap-6`}
 			style={{
-				...maxWidthStyle,
+				// ...maxWidthStyle,
 				gridTemplateColumns: `repeat(var(--grid-columns), 1fr)`,
 			}}
 		>

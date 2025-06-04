@@ -82,14 +82,9 @@ export default function Prehome() {
   const announcements: Announcement[] = [];
   const faq: FAQ[] = [
     {
-      question: "What is Hack404?",
-      answer:
-        "Hack404 is a hackathon organized by the Computer Science Club at the University of California, Berkeley.",
-    },
-    {
       question: "What are the requirements to participate?",
       answer:
-        "Participants must be enrolled in a college or university and have a valid email address.",
+        "Participants must be students enrolled in a high-school or post-secondary institution and have a valid email address.",
     },
     {
       question: "What are the prizes?",
@@ -190,26 +185,20 @@ export default function Prehome() {
             </div>
             <div className="flex flex-col p-6 items-start gap-9 self-stretch border-t border-[rgba(48,242,242,0.20)] ">
               <div className="flex justify-between items-start self-stretch">
-                Once upon a time, in a galaxy far, far away, there lived a
-                Waterloo student. Harassed by spicy instant ramen, he was then
-                interrogated by the SKULE Patrol--valiant engineering students
-                belonging to the University of Toronto’s Faculty of Applied
-                Science and Engineering (FASE, or as I like to say fASSe).
-                “Mhmm,” said Winston. “What meeting,” Winston inquired, soon
-                pausing to swear loudly into his steaming bowl of ramen. “THE
-                TEAM LEADS MEETING!!” Everyone on Slack yelled. “Oops, I
-                forgor.” Winston heehee-haha-ed, taking a sip of his
-                electrolyte-powered, blue lemonade drink. For those curious, it
-                tasted like battery acid mixed with the piss of a newborn foal.
-                “How do you know what either tastes like?” Winston was terribly
-                confused. “This is a live story?” He exclaimed, doubling over in
-                a fit of laughter and snorts. “I’m Peppa Pig!” He exclaimed,
-                jumping off the 25th floor of the University of Toronto student
-                residence, CampusOne. Thankfully, he will not be missed because
-                he never misses. #sigmamale #cracked_or_oncrack #ruby_chan #hai
-                #nani_ga_suki #kawaii #sugoi #SUIIII
-                #working_hard_or_hardly_working #hard_at_work
-                #hard_while_working
+                Hack404 is based on three key values: Innovation, Education, and
+                Community. <br /> Innovation: The world of tech is constantly
+                changing. We’re seeing the emergence of new technologies, from
+                AI/ML, to VR/AR, biotechnology, quantum computing, and more. Our
+                hackers embrace and build alongside these technologies,
+                exploring and expanding the space of what’s possible. <br />
+                Education: Breaking into the tech industry can be hard. We want
+                to make it easier – our workshops will explore both the
+                fundamentals, helping beginners write their first lines of code,
+                and the frontiers of building and shipping tech. <br />
+                Community: We believe that tech has the potential to create
+                real, tangible change in the community. We’re encouraging
+                hackers to think about what their communities need, including
+                the diverse needs of different stakeholders.
               </div>
             </div>
           </div>

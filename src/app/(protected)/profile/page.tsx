@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import SimpleHeader from "@/components/simple-header";
-import GradientBackground from "@/components/gradient-background";
+import GradientBackgroundStatic from "@/components/gradient-background-static";
+import RoundedButton from "@/components/ui/roundedbutton";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { FormData } from "./types";
 import BasicInfoStep from "./steps/BasicInfoStep";
 import EducationStep from "./steps/EducationStep";
-import PreferencesStep from "./steps/PreferencesStep";
+import DetailsStep from "./steps/DetailsStep";
 import LinksStep from "./steps/LinksStep";
 
 export default function HackerApplication() {
@@ -35,12 +38,31 @@ export default function HackerApplication() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const nextStep = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        return form.firstName && form.lastName && form.gender && form.ethnicity;
+      case 2:
+        return form.school && form.grade;
+      case 3:
+        return form.previousHackathons && form.shirtSize;
+      case 4:
+        return true; // Links are optional
+      default:
+        return false;
+    }
+  };
+
+  const nextStep = () => {
+    if (!validateStep()) {
+      toast.error("Please fill out all required fields before continuing.");
+      return;
+    }
+    
     if (step < 4) {
       setStep((prev) => prev + 1);
     } else {
-      alert("Form submitted!");
+      toast.success("Profile created successfully!");
     }
   };
 
@@ -57,7 +79,7 @@ export default function HackerApplication() {
       case 2:
         return <EducationStep form={form} handleChange={handleChange} />;
       case 3:
-        return <PreferencesStep form={form} handleChange={handleChange} />;
+        return <DetailsStep form={form} handleChange={handleChange} />;
       case 4:
         return <LinksStep form={form} handleChange={handleChange} />;
       default:
@@ -69,49 +91,73 @@ export default function HackerApplication() {
     <SessionProvider>
       <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
         <SimpleHeader />
-        <GradientBackground />
+        <GradientBackgroundStatic />
         <div className="absolute inset-0 bg-black/40 -z-40" />
 
-        <div className="w-full max-w-6xl border border-white/10 rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10 relative z-10 mx-auto">
+        <div className="mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex h-[482px] items-start gap-2 self-stretch mx-auto">
           {/* Left Panel */}
-          <div className="p-10 space-y-6 relative">
-            <div>
-              <h1 className="text-3xl font-medium font-[var(--font-heading)]">Get set up</h1>
-              <h2 className="text-2xl mt-2">Create your hacker profile</h2>
-              <br />
-              <br />
-              <p className="text-sm text-white/70 max-w-xs">
-                Creating a hacker profile is the first step to joining Hack404.
-                It gives you access to Launchpad, where you can apply, manage
-                your application, and access important information and tools
-                during the hackathon weekend if you are accepted.
-              </p>
+          <div className="flex flex-col p-6 justify-between items-start self-stretch flex-1 border-r border-[rgba(48,242,242,0.20)]">
+            <div className=" flex flex-col items-start gap-2.5">
+              <h1 className="text-3xl font-medium font-(family-name:--font-heading)">
+                Get set up
+              </h1>
+              <h2 className="text-2xl mt-2 font-(family-name:--font-heading-light)">
+                Create your hacker profile
+              </h2>
             </div>
+            <p className="text-sm text-white/70 max-w-xs">
+              Creating a hacker profile is the first step to joining Hack404. It
+              gives you access to Launchpad, where you can apply, manage your
+              application, and access important information and tools during the
+              hackathon weekend if you are accepted.
+            </p>
           </div>
 
           {/* Right Panel */}
-          <div className="p-10 relative">
-            <div className="absolute top-6 right-6 text-sm text-white/60 z-10">
-              Step {step}/4
+          <div className="self-stretch flex-1 p-6 bg-cyan-400/0 border-l border-[rgba(48,242,242,0.20)] backdrop-blur-xl inline-flex flex-col justify-between items-start overflow-hidden">
+            <div className="self-stretch flex flex-col justify-start items-start gap-12">
+              <div className="self-stretch inline-flex justify-between items-start">
+                <div className="justify-start text-white text-base font-normal font-['DM_Sans']">
+                  {step === 1 && "Basic Details"}
+                  {step === 2 && "Education"}
+                  {step === 3 && "Details"}
+                  {step === 4 && "Your Links"}
+                </div>
+                <div className="justify-start text-white text-sm font-extralight font-['DM_Sans']">
+                  Step {step}/4
+                </div>
+              </div>
+              <div className="self-stretch flex flex-col justify-start items-start gap-4">
+                {renderStep()}
+              </div>
             </div>
-            <form onSubmit={nextStep} className="space-y-8">
-              {renderStep()}
-
-              <div className="flex justify-between items-center">
-                <button
+            <div className="self-stretch inline-flex justify-between items-end">
+              <div className="justify-start text-white text-sm font-extralight font-['DM_Sans']">
+                {step === 1 && "Make sure details are correct"}
+                {step === 2 && "Verify your education info"}
+                {step === 3 && "Check your details"}
+                {step === 4 && "Add your links"}
+              </div>
+              <div className="flex gap-2 items-center">
+                {step > 1 && (
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="h-12 pl-6 pr-4 py-2 bg-transparent rounded-[100px] flex justify-center items-center gap-4 overflow-hidden text-white text-sm font-light font-['DM_Sans'] hover:bg-white/10"
+                  >
+                    Back
+                  </button>
+                )}
+                <RoundedButton
                   type="button"
-                  onClick={prevStep}
-                  className={`text-white/60 border border-white/20 px-4 py-2 rounded-full transition-opacity ${step === 1 ? "opacity-0 pointer-events-none" : "hover:border-white/40"}`}
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex items-center bg-lime-400 text-black px-6 py-2 rounded-full font-semibold shadow-md hover:bg-lime-300"
+                  color="#30F2F2"
+                  className="text-black text-sm font-light"
+                  onClick={nextStep}
+                  disabled={!validateStep()}
                 >
                   {step < 4 ? "Continue" : "Finish"}
                   <svg
-                    className="ml-2 w-4 h-4"
+                    className="w-5 h-5 text-black"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -123,12 +169,13 @@ export default function HackerApplication() {
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
-                </button>
+                </RoundedButton>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
+      <Toaster />
     </SessionProvider>
   );
 }

@@ -104,7 +104,7 @@ export default function LoginForm() {
             <div className="self-stretch flex flex-col justify-start items-start gap-12">
               <div className="self-stretch inline-flex justify-between items-start">
                 <p className="justify-start text-white text-base font-normal">
-                  Create an account
+                  Sign in to your account
                 </p>
                 <p className="justify-start text-white text-sm font-extralight">
                   We’ll send you a magic link to access the Launchpad

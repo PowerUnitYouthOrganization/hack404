@@ -19,4 +19,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			sendVerificationRequest: sendVerificationRequest,
 		}),
 	],
+	pages: {
+		verifyRequest: "/auth/verify-request",
+	},
 });

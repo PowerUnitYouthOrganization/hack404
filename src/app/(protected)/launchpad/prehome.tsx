@@ -6,6 +6,8 @@ import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import RoundedButton from "@/components/ui/roundedbutton";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useApplicationStatus } from "@/hooks/use-application-status";
 
 // could probably be moved to json or something
 interface AgendaEvent {
@@ -37,6 +39,17 @@ export default function Prehome() {
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
   const headerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { hasApplication, applicationSubmitted, loading } =
+    useApplicationStatus();
+
+  const handleStartApplication = () => {
+    if (hasApplication && applicationSubmitted) {
+      router.push("/application/thankyou");
+    } else {
+      router.push("/application");
+    }
+  };
 
   useEffect(() => {
     // time until submission deadline or whatever date
@@ -155,8 +168,27 @@ export default function Prehome() {
             </div>
             <div className="flex p-6 flex-col justify-between items-end self-stretch border-t border-b border-[rgba(48,242,242,0.20)] bg-[rgba(48,242,242,0.10)] backdrop-blur-[25px]">
               <div className="flex flex-col items-start self-stretch">
-                <RoundedButton color="#30F2F2" className="text-black">
-                  <p>Start Application</p>
+                <RoundedButton
+                  color={
+                    hasApplication && applicationSubmitted
+                      ? "#C3F73A"
+                      : "#30F2F2"
+                  }
+                  className={
+                    hasApplication && applicationSubmitted
+                      ? "text-white"
+                      : "text-black"
+                  }
+                  onClick={handleStartApplication}
+                  disabled={loading || (hasApplication && applicationSubmitted)}
+                >
+                  <p>
+                    {loading
+                      ? "Checking..."
+                      : hasApplication && applicationSubmitted
+                        ? "Application Submitted"
+                        : "Start Application"}
+                  </p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20px"

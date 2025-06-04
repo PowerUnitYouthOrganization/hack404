@@ -2,7 +2,7 @@
 
 import LaunchpadHeader from "@/app/(protected)/launchpad/launchpad-header";
 import { useState } from "react";
-import Home from "./home";
+import Prehome from "./prehome";
 import { SessionProvider } from "next-auth/react";
 import GradientBackgroundStatic from "@/components/gradient-background-static";
 
@@ -28,15 +28,12 @@ interface Announcement {
 export default function Launchpad() {
   const [activeTab, setActiveTab] = useState("home");
 
-  const agendaEvents: AgendaEvent[] = [];
-  const announcements: Announcement[] = [];
-
   return (
     <SessionProvider>
       <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
         <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-        <Home />
+        <Prehome />
       </div>
     </SessionProvider>
   );

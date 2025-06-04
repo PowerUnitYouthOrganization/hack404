@@ -47,7 +47,7 @@ const LinksStep: React.FC<StepProps> = ({ form, handleChange }) => (
           name="portfolio"
           value={form.portfolio}
           onChange={handleChange}
-          placeholder="Portfolio"
+          placeholder="Portfolio/Devpost/Dorahacks (link)"
           className="w-full bg-transparent border-none outline-none text-white text-sm placeholder-white/50"
         />
       </div>

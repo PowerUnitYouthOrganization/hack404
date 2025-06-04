@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import SimpleHeader from "@/components/simple-header";
 import GradientBackgroundStatic from "@/components/gradient-background-static";
 import RoundedButton from "@/components/ui/roundedbutton";
@@ -14,7 +15,9 @@ import DetailsStep from "./steps/DetailsStep";
 import LinksStep from "./steps/LinksStep";
 
 export default function HackerApplication() {
+  const router = useRouter();
   const [step, setStep] = useState<number>(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -53,6 +56,56 @@ export default function HackerApplication() {
     }
   };
 
+  const submitProfile = async () => {
+    setIsSubmitting(true);
+    
+    try {
+      const profileData = {
+        legalFirstName: form.firstName,
+        lastName: form.lastName,
+        preferredFirstName: form.preferredName || "",
+        age: form.age || "",
+        gender: form.gender,
+        ethnicity: form.ethnicity,
+        institution: form.school,
+        gradeYear: form.grade,
+        hackathonsAttended: form.previousHackathons,
+        tshirtSize: form.shirtSize,
+        allergies: form.allergies || "",
+        dietaryRestrictions: form.dietaryRestrictions || "",
+        linkedin: form.linkedin || "",
+        github: form.github || "",
+        resume: form.resume || "",
+        portfolio: form.portfolio || "",
+      };
+
+      const response = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profileData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to save profile");
+      }
+
+      toast.success("Profile created successfully!");
+      
+      // Redirect to launchpad after successful submission
+      setTimeout(() => {
+        router.push("/launchpad");
+      }, 1500);
+    } catch (error) {
+      console.error("Error submitting profile:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to save profile"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const nextStep = () => {
     if (!validateStep()) {
       toast.error("Please fill out all required fields before continuing.");
@@ -62,7 +115,7 @@ export default function HackerApplication() {
     if (step < 4) {
       setStep((prev) => prev + 1);
     } else {
-      toast.success("Profile created successfully!");
+      submitProfile();
     }
   };
 
@@ -94,7 +147,7 @@ export default function HackerApplication() {
         <GradientBackgroundStatic />
         <div className="absolute inset-0 bg-black/40 -z-40" />
 
-        <div className="mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex h-[482px] items-start gap-2 self-stretch mx-auto">
+        <div className="mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex min-h-[482px] items-start gap-2 self-stretch mx-auto">
           {/* Left Panel */}
           <div className="flex flex-col p-6 justify-between items-start self-stretch flex-1 border-r border-[rgba(48,242,242,0.20)]">
             <div className=" flex flex-col items-start gap-2.5">
@@ -153,9 +206,9 @@ export default function HackerApplication() {
                   color="#30F2F2"
                   className="text-black text-sm font-light"
                   onClick={nextStep}
-                  disabled={!validateStep()}
+                  disabled={!validateStep() || isSubmitting}
                 >
-                  {step < 4 ? "Continue" : "Finish"}
+                  {isSubmitting ? "Saving..." : step < 4 ? "Continue" : "Finish"}
                   <svg
                     className="w-5 h-5 text-black"
                     fill="none"

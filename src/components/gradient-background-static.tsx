@@ -63,5 +63,5 @@ export default function GradientBackgroundStatic() {
     };
   }, []);
 
-  return <div ref={containerRef} className="fixed inset-0 -z-50" />;
+  return <div ref={containerRef} className="absolute inset-0 -z-50 min-h-screen" />;
 }

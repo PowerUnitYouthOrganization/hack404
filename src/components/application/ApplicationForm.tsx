@@ -12,6 +12,7 @@ import WorkshopsCard from "@/components/application/WorkshopsCard";
 import ActivityCard from "@/components/application/ActivityCard";
 import ConsentCard from "@/components/application/ConsentCard";
 import AiCard from "@/components/application/AiCard";
+import { useRouter } from "next/navigation";
 
 const workshopOptions = [
   "Artificial Intelligence",
@@ -55,6 +56,7 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
   const [avatar, setAvatar] = useState<string[][]>(Array.from({ length: 8 }, () => Array(8).fill("#ffffff")));
   const [selectedColor, setSelectedColor] = useState<string>("#3e4da3");
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const router = useRouter();
   
   const form = useForm<ApplicationForm>({
     resolver: zodResolver(formSchema),
@@ -99,8 +101,7 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
         throw new Error(errorData.error || "Failed to submit application");
       }
       // Success
-      alert("Application submitted successfully!");
-      // window.location.href = "/launchpad";
+      router.push("/application/thankyou");
     } catch (error: any) {
       setSubmitError(error.message || "Failed to submit application");
     } finally {

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 
 interface LaunchpadHeaderProps {
   activeTab: string;
@@ -18,6 +19,29 @@ export default function LaunchpadHeader({
 }: LaunchpadHeaderProps) {
   const { data: session } = useSession();
   const avatarUrl = session?.user?.image || "";
+  const [showProfileCard, setShowProfileCard] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Get user's name parts
+  const fullName = session?.user?.name || "";
+  const nameParts = fullName.split(" ");
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : "";
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setShowProfileCard(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const navItems = [
     { label: "Home", value: "home" },
@@ -65,17 +89,46 @@ export default function LaunchpadHeader({
           </nav>
         </div>
         {/* profile and qr code buttons */}
-        <div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4]">
-          <RoundedButton
-            color="rgba(48,242,242,0.20)"
-            className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"
-          >
-            Profile
-            <Avatar className="w-6 h-6">
-              <AvatarImage src={avatarUrl} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-          </RoundedButton>
+        <div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4] relative">
+          <div ref={profileRef} className="relative">
+            <RoundedButton
+              color="rgba(48,242,242,0.20)"
+              className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"
+              onClick={() => setShowProfileCard(!showProfileCard)}
+            >
+              Profile
+              <Avatar className="w-6 h-6 rounded-md">
+                <AvatarImage src={avatarUrl} />
+                <AvatarFallback>
+                  {firstName.charAt(0)}
+                  {lastName.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+            </RoundedButton>
+
+            {/* Profile dropdown card */}
+            {showProfileCard && (
+              <div className="absolute top-full right-0 mt-2 w-64 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 backdrop-blur-[25px] rounded-lg p-4 z-50">
+                <div className="flex items-center gap-3">
+                  <Avatar className="w-12 h-12 rounded-md">
+                    <AvatarImage src={avatarUrl} />
+                    <AvatarFallback className="bg-cyan-400/20 text-white">
+                      {firstName.charAt(0)}
+                      {lastName.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-white font-medium">
+                      {firstName} {lastName}
+                    </span>
+                    <span className="text-white/60 text-xs">
+                      {session?.user?.email}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           {/* <RoundedButton
 						color="#C3F73A"
 						className="text-black"

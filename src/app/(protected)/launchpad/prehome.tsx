@@ -1,28 +1,10 @@
 "use client";
 
-import AgendaContainer from "@/app/(protected)/launchpad/agenda-container";
-import AnnouncementContainer from "@/app/(protected)/launchpad/announcements-container";
-import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import RoundedButton from "@/components/ui/roundedbutton";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useApplicationStatus } from "@/hooks/use-application-status";
-
-// could probably be moved to json or something
-interface AgendaEvent {
-  name: string;
-  startTime: Date;
-  endTime: Date;
-  roomNumber: string;
-}
-
-interface Announcement {
-  title: string;
-  content: string;
-  announcer: string;
-  avatarLink: string;
-}
 
 interface FAQ {
   question: string;
@@ -85,14 +67,9 @@ export default function Prehome() {
     updateHeaderHeight();
     window.addEventListener("resize", updateHeaderHeight);
 
-    console.log("Header height:", headerHeight);
-
     return () => window.removeEventListener("resize", updateHeaderHeight);
-  }, []);
-  console.log("Header height:", headerHeight);
+  }, [headerHeight]);
 
-  const agendaEvents: AgendaEvent[] = [];
-  const announcements: Announcement[] = [];
   const faq: FAQ[] = [
     {
       question: "What are the requirements to participate?",
@@ -171,14 +148,10 @@ export default function Prehome() {
                 <RoundedButton
                   color={
                     hasApplication && applicationSubmitted
-                      ? "#C3F73A"
+                      ? "#299b9b"
                       : "#30F2F2"
                   }
-                  className={
-                    hasApplication && applicationSubmitted
-                      ? "text-white"
-                      : "text-black"
-                  }
+                  className="text-black"
                   onClick={handleStartApplication}
                   disabled={loading || (hasApplication && applicationSubmitted)}
                 >
@@ -267,7 +240,7 @@ export default function Prehome() {
                           <p className="font-sm font-light">{FAQ.answer}</p>
                         </div>
                       </div>
-                      <svg
+                      {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="20px"
                         viewBox="0 -960 960 960"
@@ -276,7 +249,7 @@ export default function Prehome() {
                         className="min-w-5"
                       >
                         <path d="M200-200v-240h80v160h160v80H200Zm480-320v-160H520v-80h240v240h-80Z" />
-                      </svg>
+                      </svg> */}
                     </div>
                   </div>
                 );

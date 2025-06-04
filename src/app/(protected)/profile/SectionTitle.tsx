@@ -1,4 +1,3 @@
-import React from 'react';
 import { SectionTitleProps } from './types';
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => (

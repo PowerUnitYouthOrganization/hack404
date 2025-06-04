@@ -1,6 +1,4 @@
-import React from "react";
 import { StepProps } from "../types";
-import SectionTitle from "../SectionTitle";
 
 const BasicInfoStep: React.FC<StepProps> = ({ form, handleChange }) => (
   <div className="self-stretch flex flex-col justify-start items-start gap-4">

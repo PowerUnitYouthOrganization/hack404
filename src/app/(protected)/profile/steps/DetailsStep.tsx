@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { StepProps } from "../types";
-import SectionTitle from "../SectionTitle";
 
 const DetailsStep: React.FC<StepProps> = ({ form, handleChange }) => {
   const [showCustomAllergies, setShowCustomAllergies] = useState(form.allergies === "Other");

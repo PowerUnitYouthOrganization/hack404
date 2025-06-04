@@ -6,21 +6,6 @@ import Prehome from "./prehome";
 import { SessionProvider } from "next-auth/react";
 import GradientBackgroundStatic from "@/components/gradient-background-static";
 
-// could probably be moved to json or something
-interface AgendaEvent {
-  name: string;
-  startTime: Date;
-  endTime: Date;
-  roomNumber: string;
-}
-
-interface Announcement {
-  title: string;
-  content: string;
-  announcer: string;
-  avatarLink: string;
-}
-
 /**
  * This component serves as the main layout for the hacker dashboard page.
  * @returns Launchpad component

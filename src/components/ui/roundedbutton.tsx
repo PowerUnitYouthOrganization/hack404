@@ -23,7 +23,7 @@ export default function RoundedButton({
     >
       <button
         type={type}
-        className={`h-12 flex pr-3 py-2 pl-4 justify-center items-center gap-4 text-[16px] rounded-[100px] font-light cursor-pointer ${className}`}
+        className={`h-12 flex pr-3 py-2 pl-4 justify-center items-center gap-4 text-[16px] rounded-[100px] font-light cursor-pointer ${className} transition-all hover:brightness-110`}
         disabled={disabled}
         style={{ backgroundColor: color }}
         onClick={onClick}

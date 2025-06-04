@@ -6,6 +6,7 @@ import Image from "next/image";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface LaunchpadHeaderProps {
 	activeTab: string;
@@ -34,9 +35,11 @@ export default function LaunchpadHeader({ activeTab, setActiveTab }: LaunchpadHe
 						width={26}
 						height={19}
 					/>
-					<h1 className="text-white text-2xl font-(family-name:--font-heading) tracking-[-0.72px]">
-						launchpad
-					</h1>
+					<Link href="/launchpad">
+						<h1 className="text-white text-2xl font-(family-name:--font-heading) tracking-[-0.72px] cursor-pointer hover:opacity-80">
+							launchpad
+						</h1>
+					</Link>
 				</div>
 				{/* navbar */}
 				<div className="flex px-[22px] flex-col justify-center items-center gap-[10px] flex-1 self-stretch col-[2/3] row-[1/2]">

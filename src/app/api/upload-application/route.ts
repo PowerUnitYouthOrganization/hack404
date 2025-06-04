@@ -43,25 +43,39 @@ export async function POST(req: NextRequest) {
 		const formData = await req.formData();
 
 		// Get form fields
-		const failureProud = formData.get("failureProud") as string;
-		const forgetLearn = formData.get("forgetLearn") as string;
+		const stream = formData.get("stream") as "beginner" | "normal";
+		const shortAnswer1 = formData.get("shortAnswer1") as string;
+		const shortAnswer2 = formData.get("shortAnswer2") as string;
+		const creativeQuestion = formData.get("creativeQuestion") as string;
+		const activity = formData.get("activity") as string;
 		const workshops = JSON.parse(
 			(formData.get("workshops") as string) || "[]",
 		);
+		const resumeConsented = formData.get("resumeConsented") === "true";
+		const overnightConsented = formData.get("overnightConsented") === "true";
+		const aiUsed = formData.get("aiUsed") === "true";
+		const otherWorkshop = formData.get("otherWorkshop") as string;
 		const avatarPixels = JSON.parse(
 			(formData.get("avatarPixels") as string) || "[]",
 		);
 		const avatarFile = formData.get("avatar") as File;
 
 		console.log("Received form data:", {
-			failureProud,
-			forgetLearn,
+			stream,
+			shortAnswer1,
+			shortAnswer2,
+			creativeQuestion,
+			activity,
 			workshops,
+			resumeConsented,
+			overnightConsented,
+			aiUsed,
+			otherWorkshop,
 			avatarPixels,
 			avatarFile,
 		});
 		// Validate required fields
-		if (!failureProud || !forgetLearn || !avatarFile) {
+		if (!stream || !shortAnswer1 || !shortAnswer2 || !creativeQuestion || !avatarFile) {
 			return NextResponse.json(
 				{ error: "Missing required fields" },
 				{ status: 400 },
@@ -95,11 +109,17 @@ export async function POST(req: NextRequest) {
 			userId,
 			applicationSubmitted: true,
 			applicationReviewed: false,
-			failureProud,
-			forgetLearn,
+			stream,
+			shortAnswer1,
+			shortAnswer2,
+			creativeQuestion,
 			avatar: avatarPixels, // Store pixel data as array
 			avatarUrl, // Store Cloudinary URL
 			workshops,
+			activity: activity || "No specific activities",
+			resumeConsented,
+			overnightConsented,
+			aiUsed,
 			createdAt: new Date(),
 		};
 

@@ -2,11 +2,33 @@
 
 import GradientBackgroundStatic from "@/components/gradient-background-static";
 import LaunchpadHeader from "@/app/(protected)/launchpad/launchpad-header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ApplicationForm from "@/components/application/ApplicationForm";
+import { useApplicationStatus } from "@/hooks/use-application-status";
 
 export default function NormalApplicationPage() {
   const [activeTab, setActiveTab] = useState("home");
+  const router = useRouter();
+  const { hasApplication, applicationSubmitted, loading } = useApplicationStatus();
+
+  useEffect(() => {
+    if (!loading && hasApplication && applicationSubmitted) {
+      router.push("/application/thankyou");
+    }
+  }, [loading, hasApplication, applicationSubmitted, router]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen h-dvh w-full gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
+        <GradientBackgroundStatic />
+        <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="w-full flex-1 flex justify-center items-center">
+          <div className="text-white text-xl">Checking application status...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen h-dvh w-full gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">

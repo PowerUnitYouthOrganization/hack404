@@ -34,6 +34,14 @@ const formSchema = z.object({
   overnightConsented: z.boolean(),
   aiUsed: z.boolean(),
   otherWorkshop: z.string().optional(),
+}).refine((data) => {
+  if (data.workshops.includes("Other")) {
+    return data.otherWorkshop && data.otherWorkshop.trim().length > 0;
+  }
+  return true;
+}, {
+  message: "Please specify your other workshop",
+  path: ["otherWorkshop"],
 });
 
 type ApplicationForm = z.infer<typeof formSchema>;
@@ -77,32 +85,56 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
     setIsSubmitting(true);
     setSubmitError(null);
     try {
+      console.log("Form values being submitted:", values);
+      console.log("Stream:", stream);
+      console.log("Avatar data:", avatar);
+      
       const canvas = avatarToCanvas(avatar);
       const blob = await canvasToBlob(canvas);
+      
+      // Process workshops to replace "Other" with actual value
+      let processedWorkshops = [...values.workshops];
+      if (values.workshops.includes("Other") && values.otherWorkshop) {
+        const otherIndex = processedWorkshops.indexOf("Other");
+        processedWorkshops[otherIndex] = values.otherWorkshop;
+      }
+      
+      console.log("Processed workshops:", processedWorkshops);
+      
       const formData = new FormData();
       formData.append("stream", stream);
       formData.append("shortAnswer1", values.shortAnswer1);
       formData.append("shortAnswer2", values.shortAnswer2);
       formData.append("creativeQuestion", values.creativeQuestion);
-      formData.append("activity", values.activity || "");
-      formData.append("workshops", JSON.stringify(values.workshops));
+      formData.append("activity", values.activity || "No specific activities");
+      formData.append("workshops", JSON.stringify(processedWorkshops));
       formData.append("resumeConsented", String(values.resumeConsented));
       formData.append("overnightConsented", String(values.overnightConsented));
       formData.append("aiUsed", String(values.aiUsed));
-      formData.append("otherWorkshop", values.otherWorkshop || "");
       formData.append("avatarPixels", JSON.stringify(avatar));
       formData.append("avatar", blob, "avatar.png");
+      
+      // Log all form data entries
+      console.log("FormData entries:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
       const response = await fetch("/api/upload-application", {
         method: "POST",
         body: formData,
       });
+      
+      console.log("Response status:", response.status);
+      
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Error response:", errorData);
         throw new Error(errorData.error || "Failed to submit application");
       }
       // Success
       router.push("/application/thankyou");
     } catch (error: any) {
+      console.error("Submission error:", error);
       setSubmitError(error.message || "Failed to submit application");
     } finally {
       setIsSubmitting(false);
@@ -174,6 +206,7 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
                     {...form.register("otherWorkshop")}
                     placeholder="Please specify your other workshop"
                   />
+                  <FormMessage>{form.formState.errors.otherWorkshop?.message as string}</FormMessage>
                 </div>
               )}
               <FormMessage>{form.formState.errors.workshops?.message as string}</FormMessage>

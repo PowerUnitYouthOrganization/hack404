@@ -1,14 +1,34 @@
 "use client";
 
 import GradientBackgroundStatic from "@/components/gradient-background-static";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LaunchpadHeader from "../launchpad/launchpad-header";
 import { useRouter } from "next/navigation";
 import StreamCell from "@/components/application/StreamCell";
+import { useApplicationStatus } from "@/hooks/use-application-status";
 
 export default function ApplicationPage() {
   const [activeTab, setActiveTab] = useState("home");
   const router = useRouter();
+  const { hasApplication, applicationSubmitted, loading } = useApplicationStatus();
+
+  useEffect(() => {
+    if (!loading && hasApplication && applicationSubmitted) {
+      router.push("/application/thankyou");
+    }
+  }, [loading, hasApplication, applicationSubmitted, router]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
+        <GradientBackgroundStatic />
+        <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <main className="flex flex-col w-full flex-1 justify-center items-center">
+          <div className="text-white text-xl">Checking application status...</div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">

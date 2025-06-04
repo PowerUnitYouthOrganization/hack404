@@ -64,11 +64,17 @@ export const applications = pgTable("application", {
 	applicationReviewed: boolean("applicationReviewed")
 		.notNull()
 		.default(false),
-	failureProud: text("failureProud").notNull(),
-	forgetLearn: text("forgetLearn").notNull(),
+	stream: text("stream", { enum: ["beginner", "normal"] }).notNull(),
+	shortAnswer1: text("shortAnswer1").notNull(),
+	shortAnswer2: text("shortAnswer2").notNull(),
+	creativeQuestion: text("creativeQuestion").notNull(),
 	avatar: text("avatar").array().$type<string[][]>().notNull(),
 	avatarUrl: text("avatarUrl").notNull(),
 	workshops: text("workshops").array().$type<string[]>().notNull(),
+	activity: text("activity").notNull(),
+	resumeConsented: boolean("resumeConsented").notNull(),
+	overnightConsented: boolean("overnightConsented").notNull(),
+	aiUsed: boolean("aiUsed").notNull(),
 	createdAt: timestamp("createdAt", { mode: "date" })
 		.notNull()
 		.$defaultFn(() => new Date()),

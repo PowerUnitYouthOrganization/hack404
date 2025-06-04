@@ -1,662 +1,234 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	FormDescription,
-} from "@/components/ui/form";
+import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import SimpleHeader from "@/components/simple-header";
+import GradientBackgroundStatic from "@/components/gradient-background-static";
+import RoundedButton from "@/components/ui/roundedbutton";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { FormData } from "./types";
+import BasicInfoStep from "./steps/BasicInfoStep";
+import EducationStep from "./steps/EducationStep";
+import DetailsStep from "./steps/DetailsStep";
+import LinksStep from "./steps/LinksStep";
 
-const profileSchema = z.object({
-	// Personal Information
-	legalFirstName: z.string().min(1, "Legal first name is required"),
-	lastName: z.string().min(1, "Last name is required"),
-	preferredFirstName: z.string().optional(),
-	age: z.string().min(1, "Age is required"),
-	gender: z.string().min(1, "Gender is required"),
-	ethnicity: z.string().optional(),
+export default function HackerApplication() {
+  const router = useRouter();
+  const [step, setStep] = useState<number>(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    pronouns: "",
+    school: "",
+    grade: "",
+    previousHackathons: "",
+    shirtSize: "",
+    allergies: "",
+    dietaryRestrictions: "",
+    linkedin: "",
+    github: "",
+    resume: "",
+    portfolio: "",
+  });
 
-	// Education
-	institution: z.string().min(1, "Institution is required"),
-	gradeYear: z.string().min(1, "Grade/Year is required"),
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-	// Experience
-	hackathonsAttended: z
-		.string()
-		.min(1, "Number of hackathons attended is required"),
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        return form.firstName && form.lastName && form.gender && form.ethnicity;
+      case 2:
+        return form.school && form.grade;
+      case 3:
+        return form.previousHackathons && form.shirtSize;
+      case 4:
+        return true; // Links are optional
+      default:
+        return false;
+    }
+  };
 
-	// Preferences
-	tshirtSize: z.string().min(1, "T-shirt size is required"),
-	allergies: z.string().optional(),
-	dietaryRestrictions: z.string().optional(),
+  const submitProfile = async () => {
+    setIsSubmitting(true);
+    
+    try {
+      const profileData = {
+        legalFirstName: form.firstName,
+        lastName: form.lastName,
+        preferredFirstName: form.preferredName || "",
+        age: form.age || "",
+        gender: form.gender,
+        ethnicity: form.ethnicity,
+        institution: form.school,
+        gradeYear: form.grade,
+        hackathonsAttended: form.previousHackathons,
+        tshirtSize: form.shirtSize,
+        allergies: form.allergies || "",
+        dietaryRestrictions: form.dietaryRestrictions || "",
+        linkedin: form.linkedin || "",
+        github: form.github || "",
+        resume: form.resume || "",
+        portfolio: form.portfolio || "",
+      };
 
-	// Links (all optional but must be valid URLs if provided)
-	linkedin: z
-		.string()
-		.url("Please enter a valid LinkedIn URL")
-		.optional()
-		.or(z.literal("")),
-	github: z
-		.string()
-		.url("Please enter a valid GitHub URL")
-		.optional()
-		.or(z.literal("")),
-	resume: z
-		.string()
-		.url("Please enter a valid resume URL")
-		.optional()
-		.or(z.literal("")),
-	portfolio: z
-		.string()
-		.url("Please enter a valid portfolio URL")
-		.optional()
-		.or(z.literal("")),
-});
+      const response = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profileData),
+      });
 
-export type ProfileFormData = z.infer<typeof profileSchema>;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to save profile");
+      }
 
-export default function ProfilePage() {
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [submitError, setSubmitError] = useState<string | null>(null);
-	const [submitSuccess, setSubmitSuccess] = useState(false);
+      toast.success("Profile created successfully!");
+      
+      // Redirect to launchpad after successful submission
+      setTimeout(() => {
+        router.push("/launchpad");
+      }, 1500);
+    } catch (error) {
+      console.error("Error submitting profile:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to save profile"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-	const form = useForm<ProfileFormData>({
-		resolver: zodResolver(profileSchema),
-		defaultValues: {
-			legalFirstName: "",
-			lastName: "",
-			preferredFirstName: "",
-			age: "",
-			gender: "",
-			ethnicity: "",
-			institution: "",
-			gradeYear: "",
-			hackathonsAttended: "",
-			tshirtSize: "",
-			allergies: "",
-			dietaryRestrictions: "",
-			linkedin: "",
-			github: "",
-			resume: "",
-			portfolio: "",
-		},
-	});
+  const nextStep = () => {
+    if (!validateStep()) {
+      toast.error("Please fill out all required fields before continuing.");
+      return;
+    }
+    
+    if (step < 4) {
+      setStep((prev) => prev + 1);
+    } else {
+      submitProfile();
+    }
+  };
 
-	const onSubmit = async (data: ProfileFormData) => {
-		setIsSubmitting(true);
-		setSubmitError(null);
+  const prevStep = () => {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    }
+  };
 
-		try {
-			const response = await fetch("/api/profile", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data),
-			});
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return <BasicInfoStep form={form} handleChange={handleChange} />;
+      case 2:
+        return <EducationStep form={form} handleChange={handleChange} />;
+      case 3:
+        return <DetailsStep form={form} handleChange={handleChange} />;
+      case 4:
+        return <LinksStep form={form} handleChange={handleChange} />;
+      default:
+        return <BasicInfoStep form={form} handleChange={handleChange} />;
+    }
+  };
 
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || "Failed to save profile");
-			}
+  return (
+    <SessionProvider>
+      <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
+        <SimpleHeader />
+        <GradientBackgroundStatic />
+        <div className="absolute inset-0 bg-black/40 -z-40" />
 
-			setSubmitSuccess(true);
+        <div className="mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex min-h-[482px] items-start gap-2 self-stretch mx-auto">
+          {/* Left Panel */}
+          <div className="flex flex-col p-6 justify-between items-start self-stretch flex-1 border-r border-[rgba(48,242,242,0.20)]">
+            <div className=" flex flex-col items-start gap-2.5">
+              <h1 className="text-3xl font-medium font-(family-name:--font-heading)">
+                Get set up
+              </h1>
+              <h2 className="text-2xl mt-2 font-(family-name:--font-heading-light)">
+                Create your hacker profile
+              </h2>
+            </div>
+            <p className="text-sm text-white/70 max-w-xs">
+              Creating a hacker profile is the first step to joining Hack404. It
+              gives you access to Launchpad, where you can apply, manage your
+              application, and access important information and tools during the
+              hackathon weekend if you are accepted.
+            </p>
+          </div>
 
-			// Redirect to launchpad after successful submission
-			setTimeout(() => {
-				window.location.href = "/launchpad";
-			}, 1500);
-		} catch (error) {
-			console.error("Error submitting profile:", error);
-			setSubmitError(
-				error instanceof Error ? error.message : "An error occurred",
-			);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
-
-	// Show success message
-	if (submitSuccess) {
-		return (
-			<div className="min-h-screen bg-gray-100 flex items-center justify-center">
-				<Card className="max-w-md">
-					<CardContent className="pt-6">
-						<div className="text-center">
-							<h2 className="text-2xl font-bold text-green-600 mb-2">
-								Profile Saved!
-							</h2>
-							<p className="text-gray-600">
-								Redirecting to your dashboard...
-							</p>
-						</div>
-					</CardContent>
-				</Card>
-			</div>
-		);
-	}
-
-	return (
-		<div className="min-h-screen bg-gray-100 py-12 px-4">
-			<div className="max-w-2xl mx-auto">
-				<Card>
-					<CardHeader>
-						<CardTitle className="text-2xl font-bold text-center">
-							profile prototype
-						</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<Form {...form}>
-							<form
-								onSubmit={form.handleSubmit(onSubmit)}
-								className="space-y-6"
-							>
-								{/* Personal Information */}
-								<div className="space-y-4">
-									<h3 className="text-lg font-semibold border-b pb-2">
-										Personal Information
-									</h3>
-
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<FormField
-											control={form.control}
-											name="legalFirstName"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Legal First Name
-													</FormLabel>
-													<FormControl>
-														<Input {...field} />
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="lastName"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Last Name
-													</FormLabel>
-													<FormControl>
-														<Input {...field} />
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-
-									<FormField
-										control={form.control}
-										name="preferredFirstName"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>
-													Preferred First Name
-												</FormLabel>
-												<FormDescription>
-													Optional - leave blank if
-													same as legal name
-												</FormDescription>
-												<FormControl>
-													<Input {...field} />
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<FormField
-											control={form.control}
-											name="age"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Age</FormLabel>
-													<FormControl>
-														<Input
-															type="number"
-															min="13"
-															max="100"
-															{...field}
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="gender"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Gender
-													</FormLabel>
-													<Select
-														onValueChange={
-															field.onChange
-														}
-														defaultValue={
-															field.value
-														}
-													>
-														<FormControl>
-															<SelectTrigger>
-																<SelectValue placeholder="Select gender" />
-															</SelectTrigger>
-														</FormControl>
-														<SelectContent>
-															<SelectItem value="male">
-																Male
-															</SelectItem>
-															<SelectItem value="female">
-																Female
-															</SelectItem>
-															<SelectItem value="non-binary">
-																Non-binary
-															</SelectItem>
-															<SelectItem value="prefer-not-to-say">
-																Prefer not to
-																say
-															</SelectItem>
-															<SelectItem value="other">
-																Other
-															</SelectItem>
-														</SelectContent>
-													</Select>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-
-									<FormField
-										control={form.control}
-										name="ethnicity"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Ethnicity</FormLabel>
-												<FormDescription>
-													Optional
-												</FormDescription>
-												<Select
-													onValueChange={
-														field.onChange
-													}
-													defaultValue={field.value}
-												>
-													<FormControl>
-														<SelectTrigger>
-															<SelectValue placeholder="Select ethnicity" />
-														</SelectTrigger>
-													</FormControl>
-													<SelectContent>
-														<SelectItem value="east-asian">
-															East Asian
-														</SelectItem>
-														<SelectItem value="middle-eastern">
-															Middle Eastern
-														</SelectItem>
-														<SelectItem value="south-asian">
-															South Asian
-														</SelectItem>
-														<SelectItem value="southeast-asian">
-															Southeast Asian
-														</SelectItem>
-														<SelectItem value="black">
-															Black or African
-															American
-														</SelectItem>
-														<SelectItem value="hispanic">
-															Hispanic or Latino
-														</SelectItem>
-														<SelectItem value="white">
-															White
-														</SelectItem>
-														<SelectItem value="native-american">
-															Native American or
-															Alaska Native
-														</SelectItem>
-														<SelectItem value="pacific-islander">
-															Native Hawaiian or
-															Pacific Islander
-														</SelectItem>
-														<SelectItem value="other">
-															Other
-														</SelectItem>
-														<SelectItem value="prefer-not-to-say">
-															Prefer not to say
-														</SelectItem>
-													</SelectContent>
-												</Select>
-
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-								</div>
-
-								{/* Education */}
-								<div className="space-y-4">
-									<h3 className="text-lg font-semibold border-b pb-2">
-										Education
-									</h3>
-
-									<FormField
-										control={form.control}
-										name="institution"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>
-													Secondary/Post-Secondary
-													Institution
-												</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														placeholder="Your school or university"
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-
-									<FormField
-										control={form.control}
-										name="gradeYear"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>
-													Grade/Year
-												</FormLabel>
-												<Select
-													onValueChange={
-														field.onChange
-													}
-													defaultValue={field.value}
-												>
-													<FormControl>
-														<SelectTrigger>
-															<SelectValue placeholder="Select your grade/year" />
-														</SelectTrigger>
-													</FormControl>
-													<SelectContent>
-														<SelectItem value="grade-9">
-															Grade 9
-														</SelectItem>
-														<SelectItem value="grade-10">
-															Grade 10
-														</SelectItem>
-														<SelectItem value="grade-11">
-															Grade 11
-														</SelectItem>
-														<SelectItem value="grade-12">
-															Grade 12
-														</SelectItem>
-														<SelectItem value="first-year">
-															1st Year University
-														</SelectItem>
-														<SelectItem value="second-year">
-															2nd Year University
-														</SelectItem>
-														<SelectItem value="third-year">
-															3rd Year University
-														</SelectItem>
-														<SelectItem value="fourth-year">
-															4th Year University
-														</SelectItem>
-														<SelectItem value="fifth-year">
-															4th+ Year University
-														</SelectItem>
-														<SelectItem value="graduate">
-															Graduate Student
-														</SelectItem>
-														<SelectItem value="other">
-															Other
-														</SelectItem>
-													</SelectContent>
-												</Select>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-								</div>
-
-								{/* Experience & Preferences */}
-								<div className="space-y-4">
-									<h3 className="text-lg font-semibold border-b pb-2">
-										Experience & Preferences
-									</h3>
-
-									<FormField
-										control={form.control}
-										name="hackathonsAttended"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>
-													Number of Previously
-													Attended Hackathons
-												</FormLabel>
-												<FormControl>
-													<Input
-														type="number"
-														min="0"
-														{...field}
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-
-									<FormField
-										control={form.control}
-										name="tshirtSize"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>
-													T-shirt Size
-												</FormLabel>
-												<Select
-													onValueChange={
-														field.onChange
-													}
-													defaultValue={field.value}
-												>
-													<FormControl>
-														<SelectTrigger>
-															<SelectValue placeholder="Select your t-shirt size" />
-														</SelectTrigger>
-													</FormControl>
-													<SelectContent>
-														{[
-															"XS",
-															"S",
-															"M",
-															"L",
-															"XL",
-															"XXL",
-														].map((size) => (
-															<SelectItem
-																key={size}
-																value={size}
-															>
-																{size}
-															</SelectItem>
-														))}
-													</SelectContent>
-												</Select>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<FormField
-											control={form.control}
-											name="allergies"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Allergies
-													</FormLabel>
-													<FormDescription>
-														Optional
-													</FormDescription>
-													<FormControl>
-														<Textarea {...field} />
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="dietaryRestrictions"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Dietary Restrictions
-													</FormLabel>
-													<FormDescription>
-														Optional
-													</FormDescription>
-													<FormControl>
-														<Textarea {...field} />
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-								</div>
-
-								{/* Links */}
-								<div className="space-y-4">
-									<h3 className="text-lg font-semibold border-b pb-2">
-										Links (Optional)
-									</h3>
-
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<FormField
-											control={form.control}
-											name="linkedin"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														LinkedIn
-													</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															placeholder="https://linkedin.com/in/..."
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="github"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														GitHub
-													</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															placeholder="https://github.com/..."
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<FormField
-											control={form.control}
-											name="resume"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Resume Link
-													</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															placeholder="https://..."
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="portfolio"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>
-														Portfolio
-													</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															placeholder="https://..."
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-								</div>
-
-								<Button
-									type="submit"
-									className="w-full"
-									disabled={isSubmitting}
-								>
-									{isSubmitting
-										? "Saving Profile..."
-										: "Complete Profile"}
-								</Button>
-							</form>
-						</Form>
-					</CardContent>
-				</Card>
-			</div>
-		</div>
-	);
+          {/* Right Panel */}
+          <div className="self-stretch flex-1 p-6 bg-cyan-400/0 border-l border-[rgba(48,242,242,0.20)] backdrop-blur-xl inline-flex flex-col justify-between items-start overflow-hidden">
+            <div className="self-stretch flex flex-col justify-start items-start gap-12">
+              <div className="self-stretch inline-flex justify-between items-start">
+                <div className="justify-start text-white text-base font-normal font-['DM_Sans']">
+                  {step === 1 && "Basic Details"}
+                  {step === 2 && "Education"}
+                  {step === 3 && "Details"}
+                  {step === 4 && "Your Links"}
+                </div>
+                <div className="justify-start text-white text-sm font-extralight font-['DM_Sans']">
+                  Step {step}/4
+                </div>
+              </div>
+              <div className="self-stretch flex flex-col justify-start items-start gap-4">
+                {renderStep()}
+              </div>
+            </div>
+            <div className="self-stretch inline-flex justify-between items-end">
+              <div className="justify-start text-white text-sm font-extralight font-['DM_Sans']">
+                {step === 1 && "Make sure details are correct"}
+                {step === 2 && "Verify your education info"}
+                {step === 3 && "Check your details"}
+                {step === 4 && "Add your links"}
+              </div>
+              <div className="flex gap-2 items-center">
+                {step > 1 && (
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="h-12 pl-6 pr-4 py-2 bg-transparent rounded-[100px] flex justify-center items-center gap-4 overflow-hidden text-white text-sm font-light font-['DM_Sans'] hover:bg-white/10"
+                  >
+                    Back
+                  </button>
+                )}
+                <RoundedButton
+                  type="button"
+                  color="#30F2F2"
+                  className="text-black text-sm font-light"
+                  onClick={nextStep}
+                  disabled={!validateStep() || isSubmitting}
+                >
+                  {isSubmitting ? "Saving..." : step < 4 ? "Continue" : "Finish"}
+                  <svg
+                    className="w-5 h-5 text-black"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </RoundedButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Toaster />
+    </SessionProvider>
+  );
 }

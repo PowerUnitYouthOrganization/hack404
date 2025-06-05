@@ -172,7 +172,7 @@ function HackerApplicationContent() {
 
   if (isCheckingProfile) {
     return (
-      <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
+      <div className="flex flex-col min-h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
         <SimpleHeader />
         <GradientBackgroundStatic />
         <div className="absolute inset-0 bg-black/40 -z-40" />
@@ -190,7 +190,7 @@ function HackerApplicationContent() {
         <GradientBackgroundStatic />
         <div className="absolute inset-0 bg-black/40 -z-40" />
 
-        <div className="mt-0 tablet:mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex flex-col tablet:flex-row min-h-[482px] items-start gap-2 self-stretch mx-auto">
+        <div className="mt-0 tablet:mt-32 w-full border border-[rgba(48,242,242,0.20)] flex flex-col tablet:flex-row tablet:min-h-[482px] items-start gap-2 self-stretch mx-auto">
           {/* Left Panel */}
           <div className="flex tablet:flex-1 flex-col p-6 justify-between items-start self-stretch border-b tablet:border-b-0 tablet:border-r border-[rgba(48,242,242,0.20)]">
             <div className=" flex flex-col items-start gap-2.5">
@@ -210,8 +210,8 @@ function HackerApplicationContent() {
           </div>
 
           {/* Right Panel */}
-          <div className="self-stretch flex-1 p-6 bg-cyan-400/0 border-t tablet:border-t-0 tablet:border-l border-[rgba(48,242,242,0.20)] backdrop-blur-xl flex flex-col justify-between items-start overflow-hidden">
-            <div className="self-stretch flex flex-col justify-start items-start gap-12">
+          <div className="self-stretch flex-1 p-6 bg-cyan-400/0 border-t tablet:border-t-0 tablet:border-l border-[rgba(48,242,242,0.20)] backdrop-blur-xl flex flex-col items-start min-h-0">
+            <div className="self-stretch flex flex-col justify-start items-start gap-12 flex-1 overflow-y-auto">
               <div className="self-stretch inline-flex justify-between items-start">
                 <div className="justify-start text-white text-base font-normal font-['DM_Sans']">
                   {step === 1 && "Basic Details"}
@@ -227,7 +227,7 @@ function HackerApplicationContent() {
                 {renderStep()}
               </div>
             </div>
-            <div className="self-stretch inline-flex justify-between items-end">
+            <div className="self-stretch inline-flex justify-between items-end mt-6 flex-shrink-0">
               <div className="justify-start text-white text-sm font-extralight font-['DM_Sans']">
                 {step === 1 && "Make sure details are correct"}
                 {step === 2 && "Verify your education info"}

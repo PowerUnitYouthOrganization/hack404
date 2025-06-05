@@ -86,13 +86,13 @@ export default function LoginForm() {
     <>
       <SimpleHeader />
       <div className="flex self-stretch pt-0 tablet:pt-32 flex-col justify-start items-start gap-2.5 overflow-hidden">
-        <div className="self-stretch h-96 px-2 outline outline-offset-[-1px] outline-cyan-400/20 flex flex-col tablet:flex-row justify-start items-start gap-2 overflow-hidden">
-          <div className="flex tablet:flex-1 self-stretch p-6 outline outline-cyan-400/20 flex-col justify-between items-start">
-            <div className="flex flex-col justify-start items-start gap-2.5">
+        <div className="self-stretch h-full tablet:h-96 px-2 outline outline-offset-[-1px] outline-cyan-400/20 flex flex-col tablet:flex-row justify-start items-start gap-2 overflow-hidden">
+          <div className="flex tablet:flex-1 self-stretch p-6 outline outline-cyan-400/20 flex-col gap-6 tablet:justify-between items-start">
+            <div className="flex flex-col justify-start items-start tablet:gap-2.5">
               <h1 className="justify-start text-white text-4xl font-normal font-(family-name:--font-heading)">
                 Welcome to Hack404
               </h1>
-              <p className="justify-start text-white text-4xl font-(family-name:--font-heading-light)">
+              <p className="justify-start text-white text-xl tablet:text-4xl font-(family-name:--font-heading-light)">
                 Launchpad
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function LoginForm() {
               Applications close June 18
             </p>
           </div>
-          <div className="flex-1 mobile:flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col justify-between items-start overflow-hidden">
+          <div className="flex-1 mobile:flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col gap-5 tablet:justify-between items-start overflow-hidden">
             <div className="self-stretch flex flex-col justify-start items-start gap-12">
               <div className="self-stretch inline-flex justify-between items-start">
                 <p className="justify-start text-white text-base font-normal">

@@ -121,8 +121,10 @@ export default function Prehome() {
           </sub>
         </div>
       </div>
+
+      {/* Info */}
       <div className="flex flex-col tablet:flex-row px-2 w-full items-start gap-2 self-stretch border border-[rgba(48,242,242,0.2)]">
-        <div className="flex flex-col items-start gap-2 grow self-stretch border-b tablet:border-b-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full tablet:max-w-[50vw]">
+        <div className="flex flex-col items-start gap-2 grow self-stretch border-t tablet:border-t-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full">
           <div className="flex flex-col items-start self-stretch w-full">
             <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch">
               <p className="text-white font-light grow">Hacker Application</p>
@@ -181,7 +183,7 @@ export default function Prehome() {
                 <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
               </svg>
             </div>
-            <div className="flex flex-col p-4 tablet:p-6 items-start gap-4 tablet:gap-9 self-stretch border-t border-[rgba(48,242,242,0.20)]">
+            <div className="flex flex-col p-4 tablet:p-6 items-start gap-4 tablet:gap-9 self-stretch border-t border-[rgba(48,242,242,0.20)] tablet:max-h-72 tablet:overflow-y-auto hide-scrollbar">
               <div className="flex justify-between items-start self-stretch text-sm tablet:text-base">
                 Hack404 is based on three key values: Innovation, Education, and
                 Community. <br /> Innovation: The world of tech is constantly
@@ -216,7 +218,7 @@ export default function Prehome() {
               </svg>
             </div>
 
-            <div className="flex flex-col items-start self-stretch">
+            <div className="flex flex-col items-start self-stretch max-h-120 overflow-y-auto hide-scrollbar">
               {faq.map((FAQ) => {
                 return (
                   <div

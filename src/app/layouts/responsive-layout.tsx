@@ -141,15 +141,6 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   </p>
                 </div>
               </div>
-
-              {/* 6. Image section */}
-              <div className="self-stretch flex flex-col justify-start items-start">
-                <img
-                  className="w-full h-48 relative rounded"
-                  src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e"
-                  alt="Toronto skyline at night"
-                />
-              </div>
             </div>
           </div>
 
@@ -158,13 +149,13 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             <img
               src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e"
               alt="Toronto skyline at night"
-              className="h-auto px-16"
+              className="h-auto px-6 desktop:px-16"
             />
           </div>
         </div>
 
         {/* Mask element positioned exactly at 100vh to cover gradient background */}
-        <div className="absolute top-[100vh] left-0 right-0 bottom-0 bg-background -z-10" />
+        <div className="hidden desktop:block absolute top-[100vh] left-0 right-0 bottom-0 bg-background -z-10" />
       </div>
 
       {/* ========================= SECOND HALF OF PAGE ========================= */}

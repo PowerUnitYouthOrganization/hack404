@@ -56,7 +56,7 @@
 }
 
 @theme inline {
-	--breakpoint-desktop: 1150px;
+	--breakpoint-desktop: 1500px;
 	--breakpoint-tablet: 640px;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
@@ -166,14 +166,14 @@
 }
 
 /* Switch to column layout on small screens */
-@media (max-width: 1150) {
+@media (max-width: 1500) {
 	.homepage-footer {
 		flex-direction: column;
 		height: auto; /* optional: if 218px is too small for vertical layout */
 	}
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1499px) {
 	:root {
 		--grid-columns: 4;
 		--grid-padding: 24px;

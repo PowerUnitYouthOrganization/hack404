@@ -91,16 +91,16 @@ function HackerApplicationContent() {
 
     try {
       const profileData = {
-        legalFirstName: form.firstName,
+        firstName: form.firstName,
         lastName: form.lastName,
-        preferredFirstName: form.preferredName || "",
+        preferredName: form.preferredName || "",
         age: form.age || "",
         gender: form.gender,
         ethnicity: form.ethnicity,
-        institution: form.school,
-        gradeYear: form.grade,
-        hackathonsAttended: form.previousHackathons,
-        tshirtSize: form.shirtSize,
+        school: form.school,
+        grade: form.grade,
+        previousHackathons: form.previousHackathons,
+        shirtSize: form.shirtSize,
         allergies: form.allergies || "",
         dietaryRestrictions: form.dietaryRestrictions || "",
         linkedin: form.linkedin || "",

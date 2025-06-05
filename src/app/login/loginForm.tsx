@@ -67,20 +67,18 @@ export default function LoginForm() {
     );
   }
 
-  /* likely dont need this.
-	if (status === "authenticated") {
-		if (session?.user?.email) {
-			isProfileComplete(session.user.email).then((profileDone) => {
-				if (profileDone) {
-					window.location.href = "/application";
-				} else {
-					window.location.href = "/profile";
-				}
-			});
-		}
-		return null;
-	}
-	*/
+  if (status === "authenticated") {
+    if (session?.user?.email) {
+      isProfileComplete(session.user.email).then((profileDone) => {
+        if (profileDone) {
+          window.location.href = "/application";
+        } else {
+          window.location.href = "/profile";
+        }
+      });
+    }
+    return null;
+  }
 
   return (
     <>

@@ -12,7 +12,7 @@ export default function ThankYouPage() {
     <div className="flex flex-col min-h-screen w-full gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] relative">
       <GradientBackgroundStatic />
       <div className="hidden md:block w-full">
-        <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <LaunchpadHeader activeTab={activeTab} tabChangeAction={setActiveTab} />
       </div>
       <div className="w-full flex justify-center items-center p-2 md:p-12">
         <div className="flex flex-col gap-4 md:gap-8 border border-cyan-400/20 bg-gradient-to-br from-[rgba(48,242,242,0.10)] to-[rgba(48,242,242,0.05)] backdrop-blur-[25px] p-4 md:p-8 items-start justify-center w-full max-w-4xl mx-auto">

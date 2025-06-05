@@ -23,7 +23,7 @@ export default function BeginnerApplicationPage() {
       <div className="flex flex-col min-h-screen w-full gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
         <div className="hidden md:block w-full">
-          <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+          <LaunchpadHeader activeTab={activeTab} tabChangeAction={setActiveTab} />
         </div>
         <div className="w-full flex-1 flex justify-center items-center">
           <div className="text-white text-xl">Checking application status...</div>
@@ -36,7 +36,7 @@ export default function BeginnerApplicationPage() {
     <div className="flex flex-col min-h-screen w-full gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
       <GradientBackgroundStatic />
       <div className="hidden md:block w-full">
-        <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <LaunchpadHeader activeTab={activeTab} tabChangeAction={setActiveTab} />
       </div>
       <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-[1.1fr_2fr] gap-4 p-2 md:p-12">
         {/* Left Panel */}

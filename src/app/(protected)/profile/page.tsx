@@ -235,7 +235,7 @@ function HackerApplicationContent() {
                 {step === 4 && "Add your links"}
               </div>
               <div className="flex gap-2 items-center">
-                {step > 1 && (
+                {/* {step > 1 && (
                   <button
                     type="button"
                     onClick={prevStep}
@@ -243,7 +243,7 @@ function HackerApplicationContent() {
                   >
                     Back
                   </button>
-                )}
+                )} */}
                 <RoundedButton
                   type="button"
                   color="#30F2F2"

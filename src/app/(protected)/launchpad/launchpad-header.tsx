@@ -10,12 +10,12 @@ import { useState, useRef, useEffect } from "react";
 
 interface LaunchpadHeaderProps {
   activeTab: string;
-  setActiveTab: (tab: string) => void;
+  tabChangeAction: (tab: string) => void;
 }
 
 export default function LaunchpadHeader({
   activeTab,
-  setActiveTab,
+  tabChangeAction,
 }: LaunchpadHeaderProps) {
   const { data: session } = useSession();
   const avatarUrl = session?.user?.image || "";
@@ -81,7 +81,7 @@ export default function LaunchpadHeader({
                     ? "launchpad-active"
                     : "launchpad-inactive"
                 }
-                onClick={() => setActiveTab(item.value)}
+                onClick={() => tabChangeAction(item.value)}
               >
                 {item.label}
               </Button>

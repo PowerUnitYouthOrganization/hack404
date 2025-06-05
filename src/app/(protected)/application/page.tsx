@@ -24,7 +24,7 @@ export default function ApplicationPage() {
       <div className="flex flex-col min-h-screen gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
         <div className="hidden md:block w-full">
-          <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+          <LaunchpadHeader activeTab={activeTab} tabChangeAction={setActiveTab} />
         </div>
         <main className="flex flex-col w-full flex-1 justify-center items-center">
           <div className="text-white text-xl">
@@ -39,7 +39,7 @@ export default function ApplicationPage() {
     <div className="flex flex-col min-h-screen gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
       <GradientBackgroundStatic />
       <div className="hidden md:block w-full">
-        <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <LaunchpadHeader activeTab={activeTab} tabChangeAction={setActiveTab} />
       </div>
       <main className="flex flex-col w-full flex-1">
         <div className="flex justify-center w-full flex-1 min-h-screen">

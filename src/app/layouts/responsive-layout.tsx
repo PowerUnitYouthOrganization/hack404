@@ -75,13 +75,13 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
 								July 4 - 6, 2025
 							</ColSection>
 							<ColSection width={1} offset="1.5rem">
-								York University
+								Greater Toronto Area
 							</ColSection>
 							<ColSection width={1} offset="1.5rem">
-								1 University Blvd
+
 							</ColSection>
 							<ColSection width={1} offset="1.5rem">
-								Markham, ON
+
 							</ColSection>
 							<ColSection width={1}>
 								<p className="text-right">

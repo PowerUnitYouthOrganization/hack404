@@ -50,7 +50,7 @@ export default function LoginForm() {
         });
       }
 
-      await signIn("resend", { email, redirectTo: "/launchpad" });
+      await signIn("resend", { email, redirectTo: "/profile" });
     } catch (error) {
       console.error("Registration error:", error);
     } finally {

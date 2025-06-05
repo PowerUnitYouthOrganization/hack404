@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SimpleHeader from "@/components/simple-header";
@@ -18,6 +18,7 @@ export default function HackerApplication() {
   const router = useRouter();
   const [step, setStep] = useState<number>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCheckingProfile, setIsCheckingProfile] = useState(true);
   const [form, setForm] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -33,6 +34,27 @@ export default function HackerApplication() {
     resume: "",
     portfolio: "",
   });
+
+  useEffect(() => {
+    const checkProfileCompletion = async () => {
+      try {
+        const response = await fetch("/api/profile-done");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.profileCompleted) {
+            router.push("/launchpad");
+            return;
+          }
+        }
+      } catch (error) {
+        console.error("Error checking profile completion:", error);
+      } finally {
+        setIsCheckingProfile(false);
+      }
+    };
+
+    checkProfileCompletion();
+  }, [router]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -139,6 +161,21 @@ export default function HackerApplication() {
         return <BasicInfoStep form={form} handleChange={handleChange} />;
     }
   };
+
+  if (isCheckingProfile) {
+    return (
+      <SessionProvider>
+        <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
+          <SimpleHeader />
+          <GradientBackgroundStatic />
+          <div className="absolute inset-0 bg-black/40 -z-40" />
+          <div className="flex flex-1 items-center justify-center">
+            <div className="text-white text-xl">Checking profile status...</div>
+          </div>
+        </div>
+      </SessionProvider>
+    );
+  }
 
   return (
     <SessionProvider>

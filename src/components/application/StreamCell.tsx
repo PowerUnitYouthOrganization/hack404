@@ -16,18 +16,18 @@ export default function StreamCell({
   return (
     <div className="relative flex flex-col min-h-0 border border-cyan-400/20 p-6 overflow-hidden h-full w-full">
       {/* Top row */}
-      <div className="flex justify-between items-start">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 md:gap-0">
         <h2 className="text-white text-lg font-medium">{name}</h2>
-        <span className="text-white/70 text-sm font-light max-w-xs break-words whitespace-pre-line text-right">{brief}</span>
+        <span className="text-white/70 text-sm font-light max-w-xs break-words whitespace-pre-line md:text-right">{brief}</span>
       </div>
       {/* Long description, left aligned */}
-      <div className="flex-1 flex items-center">
+      <div className="flex-1 flex items-start mt-4">
         <p className="text-white/70 text-base font-light text-left max-w-lg">
           {description}
         </p>
       </div>
       {/* Bottom right button */}
-      <div className="absolute bottom-6 right-6">
+      <div className="mt-6 flex justify-end">
         <RoundedButton
           color="#30F2F2"
           className="text-black px-6 font-light group"

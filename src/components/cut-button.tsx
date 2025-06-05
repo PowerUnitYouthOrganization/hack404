@@ -24,7 +24,7 @@ export default function CutButton({
     >
       {/* Submit button - show text for tablet and desktop only */}
       <p
-        className={`tablet:flex bg-white desktop:w-44 desktop:text-2xl hidden items-center justify-start pl-6 text-black flex-grow rounded-[inherit]`}
+        className={`flex bg-white desktop:w-44 text-2xl items-center justify-start pl-6 text-black flex-grow rounded-[inherit]`}
       >
         {text}
       </p>

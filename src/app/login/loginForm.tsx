@@ -85,9 +85,9 @@ export default function LoginForm() {
   return (
     <>
       <SimpleHeader />
-      <div className="flex self-stretch pt-32 flex-col justify-start items-start gap-2.5 overflow-hidden">
-        <div className="self-stretch h-96 px-2 outline  outline-offset-[-1px] outline-cyan-400/20 inline-flex justify-start items-start gap-2 overflow-hidden">
-          <div className="hidden mobile:flex flex-1 self-stretch p-6 outline outline-cyan-400/20 flex-col justify-between items-start">
+      <div className="flex self-stretch pt-0 mobile:pt-32 flex-col justify-start items-start gap-2.5 overflow-hidden">
+        <div className="self-stretch h-96 px-2 outline  outline-offset-[-1px] outline-cyan-400/20 flex flex-col mobile:flex-row justify-start items-start gap-2 overflow-hidden">
+          <div className="flex mobile:flex-1 self-stretch p-6 outline outline-cyan-400/20 flex-col justify-between items-start">
             <div className="flex flex-col justify-start items-start gap-2.5">
               <h1 className="justify-start text-white text-4xl font-normal font-(family-name:--font-heading)">
                 Welcome to Hack404
@@ -100,7 +100,7 @@ export default function LoginForm() {
               Applications close June 18
             </p>
           </div>
-          <div className="flex-1 mobile:flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl inline-flex flex-col justify-between items-start overflow-hidden">
+          <div className="flex-1 mobile:flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col justify-between items-start overflow-hidden">
             <div className="self-stretch flex flex-col justify-start items-start gap-12">
               <div className="self-stretch inline-flex justify-between items-start">
                 <p className="justify-start text-white text-base font-normal">

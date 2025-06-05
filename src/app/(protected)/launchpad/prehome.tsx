@@ -88,7 +88,8 @@ export default function Prehome() {
     },
     {
       question: "How many people can be on a team?",
-      answer: "Teams can have up to 4 members. Beginners must work in teams, while experienced hackers can work solo if they prefer.",
+      answer:
+        "Teams can have up to 4 members. Beginners must work in teams, while experienced hackers can work solo if they prefer.",
     },
     {
       question: "What are the FAQs?",
@@ -121,7 +122,7 @@ export default function Prehome() {
         </div>
       </div>
       <div className="flex flex-col md:flex-row px-2 items-start gap-2 self-stretch border border-[rgba(48,242,242,0.2)]">
-        <div className="flex flex-col items-start gap-2 grow self-stretch border-b md:border-b-0 md:border-l md:border-r border-[rgba(48,242,242,0.20)] w-full md:max-w-[50vw]">
+        <div className="flex flex-col items-start gap-2 grow self-stretch border-b md:border-b-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full md:max-w-[50vw]">
           <div className="flex flex-col items-start self-stretch w-full">
             <div className="flex p-4 md:p-6 justify-center items-center gap-2.5 self-stretch">
               <p className="text-white font-light grow">Hacker Application</p>
@@ -200,7 +201,7 @@ export default function Prehome() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-start gap-2 grow self-stretch border-t md:border-t-0 md:border-l md:border-r border-[rgba(48,242,242,0.20)] w-full">
+        <div className="flex flex-col items-start gap-2 grow self-stretch border-t md:border-t-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full">
           <div className="flex flex-col items-start self-stretch w-full">
             <div className="flex p-4 md:p-6 justify-center items-center gap-2.5 self-stretch border-b border-[rgba(48,242,242,0.20)] flex-shrink-0">
               <p className="grow">FAQ</p>
@@ -225,8 +226,12 @@ export default function Prehome() {
                     <div className="flex justify-between items-start self-stretch">
                       <div className="flex justify-between items-start self-stretch">
                         <div className="flex flex-col items-start gap-2 grow">
-                          <h1 className="font-bold text-sm md:text-base">{FAQ.question}</h1>
-                          <p className="font-sm font-light text-xs md:text-sm">{FAQ.answer}</p>
+                          <h1 className="font-bold text-sm md:text-base">
+                            {FAQ.question}
+                          </h1>
+                          <p className="font-sm font-light text-xs md:text-sm">
+                            {FAQ.answer}
+                          </p>
                         </div>
                       </div>
                     </div>

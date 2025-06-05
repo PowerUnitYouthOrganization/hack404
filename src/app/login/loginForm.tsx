@@ -85,9 +85,9 @@ export default function LoginForm() {
   return (
     <>
       <SimpleHeader />
-      <div className="flex self-stretch pt-0 mobile:pt-32 flex-col justify-start items-start gap-2.5 overflow-hidden">
-        <div className="self-stretch h-96 px-2 outline  outline-offset-[-1px] outline-cyan-400/20 flex flex-col mobile:flex-row justify-start items-start gap-2 overflow-hidden">
-          <div className="flex mobile:flex-1 self-stretch p-6 outline outline-cyan-400/20 flex-col justify-between items-start">
+      <div className="flex self-stretch pt-0 tablet:pt-32 flex-col justify-start items-start gap-2.5 overflow-hidden">
+        <div className="self-stretch h-96 px-2 outline outline-offset-[-1px] outline-cyan-400/20 flex flex-col tablet:flex-row justify-start items-start gap-2 overflow-hidden">
+          <div className="flex tablet:flex-1 self-stretch p-6 outline outline-cyan-400/20 flex-col justify-between items-start">
             <div className="flex flex-col justify-start items-start gap-2.5">
               <h1 className="justify-start text-white text-4xl font-normal font-(family-name:--font-heading)">
                 Welcome to Hack404

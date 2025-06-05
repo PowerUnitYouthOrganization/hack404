@@ -99,32 +99,32 @@ export default function Prehome() {
   ];
 
   return (
-    <main className="flex flex-col gap-4 md:gap-9 w-full mt-4 md:mt-8">
+    <main className="flex flex-col gap-4 tablet:gap-9 w-full mt-4 tablet:mt-8">
       <div
         ref={headerRef}
-        className="flex flex-col md:flex-row px-4 md:px-9 justify-between items-start md:items-end self-stretch gap-4 md:gap-0"
+        className="flex flex-col tablet:flex-row px-4 tablet:px-9 justify-between items-start tablet:items-end self-stretch gap-4 tablet:gap-0"
       >
         <div className="flex flex-col justify-center items-start">
-          <h1 className="text-2xl md:text-[40px] leading-normal font-(family-name:--font-heading)">
+          <h1 className="text-2xl tablet:text-[40px] leading-normal font-(family-name:--font-heading)">
             Hello {firstName}!
           </h1>
-          <sub className="text-wcyan font-light text-xs md:text-sm">
+          <sub className="text-wcyan font-light text-xs tablet:text-sm">
             Welcome to Hack404
           </sub>
         </div>
-        <div className="flex flex-col justify-center items-start md:items-end">
-          <h1 className="text-2xl md:text-[40px] leading-normal font-(family-name:--font-heading-light)">
+        <div className="flex flex-col justify-center items-start tablet:items-end">
+          <h1 className="text-2xl tablet:text-[40px] leading-normal font-(family-name:--font-heading-light)">
             {timeLeft}
           </h1>
-          <sub className="text-wcyan font-light text-xs md:text-sm">
+          <sub className="text-wcyan font-light text-xs tablet:text-sm">
             until submission deadline
           </sub>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row px-2 items-start gap-2 self-stretch border border-[rgba(48,242,242,0.2)]">
-        <div className="flex flex-col items-start gap-2 grow self-stretch border-b md:border-b-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full md:max-w-[50vw]">
+      <div className="flex flex-col tablet:flex-row px-2 w-full items-start gap-2 self-stretch border border-[rgba(48,242,242,0.2)]">
+        <div className="flex flex-col items-start gap-2 grow self-stretch border-b tablet:border-b-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full tablet:max-w-[50vw]">
           <div className="flex flex-col items-start self-stretch w-full">
-            <div className="flex p-4 md:p-6 justify-center items-center gap-2.5 self-stretch">
+            <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch">
               <p className="text-white font-light grow">Hacker Application</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ export default function Prehome() {
                 <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
               </svg>
             </div>
-            <div className="flex p-4 md:p-6 flex-col justify-between items-end self-stretch border-t border-b border-[rgba(48,242,242,0.20)] bg-[rgba(48,242,242,0.10)] backdrop-blur-[25px]">
+            <div className="flex p-4 tablet:p-6 flex-col justify-between items-end self-stretch border-t border-b border-[rgba(48,242,242,0.20)] bg-[rgba(48,242,242,0.10)] backdrop-blur-[25px]">
               <div className="flex flex-col items-start self-stretch w-full">
                 <RoundedButton
                   color={
@@ -169,7 +169,7 @@ export default function Prehome() {
             </div>
           </div>
           <div className="flex flex-col items-start grow self-stretch w-full">
-            <div className="flex p-4 md:p-6 justify-center items-center gap-2.5 self-stretch border-t border-[rgba(48,242,242,0.20)]">
+            <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch border-t border-[rgba(48,242,242,0.20)]">
               <p className="grow">About Hack404</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -181,8 +181,8 @@ export default function Prehome() {
                 <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
               </svg>
             </div>
-            <div className="flex flex-col p-4 md:p-6 items-start gap-4 md:gap-9 self-stretch border-t border-[rgba(48,242,242,0.20)]">
-              <div className="flex justify-between items-start self-stretch text-sm md:text-base">
+            <div className="flex flex-col p-4 tablet:p-6 items-start gap-4 tablet:gap-9 self-stretch border-t border-[rgba(48,242,242,0.20)]">
+              <div className="flex justify-between items-start self-stretch text-sm tablet:text-base">
                 Hack404 is based on three key values: Innovation, Education, and
                 Community. <br /> Innovation: The world of tech is constantly
                 changing. We're seeing the emergence of new technologies, from
@@ -201,9 +201,9 @@ export default function Prehome() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-start gap-2 grow self-stretch border-t md:border-t-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full">
+        <div className="flex flex-col items-start gap-2 grow self-stretch border-t tablet:border-t-0 border-l border-r border-[rgba(48,242,242,0.20)] w-full">
           <div className="flex flex-col items-start self-stretch w-full">
-            <div className="flex p-4 md:p-6 justify-center items-center gap-2.5 self-stretch border-b border-[rgba(48,242,242,0.20)] flex-shrink-0">
+            <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch border-b border-[rgba(48,242,242,0.20)] flex-shrink-0">
               <p className="grow">FAQ</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -221,15 +221,15 @@ export default function Prehome() {
                 return (
                   <div
                     key={FAQ.question}
-                    className="flex flex-col p-4 md:p-6 items-start gap-4 md:gap-9 self-stretch border-b border-[rgba(48,242,242,0.20)]"
+                    className="flex flex-col p-4 tablet:p-6 items-start gap-4 tablet:gap-9 self-stretch border-b border-[rgba(48,242,242,0.20)]"
                   >
                     <div className="flex justify-between items-start self-stretch">
                       <div className="flex justify-between items-start self-stretch">
                         <div className="flex flex-col items-start gap-2 grow">
-                          <h1 className="font-bold text-sm md:text-base">
+                          <h1 className="font-bold text-sm tablet:text-base">
                             {FAQ.question}
                           </h1>
-                          <p className="font-sm font-light text-xs md:text-sm">
+                          <p className="font-sm font-light text-xs tablet:text-sm">
                             {FAQ.answer}
                           </p>
                         </div>

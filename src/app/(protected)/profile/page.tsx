@@ -190,9 +190,9 @@ function HackerApplicationContent() {
         <GradientBackgroundStatic />
         <div className="absolute inset-0 bg-black/40 -z-40" />
 
-        <div className="mt-0 mobile:mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex flex-col mobile:flex-row min-h-[482px] items-start gap-2 self-stretch mx-auto">
+        <div className="mt-0 tablet:mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex flex-col tablet:flex-row min-h-[482px] items-start gap-2 self-stretch mx-auto">
           {/* Left Panel */}
-          <div className="flex mobile:flex-1 flex-col p-6 justify-between items-start self-stretch border-b mobile:border-b-0 mobile:border-r border-[rgba(48,242,242,0.20)]">
+          <div className="flex tablet:flex-1 flex-col p-6 justify-between items-start self-stretch border-b tablet:border-b-0 tablet:border-r border-[rgba(48,242,242,0.20)]">
             <div className=" flex flex-col items-start gap-2.5">
               <h1 className="text-3xl font-medium font-(family-name:--font-heading)">
                 Get set up
@@ -210,7 +210,7 @@ function HackerApplicationContent() {
           </div>
 
           {/* Right Panel */}
-          <div className="self-stretch flex-1 p-6 bg-cyan-400/0 border-t mobile:border-t-0 mobile:border-l border-[rgba(48,242,242,0.20)] backdrop-blur-xl flex flex-col justify-between items-start overflow-hidden">
+          <div className="self-stretch flex-1 p-6 bg-cyan-400/0 border-t tablet:border-t-0 tablet:border-l border-[rgba(48,242,242,0.20)] backdrop-blur-xl flex flex-col justify-between items-start overflow-hidden">
             <div className="self-stretch flex flex-col justify-start items-start gap-12">
               <div className="self-stretch inline-flex justify-between items-start">
                 <div className="justify-start text-white text-base font-normal font-['DM_Sans']">

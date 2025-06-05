@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SimpleHeader from "@/components/simple-header";
 import GradientBackgroundStatic from "@/components/gradient-background-static";
@@ -14,8 +14,9 @@ import EducationStep from "./steps/EducationStep";
 import DetailsStep from "./steps/DetailsStep";
 import LinksStep from "./steps/LinksStep";
 
-export default function HackerApplication() {
+function HackerApplicationContent() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [step, setStep] = useState<number>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCheckingProfile, setIsCheckingProfile] = useState(true);
@@ -37,11 +38,18 @@ export default function HackerApplication() {
 
   useEffect(() => {
     const checkProfileCompletion = async () => {
+      if (!session?.user?.email) {
+        setIsCheckingProfile(false);
+        return;
+      }
+
       try {
-        const response = await fetch("/api/profile-done");
+        const response = await fetch(
+          `/api/profile-done?email=${encodeURIComponent(session.user.email)}`,
+        );
         if (response.ok) {
           const data = await response.json();
-          if (data.profileCompleted) {
+          if (data.profileDone) {
             router.push("/launchpad");
             return;
           }
@@ -54,7 +62,7 @@ export default function HackerApplication() {
     };
 
     checkProfileCompletion();
-  }, [router]);
+  }, [router, session]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -80,7 +88,7 @@ export default function HackerApplication() {
 
   const submitProfile = async () => {
     setIsSubmitting(true);
-    
+
     try {
       const profileData = {
         legalFirstName: form.firstName,
@@ -113,7 +121,7 @@ export default function HackerApplication() {
       }
 
       toast.success("Profile created successfully!");
-      
+
       // Redirect to launchpad after successful submission
       setTimeout(() => {
         router.push("/launchpad");
@@ -121,7 +129,7 @@ export default function HackerApplication() {
     } catch (error) {
       console.error("Error submitting profile:", error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to save profile"
+        error instanceof Error ? error.message : "Failed to save profile",
       );
     } finally {
       setIsSubmitting(false);
@@ -133,7 +141,7 @@ export default function HackerApplication() {
       toast.error("Please fill out all required fields before continuing.");
       return;
     }
-    
+
     if (step < 4) {
       setStep((prev) => prev + 1);
     } else {
@@ -164,21 +172,19 @@ export default function HackerApplication() {
 
   if (isCheckingProfile) {
     return (
-      <SessionProvider>
-        <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
-          <SimpleHeader />
-          <GradientBackgroundStatic />
-          <div className="absolute inset-0 bg-black/40 -z-40" />
-          <div className="flex flex-1 items-center justify-center">
-            <div className="text-white text-xl">Checking profile status...</div>
-          </div>
+      <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
+        <SimpleHeader />
+        <GradientBackgroundStatic />
+        <div className="absolute inset-0 bg-black/40 -z-40" />
+        <div className="flex flex-1 items-center justify-center">
+          <div className="text-white text-xl">Checking profile status...</div>
         </div>
-      </SessionProvider>
+      </div>
     );
   }
 
   return (
-    <SessionProvider>
+    <>
       <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] text-white font-sans">
         <SimpleHeader />
         <GradientBackgroundStatic />
@@ -245,7 +251,11 @@ export default function HackerApplication() {
                   onClick={nextStep}
                   disabled={!validateStep() || isSubmitting}
                 >
-                  {isSubmitting ? "Saving..." : step < 4 ? "Continue" : "Finish"}
+                  {isSubmitting
+                    ? "Saving..."
+                    : step < 4
+                      ? "Continue"
+                      : "Finish"}
                   <svg
                     className="w-5 h-5 text-black"
                     fill="none"
@@ -266,6 +276,14 @@ export default function HackerApplication() {
         </div>
       </div>
       <Toaster />
+    </>
+  );
+}
+
+export default function HackerApplication() {
+  return (
+    <SessionProvider>
+      <HackerApplicationContent />
     </SessionProvider>
   );
 }

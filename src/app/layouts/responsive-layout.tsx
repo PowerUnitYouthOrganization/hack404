@@ -145,17 +145,18 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
           </div>
 
           {/* Banner Image Section - positioned to compress first half */}
-          <div className="relative w-full overflow-hidden tablet:block hidden desktop:block">
+          <div className="relative w-full overflow-hidden h-auto px-6 pb-[70px] desktop:px-16 ">
             <img
               src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e"
               alt="Toronto skyline at night"
-              className="h-auto px-6 desktop:px-16"
+              className="rounded-lg" 
             />
           </div>
         </div>
 
         {/* Mask element positioned exactly at 100vh to cover gradient background */}
-        <div className="hidden desktop:block absolute top-[100vh] left-0 right-0 bottom-0 bg-background -z-10" />
+        <div className="hidden desktop:block absolute top-[100vh] left-0 right-0 bottom-0 bg-background -z-21" />
+        <div className="hidden desktop:block h-[1px] w-screen bg-[rgba(48,242,242,0.2)]"></div>
       </div>
 
       {/* ========================= SECOND HALF OF PAGE ========================= */}

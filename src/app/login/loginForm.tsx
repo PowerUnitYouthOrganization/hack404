@@ -97,7 +97,7 @@ export default function LoginForm() {
               </p>
             </div>
             <p className="justify-start text-white text-base font-extralight font-['DM_Sans']">
-              Applications close June 20
+              Applications close June 18
             </p>
           </div>
           <div className="flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl inline-flex flex-col justify-between items-start overflow-hidden">

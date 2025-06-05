@@ -47,7 +47,7 @@ export default function ApplicationPage() {
             className="w-full max-w-7xl h-full grid grid-rows-[auto_1fr] grid-cols-1 md:grid-cols-2 gap-4"
           >
             {/* Pick your stream section (spans both columns) */}
-            <div className="row-start-1 row-end-2 col-span-1 md:col-span-2 flex flex-col justify-center items-start px-4 md:px-8 py-6 md:py-12 max-h-60 border border-cyan-400/20">
+            <div className="hidden md:flex row-start-1 row-end-2 col-span-1 md:col-span-2 flex-col justify-center items-start px-4 md:px-8 py-6 md:py-12 max-h-60 border border-cyan-400/20">
               <h1 className="text-[28px] md:text-[40px] leading-normal font-(family-name:--font-heading)">
                 Pick your stream
               </h1>

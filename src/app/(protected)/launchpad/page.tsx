@@ -17,7 +17,9 @@ export default function Launchpad() {
     <SessionProvider>
       <div className="flex flex-col h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
-        <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="hidden md:block w-full">
+          <LaunchpadHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        </div>
         <Prehome />
       </div>
     </SessionProvider>

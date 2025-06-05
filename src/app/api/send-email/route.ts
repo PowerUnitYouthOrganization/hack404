@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
+
 const apiKey = process.env.RESEND_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
 
@@ -53,7 +54,6 @@ export async function POST(request: Request) {
         </div>
       `,
 		});
-
 		if (error) {
 			console.error("Error sending email:", error);
 			return NextResponse.json({ error: error.message }, { status: 500 });

@@ -5,9 +5,9 @@ module.exports = {
     extend: {
       screens: {
         // Custom breakpoints to match project structure
-        'mobile': '640px',     // mobile to tablet transition
-        'tablet': '1024px',    // tablet to desktop transition
-        'desktop': '1150px',   // desktop and up
+        // 'mobile': '640px',     // uneeded
+        'tablet': '640px',    // mobile to tablet line
+        'desktop': '1500px',   // tablet to desktop line
       },
       zIndex: {
         100: 100,

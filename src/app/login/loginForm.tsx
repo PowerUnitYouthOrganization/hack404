@@ -98,13 +98,13 @@ export default function LoginForm() {
               Applications close June 18
             </p>
           </div>
-          <div className="flex-1 mobile:flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col gap-5 tablet:justify-between items-start overflow-hidden">
+          <div className="flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col gap-5 tablet:justify-between items-start overflow-hidden">
             <div className="self-stretch flex flex-col justify-start items-start gap-12">
               <div className="self-stretch inline-flex justify-between items-start">
                 <p className="justify-start text-white text-base font-normal">
                   Sign in to your account
                 </p>
-                <p className="text-right mobile:text-left text-white text-sm font-extralight">
+                <p className="text-left tablet:text-right text-white text-sm font-extralight">
                   We'll send you a magic link to access the Launchpad
                 </p>
               </div>

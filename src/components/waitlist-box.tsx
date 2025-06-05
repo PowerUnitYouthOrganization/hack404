@@ -35,13 +35,13 @@ export default function WaitlistBox({
 				onBlur={handleBlur}
 				placeholder=""
 				disabled={submitted}
-				className="w-full rounded-md border-2 border-transparent bg-transparent py-4 pl-0 text-2xl text-white outline-none [@media(max-width:1150px)]:text-base"
+				className="w-full rounded-md border-2 border-transparent bg-transparent py-4 pl-0 text-2xl text-white outline-none [@media(max-width:1500px)]:text-base"
 			/>
 			<div className="gap-1.15 pointer-events-none absolute top-0 left-0 flex h-full w-full items-center pl-6">
 				<span
 					className={`relative text-2xl text-white transition-opacity ${
 						email || isFocused ? "opacity-0" : "opacity-100"
-					} [@media(max-width:1150px)]:text-base`}
+					} [@media(max-width:1500px)]:text-base`}
 				>
 					{submitted ? "Thanks for joining, stay tuned!" : "Join our waitlist"}
 					<span className="mx-1 inline-block">—</span>
@@ -50,7 +50,7 @@ export default function WaitlistBox({
 					<span
 						className={`relative text-2xl text-[#C3F73A] transition-opacity ${
 							email || isFocused ? "opacity-0" : "opacity-100"
-						} [@media(max-width:1150px)]:text-base`}
+						} [@media(max-width:1500px)]:text-base`}
 					>
 						enter email
 					</span>

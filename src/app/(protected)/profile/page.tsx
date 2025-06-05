@@ -192,7 +192,7 @@ function HackerApplicationContent() {
 
         <div className="mt-32 w-full border border-[rgba(48,242,242,0.20)] overflow-hidden flex min-h-[482px] items-start gap-2 self-stretch mx-auto">
           {/* Left Panel */}
-          <div className="flex flex-col p-6 justify-between items-start self-stretch flex-1 border-r border-[rgba(48,242,242,0.20)]">
+          <div className="hidden mobile:flex flex-col p-6 justify-between items-start self-stretch flex-1 border-r border-[rgba(48,242,242,0.20)]">
             <div className=" flex flex-col items-start gap-2.5">
               <h1 className="text-3xl font-medium font-(family-name:--font-heading)">
                 Get set up

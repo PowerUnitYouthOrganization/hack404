@@ -76,14 +76,26 @@ const DetailsStep: React.FC<StepProps> = ({ form, handleChange }) => {
             <option>Other</option>
           </select>
         ) : (
-          <input
-            type="text"
-            name="allergies"
-            value={form.allergies === "Other" ? "" : form.allergies}
-            onChange={handleChange}
-            placeholder="Specify allergies"
-            className="w-full bg-transparent border-none outline-none text-white text-sm placeholder-white/50"
-          />
+          <div className="w-full flex flex-col gap-2">
+            <input
+              type="text"
+              name="allergies"
+              value={form.allergies === "Other" ? "" : form.allergies}
+              onChange={handleChange}
+              placeholder="Specify allergies"
+              className="w-full bg-transparent border-none outline-none text-white text-sm placeholder-white/50"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setShowCustomAllergies(false);
+                handleChange({ target: { name: "allergies", value: "" } } as React.ChangeEvent<HTMLSelectElement>);
+              }}
+              className="text-cyan-400 text-xs hover:text-cyan-300 transition-colors self-start"
+            >
+              ← Back to options
+            </button>
+          </div>
         )}
       </div>
       <div className="flex-1 p-6 bg-cyan-400/5 border-b border-cyan-400/20 backdrop-blur-xl inline-flex flex-col justify-start items-end gap-6 overflow-hidden">
@@ -103,14 +115,26 @@ const DetailsStep: React.FC<StepProps> = ({ form, handleChange }) => {
             <option>Other</option>
           </select>
         ) : (
-          <input
-            type="text"
-            name="dietaryRestrictions"
-            value={form.dietaryRestrictions === "Other" ? "" : form.dietaryRestrictions}
-            onChange={handleChange}
-            placeholder="Specify dietary restrictions"
-            className="w-full bg-transparent border-none outline-none text-white text-sm placeholder-white/50"
-          />
+          <div className="w-full flex flex-col gap-2">
+            <input
+              type="text"
+              name="dietaryRestrictions"
+              value={form.dietaryRestrictions === "Other" ? "" : form.dietaryRestrictions}
+              onChange={handleChange}
+              placeholder="Specify dietary restrictions"
+              className="w-full bg-transparent border-none outline-none text-white text-sm placeholder-white/50"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setShowCustomDietary(false);
+                handleChange({ target: { name: "dietaryRestrictions", value: "" } } as React.ChangeEvent<HTMLSelectElement>);
+              }}
+              className="text-cyan-400 text-xs hover:text-cyan-300 transition-colors self-start"
+            >
+              ← Back to options
+            </button>
+          </div>
         )}
       </div>
     </div>

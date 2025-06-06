@@ -128,15 +128,6 @@ export default function Prehome() {
           <div className="flex flex-col items-start self-stretch w-full">
             <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch">
               <p className="text-white font-light grow">Hacker Application</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20px"
-                viewBox="0 -960 960 960"
-                width="20px"
-                fill="#e3e3e3"
-              >
-                <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
-              </svg>
             </div>
             <div className="flex p-4 tablet:p-6 flex-col justify-between items-end self-stretch border-t border-b border-[rgba(48,242,242,0.20)] bg-[rgba(48,242,242,0.10)] backdrop-blur-[25px]">
               <div className="flex flex-col items-start self-stretch w-full">
@@ -173,15 +164,6 @@ export default function Prehome() {
           <div className="flex flex-col items-start grow self-stretch w-full">
             <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch border-t border-[rgba(48,242,242,0.20)]">
               <p className="grow">About Hack404</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20px"
-                viewBox="0 -960 960 960"
-                width="20px"
-                fill="#e3e3e3"
-              >
-                <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
-              </svg>
             </div>
             <div className="flex flex-col p-4 tablet:p-6 items-start gap-4 tablet:gap-9 self-stretch border-t border-[rgba(48,242,242,0.20)] tablet:max-h-72 tablet:overflow-y-auto hide-scrollbar">
               <div className="flex justify-between items-start self-stretch text-sm tablet:text-base">
@@ -207,15 +189,6 @@ export default function Prehome() {
           <div className="flex flex-col items-start self-stretch w-full">
             <div className="flex p-4 tablet:p-6 justify-center items-center gap-2.5 self-stretch border-b border-[rgba(48,242,242,0.20)] flex-shrink-0">
               <p className="grow">FAQ</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20px"
-                viewBox="0 -960 960 960"
-                width="20px"
-                fill="#e3e3e3"
-              >
-                <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
-              </svg>
             </div>
 
             <div className="flex flex-col items-start self-stretch max-h-120 overflow-y-auto hide-scrollbar">

@@ -24,7 +24,10 @@ export default function ApplicationPage() {
       <div className="flex flex-col min-h-screen gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
         <div className="hidden md:block w-full">
-          <LaunchpadHeader activeTab={activeTab} tabChangeAction={setActiveTab} />
+          <LaunchpadHeader
+            activeTab={activeTab}
+            tabChangeAction={setActiveTab}
+          />
         </div>
         <main className="flex flex-col w-full flex-1 justify-center items-center">
           <div className="text-white text-xl">
@@ -43,9 +46,7 @@ export default function ApplicationPage() {
       </div>
       <main className="flex flex-col w-full flex-1">
         <div className="flex justify-center w-full flex-1 min-h-screen">
-          <div
-            className="w-full max-w-7xl h-full grid grid-rows-[auto_1fr] grid-cols-1 md:grid-cols-2 gap-4"
-          >
+          <div className="w-full max-w-7xl h-full grid grid-rows-[auto_1fr] grid-cols-1 md:grid-cols-2 gap-4">
             {/* Pick your stream section (spans both columns) */}
             <div className="hidden md:flex row-start-1 row-end-2 col-span-1 md:col-span-2 flex-col justify-center items-start px-4 md:px-8 py-6 md:py-12 max-h-60 border border-cyan-400/20">
               <h1 className="text-[28px] md:text-[40px] leading-normal font-(family-name:--font-heading)">
@@ -67,11 +68,11 @@ We'll provide templates, milestone prompts, and mentorship to make the portfolio
             />
             {/* Normal Cell */}
             <StreamCell
-              name="Normal"
+              name="Open"
               brief="Open for anyone"
-              description="The Normal Stream will follow more traditional hackathon judging — focused on the final project's creativity, technical complexity, usability, and polish."
-              buttonText="Apply for Normal"
-              onClick={() => router.push("/application/normal")}
+              description="The Open Stream will follow more traditional hackathon judging — focused on the final project's creativity, technical complexity, usability, and polish."
+              buttonText="Apply for Open"
+              onClick={() => router.push("/application/open")}
             />
           </div>
         </div>

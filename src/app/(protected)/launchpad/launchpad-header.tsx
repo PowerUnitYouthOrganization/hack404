@@ -55,12 +55,15 @@ export default function LaunchpadHeader({
     <header className="flex flex-col gap-3 w-full">
       <div className="grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
         <div className="flex px-3 items-center gap-5 flex-1 self-stretch row-[1/2] col-[1/2]">
-          <Image
-            src="/clearlogo.png"
-            alt="Hack404 Logo"
-            width={26}
-            height={19}
-          />
+          <Link href="/">
+            <Image
+              src="/clearlogo.png"
+              alt="Hack404 Logo"
+              width={26}
+              height={19}
+              className="cursor-pointer hover:opacity-80"
+            />
+          </Link>
           <Link href="/launchpad">
             <h1 className="text-white text-2xl font-(family-name:--font-heading) tracking-[-0.72px] cursor-pointer hover:opacity-80">
               launchpad

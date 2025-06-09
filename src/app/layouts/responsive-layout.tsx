@@ -1,322 +1,229 @@
-import Header from "@/app/components/header";
-import SmallHeader from "@/app/components/small-header";
-import GradientBorder from "@/app/components/gradient-border";
-import Grid from "@/app/components/grid";
-import HBorder from "@/app/components/h-border";
-import GradientBackground from "@/app/components/gradient-background";
-import WaitlistBox from "../components/waitlist-box";
+import Header from "@/components/header";
+import ColSection from "@/components/col-section";
+import SmallHeader from "@/components/small-header";
+import GradientBorder from "@/components/gradient-border";
+import Grid from "@/components/grid";
+import HBorder from "@/components/h-border";
+import GradientBackground from "@/components/gradient-background";
+import WaitlistBox from "../../components/waitlist-box";
+import CutButton from "@/components/cut-button";
+import { useGridColWidth } from "../contexts/GridCtx";
+import Image from "next/image";
 
 type LayoutProps = {
-  email: string;
-  setEmail: (email: string) => void;
-  headerBinWidth: number | null;
-  setHeaderBinWidth: (value: number | null) => void;
-  isSubmitting: boolean;
-  setIsSubmitting: (value: boolean) => void;
-  submitted: boolean;
-  setSubmitted: (value: boolean) => void;
   handleSubmit: () => void | Promise<void>;
-  deviceType: "mobile" | "tablet" | "desktop";
 };
 
-export default function ResponsiveLayout({
-  email,
-  setEmail,
-  headerBinWidth,
-  setHeaderBinWidth,
-  isSubmitting,
-  setIsSubmitting,
-  submitted,
-  setSubmitted,
-  handleSubmit,
-  deviceType,
-}: LayoutProps) {
-  // Determine dynamic values based on device type
-  const isDesktop = deviceType === "desktop";
-  const isMobile = deviceType === "mobile";
-  const isTablet = deviceType === "tablet";
-
-  console.log(`${deviceType} layout rendered`);
-
-  // Container styles
-  const containerStyle = {
-    maxWidth: isDesktop ? `calc(100vh * (7 / 3))` : undefined,
-  };
-
-  /* ========================= FIRST HALF OF PAGE =========================  */
-
-  // Content padding
-  const contentPadding = isDesktop ? "p-[64px]" : "p-6";
-
-  // Logo size
-  const logoSize = isDesktop ? "h-[80px]" : "h-[50px]";
-
-  // Title text size
-  const titleSize = isDesktop ? "text-[48px]" : "text-2xl";
-
-  // Footer layout
-  const submissionArea = isDesktop
-    ? "flex items-center h-[218px] px-[64px] py-[70px]"
-    : "flex flex-col items-center m-6 gap-6";
-
-  // Submit button width
-  const submitButtonWidth = isMobile ? "w-[78px]" : isTablet ? "w-[158px]" : "";
-
-  // Submit text
-  const submitText = isDesktop
-    ? isSubmitting
-      ? "Submitting..."
-      : "Submit"
-    : submitted
-      ? "Submitted"
-      : "Submit";
-
-  // Submit button class
-  const submitButtonClass = isDesktop
-    ? "flex items-center justify-start text-2xl text-black bg-white pl-6 max-w-[204px]"
-    : "flex items-center justify-start text-black bg-white pl-6 max-w-[204px]";
-
-  /* ========================= SECOND HALF OF PAGE ========================= */
-  // body text size
-  const aboutTextStyle = isDesktop
-    ? "text-[48px] tracking-[-1.44px]"
-    : isTablet
-      ? "text-[32px] tracking-[-0.96px]"
-      : "text-[28px] tracking-[-0.84px]";
-
-  const aboutPadding = isDesktop
-    ? "px-[64px] py-[70px]"
-    : isTablet
-      ? "px-[24px] py-[64px]"
-      : "py-[30px] px-[24px]";
-
-  const aboutLayout = isMobile ? "flex flex-col gap-12" : "flex gap-6";
-
-  const contactTextSize = isDesktop
-    ? "text-[28px]"
-    : isTablet
-      ? "text-[28px]"
-      : "text-base";
-
-  const contactLayout = isMobile ? "" : "";
-
-  const taglineSize = isDesktop
-    ? "text-[48px]"
-    : isTablet
-      ? "text-[40px]"
-      : "text-[38px]";
-
-  const footerPadding = isDesktop
-    ? "p-16"
-    : isTablet
-      ? "px-6 py-[38px]"
-      : "p-6";
+export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
+  console.log("responsive layout rendered");
 
   return (
     <>
-      <div className="relative flex min-h-dvh flex-col" style={containerStyle}>
-        {/* Header: different components for desktop vs mobile/tablet */}
-        {isDesktop ? <Header /> : <SmallHeader />}
-
-        {/* Grid and background */}
-        <div className="-z-20">
-          <Grid type={deviceType} onLinkWidth={setHeaderBinWidth} />
-        </div>
-        <div className="black-screen" />
-        <GradientBackground />
-
-        <HBorder />
-
-        {/* Main content section */}
-        <div
-          className={`flex flex-1 flex-col items-start gap-8 text-left ${contentPadding} justify-between text-white`}
-        >
-          <div className="flex items-start justify-between self-stretch">
-            <h1
-              className={`font-[300] ${titleSize} font-(family-name:--font-heading-light) leading-[110%] tracking-[-1.44px]`}
-            >
-              a toronto based <br /> hackathon
-            </h1>
-            <img
-              src="whitesmall.png"
-              alt=""
-              className={`${logoSize} w-auto flex-shrink-0`}
-            />
+      <div className="relative">
+        <div className="relative flex min-h-screen flex-col">
+          {/* Header: different components for desktop vs mobile/tablet */}
+          <div className="desktop:block hidden">
+            <Header />
           </div>
-          <img
-            src="whitetext.png"
-            alt="hack404 big label"
-            className="h-auto w-full"
-          />
-        </div>
+          <div className="desktop:hidden block">
+            <SmallHeader />
+          </div>
 
-        {/* Horizontal border */}
-        <HBorder />
+          {/* Grid and background */}
+          <div className="-z-20">
+            <Grid />
+          </div>
+          <div className="black-screen" />
+          <GradientBackground />
 
-        {/* Gradient border */}
-        <GradientBorder reverse={true} />
+          <HBorder />
 
-        {/* Submission Area */}
-        <div className={submissionArea}>
-          {/* Coming soon text - different layout for desktop vs mobile/tablet */}
-          {isDesktop ? (
-            <h1
-              className="flex-shrink-0 pr-4 font-(family-name:--font-heading) text-2xl text-white"
-              style={headerBinWidth ? { width: headerBinWidth } : undefined}
-            >
-              Coming soon <br /> Summer 2025
-            </h1>
-          ) : (
-            <div className="flex w-full justify-between text-white">
-              <h1>Summer 2025</h1>
-              <h1>Coming soon</h1>
-            </div>
-          )}
-
-          {/* Waitlist input and submit button - common for all layouts */}
-          <div className="relative flex w-full">
-            <WaitlistBox
-              email={email}
-              setEmail={setEmail}
-              submitted={submitted}
-            />
-
-            {/* Submit button - show text for desktop and tablet only */}
-            {!isMobile && (
-              <div
-                className={submitButtonClass}
-                style={
-                  headerBinWidth
-                    ? {
-                        width: isDesktop ? headerBinWidth + 48 : headerBinWidth,
-                      }
-                    : undefined
-                }
-              >
-                <p>{submitText}</p>
+          {/* Main content section */}
+          <div className="desktop:p-[64px] flex flex-1 flex-col items-start justify-between gap-8 p-6 text-left text-white">
+            {/* Desktop layout */}
+            <div className="hidden desktop:flex desktop:flex-col desktop:gap-8 desktop:w-full">
+              <img
+                src="whitetext.png"
+                alt="hack404 big label"
+                className="h-auto w-full"
+              />
+              <div className="flex items-start justify-between self-stretch">
+                <ColSection width={1}>
+                  <img src="whitesmall.png" alt="" className="h-auto w-14" />
+                </ColSection>
+                <ColSection width={2}>
+                  <p className="size-5 w-full">
+                    {
+                      "A 36-hour hackathon based in Toronto where secondary and post-secondary students, from first-time hackers to seasoned builders, team up to solve real-world problems and shape tomorrow's technology."
+                    }
+                  </p>
+                </ColSection>
+                <ColSection width={1} />
+                <ColSection width={1}>
+                  <CutButton
+                    text="Sign up now"
+                    onClick={handleSubmit}
+                    disabled={false}
+                    className="rounded-l-sm w-full"
+                  />
+                </ColSection>
               </div>
-            )}
+              <div className="flex items-start self-stretch">
+                <ColSection width={1} offset="1.5rem">
+                  July 4 - 6, 2025
+                </ColSection>
+                <ColSection
+                  width={1}
+                  offset="1.5rem"
+                  className="hidden tablet:flex"
+                >
+                  Greater Toronto Area
+                </ColSection>
+                <ColSection width={1} offset="1.5rem"></ColSection>
+                <ColSection width={1} offset="1.5rem"></ColSection>
+                <ColSection width={1}>
+                  <p className="text-right">
+                    Presented by <br />
+                    Power Unit Youth Organization
+                  </p>
+                </ColSection>
+              </div>
+            </div>
 
-            {/* Clickable button overlay */}
-            <button
-              className={`absolute top-0 right-0 h-full ${isMobile ? submitButtonWidth : "w-full"} z-100 max-w-[282px] cursor-pointer opacity-50`}
-              onClick={handleSubmit}
-              disabled={isSubmitting || submitted}
-            ></button>
-            <img src="button.svg" alt="submit button arrow" />
+            {/* Mobile/Tablet layout */}
+            <div className="desktop:hidden flex flex-col gap-8 w-full">
+              {/* 1. hack404 big text */}
+              <img
+                src="whitetext.png"
+                alt="hack404 big label"
+                className="h-auto w-full"
+              />
+
+              {/* 2. 36-hour paragraph */}
+              <div className="self-stretch">
+                <p className="text-justify text-white text-base font-extralight font-['DM_Sans'] leading-none">
+                  A 36-hour hackathon based in Toronto where secondary and
+                  post-secondary students, from first-time hackers to seasoned
+                  builders, team up to solve real-world problems and shape
+                  tomorrow's technology.
+                </p>
+              </div>
+
+              {/* 3. Presented by text */}
+              <div className="self-stretch">
+                <p className="text-right text-white text-base font-normal font-['DM_Sans'] leading-none">
+                  Presented by
+                  <br />
+                  Power Unit Youth Organization
+                </p>
+              </div>
+
+              {/* 4. Sign up button */}
+              <div className="self-stretch">
+                <CutButton
+                  text="Sign up now"
+                  onClick={handleSubmit}
+                  disabled={false}
+                  className="rounded-l-sm w-full"
+                />
+              </div>
+
+              {/* 5. Date and location */}
+              <div className="self-stretch flex justify-between items-start">
+                <div className="flex-1">
+                  <p className="text-white text-base font-normal font-['DM_Sans'] leading-none">
+                    July 4 - 6, 2025
+                  </p>
+                </div>
+                <div className="flex-1 text-right">
+                  <p className="text-white text-base font-normal font-['DM_Sans'] leading-none">
+                    Greater Toronto Area
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Banner Image Section - positioned to compress first half */}
+          <div className="relative w-full overflow-hidden h-auto px-6 pb-[70px] desktop:px-16 ">
+            <img
+              src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e"
+              alt="Toronto skyline at night"
+              className="rounded-lg" 
+            />
           </div>
         </div>
+
+        {/* Mask element positioned exactly at 100vh to cover gradient background */}
+        <div className="hidden desktop:block absolute top-[100vh] left-0 right-0 bottom-0 bg-background -z-21" />
+        <div className="hidden desktop:block h-[1px] w-screen bg-[rgba(48,242,242,0.2)]"></div>
       </div>
 
       {/* ========================= SECOND HALF OF PAGE ========================= */}
       {/* About page and contact page (second screen) */}
       <div
         id="about-us"
-        className="relative flex min-h-dvh flex-col justify-between"
-        style={containerStyle}
+        className=" relative flex min-h-screen flex-col justify-between"
       >
-        <div
-          className={`flex flex-col items-start justify-between text-left text-white`}
-        >
+        <div className="flex flex-col items-start justify-between text-left text-white">
           {/* about us */}
           <div className="bg-background absolute inset-0 -z-30" />
-          <div
-            className={`${aboutLayout} shrink-0 items-start ${aboutPadding} `}
-          >
-            <h1
-              className={`${titleSize} shrink-0 font-(family-name:--font-heading) leading-[110%]`}
-              style={
-                !isMobile && headerBinWidth
-                  ? { width: headerBinWidth }
-                  : undefined
-              }
-            >
-              About us
-            </h1>
-            {/* there is DEFINITELY a better way to do this but im too tired */}
-            <p
-              className={`${aboutTextStyle} gradient-text font-(family-name:--font-heading-light) leading-[110%]`}
-            >
-              Hack404{" "}
-              <span className="solid-white">
-                is coming soon! We're a hackathon based in
-              </span>{" "}
-              Toronto{" "}
-              <span className="solid-white">
-                for secondary and post-secondary students, open to anyone
-                from{" "}
-              </span>{" "}
-              beginners <span className="solid-white">to</span> experienced{" "}
-              <span className="solid-white"> hackers. </span>Sign up
-              <span className="solid-white">
-                {" "}
-                today and experience the tech of the future.
-              </span>
-            </p>
-          </div>
-          <HBorder />
-          {/* contact */}
-          <div
-            className={`flex ${aboutPadding} items-start justify-between self-stretch`}
-          >
-            <div className="flex-col items-start gap-6">
-              <h1
-                className={`${titleSize} shrink-0 font-(family-name:--font-heading)`}
-              >
-                Contact
-              </h1>
-              {/* Messy text formatting, fix later */}
-              <p
-                className={`gradient-text ${contactTextSize} [style="line-height:110%;letter-spacing:-0.84px"] font-(family-name:--font-heading-light)`}
-              >
-                support@hack404.dev
-              </p>
+          <div className="tablet:flex-row tablet:gap-6 tablet:px-[24px] tablet:py-[64px] desktop:px-[64px] desktop:py-[70px] flex shrink-0 flex-col items-start gap-12 px-[24px] py-[30px]">
+            {/* Mobile layout - width=2 */}
+            <div className="tablet:hidden">
+              <ColSection width={2}>
+                <h1 className="text-white text-5xl font-extralight font-(family-name:--font-heading) leading-[110%] tracking-[-0.2px]">
+                  What is <br />
+                  hack404?
+                </h1>
+              </ColSection>
             </div>
-            {!isMobile && (
-              <h1
-                className={`text-right [line-height:110%] [letter-spacing:-1.44px] ${taglineSize} font-(family-name:--font-heading-light)`}
-              >
-                a toronto based <br /> hackathon
-              </h1>
-            )}
+            {/* Tablet/Desktop layout - width=1 */}
+            <div className="hidden tablet:block">
+              <ColSection width={1}>
+                <h1 className="text-white text-5xl font-extralight font-(family-name:--font-heading) leading-[110%] tracking-[-0.2px]">
+                  What is <br />
+                  hack404?
+                </h1>
+              </ColSection>
+            </div>
+
+            {/* Mobile layout - width=2 */}
+            <div className="tablet:hidden">
+              <ColSection width={2}>
+                <p className="text-white text-justify text-2xl font-(family-name:--font-heading-light) leading-[110%] tracking-[-0.2px]">
+                  A 36-hour hackathon based in Toronto where secondary and
+                  post-secondary students, from first-time hackers to seasoned
+                  builders, team up to solve real-world problems and shape
+                  tomorrow's technology.
+                </p>
+              </ColSection>
+            </div>
+            {/* Tablet/Desktop layout - width=1 */}
+            <div className="hidden tablet:block">
+              <ColSection width={3}>
+                <p className="text-white text-justify text-2xl font-(family-name:--font-heading-light) leading-[110%] tracking-[-0.2px]">
+                  A 36-hour hackathon based in Toronto where secondary and
+                  post-secondary students, from first-time hackers to seasoned
+                  builders, team up to solve real-world problems and shape
+                  tomorrow's technology.
+                </p>
+              </ColSection>
+            </div>
+
+            {/* there is DEFINITELY a better way to do this but im too tired */}
+            {/* spacer */}
+            <ColSection width={1}></ColSection>
+            {/* <ColSection width={1}>
+              <CutButton
+                text="Sign up now"
+                onClick={handleSubmit}
+                disabled={false}
+                className="rounded-l-sm w-full"
+              />
+            </ColSection> */}
           </div>
           <HBorder />
-        </div>
-        <div
-          className={`flex h-full grow flex-col items-end justify-between gap-16 ${footerPadding}`}
-        >
-          {isMobile && (
-            <h1
-              className={`text-right [line-height:110%] [letter-spacing:-1.44px] ${taglineSize} font-(family-name:--font-heading-light)`}
-            >
-              a toronto based <br /> hackathon
-            </h1>
-          )}
-          <div className="flex items-end justify-between self-stretch">
-            <img
-              src="whitefull.png"
-              alt=""
-              style={
-                isMobile
-                  ? { width: "135px" }
-                  : headerBinWidth
-                    ? { width: headerBinWidth }
-                    : undefined
-              }
-            />
-            <img
-              src="PUYOlogo.png"
-              alt=""
-              className=""
-              style={
-                isMobile
-                  ? { width: "135px" }
-                  : headerBinWidth
-                    ? { width: headerBinWidth }
-                    : undefined
-              }
-            />
-          </div>
         </div>
       </div>
     </>

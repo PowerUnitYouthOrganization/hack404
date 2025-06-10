@@ -11,23 +11,23 @@ import { GridColWidthProvider } from "@/app/contexts/GridCtx";
  * @returns the desktop view.
  */
 export default function Home() {
-	const handleSubmit = async () => {
-		window.location.href = '/login';
-	};
+  const handleSubmit = async () => {
+    window.location.href = "/login";
+  };
 
-	const layoutProps = {
-		handleSubmit
-	};
+  const layoutProps = {
+    handleSubmit,
+  };
 
-	return (
-		<>
-			<Head>
-				<meta property="og:image" content="thumbnail.png" />
-				<meta name="twitter:image" content="thumbnail.png" />
-			</Head>
-			<GridColWidthProvider>
-				<ResponsiveLayout {...layoutProps} />
-			</GridColWidthProvider>
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <meta property="og:image" content="thumbnail.png" />
+        <meta name="twitter:image" content="thumbnail.png" />
+      </Head>
+      <GridColWidthProvider>
+        <ResponsiveLayout {...layoutProps} />
+      </GridColWidthProvider>
+    </>
+  );
 }

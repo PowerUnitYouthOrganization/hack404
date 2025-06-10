@@ -6,7 +6,11 @@ import { redirect } from "next/navigation";
  * @param param0 - The children components to render within the protected layout.
  * @returns Children components if the user is authenticated, otherwise redirects to the login page.
  */
-export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
+export default async function ProtectedLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const session = await auth();
 
   if (!session) {

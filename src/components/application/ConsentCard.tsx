@@ -1,7 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export default function ConsentCard({ label, checked, onCheckedChange }: {
+export default function ConsentCard({
+  label,
+  checked,
+  onCheckedChange,
+}: {
   label: string;
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
@@ -16,11 +20,14 @@ export default function ConsentCard({ label, checked, onCheckedChange }: {
             id={label}
             className="size-5"
           />
-          <label htmlFor={label} className="text-white text-sm font-light cursor-pointer py-1">
+          <label
+            htmlFor={label}
+            className="text-white text-sm font-light cursor-pointer py-1"
+          >
             <span>{label}</span>
           </label>
         </div>
       </div>
     </Card>
   );
-} 
+}

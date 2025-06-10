@@ -20,7 +20,9 @@ export interface FormData {
 
 export interface StepProps {
   form: FormData;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
 }
 
 export interface SectionTitleProps {

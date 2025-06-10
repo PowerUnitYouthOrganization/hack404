@@ -10,10 +10,10 @@ import { JSX } from "react";
  * @returns {JSX.Element} The login status component.
  */
 export default function LoginStatus(): JSX.Element {
-	const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
 
-	if (status === "authenticated") {
-		return <p>{session?.user?.email}</p>;
-	}
-	return <p>Log in</p>;
+  if (status === "authenticated") {
+    return <p>{session?.user?.email}</p>;
+  }
+  return <p>Log in</p>;
 }

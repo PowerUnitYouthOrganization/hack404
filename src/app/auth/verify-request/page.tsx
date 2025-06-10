@@ -13,7 +13,7 @@ function VerifyRequestContent() {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116] p-4">
       <GradientBackgroundStatic />
-      
+
       <div className="relative z-10 max-w-md w-full">
         <div className="text-center mb-8">
           <Image
@@ -23,7 +23,9 @@ function VerifyRequestContent() {
             height={38}
             className="mx-auto mb-4"
           />
-          <h1 className="text-white text-3xl font-bold mb-2">Check your email</h1>
+          <h1 className="text-white text-3xl font-bold mb-2">
+            Check your email
+          </h1>
         </div>
 
         <div className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 backdrop-blur-[25px] rounded-lg p-8 text-center">
@@ -56,15 +58,18 @@ function VerifyRequestContent() {
           <h2 className="text-white text-xl font-semibold mb-4">
             Sign in link sent!
           </h2>
-          
+
           <p className="text-white/80 mb-4">
             {email ? (
-              <>A sign in link has been sent to <span className="font-medium text-cyan-400">{email}</span></>
+              <>
+                A sign in link has been sent to{" "}
+                <span className="font-medium text-cyan-400">{email}</span>
+              </>
             ) : (
               "A sign in link has been sent to your email address"
             )}
           </p>
-          
+
           <p className="text-white/60 text-sm">
             Click the link in the email to sign in. You can close this tab.
           </p>
@@ -82,12 +87,14 @@ function VerifyRequestContent() {
 
 export default function VerifyRequestPage() {
   return (
-    <Suspense fallback={
-      <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
-        <GradientBackgroundStatic />
-        <div className="text-white text-xl">Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
+          <GradientBackgroundStatic />
+          <div className="text-white text-xl">Loading...</div>
+        </div>
+      }
+    >
       <VerifyRequestContent />
     </Suspense>
   );

@@ -43,7 +43,7 @@ export default function LoginForm() {
       if (session?.user?.email) {
         isProfileComplete(session.user.email).then((profileDone) => {
           if (profileDone) {
-            window.location.href = "/application";
+            window.location.href = "/launchpad";
           } else {
             window.location.href = "/profile";
           }

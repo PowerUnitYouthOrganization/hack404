@@ -13,6 +13,7 @@ import {
 import { InstagramButton } from "@/components/social-button";
 import Link from "next/link";
 import faqData from "@/data/faq.json";
+import { dividerClasses } from "@mui/material";
 
 type LayoutProps = {
   handleSubmit: () => void | Promise<void>;
@@ -185,132 +186,382 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
         <div className="flex flex-col items-start justify-between text-left text-white">
           <div className="bg-background absolute inset-0 -z-30" />
 
-          {/* What is hack404? */}
-          <TextSection titleWidth={1} contentWidth={4}>
-            <TextSectionTitle>
-              What is <br />
-              hack404?
-            </TextSectionTitle>
-            <TextSectionContent>
-              Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
-              bring together 200 students who are passionate about learning and
-              building to create projects that excite them. We're focused on our
-              three pillars: education, innovation, and community.
-            </TextSectionContent>
-          </TextSection>
+          {/* TODO: Merge desktop and tablet layouts with breakpoints */}
 
-          <HBorder />
+          {/* Desktop Layout */}
+          <div className="hidden desktop:block w-full">
+            {/* What is hack404? */}
+            <TextSection titleWidth={1} contentWidth={4}>
+              <TextSectionTitle>
+                What is <br />
+                hack404?
+              </TextSectionTitle>
+              <TextSectionContent>
+                Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
+                bring together 200 students who are passionate about learning
+                and building to create projects that excite them. We're focused
+                on our three pillars: education, innovation, and community.
+              </TextSectionContent>
+            </TextSection>
 
-          {/* Event Structure */}
-          <TextSection titleWidth={1} contentWidth={4}>
-            <TextSectionTitle>Event Structure</TextSectionTitle>
-          </TextSection>
+            <HBorder />
 
-          <TextSection
-            titleWidth={1}
-            contentWidth={4}
-            className="py-4 tablet:py-4 desktop:py-4"
-          >
-            <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
-              Beginner stream
-            </TextSectionTitle>
-            <TextSectionContent>
-              Beginner teams will attend 3-5 workshops throughout the weekend,
-              creating 'mini-hacks' rather than a single large project. Then,
-              they'll be judged portfolio-style, where they showcase their top 3
-              mini-hacks and are evaluated based on their technical execution,
-              creativity, and innovation.
-            </TextSectionContent>
-          </TextSection>
+            {/* Event Structure */}
+            <TextSection titleWidth={1} contentWidth={4}>
+              <TextSectionTitle>Event Structure</TextSectionTitle>
+            </TextSection>
 
-          <TextSection titleWidth={1} contentWidth={4}>
-            <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
-              Regular stream
-            </TextSectionTitle>
-            <TextSectionContent>
-              Hackers will have 36 hours to create an innovative project in line
-              with our three pillars—education, innovation, and community—and a
-              problem statement that will be announced during opening
-              ceremonies. We'll also be hosting activities and workshops
-              throughout the weekend!
-            </TextSectionContent>
-          </TextSection>
+            <TextSection
+              titleWidth={1}
+              contentWidth={4}
+              className="py-4 tablet:py-4 desktop:py-4"
+            >
+              <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                Beginner stream
+              </TextSectionTitle>
+              <TextSectionContent>
+                Beginner teams will attend 3-5 workshops throughout the weekend,
+                creating 'mini-hacks' rather than a single large project. Then,
+                they'll be judged portfolio-style, where they showcase their top
+                3 mini-hacks and are evaluated based on their technical
+                execution, creativity, and innovation.
+              </TextSectionContent>
+            </TextSection>
 
-          <HBorder />
+            <TextSection titleWidth={1} contentWidth={4}>
+              <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                Regular stream
+              </TextSectionTitle>
+              <TextSectionContent>
+                Hackers will have 36 hours to create an innovative project in
+                line with our three pillars—education, innovation, and
+                community—and a problem statement that will be announced during
+                opening ceremonies. We'll also be hosting activities and
+                workshops throughout the weekend!
+              </TextSectionContent>
+            </TextSection>
 
-          {/* Who can participate? */}
-          <TextSection titleWidth={1} contentWidth={4}>
-            <TextSectionTitle>Who can participate?</TextSectionTitle>
-            <TextSectionContent>
-              Hack404 is for students, by students. Whether you're a beginner
-              hacker or have been to 10+ hackathons, we'd love for you to
-              continue to innovate at Hack404. We welcome applications from high
-              school and post-secondary students, as well as those who graduated
-              in 2025.
-            </TextSectionContent>
-          </TextSection>
+            <HBorder />
 
-          <HBorder />
+            {/* Who can participate? */}
+            <TextSection titleWidth={1} contentWidth={4}>
+              <TextSectionTitle>Who can participate?</TextSectionTitle>
+              <TextSectionContent>
+                Hack404 is for students, by students. Whether you're a beginner
+                hacker or have been to 10+ hackathons, we'd love for you to
+                continue to innovate at Hack404. We welcome applications from
+                high school and post-secondary students, as well as those who
+                graduated in 2025.
+              </TextSectionContent>
+            </TextSection>
 
-          {/* FAQ Section */}
-          <TextSection
-            titleWidth={1}
-            contentWidth={4}
-            className="pb-2 tablet:pb-2 desktop:pb-2"
-          >
-            <TextSectionTitle>FAQ</TextSectionTitle>
-          </TextSection>
+            <HBorder />
 
-          {Object.entries(faqData).map(([category, items]) => (
-            <div key={category}>
-              <TextSection titleWidth={1} contentWidth={4}>
-                <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </TextSectionTitle>
-                <TextSectionContent></TextSectionContent>
-              </TextSection>
+            {/* FAQ Section */}
+            <TextSection
+              titleWidth={1}
+              contentWidth={4}
+              className="pb-2 tablet:pb-2 desktop:pb-2"
+            >
+              <TextSectionTitle>FAQ</TextSectionTitle>
+            </TextSection>
 
-              {items.map((faqItem, index) => (
-                <TextSection
-                  key={`${category}-${index}`}
-                  titleWidth={1}
-                  contentWidth={4}
-                  className="py-4 tablet:py-4 desktop:py-4"
-                >
-                  <TextSectionTitle className="font-(family-name:--font-heading-light) text-3xl">
-                    {faqItem.question}
+            {Object.entries(faqData).map(([category, items]) => (
+              <div key={category}>
+                <TextSection titleWidth={1} contentWidth={4}>
+                  <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
                   </TextSectionTitle>
-                  <TextSectionContent className="text-3xl">
-                    {renderFaqAnswer(faqItem)}
-                  </TextSectionContent>
+                  <TextSectionContent></TextSectionContent>
                 </TextSection>
+
+                {items.map((faqItem, index) => (
+                  <TextSection
+                    key={`${category}-${index}`}
+                    titleWidth={1}
+                    contentWidth={4}
+                    className="py-4 tablet:py-4 desktop:py-4"
+                  >
+                    <TextSectionTitle className="font-(family-name:--font-heading-light) text-3xl">
+                      {faqItem.question}
+                    </TextSectionTitle>
+                    <TextSectionContent className="text-3xl">
+                      {renderFaqAnswer(faqItem)}
+                    </TextSectionContent>
+                  </TextSection>
+                ))}
+              </div>
+            ))}
+
+            <HBorder />
+            <div className="flex px-16 py-[70px] items-center justify-between gap-6">
+              <ColSection width={2}>
+                <div className="flex flex-col items-start gap-6">
+                  <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                    Contact
+                  </h1>
+                  <a
+                    href="mailto:support@hack404.dev"
+                    className="text-3xl font-(family-name:--font-heading-light) gradient-text leading-loose hover:opacity-80 transition-opacity"
+                  >
+                    support@hack404.dev
+                  </a>
+                </div>
+              </ColSection>
+              <ColSection width={2}>
+                <div className="flex flex-col items-start gap-6">
+                  <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                    Link to our socials
+                  </h1>
+                  <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                </div>
+              </ColSection>
+            </div>
+          </div>
+
+          {/* Tablet Layout */}
+          <div className="hidden tablet:block desktop:hidden w-full">
+            {/* What is hack404? */}
+            <TextSection titleWidth={1} contentWidth={3}>
+              <TextSectionTitle>
+                What is <br />
+                hack404?
+              </TextSectionTitle>
+              <TextSectionContent>
+                Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
+                bring together 200 students who are passionate about learning
+                and building to create projects that excite them. We're focused
+                on our three pillars: education, innovation, and community.
+              </TextSectionContent>
+            </TextSection>
+
+            <HBorder />
+
+            {/* Event Structure */}
+            <TextSection titleWidth={1} contentWidth={3}>
+              <TextSectionTitle>Event Structure</TextSectionTitle>
+            </TextSection>
+
+            <TextSection
+              titleWidth={1}
+              contentWidth={3}
+              className="py-4 tablet:py-4 desktop:py-4"
+            >
+              <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                Beginner stream
+              </TextSectionTitle>
+              <TextSectionContent>
+                Beginner teams will attend 3-5 workshops throughout the weekend,
+                creating 'mini-hacks' rather than a single large project. Then,
+                they'll be judged portfolio-style, where they showcase their top
+                3 mini-hacks and are evaluated based on their technical
+                execution, creativity, and innovation.
+              </TextSectionContent>
+            </TextSection>
+
+            <TextSection titleWidth={1} contentWidth={3}>
+              <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                Regular stream
+              </TextSectionTitle>
+              <TextSectionContent>
+                Hackers will have 36 hours to create an innovative project in
+                line with our three pillars—education, innovation, and
+                community—and a problem statement that will be announced during
+                opening ceremonies. We'll also be hosting activities and
+                workshops throughout the weekend!
+              </TextSectionContent>
+            </TextSection>
+
+            <HBorder />
+
+            {/* Who can participate? */}
+            <TextSection titleWidth={1} contentWidth={3}>
+              <TextSectionTitle>Who can participate?</TextSectionTitle>
+              <TextSectionContent>
+                Hack404 is for students, by students. Whether you're a beginner
+                hacker or have been to 10+ hackathons, we'd love for you to
+                continue to innovate at Hack404. We welcome applications from
+                high school and post-secondary students, as well as those who
+                graduated in 2025.
+              </TextSectionContent>
+            </TextSection>
+
+            <HBorder />
+
+            {/* FAQ Section */}
+            <TextSection
+              titleWidth={1}
+              contentWidth={3}
+              className="pb-2 tablet:pb-2 desktop:pb-2"
+            >
+              <TextSectionTitle>FAQ</TextSectionTitle>
+            </TextSection>
+
+            {Object.entries(faqData).map(([category, items]) => (
+              <div key={category}>
+                <TextSection titleWidth={1} contentWidth={3}>
+                  <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </TextSectionTitle>
+                  <TextSectionContent></TextSectionContent>
+                </TextSection>
+
+                {items.map((faqItem, index) => (
+                  <TextSection
+                    key={`${category}-${index}`}
+                    titleWidth={1}
+                    contentWidth={3}
+                    className="py-4 tablet:py-4 desktop:py-4"
+                  >
+                    <TextSectionTitle className="font-(family-name:--font-heading-light) text-3xl">
+                      {faqItem.question}
+                    </TextSectionTitle>
+                    <TextSectionContent className="text-3xl">
+                      {renderFaqAnswer(faqItem)}
+                    </TextSectionContent>
+                  </TextSection>
+                ))}
+              </div>
+            ))}
+
+            <HBorder />
+            <div className="flex px-16 py-[70px] items-center justify-between gap-6">
+              <ColSection width={2}>
+                <div className="flex flex-col items-start gap-6">
+                  <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                    Contact
+                  </h1>
+                  <a
+                    href="mailto:support@hack404.dev"
+                    className="text-3xl font-(family-name:--font-heading-light) gradient-text leading-loose hover:opacity-80 transition-opacity"
+                  >
+                    support@hack404.dev
+                  </a>
+                </div>
+              </ColSection>
+              <ColSection width={2}>
+                <div className="flex flex-col items-start gap-6">
+                  <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                    Link to our socials
+                  </h1>
+                  <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                </div>
+              </ColSection>
+            </div>
+          </div>
+
+          {/* Mobile Layout */}
+          <div className="tablet:hidden w-full">
+            {/* What is hack404? */}
+            <div className="px-6 py-[70px]">
+              <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+                What is <br />
+                hack404?
+              </h2>
+              <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
+                Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
+                bring together 200 students who are passionate about learning
+                and building to create projects that excite them. We're focused
+                on our three pillars: education, innovation, and community.
+              </p>
+            </div>
+
+            <HBorder />
+
+            {/* Event Structure */}
+            <div className="flex flex-col gap-6 px-6 py-[70px]">
+              <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+                Event Structure
+              </h2>
+              <div>
+                <h3 className="font-(family-name:--font-heading-light) gradient-text text-4xl leading-relaxed mb-6">
+                  Beginner stream
+                </h3>
+                <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
+                  Beginner teams will attend 3-5 workshops throughout the
+                  weekend, creating 'mini-hacks' rather than a single large
+                  project. Then, they'll be judged portfolio-style, where they
+                  showcase their top 3 mini-hacks and are evaluated based on
+                  their technical execution, creativity, and innovation.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-(family-name:--font-heading-light) gradient-text text-4xl leading-relaxed mb-6">
+                  Regular stream
+                </h3>
+                <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
+                  Hackers will have 36 hours to create an innovative project in
+                  line with our three pillars—education, innovation, and
+                  community—and a problem statement that will be announced
+                  during opening ceremonies. We'll also be hosting activities
+                  and workshops throughout the weekend!
+                </p>
+              </div>
+            </div>
+
+            <HBorder />
+
+            {/* Who can participate? */}
+            <div className="px-6 py-[70px]">
+              <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+                Who can participate?
+              </h2>
+              <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
+                Hack404 is for students, by students. Whether you're a beginner
+                hacker or have been to 10+ hackathons, we'd love for you to
+                continue to innovate at Hack404. We welcome applications from
+                high school and post-secondary students, as well as those who
+                graduated in 2025.
+              </p>
+            </div>
+
+            <HBorder />
+
+            {/* FAQ Section */}
+            <div className="flex flex-col px-6 py-[70px] gap-6">
+              <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                FAQ
+              </h2>
+
+              {Object.entries(faqData).map(([category, items]) => (
+                <div key={category} className="flex flex-col gap-6 items-start">
+                  <h3 className="font-(family-name:--font-heading-light) gradient-text text-4xl leading-relaxed">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </h3>
+
+                  {items.map((faqItem, index) => (
+                    <div key={`${category}-${index}`}>
+                      <h4 className="font-(family-name:--font-heading) text-3xl leading-relaxed">
+                        {faqItem.question}
+                      </h4>
+                      <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
+                        {renderFaqAnswer(faqItem)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
 
-          <HBorder />
-          <div className="flex px-16 py-[70px] items-center justify-between gap-6">
-            <ColSection width={2}>
-              <div className="flex flex-col items-start gap-6">
-                <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
-                  Contact
-                </h1>
-                <a 
-                  href="mailto:support@hack404.dev"
-                  className="text-3xl font-(family-name:--font-heading-light) gradient-text leading-loose hover:opacity-80 transition-opacity"
-                >
-                  support@hack404.dev
-                </a>
-              </div>
-            </ColSection>
-            <ColSection width={2}>
-              <div className="flex flex-col items-start gap-6">
-                <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
-                  Link to our socials
-                </h1>
-                <InstagramButton url="https://www.instagram.com/hack404.dev/" />
-              </div>
-            </ColSection>
+            <HBorder />
+
+            {/* Contact Section */}
+            <div className="px-6 py-[70px]">
+              <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+                Contact
+              </h2>
+              <a
+                href="mailto:support@hack404.dev"
+                className="text-2xl font-(family-name:--font-heading-light) gradient-text leading-relaxed hover:opacity-80 transition-opacity block mb-8"
+              >
+                support@hack404.dev
+              </a>
+
+              <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+                Link to our socials
+              </h2>
+              <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+            </div>
           </div>
         </div>
       </div>

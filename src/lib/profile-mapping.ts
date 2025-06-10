@@ -6,12 +6,16 @@ export function mapFormDataToProfile(formData: FormData, userId: string) {
     firstName: formData.firstName,
     preferredFirstName: formData.preferredName || null,
     lastName: formData.lastName,
-    age: formData.age && formData.age.trim() !== "" ? parseInt(formData.age) : 0,
+    age:
+      formData.age && formData.age.trim() !== "" ? parseInt(formData.age) : 0,
     gender: formData.gender || "",
     ethnicity: formData.ethnicity || "",
     institution: formData.school,
     year: formData.grade,
-    attendedHackathons: formData.previousHackathons && formData.previousHackathons.trim() !== "" ? parseInt(formData.previousHackathons) : 0,
+    attendedHackathons:
+      formData.previousHackathons && formData.previousHackathons.trim() !== ""
+        ? parseInt(formData.previousHackathons)
+        : 0,
     shirtSize: formData.shirtSize,
     dietaryRestrictions: formData.dietaryRestrictions || null,
     allergies: formData.allergies || null,

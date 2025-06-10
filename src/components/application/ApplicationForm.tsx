@@ -27,7 +27,7 @@ const workshopOptions = [
 const formSchema = z.object({
   shortAnswer1: z.string().max(750, "Maximum 750 characters").min(1, "Required"),
   shortAnswer2: z.string().max(750, "Maximum 750 characters").min(1, "Required"),
-  creativeQuestion: z.string().max(50, "Maximum 50 characters").min(1, "Required"),
+  creativeQuestion: z.string().max(250, "Maximum 250 characters").min(1, "Required"),
   activity: z.string().max(300, "Maximum 300 characters").optional(),
   workshops: z.array(z.string()).max(3, "Select up to 3 workshops").min(1, "Select at least 1 workshop"),
   resumeConsented: z.boolean(),
@@ -150,10 +150,12 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
           <div className="flex flex-col gap-6 mt-4">
             <ShortAnswerCard
               label={shortAnswer1.label}
+              maxLength={shortAnswer1.maxLength || 750}
               {...form.register("shortAnswer1")}
             />
             <ShortAnswerCard
               label={shortAnswer2.label}
+              maxLength={shortAnswer2.maxLength || 750}
               {...form.register("shortAnswer2")}
             />
           </div>
@@ -164,6 +166,7 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
           <div className="flex flex-col gap-6 mt-4">
             <CreativeQuestionCard
               label="If you could 'hack' any everyday object (like a toaster, a chair, or a backpack), what would you hack and what would it do?"
+              maxLength={250}
               {...form.register("creativeQuestion")}
             />
           </div>
@@ -203,6 +206,7 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
               {form.watch("workshops").includes("Other") && (
                 <div className="mt-4">
                   <ActivityCard
+                    maxLength={100}
                     {...form.register("otherWorkshop")}
                     placeholder="Please specify your other workshop"
                   />
@@ -212,8 +216,9 @@ export default function ApplicationForm({ stream, shortAnswer1, shortAnswer2, st
               <FormMessage>{form.formState.errors.workshops?.message as string}</FormMessage>
             </div>
             <div>
-              <h4 className="text-white text-base font-normal mb-2">What activities are you interested in seeing at Hack404? <span className="font-normal text-white/60">(Optional)</span></h4>
+              <h4 className="text-white text-base font-normal mb-2">What activities are you interested in seeing at Hack404? <span className="font-normal text-white/60">(Optional, maximum 300 characters)</span></h4>
               <ActivityCard
+                maxLength={300}
                 {...form.register("activity")}
               />
             </div>

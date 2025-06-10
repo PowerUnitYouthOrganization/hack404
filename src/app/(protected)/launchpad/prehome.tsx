@@ -76,26 +76,6 @@ export default function Prehome() {
       answer:
         "Participants must be students enrolled in a high-school or post-secondary institution and have a valid email address. We welcome both beginners and experienced hackers - we have dedicated beginner and normal streams to accommodate different experience levels.",
     },
-    {
-      question: "What are the judging criteria?",
-      answer:
-        "Judging criteria include creativity, technical difficulty, and impact.",
-    },
-    {
-      question: "What are the submission guidelines?",
-      answer:
-        "Submissions must be submitted by the deadline and must include a description, a link to the project, and a team name.",
-    },
-    {
-      question: "How many people can be on a team?",
-      answer:
-        "Teams can have up to 4 members. Beginners must work in teams, while experienced hackers can work solo if they prefer.",
-    },
-    {
-      question: "What are the FAQs?",
-      answer:
-        "FAQs include information about the hackathon, the team, and the prizes.",
-    },
   ];
 
   return (

@@ -10,6 +10,7 @@ import CutButton from "@/components/cut-button";
 import { useGridColWidth } from "../contexts/GridCtx";
 import { TextSection, TextSectionTitle, TextSectionContent } from "@/components/text-section";
 import Image from "next/image";
+import { InstagramButton } from "@/components/social-button";
 
 type LayoutProps = {
   handleSubmit: () => void | Promise<void>;
@@ -173,7 +174,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
               What is <br />
               hack404?
             </TextSectionTitle>
-            <TextSectionContent>
+            <TextSectionContent enableGradientWords={true}>
               A 36-hour hackathon based in Toronto where secondary and
               post-secondary students, from first-time hackers to seasoned
               builders, team up to solve real-world problems and shape
@@ -181,19 +182,36 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             </TextSectionContent>
           </TextSection>
 
-          {/* there is DEFINITELY a better way to do this but im too tired */}
-          {/* spacer */}
-          <div className="tablet:flex-row tablet:gap-6 tablet:px-[24px] tablet:py-[64px] desktop:px-[64px] desktop:py-[70px] flex shrink-0 flex-col items-start gap-12 px-[24px] py-[30px]">
-            <ColSection width={1}></ColSection>
-            {/* <ColSection width={1}>
-              <CutButton
-                text="Sign up now"
-                onClick={handleSubmit}
-                disabled={false}
-                className="rounded-l-sm w-full"
-              />
-            </ColSection> */}
-          </div>
+          <HBorder />
+
+          <TextSection titleWidth={1} contentWidth={3} className="pb-2 tablet:pb-2 desktop:pb-2">
+            <TextSectionTitle>
+              Contact
+            </TextSectionTitle>
+            <TextSectionContent>
+              Link to our socials
+            </TextSectionContent>
+          </TextSection>
+
+          <TextSection titleWidth={1} contentWidth={3} className="pt-2 tablet:pt-2 desktop:pt-2">
+            <TextSectionTitle>
+              <span className="text-2xl font-normal">
+                <GradientBorder>
+                    emma.xing@power-unit.org
+                </GradientBorder>
+              </span>
+            </TextSectionTitle>
+            <TextSectionContent enableGradientWords={true}>
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-3">
+                  <InstagramButton 
+                    url="https://www.instagram.com/hack404.dev/"
+                    size="md"
+                  />
+                </div>
+              </div>
+            </TextSectionContent>
+          </TextSection>
           <HBorder />
         </div>
       </div>

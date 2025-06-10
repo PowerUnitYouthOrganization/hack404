@@ -72,29 +72,64 @@ export default function Prehome() {
 
   const faq: FAQ[] = [
     {
-      question: "What are the requirements to participate?",
+      question: "How do I register?",
       answer:
-        "Participants must be students enrolled in a high-school or post-secondary institution and have a valid email address. We welcome both beginners and experienced hackers - we have dedicated beginner and normal streams to accommodate different experience levels.",
+        "Applications are open now! Click the button on the left to sign up.",
     },
     {
-      question: "What are the judging criteria?",
+      question: "Do I need experience to apply?",
       answer:
-        "Judging criteria include creativity, technical difficulty, and impact.",
+        "No! We're open to beginners and experienced hackers, and we're especially looking for students who are just starting out in the field of tech for our beginner stream.",
     },
     {
-      question: "What are the submission guidelines?",
+      question: "Do I need an idea before the hackathon?",
       answer:
-        "Submissions must be submitted by the deadline and must include a description, a link to the project, and a team name.",
+        "No! You'll have time and support during the hackathon to create and refine your ideas. Feel free to start brainstorming now, but keep in mind that our problem statements will only be announced at our opening ceremonies.",
     },
     {
-      question: "How many people can be on a team?",
+      question: "What are important dates to keep in mind?",
       answer:
-        "Teams can have up to 4 members. Beginners must work in teams, while experienced hackers can work solo if they prefer.",
+        "Hacker, mentor, and volunteer applications are open now and will close on June 20, 2025. Application results will be released within a week, and Hack404 itself is taking place on July 4-6, 2025!",
     },
     {
-      question: "What are the FAQs?",
+      question: "What's the schedule for the event?",
       answer:
-        "FAQs include information about the hackathon, the team, and the prizes.",
+        "Our schedule will be announced soon! To keep up with the latest news about Hack404, follow our Instagram - @hack404.dev.",
+    },
+    {
+      question: "I've never been to a hackathon before, what can I expect?",
+      answer:
+        "We'd love to have you! A hackathon is a 36-hour event where hundreds of students come together to build technical projects. For our beginner stream, you'll attend 3-5 workshops where you'll be guided through different 'mini-hacks' from start to finish. For our regular stream, you'll have the full 36 hours to work on a project, with exciting workshops, activities, and mentorship support available.",
+    },
+    {
+      question: "Will there be mentors to help?",
+      answer:
+        "Yes! Hack404 is bringing in skilled mentors from a variety of disciplines in tech, covering a wide range of expertise. They'll be your go-to points of contact for help, whether that's support with debugging, ideating, refining your pitch, or something else! Plus, for our beginner stream, we'll have mentors dedicated to individual teams, helping you build from start to finish.",
+    },
+    {
+      question: "What makes Hack404 unique?",
+      answer:
+        "We created Hack404 around three key values: education, innovation, and community. To us, this means: Education: Making the hackathon scene (and tech in general) more accessible to beginners. Getting started can be the hardest step, and we want to make that easier for first-time hackers. Innovation: We've seen that the tech scene is changing. New technologies, especially in the realm of AI, are constantly emerging, and we're encouraging our hackers to lean in to these technologies to make exciting new projects. Community: We want our hackers to think about the communities that they're a part of – what problems do they face, and how might our tech solutions help them? Think outside of just the developer community – let's make tech that benefits everyone.",
+    },
+    {
+      question: "How big are teams?",
+      answer:
+        "Teams can be between 1-4 people! Don't have a team? Don't worry, you'll have the opportunity to create and finalize a team at the event!",
+    },
+    {
+      question: "How is Power Unit Youth Organization involved?",
+      answer:
+        "Power Unit Youth Organization is youth-driven non-profit organization based in Markham. It empowers youth-led initiatives – past hits have included Night It Up!, a night market; the E3 challenge, a business case competition; and the Level Up Conference, a career conference. Hack404 is PUYO's latest initiative.",
+    },
+    {
+      question: "How much does it cost to attend?",
+      answer:
+        "Attending Hack404 is completely free! We're aiming to reduce barriers to hackers of diverse socioeconomic backgrounds. We'll be providing the venue, food, mentors, activities, and more – all you have to do is bring your laptop and your ideas.",
+    },
+
+    {
+      question: "I have another question, who can I contact?",
+      answer: "Feel free to send us an email at support@hack404.dev!",
     },
   ];
 

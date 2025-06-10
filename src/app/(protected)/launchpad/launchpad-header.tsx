@@ -18,7 +18,7 @@ export default function LaunchpadHeader({
   tabChangeAction,
 }: LaunchpadHeaderProps) {
   const { data: session } = useSession();
-  const avatarUrl = session?.user?.image || "";
+  const avatarUrl = session?.user?.image || null;
   const [showProfileCard, setShowProfileCard] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -101,8 +101,8 @@ export default function LaunchpadHeader({
             >
               Profile
               <Avatar className="w-6 h-6 rounded-md">
-                <AvatarImage src={avatarUrl} />
-                <AvatarFallback>
+                <AvatarImage src={avatarUrl || undefined} />
+                <AvatarFallback className="bg-wblack/20 text-white text-sm">
                   {firstName.charAt(0)}
                   {lastName.charAt(0)}
                 </AvatarFallback>
@@ -114,8 +114,8 @@ export default function LaunchpadHeader({
               <div className="absolute top-full right-0 mt-2 w-64 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 backdrop-blur-[25px] rounded-lg p-4 z-50">
                 <div className="flex items-center gap-3">
                   <Avatar className="w-12 h-12 rounded-md">
-                    <AvatarImage src={avatarUrl} />
-                    <AvatarFallback className="bg-cyan-400/20 text-white">
+                    <AvatarImage src={avatarUrl || undefined} />
+                    <AvatarFallback className="bg-wblack/20 text-white">
                       {firstName.charAt(0)}
                       {lastName.charAt(0)}
                     </AvatarFallback>

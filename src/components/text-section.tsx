@@ -1,7 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import ColSection from "./col-section";
-import GradientBorder from "./gradient-border";
 
 interface TextSectionProps {
   titleWidth?: number;
@@ -12,80 +11,7 @@ interface TextSectionProps {
   children: React.ReactNode;
 }
 
-// Simple hash function for deterministic randomization
-function simpleHash(str: string): number {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32-bit integer
-  }
-  return Math.abs(hash);
-}
 
-// Utility function to process text and add deterministic gradient effects
-function processTextWithGradients(text: string): React.ReactNode[] {
-  const separators = /([,.?!])/g;
-  const parts = text.split(separators);
-  const processedParts: React.ReactNode[] = [];
-
-  let key = 0;
-
-  for (let i = 0; i < parts.length; i++) {
-    const part = parts[i];
-
-    // For text parts, process words
-    const words = part.split(/(\s+)/); // Split on whitespace but keep spaces
-
-    // Collect all non-whitespace words with their indices
-    const validWordIndices: number[] = [];
-    words.forEach((word, wordIndex) => {
-      if (word.trim().length > 0) {
-        validWordIndices.push(wordIndex);
-      }
-    });
-
-    // Use deterministic selection based on text content hash
-    const textHash = simpleHash(part);
-    const randomWordIndex =
-      validWordIndices.length > 0
-        ? validWordIndices[textHash % validWordIndices.length]
-        : -1;
-
-    words.forEach((word, wordIndex) => {
-      if (word.match(/^\s+$/)) {
-        // If it's just whitespace, add it as is
-        processedParts.push(word);
-      } else if (word.trim().length > 0) {
-        // Apply gradient only to the deterministically selected word
-        if (wordIndex === randomWordIndex) {
-          // Use deterministic reverse based on word hash
-          const wordHash = simpleHash(word);
-          const deterministicReverse = wordHash % 2 === 0;
-          processedParts.push(
-            <GradientBorder key={key++} reverse={deterministicReverse}>
-              {word}
-            </GradientBorder>,
-          );
-        } else {
-          processedParts.push(word);
-        }
-      }
-    });
-  }
-
-  return processedParts;
-}
-
-// Hook to memoize the processed text to prevent re-randomization on re-renders
-function useProcessedText(children: React.ReactNode): React.ReactNode {
-  return React.useMemo(() => {
-    if (typeof children === "string") {
-      return processTextWithGradients(children);
-    }
-    return children;
-  }, [children]);
-}
 
 function TextSection({
   titleWidth = 1,
@@ -163,15 +89,8 @@ function TextSection({
 function TextSectionTitle({
   className,
   children,
-  enableGradientWords = false,
   ...props
-}: React.HTMLAttributes<HTMLHeadingElement> & {
-  enableGradientWords?: boolean;
-}) {
-  const processedChildren = enableGradientWords
-    ? useProcessedText(children)
-    : children;
-
+}: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h1
       className={cn(
@@ -180,7 +99,7 @@ function TextSectionTitle({
       )}
       {...props}
     >
-      {processedChildren}
+      {children}
     </h1>
   );
 }
@@ -188,17 +107,11 @@ function TextSectionTitle({
 function TextSectionContent({
   className,
   children,
-  enableGradientWords = false,
   as = "p",
   ...props
 }: React.HTMLAttributes<HTMLElement> & {
-  enableGradientWords?: boolean;
   as?: "p" | "div";
 }) {
-  const processedChildren = enableGradientWords
-    ? useProcessedText(children)
-    : children;
-
   const Component = as;
 
   return (
@@ -209,7 +122,7 @@ function TextSectionContent({
       )}
       {...props}
     >
-      {processedChildren}
+      {children}
     </Component>
   );
 }

@@ -376,7 +376,9 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
 
             {/* Who can participate? */}
             <TextSection titleWidth={1} contentWidth={3}>
-              <TextSectionTitle>Who can participate?</TextSectionTitle>
+              <TextSectionTitle className="break-all">
+                Who can participate?
+              </TextSectionTitle>
               <TextSectionContent>
                 Hack404 is for students, by students. Whether you're a beginner
                 hacker or have been to 10+ hackathons, we'd love for you to
@@ -400,7 +402,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             {Object.entries(faqData).map(([category, items]) => (
               <div key={category}>
                 <TextSection titleWidth={1} contentWidth={3}>
-                  <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text">
+                  <TextSectionTitle className="font-(family-name:--font-heading-light) gradient-text break-all">
                     {category.charAt(0).toUpperCase() + category.slice(1)}
                   </TextSectionTitle>
                   <TextSectionContent></TextSectionContent>

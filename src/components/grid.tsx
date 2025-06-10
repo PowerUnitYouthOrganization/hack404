@@ -10,7 +10,7 @@ export default function Grid() {
     const updateType = () => {
       if (typeof window !== "undefined") {
         const width = window.innerWidth;
-        if (width < 640) setType("mobile");
+        if (width < 768) setType("mobile");
         else if (width < 1500) setType("tablet");
         else setType("desktop");
       }

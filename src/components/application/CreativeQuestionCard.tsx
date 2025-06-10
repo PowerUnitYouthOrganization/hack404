@@ -6,6 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useState, useEffect } from "react";
 
 export default function CreativeQuestionCard({ label, value, onChange, error, maxLength = 250, ...props }: {
   label: string;
@@ -15,12 +16,19 @@ export default function CreativeQuestionCard({ label, value, onChange, error, ma
   maxLength?: number;
   [key: string]: any;
 }) {
-  const currentLength = value?.length || 0;
+  const [currentValue, setCurrentValue] = useState(value || "");
+  
+  useEffect(() => {
+    setCurrentValue(value || "");
+  }, [value]);
+  
+  const currentLength = currentValue.length;
   const remainingChars = maxLength - currentLength;
   
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // Enforce hard character limit
     if (e.target.value.length <= maxLength) {
+      setCurrentValue(e.target.value);
       onChange?.(e);
     }
   };
@@ -46,7 +54,7 @@ export default function CreativeQuestionCard({ label, value, onChange, error, ma
               {error && <FormMessage>{error}</FormMessage>}
             </div>
             <div className={`text-xs ${remainingChars < 25 ? 'text-red-400' : remainingChars < 50 ? 'text-yellow-400' : 'text-white/60'}`}>
-              {currentLength}/{maxLength} characters
+              {remainingChars} characters remaining
             </div>
           </div>
         </FormItem>

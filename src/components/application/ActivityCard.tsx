@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { FormItem, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useState, useEffect } from "react";
 
 export default function ActivityCard({ value, onChange, error, maxLength = 300, ...props }: {
   value?: string;
@@ -9,12 +10,19 @@ export default function ActivityCard({ value, onChange, error, maxLength = 300, 
   maxLength?: number;
   [key: string]: any;
 }) {
-  const currentLength = value?.length || 0;
+  const [currentValue, setCurrentValue] = useState(value || "");
+  
+  useEffect(() => {
+    setCurrentValue(value || "");
+  }, [value]);
+  
+  const currentLength = currentValue.length;
   const remainingChars = maxLength - currentLength;
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Enforce hard character limit
     if (e.target.value.length <= maxLength) {
+      setCurrentValue(e.target.value);
       onChange?.(e);
     }
   };
@@ -36,7 +44,7 @@ export default function ActivityCard({ value, onChange, error, maxLength = 300, 
               {error && <FormMessage>{error}</FormMessage>}
             </div>
             <div className={`text-xs ${remainingChars < 30 ? 'text-red-400' : remainingChars < 60 ? 'text-yellow-400' : 'text-white/60'}`}>
-              {currentLength}/{maxLength} characters
+              {remainingChars} characters remaining
             </div>
           </div>
         </FormItem>

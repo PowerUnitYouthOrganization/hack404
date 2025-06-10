@@ -8,6 +8,7 @@ import GradientBackground from "@/components/gradient-background";
 import WaitlistBox from "../../components/waitlist-box";
 import CutButton from "@/components/cut-button";
 import { useGridColWidth } from "../contexts/GridCtx";
+import { TextSection, TextSectionTitle, TextSectionContent } from "@/components/text-section";
 import Image from "next/image";
 
 type LayoutProps = {
@@ -165,54 +166,24 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
         id="about-us"
         className=" relative flex min-h-screen flex-col justify-between"
       >
-        <div className="flex flex-col items-start justify-between text-left text-white">
-          {/* about us */}
+        <div className="flex flex-col items-start justify-between text-left text-white">          {/* about us */}
           <div className="bg-background absolute inset-0 -z-30" />
+          <TextSection titleWidth={1} contentWidth={3}>
+            <TextSectionTitle>
+              What is <br />
+              hack404?
+            </TextSectionTitle>
+            <TextSectionContent>
+              A 36-hour hackathon based in Toronto where secondary and
+              post-secondary students, from first-time hackers to seasoned
+              builders, team up to solve real-world problems and shape
+              tomorrow's technology.
+            </TextSectionContent>
+          </TextSection>
+
+          {/* there is DEFINITELY a better way to do this but im too tired */}
+          {/* spacer */}
           <div className="tablet:flex-row tablet:gap-6 tablet:px-[24px] tablet:py-[64px] desktop:px-[64px] desktop:py-[70px] flex shrink-0 flex-col items-start gap-12 px-[24px] py-[30px]">
-            {/* Mobile layout - width=2 */}
-            <div className="tablet:hidden">
-              <ColSection width={2}>
-                <h1 className="text-white text-5xl font-extralight font-(family-name:--font-heading) leading-[110%] tracking-[-0.2px]">
-                  What is <br />
-                  hack404?
-                </h1>
-              </ColSection>
-            </div>
-            {/* Tablet/Desktop layout - width=1 */}
-            <div className="hidden tablet:block">
-              <ColSection width={1}>
-                <h1 className="text-white text-5xl font-extralight font-(family-name:--font-heading) leading-[110%] tracking-[-0.2px]">
-                  What is <br />
-                  hack404?
-                </h1>
-              </ColSection>
-            </div>
-
-            {/* Mobile layout - width=2 */}
-            <div className="tablet:hidden">
-              <ColSection width={2}>
-                <p className="text-white text-justify text-2xl font-(family-name:--font-heading-light) leading-[110%] tracking-[-0.2px]">
-                  A 36-hour hackathon based in Toronto where secondary and
-                  post-secondary students, from first-time hackers to seasoned
-                  builders, team up to solve real-world problems and shape
-                  tomorrow's technology.
-                </p>
-              </ColSection>
-            </div>
-            {/* Tablet/Desktop layout - width=1 */}
-            <div className="hidden tablet:block">
-              <ColSection width={3}>
-                <p className="text-white text-justify text-2xl font-(family-name:--font-heading-light) leading-[110%] tracking-[-0.2px]">
-                  A 36-hour hackathon based in Toronto where secondary and
-                  post-secondary students, from first-time hackers to seasoned
-                  builders, team up to solve real-world problems and shape
-                  tomorrow's technology.
-                </p>
-              </ColSection>
-            </div>
-
-            {/* there is DEFINITELY a better way to do this but im too tired */}
-            {/* spacer */}
             <ColSection width={1}></ColSection>
             {/* <ColSection width={1}>
               <CutButton

@@ -228,10 +228,10 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
               hack404?
             </TextSectionTitle>
             <TextSectionContent enableGradientWords={true}>
-              A 36-hour hackathon based in Toronto where secondary and
-              post-secondary students, from first-time hackers to seasoned
-              builders, team up to solve real-world problems and shape
-              tomorrow's technology.
+              {"Hack404 is a 36-hour hackathon in Toronto, ON. \
+              We're hoping to bring together 200 students who are \
+              passionate about learning and building to create projects that excite them. \
+              We're focused on our three pillars: education, innovation, and community."}
             </TextSectionContent>
           </TextSection>
 

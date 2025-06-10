@@ -201,7 +201,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 </GradientBorder>
               </span>
             </TextSectionTitle>
-            <TextSectionContent enableGradientWords={true}>
+            <TextSectionContent enableGradientWords={true} as="div">
               <div className="flex flex-col gap-4">
                 <div className="flex gap-3">
                   <InstagramButton 

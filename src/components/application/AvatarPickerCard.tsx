@@ -1,18 +1,32 @@
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
 
-export default function AvatarPickerCard({ avatar, setAvatar, selectedColor, setSelectedColor }: {
+export default function AvatarPickerCard({
+  avatar,
+  setAvatar,
+  selectedColor,
+  setSelectedColor,
+}: {
   avatar: string[][];
   setAvatar: (a: string[][]) => void;
   selectedColor: string;
   setSelectedColor: (c: string) => void;
 }) {
-  const colors = ["#3e4da3", "#ffffff", "#000000", "#acf652", "#d3d3d3", "#27cecd"];
+  const colors = [
+    "#3e4da3",
+    "#ffffff",
+    "#000000",
+    "#acf652",
+    "#d3d3d3",
+    "#27cecd",
+  ];
   const [isDrawing, setIsDrawing] = useState(false);
 
   const handleCellChange = (rowIndex: number, colIndex: number) => {
     const newAvatar = avatar.map((r, i) =>
-      i === rowIndex ? r.map((c, j) => (j === colIndex ? selectedColor : c)) : r
+      i === rowIndex
+        ? r.map((c, j) => (j === colIndex ? selectedColor : c))
+        : r,
     );
     setAvatar(newAvatar);
   };
@@ -31,7 +45,7 @@ export default function AvatarPickerCard({ avatar, setAvatar, selectedColor, set
           ))}
         </div>
         <div className="border border-gray-200/20 p-2 rounded-md">
-          <div 
+          <div
             className="grid grid-cols-8 gap-0 w-fit rounded-0"
             onMouseDown={() => setIsDrawing(true)}
             onMouseUp={() => setIsDrawing(false)}
@@ -42,15 +56,17 @@ export default function AvatarPickerCard({ avatar, setAvatar, selectedColor, set
                 <div
                   key={`${rowIndex}-${colIndex}`}
                   onMouseDown={() => handleCellChange(rowIndex, colIndex)}
-                  onMouseEnter={() => isDrawing && handleCellChange(rowIndex, colIndex)}
+                  onMouseEnter={() =>
+                    isDrawing && handleCellChange(rowIndex, colIndex)
+                  }
                   className="w-8 h-8 cursor-pointer transition-colors hover:opacity-80"
                   style={{ backgroundColor: cell }}
                 />
-              ))
+              )),
             )}
           </div>
         </div>
       </div>
     </Card>
   );
-} 
+}

@@ -8,7 +8,11 @@ import GradientBackground from "@/components/gradient-background";
 import WaitlistBox from "../../components/waitlist-box";
 import CutButton from "@/components/cut-button";
 import { useGridColWidth } from "../contexts/GridCtx";
-import { TextSection, TextSectionTitle, TextSectionContent } from "@/components/text-section";
+import {
+  TextSection,
+  TextSectionTitle,
+  TextSectionContent,
+} from "@/components/text-section";
 import Image from "next/image";
 import { InstagramButton } from "@/components/social-button";
 import Link from "next/link";
@@ -17,57 +21,90 @@ type LayoutProps = {
   handleSubmit: () => void | Promise<void>;
 };
 
-
 const faq = [
   {
-    "question": "How do I register?",
-    "answer": "Applications are open now! Go to hack404.dev and click 'Sign up now'!"
+    question: "How do I register?",
+    answer:
+      "Applications are open now! Go to hack404.dev and click 'Sign up now'!",
   },
   {
-    "question": "Do I need experience to apply?",
-    "answer": "No! We're open to beginners and experienced hackers, and we're especially looking for students who are just starting out in the field of tech for our beginner stream."
+    question: "Do I need experience to apply?",
+    answer:
+      "No! We're open to beginners and experienced hackers, and we're especially looking for students who are just starting out in the field of tech for our beginner stream.",
   },
   {
-    "question": "Do I need an idea before the hackathon?",
-    "answer": "No! You'll have time and support during the hackathon to create and refine your ideas. Feel free to start brainstorming now, but keep in mind that our problem statements will only be announced at our opening ceremonies."
+    question: "Do I need an idea before the hackathon?",
+    answer:
+      "No! You'll have time and support during the hackathon to create and refine your ideas. Feel free to start brainstorming now, but keep in mind that our problem statements will only be announced at our opening ceremonies.",
   },
   {
-    "question": "What are important dates to keep in mind?",
-    "answer": "Hacker, mentor, and volunteer applications are open now and will close on June 20, 2025. Application results will be released within a week, and Hack404 itself is taking place on July 4–6, 2025!"
+    question: "What are important dates to keep in mind?",
+    answer:
+      "Hacker, mentor, and volunteer applications are open now and will close on June 20, 2025. Application results will be released within a week, and Hack404 itself is taking place on July 4–6, 2025!",
   },
   {
-    "question": "What's the schedule for the event?",
-    "answer": (<>Our schedule will be announced soon! To keep up with the latest news about Hack404, follow our Instagram - <Link href="https://www.instagram.com/hack404.dev/" className="text-cyan-300 hover:text-cyan-200"><GradientBorder>@hack404.dev</GradientBorder></Link>.</>)
+    question: "What's the schedule for the event?",
+    answer: (
+      <>
+        Our schedule will be announced soon! To keep up with the latest news
+        about Hack404, follow our Instagram -{" "}
+        <Link
+          href="https://www.instagram.com/hack404.dev/"
+          className="text-cyan-300 hover:text-cyan-200"
+        >
+          <GradientBorder>@hack404.dev</GradientBorder>
+        </Link>
+        .
+      </>
+    ),
   },
   {
-    "question": "I've never been to a hackathon before, what can I expect?",
-    "answer": "We'd love to have you! A hackathon is a 36-hour event where hundreds of students come together to build technical projects. For our beginner stream, you'll attend 3–5 workshops where you'll be guided through different 'mini-hacks' from start to finish. For our regular stream, you'll have the full 36 hours to work on a project, with exciting workshops, activities, and mentorship support available."
+    question: "I've never been to a hackathon before, what can I expect?",
+    answer:
+      "We'd love to have you! A hackathon is a 36-hour event where hundreds of students come together to build technical projects. For our beginner stream, you'll attend 3–5 workshops where you'll be guided through different 'mini-hacks' from start to finish. For our regular stream, you'll have the full 36 hours to work on a project, with exciting workshops, activities, and mentorship support available.",
   },
   {
-    "question": "Will there be mentors to help?",
-    "answer": "Yes! Hack404 is bringing in skilled mentors from a variety of disciplines in tech, covering a wide range of expertise. They'll be your go-to points of contact for help, whether that's support with debugging, ideating, refining your pitch, or something else! Plus, for our beginner stream, we'll have mentors dedicated to individual teams, helping you build from start to finish."
+    question: "Will there be mentors to help?",
+    answer:
+      "Yes! Hack404 is bringing in skilled mentors from a variety of disciplines in tech, covering a wide range of expertise. They'll be your go-to points of contact for help, whether that's support with debugging, ideating, refining your pitch, or something else! Plus, for our beginner stream, we'll have mentors dedicated to individual teams, helping you build from start to finish.",
   },
   {
-    "question": "What makes Hack404 unique?",
-    "answer": "We created Hack404 around three key values: education, innovation, and community. To us, this means:\n\nEducation: Making the hackathon scene (and tech in general) more accessible to beginners. Getting started can be the hardest step, and we want to make that easier for first-time hackers.\n\nInnovation: We've seen that the tech scene is changing. New technologies, especially in the realm of AI, are constantly emerging, and we're encouraging our hackers to lean in to these technologies to make exciting new projects.\n\nCommunity: We want our hackers to think about the communities that they're a part of – what problems do they face, and how might our tech solutions help them? Think outside of just the developer community – let's make tech that benefits everyone."
+    question: "What makes Hack404 unique?",
+    answer:
+      "We created Hack404 around three key values: education, innovation, and community. To us, this means:\n\nEducation: Making the hackathon scene (and tech in general) more accessible to beginners. Getting started can be the hardest step, and we want to make that easier for first-time hackers.\n\nInnovation: We've seen that the tech scene is changing. New technologies, especially in the realm of AI, are constantly emerging, and we're encouraging our hackers to lean in to these technologies to make exciting new projects.\n\nCommunity: We want our hackers to think about the communities that they're a part of – what problems do they face, and how might our tech solutions help them? Think outside of just the developer community – let's make tech that benefits everyone.",
   },
   {
-    "question": "How big are teams?",
-    "answer": "Teams can be between 1–4 people! Don't have a team? Don't worry, you'll have the opportunity to create and finalize a team at the event!"
+    question: "How big are teams?",
+    answer:
+      "Teams can be between 1–4 people! Don't have a team? Don't worry, you'll have the opportunity to create and finalize a team at the event!",
   },
   {
-    "question": "How is Power Unit Youth Organization involved?",
-    "answer": (<><Link href="https://www.power-unit.org/" className="text-cyan-300 hover:text-cyan-200"><GradientBorder>Power Unit Youth Organization</GradientBorder></Link> is youth-driven non-profit organization based in Markham. It empowers youth-led initiatives – past hits have included Night It Up!, a night market; the E3 challenge, a business case competition; and the Level Up Conference, a career conference. Hack404 is PUYO's latest initiative.</>)
+    question: "How is Power Unit Youth Organization involved?",
+    answer: (
+      <>
+        <Link
+          href="https://www.power-unit.org/"
+          className="text-cyan-300 hover:text-cyan-200"
+        >
+          <GradientBorder>Power Unit Youth Organization</GradientBorder>
+        </Link>{" "}
+        is youth-driven non-profit organization based in Markham. It empowers
+        youth-led initiatives – past hits have included Night It Up!, a night
+        market; the E3 challenge, a business case competition; and the Level Up
+        Conference, a career conference. Hack404 is PUYO's latest initiative.
+      </>
+    ),
   },
   {
-    "question": "How much does it cost to attend?",
-    "answer": "Attending Hack404 is completely free! We're aiming to reduce barriers to hackers of diverse socioeconomic backgrounds. We'll be providing the venue, food, mentors, activities, and more – all you have to do is bring your laptop and your ideas."
+    question: "How much does it cost to attend?",
+    answer:
+      "Attending Hack404 is completely free! We're aiming to reduce barriers to hackers of diverse socioeconomic backgrounds. We'll be providing the venue, food, mentors, activities, and more – all you have to do is bring your laptop and your ideas.",
   },
   {
-    "question": "I have another question, who can I contact?",
-    "answer": "Feel free to send us an email at support@hack404.dev!"
-  }
-]
+    question: "I have another question, who can I contact?",
+    answer: "Feel free to send us an email at support@hack404.dev!",
+  },
+];
 
 export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
   console.log("responsive layout rendered");
@@ -204,7 +241,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             <img
               src="https://images.unsplash.com/photo-1698957921407-bf292bcacf5e"
               alt="Toronto skyline at night"
-              className="rounded-lg" 
+              className="rounded-lg"
             />
           </div>
         </div>
@@ -220,7 +257,9 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
         id="about-us"
         className=" relative flex min-h-screen flex-col justify-between"
       >
-        <div className="flex flex-col items-start justify-between text-left text-white">          {/* about us */}
+        <div className="flex flex-col items-start justify-between text-left text-white">
+          {" "}
+          {/* about us */}
           <div className="bg-background absolute inset-0 -z-30" />
           <TextSection titleWidth={1} contentWidth={3}>
             <TextSectionTitle>
@@ -228,27 +267,30 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
               hack404?
             </TextSectionTitle>
             <TextSectionContent enableGradientWords={true}>
-              {"Hack404 is a 36-hour hackathon in Toronto, ON. \
+              {
+                "Hack404 is a 36-hour hackathon in Toronto, ON. \
               We're hoping to bring together 200 students who are \
               passionate about learning and building to create projects that excite them. \
-              We're focused on our three pillars: education, innovation, and community."}
+              We're focused on our three pillars: education, innovation, and community."
+              }
             </TextSectionContent>
           </TextSection>
-
           <HBorder />
-
           <TextSection titleWidth={1} contentWidth={3} className="">
-            <TextSectionTitle>
-              Event Structure
-            </TextSectionTitle>
+            <TextSectionTitle>Event Structure</TextSectionTitle>
           </TextSection>
-
-          <TextSection titleWidth={1} contentWidth={3} className="py-4 tablet:py-4 desktop:py-4">
+          <TextSection
+            titleWidth={1}
+            contentWidth={3}
+            className="py-4 tablet:py-4 desktop:py-4"
+          >
             <TextSectionTitle className="font-(family-name:--font-heading-light)">
               <GradientBorder>Beginner stream</GradientBorder>
             </TextSectionTitle>
             <TextSectionContent enableGradientWords={true}>
-              {"Beginner teams will attend 3-5 workshops throughout the weekend, creating ‘mini-hacks’ rather than a single large project. Then, they’ll be judged portfolio-style, where they showcase their top 3 mini-hacks and are evaluated based on their technical execution, creativity, and innovation."}
+              {
+                "Beginner teams will attend 3-5 workshops throughout the weekend, creating ‘mini-hacks’ rather than a single large project. Then, they’ll be judged portfolio-style, where they showcase their top 3 mini-hacks and are evaluated based on their technical execution, creativity, and innovation."
+              }
             </TextSectionContent>
           </TextSection>
           <TextSection titleWidth={1} contentWidth={3} className="">
@@ -256,29 +298,24 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
               <GradientBorder>Regular stream</GradientBorder>
             </TextSectionTitle>
             <TextSectionContent enableGradientWords={true}>
-              {"Hackers will have 36 hours to create an innovative project in line with our three pillars—education, innovation, and community—and a problem statement that will be announced during opening ceremonies. We’ll also be hosting activities and workshops throughout the weekend!"}
+              {
+                "Hackers will have 36 hours to create an innovative project in line with our three pillars—education, innovation, and community—and a problem statement that will be announced during opening ceremonies. We’ll also be hosting activities and workshops throughout the weekend!"
+              }
             </TextSectionContent>
           </TextSection>
-
           <HBorder />
-
           <TextSection titleWidth={1} contentWidth={3}>
-            <TextSectionTitle>
-              Who can participate?
-            </TextSectionTitle>
+            <TextSectionTitle>Who can participate?</TextSectionTitle>
             <TextSectionContent enableGradientWords={true}>
-              {"Hack404 is for students, by students. Whether you’re a beginner hacker or have been to 10+ hackathons, we’d love for you to continue to innovate at Hack404. We welcome applications from high school and post-secondary students, as well as those who graduated in 2025."}
+              {
+                "Hack404 is for students, by students. Whether you’re a beginner hacker or have been to 10+ hackathons, we’d love for you to continue to innovate at Hack404. We welcome applications from high school and post-secondary students, as well as those who graduated in 2025."
+              }
             </TextSectionContent>
           </TextSection>
-
           <HBorder />
-            
           <TextSection titleWidth={1} contentWidth={3}>
-            <TextSectionTitle>
-              FAQ
-            </TextSectionTitle>
+            <TextSectionTitle>FAQ</TextSectionTitle>
           </TextSection>
-
           {/* <TextSection titleWidth={1} contentWidth={3} className="">
             <TextSectionTitle className="font-(family-name:--font-heading-light)">
               <GradientBorder>How do I register?</GradientBorder>
@@ -287,49 +324,47 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
               {"Applications are open now! Go to hack404.dev and click ‘Sign up now’!"}
             </TextSectionContent>
           </TextSection> */}
-
           {faq.map((item, index) => (
-            <TextSection 
-              key={index} 
-              titleWidth={1} 
-              contentWidth={3} 
+            <TextSection
+              key={index}
+              titleWidth={1}
+              contentWidth={3}
               className="py-4 tablet:py-4 desktop:py-4"
             >
               <TextSectionTitle className="font-(family-name:--font-heading-light) text-3xl">
                 <GradientBorder>{item.question}</GradientBorder>
               </TextSectionTitle>
-              <TextSectionContent enableGradientWords={false} className="text-3xl">
+              <TextSectionContent
+                enableGradientWords={false}
+                className="text-3xl"
+              >
                 {item.answer}
               </TextSectionContent>
             </TextSection>
           ))}
-
           <HBorder />
-
-  
-
-
-          <TextSection titleWidth={1} contentWidth={3} className="pb-2 tablet:pb-2 desktop:pb-2">
-            <TextSectionTitle>
-              Contact
-            </TextSectionTitle>
-            <TextSectionContent>
-              Link to our socials
-            </TextSectionContent>
+          <TextSection
+            titleWidth={1}
+            contentWidth={3}
+            className="pb-2 tablet:pb-2 desktop:pb-2"
+          >
+            <TextSectionTitle>Contact</TextSectionTitle>
+            <TextSectionContent>Link to our socials</TextSectionContent>
           </TextSection>
-
-          <TextSection titleWidth={1} contentWidth={3} className="pt-2 tablet:pt-2 desktop:pt-2">
+          <TextSection
+            titleWidth={1}
+            contentWidth={3}
+            className="pt-2 tablet:pt-2 desktop:pt-2"
+          >
             <TextSectionTitle>
               <span className="text-2xl font-normal">
-                <GradientBorder>
-                    emma.xing@power-unit.org
-                </GradientBorder>
+                <GradientBorder>emma.xing@power-unit.org</GradientBorder>
               </span>
             </TextSectionTitle>
             <TextSectionContent enableGradientWords={true} as="div">
               <div className="flex flex-col gap-4">
                 <div className="flex gap-3">
-                  <InstagramButton 
+                  <InstagramButton
                     url="https://www.instagram.com/hack404.dev/"
                     size="md"
                   />

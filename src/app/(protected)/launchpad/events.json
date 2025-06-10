@@ -1,10 +1,10 @@
 {
-	"events": [
-		{
-			"title": "Opening Ceremony",
-			"startTime": "2024-01-15T09:00:00Z",
-			"endTime": "2024-01-15T10:00:00Z",
-			"roomNumber": "101"
-		}
-	]
+  "events": [
+    {
+      "title": "Opening Ceremony",
+      "startTime": "2024-01-15T09:00:00Z",
+      "endTime": "2024-01-15T10:00:00Z",
+      "roomNumber": "101"
+    }
+  ]
 }

@@ -10,10 +10,5 @@ export default function ApplicationLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <SessionProvider>
-
-      {children}
-    </SessionProvider>
-  );
+  return <SessionProvider>{children}</SessionProvider>;
 }

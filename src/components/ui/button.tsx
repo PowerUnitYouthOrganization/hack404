@@ -1,8 +1,8 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -26,7 +26,7 @@ const buttonVariants = cva(
           "text-black font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[#30F2F2] hover:bg-[#30F2F2]/90",
         "launchpad-inactive":
           "text-wcyan font-light flex px-4 py-2 justify-center items-center self-center gap-2.5 rounded-[4px] bg-[rgba(48,242,242,0.20)] hover:bg-[#30F2F2]/90 hover:text-black",
-        "rounded":
+        rounded:
           "flex pr-3 py-2 pl-4 justify-center items-center gap-4 text-[16px] self-stretch rounded-[100px] font-light",
       },
       size: {
@@ -40,8 +40,8 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 function Button({
   className,
@@ -51,9 +51,9 @@ function Button({
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
+    asChild?: boolean;
   }) {
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
@@ -61,7 +61,7 @@ function Button({
       className={`cursor-pointer ${cn(buttonVariants({ variant, size, className }))}`}
       {...props}
     />
-  )
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

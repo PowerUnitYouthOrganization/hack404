@@ -23,13 +23,13 @@ export function useApplicationStatus() {
     const checkApplicationStatus = async () => {
       try {
         const response = await fetch("/api/check-application");
-        
+
         if (!response.ok) {
           throw new Error("Failed to check application status");
         }
 
         const data = await response.json();
-        
+
         setStatus({
           hasApplication: data.hasApplication,
           applicationSubmitted: data.applicationSubmitted,
@@ -38,7 +38,7 @@ export function useApplicationStatus() {
           error: null,
         });
       } catch (error) {
-        setStatus(prev => ({
+        setStatus((prev) => ({
           ...prev,
           loading: false,
           error: error instanceof Error ? error.message : "Unknown error",

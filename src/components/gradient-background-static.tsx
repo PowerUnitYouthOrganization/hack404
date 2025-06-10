@@ -14,7 +14,10 @@ export default function GradientBackgroundStatic() {
   const initializeScene = () => {
     if (!containerRef.current) return;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      preserveDrawingBuffer: true,
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.domElement.style.position = "absolute";
@@ -57,11 +60,11 @@ export default function GradientBackgroundStatic() {
     renderer.render(scene, camera);
 
     // Handle context loss
-    renderer.domElement.addEventListener('webglcontextlost', (event) => {
+    renderer.domElement.addEventListener("webglcontextlost", (event) => {
       event.preventDefault();
     });
 
-    renderer.domElement.addEventListener('webglcontextrestored', () => {
+    renderer.domElement.addEventListener("webglcontextrestored", () => {
       if (sceneRef.current && cameraRef.current) {
         renderer.render(sceneRef.current, cameraRef.current);
       }
@@ -81,7 +84,12 @@ export default function GradientBackgroundStatic() {
     };
 
     const onVisibilityChange = () => {
-      if (!document.hidden && rendererRef.current && sceneRef.current && cameraRef.current) {
+      if (
+        !document.hidden &&
+        rendererRef.current &&
+        sceneRef.current &&
+        cameraRef.current
+      ) {
         // Re-render when tab becomes visible
         rendererRef.current.render(sceneRef.current, cameraRef.current);
       }
@@ -93,7 +101,7 @@ export default function GradientBackgroundStatic() {
     return () => {
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      
+
       if (rendererRef.current) {
         rendererRef.current.dispose();
         if (containerRef.current?.contains(rendererRef.current.domElement)) {
@@ -103,5 +111,7 @@ export default function GradientBackgroundStatic() {
     };
   }, []);
 
-  return <div ref={containerRef} className="absolute inset-0 -z-50 min-h-screen" />;
+  return (
+    <div ref={containerRef} className="absolute inset-0 -z-50 min-h-screen" />
+  );
 }

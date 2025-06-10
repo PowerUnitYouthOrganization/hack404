@@ -24,7 +24,9 @@ const EducationStep: React.FC<StepProps> = ({ form, handleChange }) => (
           required
           className="w-full bg-transparent border-none outline-none text-white text-sm"
         >
-          <option value="" disabled>Grade/Year</option>
+          <option value="" disabled>
+            Grade/Year
+          </option>
           <option>Grade 9</option>
           <option>Grade 10</option>
           <option>Grade 11</option>

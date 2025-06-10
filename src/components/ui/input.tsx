@@ -7,10 +7,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
     <input
       type={type}
       data-slot="input"
-      className={cn(
-        "focus:outline-none focus:ring-0",
-        className,
-      )}
+      className={cn("focus:outline-none focus:ring-0", className)}
       {...props}
     />
   );

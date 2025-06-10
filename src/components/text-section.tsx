@@ -12,7 +12,18 @@ interface TextSectionProps {
   children: React.ReactNode;
 }
 
-// Utility function to process text and add random gradient effects
+// Simple hash function for deterministic randomization
+function simpleHash(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+  return Math.abs(hash);
+}
+
+// Utility function to process text and add deterministic gradient effects
 function processTextWithGradients(text: string): React.ReactNode[] {
   const separators = /([,.?!])/g;
   const parts = text.split(separators);
@@ -22,7 +33,6 @@ function processTextWithGradients(text: string): React.ReactNode[] {
 
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
-    
     
     // For text parts, process words
     const words = part.split(/(\s+)/); // Split on whitespace but keep spaces
@@ -35,9 +45,10 @@ function processTextWithGradients(text: string): React.ReactNode[] {
       }
     });
     
-    // Choose one random word index to apply gradient to
+    // Use deterministic selection based on text content hash
+    const textHash = simpleHash(part);
     const randomWordIndex = validWordIndices.length > 0 
-      ? validWordIndices[Math.floor(Math.random() * validWordIndices.length)]
+      ? validWordIndices[textHash % validWordIndices.length]
       : -1;
     
     words.forEach((word, wordIndex) => {
@@ -45,11 +56,13 @@ function processTextWithGradients(text: string): React.ReactNode[] {
         // If it's just whitespace, add it as is
         processedParts.push(word);
       } else if (word.trim().length > 0) {
-        // Apply gradient only to the randomly selected word
+        // Apply gradient only to the deterministically selected word
         if (wordIndex === randomWordIndex) {
-          const randomReverse = Math.random() < 0.5;
+          // Use deterministic reverse based on word hash
+          const wordHash = simpleHash(word);
+          const deterministicReverse = (wordHash % 2) === 0;
           processedParts.push(
-            <GradientBorder key={key++} reverse={randomReverse}>
+            <GradientBorder key={key++} reverse={deterministicReverse}>
               {word}
             </GradientBorder>
           );

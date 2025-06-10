@@ -94,6 +94,34 @@ export default function LoginForm() {
                 Launchpad
               </p>
             </div>
+            <div className="flex flex-col justify-start items-start gap-3">
+              <div className="flex flex-col justify-start items-start gap-2">
+                <p className="text-white text-sm font-light">
+                  Looking for Volunteer Applications?
+                </p>
+                <a
+                  href="https://forms.gle/nVj9aCjzKiny2KYU6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 text-sm font-normal hover:text-cyan-300 transition-colors underline"
+                >
+                  Apply to Volunteer for 2025
+                </a>
+              </div>
+              <div className="flex flex-col justify-start items-start gap-2">
+                <p className="text-white text-sm font-light">
+                  Looking for Mentor Applications?
+                </p>
+                <a
+                  href="https://forms.gle/ubQiXpMT10sZJ4dj7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 text-sm font-normal hover:text-cyan-300 transition-colors underline"
+                >
+                  Apply to Mentor for 2025
+                </a>
+              </div>
+            </div>
             <p className="justify-start text-white text-base font-extralight font-['DM_Sans']">
               Applications close June 20
             </p>
@@ -134,7 +162,7 @@ export default function LoginForm() {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="20px"
-                      viewBox="0 -960 960 960"
+                      viewBox="http://www.w3.org/2000/svg"
                       width="20px"
                       fill="#1C1B1F"
                     >

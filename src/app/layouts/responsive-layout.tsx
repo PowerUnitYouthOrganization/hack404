@@ -279,30 +279,32 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             </TextSectionTitle>
           </TextSection>
 
-          {/* <TextSection titleWidth={1} contentWidth={3} className="">
+          <TextSection titleWidth={1} contentWidth={3} className="">
             <TextSectionTitle className="font-(family-name:--font-heading-light)">
               <GradientBorder>How do I register?</GradientBorder>
             </TextSectionTitle>
             <TextSectionContent enableGradientWords={true}>
               {"Applications are open now! Go to hack404.dev and click ‘Sign up now’!"}
             </TextSectionContent>
-          </TextSection> */}
+          </TextSection>
+          
+          <TextSection titleWidth={1} contentWidth={3} className="">
+            <TextSectionTitle className="font-(family-name:--font-heading-light)">
+              <GradientBorder>How do I register?</GradientBorder>
+            </TextSectionTitle>
+            <TextSectionContent enableGradientWords={true}>
+              {"No! We’re open to beginners and experienced hackers, and we’re especially looking for students who are just starting out in the field of tech for our beginner stream."}
+            </TextSectionContent>
+          </TextSection>
 
-          {faq.map((item, index) => (
-            <TextSection 
-              key={index} 
-              titleWidth={1} 
-              contentWidth={3} 
-              className="py-4 tablet:py-4 desktop:py-4"
-            >
-              <TextSectionTitle className="font-(family-name:--font-heading-light) text-3xl">
-                <GradientBorder>{item.question}</GradientBorder>
-              </TextSectionTitle>
-              <TextSectionContent enableGradientWords={false} className="text-3xl">
-                {item.answer}
-              </TextSectionContent>
-            </TextSection>
-          ))}
+          <TextSection titleWidth={1} contentWidth={3} className="">
+            <TextSectionTitle className="font-(family-name:--font-heading-light)">
+              <GradientBorder>Do I need an idea before the hackathon?</GradientBorder>
+            </TextSectionTitle>
+            <TextSectionContent enableGradientWords={true}>
+              {"No! You’ll have time and support during the hackathon to create and refine your ideas. Feel free to start brainstorming now, but keep in mind that our problem statements will only be announced at our opening ceremonies."}
+            </TextSectionContent>
+          </TextSection>
 
           <HBorder />
 
@@ -318,6 +320,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             </TextSectionContent>
           </TextSection>
 
+
           <TextSection titleWidth={1} contentWidth={3} className="pt-2 tablet:pt-2 desktop:pt-2">
             <TextSectionTitle>
               <span className="text-2xl font-normal">
@@ -326,7 +329,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 </GradientBorder>
               </span>
             </TextSectionTitle>
-            <TextSectionContent enableGradientWords={true}>
+            <TextSectionContent enableGradientWords={true} as="div">
               <div className="flex flex-col gap-4">
                 <div className="flex gap-3">
                   <InstagramButton 

@@ -10,10 +10,9 @@ import {
   TextSectionTitle,
   TextSectionContent,
 } from "@/components/text-section";
-import { InstagramButton } from "@/components/social-button";
+import { InstagramButton, LinkedInButton } from "@/components/social-button";
 import Link from "next/link";
 import faqData from "@/data/faq.json";
-import { dividerClasses } from "@mui/material";
 
 type LayoutProps = {
   handleSubmit: () => void | Promise<void>;
@@ -313,7 +312,10 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
                     Link to our socials
                   </h1>
-                  <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                  <div className="flex gap-6">
+                    <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                    <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
+                  </div>
                 </div>
               </ColSection>
             </div>
@@ -446,7 +448,10 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
                     Link to our socials
                   </h1>
-                  <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                  <div className="flex gap-6">
+                    <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                    <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
+                  </div>
                 </div>
               </ColSection>
             </div>
@@ -562,7 +567,10 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
               <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
                 Link to our socials
               </h2>
-              <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+              <div className="flex gap-6">
+                <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
+              </div>
             </div>
           </div>
         </div>

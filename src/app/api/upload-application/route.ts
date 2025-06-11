@@ -20,9 +20,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Get user ID from session
+    // Get user data from database
     const user = await db
-      .select({ id: users.id })
+      .select({ 
+        id: users.id,
+        name: users.name,
+        email: users.email
+      })
       .from(users)
       .where(eq(users.email, session.user.email))
       .limit(1);
@@ -32,6 +36,8 @@ export async function POST(req: NextRequest) {
     }
 
     const userId = user[0].id;
+    const userName = user[0].name;
+    const userEmail = user[0].email;
 
     // Parse form data
     const formData = await req.formData();
@@ -105,6 +111,8 @@ export async function POST(req: NextRequest) {
     // Prepare application data
     const applicationData = {
       userId,
+      email: userEmail,
+      name: userName,
       applicationSubmitted: true,
       applicationReviewed: false,
       stream,

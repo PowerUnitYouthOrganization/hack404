@@ -52,10 +52,15 @@ export async function POST(req: NextRequest) {
       await db.insert(profiles).values(profileData);
     }
 
-    // Update user's profileCompleted status
+    // Update user's profileCompleted status and name fields
     await db
       .update(users)
-      .set({ profileCompleted: true })
+      .set({
+        profileCompleted: true,
+        name: `${formData.preferredFirstName || formData.firstName} ${formData.lastName}`,
+        firstName: formData.preferredFirstName || formData.firstName,
+        lastName: formData.lastName,
+      })
       .where(eq(users.id, userId));
 
     return NextResponse.json({ success: true });

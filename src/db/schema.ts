@@ -29,6 +29,8 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   profileCompleted: boolean("profileCompleted").notNull().default(false),
+  firstName: text("firstName"),
+  lastName: text("lastName"),
 });
 
 // Profile info
@@ -58,6 +60,8 @@ export const applications = pgTable("application", {
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  name: text("name"),
+  email: text("email"),
   applicationSubmitted: boolean("applicationSubmitted")
     .notNull()
     .default(false),

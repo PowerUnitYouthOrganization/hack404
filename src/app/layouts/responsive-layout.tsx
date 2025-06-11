@@ -10,7 +10,7 @@ import CutButton from "@/components/cut-button";
 import { useGridColWidth } from "../contexts/GridCtx";
 import { TextSection, TextSectionTitle, TextSectionContent } from "@/components/text-section";
 import Image from "next/image";
-import { InstagramButton } from "@/components/social-button";
+import { InstagramButton, LinkedInButton } from "@/components/social-button";
 import Link from "next/link";
 
 type LayoutProps = {
@@ -320,7 +320,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
 
           <TextSection titleWidth={1} contentWidth={3} className="pt-2 tablet:pt-2 desktop:pt-2">
             <TextSectionTitle>
-              <span className="text-2xl font-normal">
+              <span className="text-xl font-normal">
                 <GradientBorder>
                     emma.xing@power-unit.org
                 </GradientBorder>
@@ -331,6 +331,10 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 <div className="flex gap-3">
                   <InstagramButton 
                     url="https://www.instagram.com/hack404.dev/"
+                    size="md"
+                  />
+                  <LinkedInButton 
+                    url="https://www.linkedin.com/company/hack404"
                     size="md"
                   />
                 </div>

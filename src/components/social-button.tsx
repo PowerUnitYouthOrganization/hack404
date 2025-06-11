@@ -85,3 +85,19 @@ export function InstagramButton({
     />
   );
 }
+
+// Convenience component for LinkedIn specifically
+export function LinkedInButton({ 
+  url, 
+  className, 
+  size = 'md' 
+}: Omit<SocialButtonProps, 'platform'>) {
+  return (
+    <SocialButton 
+      platform="linkedin" 
+      url={url} 
+      className={className} 
+      size={size} 
+    />
+  );
+}

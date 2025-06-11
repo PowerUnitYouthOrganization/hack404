@@ -9,11 +9,6 @@ import { useGridColWidth } from "../contexts/GridCtx";
 import { TextSection, TextSectionTitle, TextSectionContent } from "@/components/text-section";
 import Image from "next/image";
 import { InstagramButton, LinkedInButton } from "@/components/social-button";
-import {
-  TextSection,
-  TextSectionTitle,
-  TextSectionContent,
-} from "@/components/text-section";
 import Link from "next/link";
 import faqData from "@/data/faq.json";
 import { dividerClasses } from "@mui/material";

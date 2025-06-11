@@ -57,7 +57,9 @@ const BasicInfoStep: React.FC<StepProps> = ({ form, handleChange }) => (
           required
           className="w-full bg-transparent border-none outline-none text-white text-sm"
         >
-          <option value="" disabled>Gender</option>
+          <option value="" disabled>
+            Gender
+          </option>
           <option>Male</option>
           <option>Female</option>
           <option>Non-binary</option>
@@ -73,7 +75,9 @@ const BasicInfoStep: React.FC<StepProps> = ({ form, handleChange }) => (
           required
           className="w-full bg-transparent border-none outline-none text-white text-sm"
         >
-          <option value="" disabled>Ethnicity</option>
+          <option value="" disabled>
+            Ethnicity
+          </option>
           <option>East Asian or Pacific Islander</option>
           <option>Black or African American</option>
           <option>Hispanic or Latino</option>

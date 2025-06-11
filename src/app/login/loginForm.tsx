@@ -43,7 +43,7 @@ export default function LoginForm() {
       if (session?.user?.email) {
         isProfileComplete(session.user.email).then((profileDone) => {
           if (profileDone) {
-            window.location.href = "/application";
+            window.location.href = "/launchpad";
           } else {
             window.location.href = "/profile";
           }
@@ -113,7 +113,7 @@ export default function LoginForm() {
                   Looking for Mentor Applications?
                 </p>
                 <a
-                  href="https://forms.gle/ubQiXpMT10sZJ4dj7"
+                  href="https://forms.gle/ubQiXpMT1osZJ4dj7"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cyan-400 text-sm font-normal hover:text-cyan-300 transition-colors underline"

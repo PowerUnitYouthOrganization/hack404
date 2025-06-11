@@ -18,7 +18,9 @@ export default function StreamCell({
       {/* Top row */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 md:gap-0">
         <h2 className="text-white text-lg font-medium">{name}</h2>
-        <span className="text-white/70 text-sm font-light max-w-xs break-words whitespace-pre-line md:text-right">{brief}</span>
+        <span className="text-white/70 text-sm font-light max-w-xs break-words whitespace-pre-line md:text-right">
+          {brief}
+        </span>
       </div>
       {/* Long description, left aligned */}
       <div className="flex-1 flex items-start mt-4">
@@ -49,4 +51,4 @@ export default function StreamCell({
       </div>
     </div>
   );
-} 
+}

@@ -1,58 +1,70 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Instagram, Twitter, Linkedin, Github, MessageCircle, Video } from "lucide-react";
+import {
+  Instagram,
+  Twitter,
+  Linkedin,
+  Github,
+  MessageCircle,
+  Video,
+} from "lucide-react";
 
 interface SocialButtonProps {
-  platform: 'instagram' | 'twitter' | 'linkedin' | 'github' | 'discord' | 'tiktok';
+  platform:
+    | "instagram"
+    | "twitter"
+    | "linkedin"
+    | "github"
+    | "discord"
+    | "tiktok";
   url: string;
   className?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 
 const platformConfig = {
   instagram: {
-    name: 'Instagram',
-    color: '#E4405F',
-    icon: Instagram
+    name: "Instagram",
+    color: "#E4405F",
+    icon: Instagram,
   },
   twitter: {
-    name: 'Twitter',
-    color: '#1DA1F2',
-    icon: Twitter
+    name: "Twitter",
+    color: "#1DA1F2",
+    icon: Twitter,
   },
   linkedin: {
-    name: 'LinkedIn',
-    color: '#0077B5',
-    icon: Linkedin
+    name: "LinkedIn",
+    color: "#0077B5",
+    icon: Linkedin,
   },
   github: {
-    name: 'GitHub',
-    color: '#333',
-    icon: Github
+    name: "GitHub",
+    color: "#333",
+    icon: Github,
   },
   discord: {
-    name: 'Discord',
-    color: '#5865F2',
-    icon: MessageCircle
+    name: "Discord",
+    color: "#5865F2",
+    icon: MessageCircle,
   },
   tiktok: {
-    name: 'TikTok',
-    color: '#000',
-    icon: Video
-  }
+    name: "TikTok",
+    color: "#000",
+    icon: Video,
+  },
 };
 
-
-export default function SocialButton({ 
-  platform, 
-  url, 
-  className, 
+export default function SocialButton({
+  platform,
+  url,
+  className,
 }: SocialButtonProps) {
   const config = platformConfig[platform];
   const IconComponent = config.icon;
 
   const handleClick = () => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -71,17 +83,17 @@ export default function SocialButton({
 }
 
 // Convenience component for Instagram specifically
-export function InstagramButton({ 
-  url, 
-  className, 
-  size = 'md' 
-}: Omit<SocialButtonProps, 'platform'>) {
+export function InstagramButton({
+  url,
+  className,
+  size = "md",
+}: Omit<SocialButtonProps, "platform">) {
   return (
-    <SocialButton 
-      platform="instagram" 
-      url={url} 
-      className={className} 
-      size={size} 
+    <SocialButton
+      platform="instagram"
+      url={url}
+      className={className}
+      size={size}
     />
   );
 }

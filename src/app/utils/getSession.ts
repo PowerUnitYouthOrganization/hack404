@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
  * @returns A Promise that resolves to true if authenticated, or false if not.
  */
 export default async function getSession() {
-	const session = await auth();
-	if (!session) return null;
-	return session.user;
+  const session = await auth();
+  if (!session) return null;
+  return session.user;
 }

@@ -8,7 +8,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
 
-export default function ShortAnswerCard({ label, value, onChange, error, maxLength = 750, ...props }: {
+export default function ShortAnswerCard({
+  label,
+  value,
+  onChange,
+  error,
+  maxLength = 750,
+  ...props
+}: {
   label: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -17,14 +24,14 @@ export default function ShortAnswerCard({ label, value, onChange, error, maxLeng
   [key: string]: any;
 }) {
   const [currentValue, setCurrentValue] = useState(value || "");
-  
+
   useEffect(() => {
     setCurrentValue(value || "");
   }, [value]);
-  
+
   const currentLength = currentValue.length;
   const remainingChars = maxLength - currentLength;
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // Enforce hard character limit
     if (e.target.value.length <= maxLength) {
@@ -41,20 +48,20 @@ export default function ShortAnswerCard({ label, value, onChange, error, maxLeng
             {label}
           </FormLabel>
           <FormControl>
-            <Textarea 
-              {...props} 
-              value={value} 
-              onChange={handleChange} 
-              className="bg-[rgba(48,242,242,0.10)] border-none text-white rounded-none" 
+            <Textarea
+              {...props}
+              value={value}
+              onChange={handleChange}
+              className="bg-[rgba(48,242,242,0.10)] border-none text-white rounded-none"
               rows={4}
               maxLength={maxLength}
             />
           </FormControl>
           <div className="flex justify-between items-center mt-2">
-            <div>
-              {error && <FormMessage>{error}</FormMessage>}
-            </div>
-            <div className={`text-xs ${remainingChars < 50 ? 'text-red-400' : remainingChars < 100 ? 'text-yellow-400' : 'text-white/60'}`}>
+            <div>{error && <FormMessage>{error}</FormMessage>}</div>
+            <div
+              className={`text-xs ${remainingChars < 50 ? "text-red-400" : remainingChars < 100 ? "text-yellow-400" : "text-white/60"}`}
+            >
               {remainingChars} characters remaining
             </div>
           </div>

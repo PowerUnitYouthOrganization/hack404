@@ -6,12 +6,43 @@ import LaunchpadHeader from "../launchpad/launchpad-header";
 import { useRouter } from "next/navigation";
 import StreamCell from "@/components/application/StreamCell";
 import { useApplicationStatus } from "@/hooks/use-application-status";
+import { useSession } from "next-auth/react";
 
 export default function ApplicationPage() {
   const [activeTab, setActiveTab] = useState("home");
   const router = useRouter();
+  const { data: session } = useSession();
   const { hasApplication, applicationSubmitted, loading } =
     useApplicationStatus();
+  const [isCheckingProfile, setIsCheckingProfile] = useState(true);
+
+  useEffect(() => {
+    const checkProfileCompletion = async () => {
+      if (!session?.user?.email) {
+        setIsCheckingProfile(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `/api/profile-done?email=${encodeURIComponent(session.user.email)}`,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (!data.profileDone) {
+            router.push("/profile");
+            return;
+          }
+        }
+      } catch (error) {
+        console.error("Error checking profile completion:", error);
+      } finally {
+        setIsCheckingProfile(false);
+      }
+    };
+
+    checkProfileCompletion();
+  }, [router, session]);
 
   useEffect(() => {
     if (!loading && hasApplication && applicationSubmitted) {
@@ -19,7 +50,7 @@ export default function ApplicationPage() {
     }
   }, [loading, hasApplication, applicationSubmitted, router]);
 
-  if (loading) {
+  if (loading || isCheckingProfile) {
     return (
       <div className="flex flex-col min-h-screen gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
@@ -31,7 +62,9 @@ export default function ApplicationPage() {
         </div>
         <main className="flex flex-col w-full flex-1 justify-center items-center">
           <div className="text-white text-xl">
-            Checking application status...
+            {isCheckingProfile
+              ? "Checking profile status..."
+              : "Checking application status..."}
           </div>
         </main>
       </div>
@@ -61,8 +94,7 @@ export default function ApplicationPage() {
               name="Beginner"
               brief="Designed for beginners with no more than one past hackathon experience"
               description="Beginner Stream is designed for teams with at least 3 new hackers and focuses on learning and growth, not just the final product. These teams will submit a simple portfolio that outlines what they set out to build, what they learned, and how they tackled challenges.
-
-We'll provide templates, milestone prompts, and mentorship to make the portfolio easy and helpful — not a chore."
+              We'll provide templates, milestone prompts, and mentorship to make the portfolio easy and helpful — not a chore."
               buttonText="Apply for Beginner"
               onClick={() => router.push("/application/beginner")}
             />

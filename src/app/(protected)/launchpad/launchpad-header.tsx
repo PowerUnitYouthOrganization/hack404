@@ -7,6 +7,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { QrCode } from "lucide-react";
+import QRCode from "react-qr-code";
 
 interface LaunchpadHeaderProps {
   activeTab: string;
@@ -20,7 +22,9 @@ export default function LaunchpadHeader({
   const { data: session } = useSession();
   const avatarUrl = session?.user?.image || null;
   const [showProfileCard, setShowProfileCard] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
+  const qrRef = useRef<HTMLDivElement>(null);
 
   // Get user's name parts
   const fullName = session?.user?.name || "";
@@ -132,13 +136,47 @@ export default function LaunchpadHeader({
               </div>
             )}
           </div>
-          {/* <RoundedButton
-						color="#C3F73A"
-						className="text-black"
-					>
-						QR Code
-						<QrCodeIcon className="text-black" />
-					</RoundedButton> */}
+
+          <div className="relative" ref={qrRef}>
+            <RoundedButton
+              color="#C3F73A"
+              className="text-black"
+              onClick={() => setShowQRModal(!showQRModal)}
+            >
+              QR Code
+              <QrCode className="text-black" />
+            </RoundedButton>
+
+            {showQRModal && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div
+                  className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                  onClick={() => setShowQRModal(false)}
+                />
+
+                <div className="relative w-80 bg-[#C3F73A]/20 border border-[#C3F73A]/30 backdrop-blur-[25px] rounded-lg p-6 shadow-xl z-50">
+                  <button
+                    onClick={() => setShowQRModal(false)}
+                    className="absolute top-2 right-3 text-white text-xl hover:text-red-300"
+                  >
+                    ×
+                  </button>
+                  <div className="flex flex-col items-center justify-center h-60 gap-4">
+                    <QRCode
+                      value={session?.user?.email || "email"}
+                      size={200}
+                      bgColor="transparent"
+                      fgColor="white"
+                      level="H"
+                    />
+                    <p className="text-white text-sm break-all text-center">
+                      {session?.user?.email || "email@website.com"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

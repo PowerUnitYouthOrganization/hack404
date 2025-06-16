@@ -1,6 +1,7 @@
 "use client";
 
 import LaunchpadHeader from "@/app/(protected)/launchpad/launchpad-header";
+import MobileFooter from "@/app/(protected)/launchpad/mobile-footer";
 import { useState } from "react";
 import Prehome from "./prehome";
 import { SessionProvider } from "next-auth/react";
@@ -24,6 +25,7 @@ export default function Launchpad() {
           />
         </div>
         <Prehome />
+        <MobileFooter activeTab={activeTab} tabChangeAction={setActiveTab} />
       </div>
     </SessionProvider>
   );

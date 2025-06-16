@@ -120,7 +120,7 @@ function HackerApplicationContent() {
         throw new Error(errorData.error || "Failed to save profile");
       }
 
-      toast.success("Profile created successfully!");
+      toast.success("Profile created successfully! Redirecting...");
 
       // Redirect to launchpad after successful submission
       setTimeout(() => {

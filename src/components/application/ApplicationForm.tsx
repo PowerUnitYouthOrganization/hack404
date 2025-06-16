@@ -24,25 +24,42 @@ const workshopOptions = [
   "Project Deployment",
 ];
 
-const formSchema = z.object({
-  shortAnswer1: z.string().max(750, "Maximum 750 characters").min(1, "Required"),
-  shortAnswer2: z.string().max(750, "Maximum 750 characters").min(1, "Required"),
-  creativeQuestion: z.string().max(250, "Maximum 250 characters").min(1, "Required"),
-  activity: z.string().max(300, "Maximum 300 characters").optional(),
-  workshops: z.array(z.string()).max(3, "Select up to 3 workshops").min(1, "Select at least 1 workshop"),
-  resumeConsented: z.boolean(),
-  overnightConsented: z.boolean(),
-  aiUsed: z.boolean(),
-  otherWorkshop: z.string().optional(),
-}).refine((data) => {
-  if (data.workshops.includes("Other")) {
-    return data.otherWorkshop && data.otherWorkshop.trim().length > 0;
-  }
-  return true;
-}, {
-  message: "Please specify your other workshop",
-  path: ["otherWorkshop"],
-});
+const formSchema = z
+  .object({
+    shortAnswer1: z
+      .string()
+      .max(750, "Maximum 750 characters")
+      .min(1, "Required"),
+    shortAnswer2: z
+      .string()
+      .max(750, "Maximum 750 characters")
+      .min(1, "Required"),
+    creativeQuestion: z
+      .string()
+      .max(250, "Maximum 250 characters")
+      .min(1, "Required"),
+    activity: z.string().max(300, "Maximum 300 characters").optional(),
+    workshops: z
+      .array(z.string())
+      .max(3, "Select up to 3 workshops")
+      .min(1, "Select at least 1 workshop"),
+    resumeConsented: z.boolean(),
+    overnightConsented: z.boolean(),
+    aiUsed: z.boolean(),
+    otherWorkshop: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (data.workshops.includes("Other")) {
+        return data.otherWorkshop && data.otherWorkshop.trim().length > 0;
+      }
+      return true;
+    },
+    {
+      message: "Please specify your other workshop",
+      path: ["otherWorkshop"],
+    },
+  );
 
 type ApplicationForm = z.infer<typeof formSchema>;
 
@@ -252,11 +269,13 @@ export default function ApplicationForm({
               </FormMessage>
             </div>
             <div>
-              <h4 className="text-white text-base font-normal mb-2">What activities are you interested in seeing at Hack404? <span className="font-normal text-white/60">(Optional, maximum 300 characters)</span></h4>
-              <ActivityCard
-                maxLength={300}
-                {...form.register("activity")}
-              />
+              <h4 className="text-white text-base font-normal mb-2">
+                What activities are you interested in seeing at Hack404?{" "}
+                <span className="font-normal text-white/60">
+                  (Optional, maximum 300 characters)
+                </span>
+              </h4>
+              <ActivityCard maxLength={300} {...form.register("activity")} />
             </div>
           </div>
         </div>

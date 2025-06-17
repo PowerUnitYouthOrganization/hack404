@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { QrCode } from "lucide-react";
 import QRCode from "react-qr-code";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface LaunchpadHeaderProps {
   activeTab: string;
@@ -20,11 +22,13 @@ export default function LaunchpadHeader({
   tabChangeAction,
 }: LaunchpadHeaderProps) {
   const { data: session } = useSession();
+  const router = useRouter();
   const avatarUrl = session?.user?.image || null;
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isLoadingUserId, setIsLoadingUserId] = useState(false);
+  const [isResettingProfile, setIsResettingProfile] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const qrRef = useRef<HTMLDivElement>(null);
 
@@ -81,6 +85,43 @@ export default function LaunchpadHeader({
     // { label: "Resources", value: "resources" },
     // { label: "Map", value: "map" }
   ];
+
+  const handleRedoProfile = async () => {
+    if (!session?.user?.email) {
+      toast.error("No user session found");
+      return;
+    }
+
+    setIsResettingProfile(true);
+    try {
+      const response = await fetch("/api/reset-profile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to reset profile");
+      }
+
+      toast.success("Profile reset successfully!");
+      setShowProfileCard(false);
+
+      // Redirect to profile page after a short delay
+      setTimeout(() => {
+        router.push("/profile");
+      }, 1000);
+    } catch (error) {
+      console.error("Error resetting profile:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to reset profile",
+      );
+    } finally {
+      setIsResettingProfile(false);
+    }
+  };
 
   return (
     <header className="flex flex-col gap-3 w-full p-6">
@@ -144,7 +185,7 @@ export default function LaunchpadHeader({
             {/* Profile dropdown card */}
             {showProfileCard && (
               <div className="absolute top-full right-0 mt-2 w-64 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 backdrop-blur-[25px] rounded-lg p-4 z-50">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mb-4">
                   <Avatar className="w-12 h-12 rounded-md">
                     <AvatarImage src={avatarUrl || undefined} />
                     <AvatarFallback className="bg-wblack/20 text-white">
@@ -160,6 +201,17 @@ export default function LaunchpadHeader({
                       {session?.user?.email}
                     </span>
                   </div>
+                </div>
+                <div className="border-t border-cyan-400/20 pt-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-wlime w-full text-black border-cyan-400/20 hover:bg-cyan-400/10"
+                    onClick={handleRedoProfile}
+                    disabled={isResettingProfile}
+                  >
+                    {isResettingProfile ? "Resetting..." : "Redo Profile"}
+                  </Button>
                 </div>
               </div>
             )}

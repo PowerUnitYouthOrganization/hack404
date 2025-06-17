@@ -22,10 +22,10 @@ export async function POST(req: NextRequest) {
 
     // Get user data from database
     const user = await db
-      .select({ 
+      .select({
         id: users.id,
         name: users.name,
-        email: users.email
+        email: users.email,
       })
       .from(users)
       .where(eq(users.email, session.user.email))

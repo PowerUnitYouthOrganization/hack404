@@ -11,8 +11,6 @@ interface TextSectionProps {
   children: React.ReactNode;
 }
 
-
-
 function TextSection({
   titleWidth = 1,
   contentWidth = 3,

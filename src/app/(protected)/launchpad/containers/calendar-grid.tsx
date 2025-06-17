@@ -53,13 +53,10 @@ export default function CalendarGrid({
   topOffset = 218,
 }: CalendarGridProps) {
   const hours = Array.from({ length: 13 }, (_, i) => i + 9); // 9am to 9pm
-  const days = ["Day 1", "Day 2", "Day 3"];
+  const days = ["Day 1 - Friday", "Day 2 - Saturday", "Day 3 - Sunday"];
 
   return (
-    <div
-      className="flex flex-col max-h-[60vh] flex-1 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white"
-      style={{ height: `calc(100dvh - ${topOffset}px)` }}
-    >
+    <div className="flex flex-col flex-1 h-full min-w-[66vw] border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>
@@ -73,17 +70,16 @@ export default function CalendarGrid({
           className="grid gap-0 border-b border-[rgba(48,242,242,0.2)] bg-[rgba(48,242,242,0.05)] backdrop-blur-[25px] sticky top-0 z-5"
           style={{ gridTemplateColumns: "6rem 1fr 1fr 1fr" }}
         >
-          <div className="p-3 border-r border-[rgba(48,242,242,0.2)] font-medium text-center w-24">
-            Time
-          </div>
+          <div className="p-3 border-r border-[rgba(48,242,242,0.2)] font-medium text-center w-24"></div>
           {days.map((day, index) => (
             <div
               key={day}
-              className={`p-3 font-medium text-center ${
+              className={`p-6 flex justify-between self-stretch font-medium text-center ${
                 index < 2 ? "border-r border-[rgba(48,242,242,0.2)]" : ""
               }`}
             >
-              {day}
+              <p>{day.split(" - ")[0]}</p>
+              <p className="font-extralight">{day.split(" - ")[1]}</p>
             </div>
           ))}
         </div>
@@ -96,7 +92,7 @@ export default function CalendarGrid({
           {hours.map((hour) => (
             <React.Fragment key={hour}>
               {/* Time label */}
-              <div className="p-3 border-r border-b border-[rgba(48,242,242,0.1)] text-sm font-light flex items-center min-h-[60px] w-24">
+              <div className="p-3 border-r border-[rgba(48,242,242,0.2)] text-sm font-light flex items-center justify-end min-h-[60px] w-24">
                 {formatTime(hour)}
               </div>
 
@@ -113,7 +109,7 @@ export default function CalendarGrid({
                   return (
                     <div
                       key={`${hour}-${day}`}
-                      className={`relative min-h-[60px] border-b border-[rgba(48,242,242,0.1)] bg-[rgba(48,242,242,0.15)] hover:bg-[rgba(48,242,242,0.25)] transition-colors cursor-pointer p-2 ${
+                      className={`relative min-h-[90px] border-b border-[rgba(48,242,242,0.2)] bg-[rgba(48,242,242,0.15)] hover:bg-[rgba(48,242,242,0.25)] transition-colors cursor-pointer p-2 ${
                         dayIndex < 2
                           ? "border-r border-[rgba(48,242,242,0.2)]"
                           : ""
@@ -162,7 +158,7 @@ export default function CalendarGrid({
                 return (
                   <div
                     key={`${hour}-${day}`}
-                    className={`relative min-h-[60px] border-b border-[rgba(48,242,242,0.1)] hover:bg-[rgba(48,242,242,0.05)] transition-colors ${
+                    className={`relative min-h-[90px] border-b border-[rgba(48,242,242,0.2)] hover:bg-[rgba(48,242,242,0.05)] transition-colors ${
                       dayIndex < 2
                         ? "border-r border-[rgba(48,242,242,0.2)]"
                         : ""

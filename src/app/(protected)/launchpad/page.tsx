@@ -1,6 +1,7 @@
 "use client";
 
 import LaunchpadHeader from "@/app/(protected)/launchpad/launchpad-header";
+import MobileFooter from "@/app/(protected)/launchpad/mobile-footer";
 import { useState } from "react";
 import Prehome from "./prehome";
 import { SessionProvider } from "next-auth/react";
@@ -17,13 +18,14 @@ export default function Launchpad() {
     <SessionProvider>
       <div className="flex flex-col h-screen tablet:h-dvh gap-3 items-start bg-gradient-to-b from-[rgba(14,17,22,0.25)] to-[#0E1116]">
         <GradientBackgroundStatic />
-        <div className="hidden tablet:block w-full">
+        <div className="w-full">
           <LaunchpadHeader
             activeTab={activeTab}
             tabChangeAction={setActiveTab}
           />
         </div>
         <Prehome />
+        <MobileFooter activeTab={activeTab} tabChangeAction={setActiveTab} />
       </div>
     </SessionProvider>
   );

@@ -1,7 +1,7 @@
 "use client";
 
-import AgendaContainer from "@/app/(protected)/launchpad/agenda-container";
-import AnnouncementContainer from "@/app/(protected)/launchpad/announcements-container";
+import AgendaContainer from "@/app/(protected)/launchpad/containers/agenda-container";
+import AnnouncementContainer from "@/app/(protected)/launchpad/containers/announcements-container";
 import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -77,6 +77,7 @@ export default function Home() {
           </sub>
         </div>
       </div>
+
       <div className="flex px-2 items-start gap-2 flex-1 self-stretch border border-[rgba(48,242,242,0.2)]">
         <AgendaContainer
           title="Agenda"

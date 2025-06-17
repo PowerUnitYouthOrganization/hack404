@@ -80,7 +80,7 @@ export default function LaunchpadHeader({
 
   const navItems = [
     { label: "Home", value: "home" },
-    // { label: "Agenda", value: "agenda" },
+    { label: "Agenda", value: "agenda" },
     // { label: "Mentor", value: "mentor" },
     // { label: "Resources", value: "resources" },
     // { label: "Map", value: "map" }
@@ -124,7 +124,7 @@ export default function LaunchpadHeader({
   };
 
   return (
-    <header className="flex flex-col gap-3 w-full p-6">
+    <header className="flex flex-col gap-3 w-full">
       {/* Desktop Layout */}
       <div className="hidden md:grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
         <div className="flex px-3 items-center gap-5 flex-1 self-stretch row-[1/2] col-[1/2]">

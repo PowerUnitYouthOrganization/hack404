@@ -6,6 +6,8 @@ import { useState } from "react";
 import Prehome from "./prehome";
 import { SessionProvider } from "next-auth/react";
 import GradientBackgroundStatic from "@/components/gradient-background-static";
+import Home from "./pages/home";
+import Agenda from "./pages/agenda";
 
 /**
  * This component serves as the main layout for the hacker dashboard page.
@@ -24,7 +26,8 @@ export default function Launchpad() {
             tabChangeAction={setActiveTab}
           />
         </div>
-        <Prehome />
+        {activeTab === "home" && <Home />}
+        {activeTab === "agenda" && <Agenda />}
         <MobileFooter activeTab={activeTab} tabChangeAction={setActiveTab} />
       </div>
     </SessionProvider>

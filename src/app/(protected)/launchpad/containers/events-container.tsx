@@ -23,12 +23,17 @@ function formatTime(date: Date): string {
   });
 }
 
-function getTimeUntilEvent(startTime: Date): string {
+function getTimeUntilEvent(startTime: Date, endTime: Date): string {
   const now = new Date();
   const diffMs = startTime.getTime() - now.getTime();
 
-  if (diffMs <= 0) {
+  if (
+    endTime.getTime() > now.getTime() &&
+    now.getTime() > startTime.getTime()
+  ) {
     return "happening now";
+  } else if (diffMs <= 0) {
+    return "ended";
   }
 
   const diffMinutes = Math.floor(diffMs / (1000 * 60));
@@ -85,7 +90,7 @@ export default function AgendaContainer({
                 <div className="flex flex-col items-start gap-2">
                   <h2 className="font-medium">{event.name}</h2>
                   <p className="font-light text-sm">
-                    {getTimeUntilEvent(event.startTime)}
+                    {getTimeUntilEvent(event.startTime, event.endTime)}
                   </p>
                 </div>
                 <ArrowOutwardIcon className="cursor-pointer transition-colors h-5 w-auto" />

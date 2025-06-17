@@ -63,7 +63,7 @@ export default function Home() {
   const announcements: Announcement[] = [];
 
   return (
-    <main className="flex flex-col h-full overflow-hidden">
+    <main className="flex flex-col h-full overflow-hidden gap-6">
       <div className="flex px-9 justify-between items-end flex-shrink-0 py-4">
         <div className="flex flex-col justify-center items-start">
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">

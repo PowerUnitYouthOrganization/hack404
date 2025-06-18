@@ -24,26 +24,65 @@ function formatTime(hour: number): string {
 function getEventsForTimeSlot(
   events: AgendaEvent[],
   hour: number,
+  quarter: number,
   day: number,
 ) {
   return events.filter((event) => {
     const eventStartHour = event.startTime.getHours();
+    const eventStartMinute = event.startTime.getMinutes();
     const eventEndHour = event.endTime.getHours();
-    return event.day === day && eventStartHour <= hour && hour < eventEndHour;
+    const eventEndMinute = event.endTime.getMinutes();
+
+    const eventStartQuarter = Math.floor(eventStartMinute / 15);
+    const eventEndQuarter = eventEndHour * 4 + Math.floor(eventEndMinute / 15);
+    const currentQuarter = hour * 4 + quarter;
+    const eventStartQuarterTotal = eventStartHour * 4 + eventStartQuarter;
+
+    return (
+      event.day === day &&
+      eventStartQuarterTotal <= currentQuarter &&
+      currentQuarter < eventEndQuarter
+    );
   });
 }
 
-function getEventRowSpan(event: AgendaEvent, currentHour: number): number {
+function getEventQuarterSpan(
+  event: AgendaEvent,
+  currentHour: number,
+  currentQuarter: number,
+): number {
   const eventStartHour = event.startTime.getHours();
+  const eventStartMinute = event.startTime.getMinutes();
   const eventEndHour = event.endTime.getHours();
+  const eventEndMinute = event.endTime.getMinutes();
 
-  // If this is the starting hour for the event, calculate full span
-  if (currentHour === eventStartHour) {
-    return eventEndHour - eventStartHour;
+  const eventStartQuarter = Math.floor(eventStartMinute / 15);
+  const eventEndQuarter = eventEndHour * 4 + Math.floor(eventEndMinute / 15);
+  const eventStartQuarterTotal = eventStartHour * 4 + eventStartQuarter;
+  const currentQuarterTotal = currentHour * 4 + currentQuarter;
+
+  // If this is the starting quarter for the event, calculate full span
+  if (currentQuarterTotal === eventStartQuarterTotal) {
+    return eventEndQuarter - eventStartQuarterTotal;
   }
 
   // If we're in the middle of an event, don't render (will be handled by rowspan)
   return 0;
+}
+
+function getQuarterMinutes(quarter: number): string {
+  switch (quarter) {
+    case 0:
+      return ":00";
+    case 1:
+      return ":15";
+    case 2:
+      return ":30";
+    case 3:
+      return ":45";
+    default:
+      return ":00";
+  }
 }
 
 export default function CalendarGrid({
@@ -52,7 +91,7 @@ export default function CalendarGrid({
   events,
   topOffset = 218,
 }: CalendarGridProps) {
-  const hours = Array.from({ length: 13 }, (_, i) => i + 9); // 9am to 9pm
+  const hours = Array.from({ length: 16 }, (_, i) => i + 8); // 9am to 9pm
   const days = ["Day 1 - Friday", "Day 2 - Saturday", "Day 3 - Sunday"];
 
   return (
@@ -91,83 +130,127 @@ export default function CalendarGrid({
         >
           {hours.map((hour) => (
             <React.Fragment key={hour}>
-              {/* Time label */}
-              <div className="p-3 border-r border-[rgba(48,242,242,0.2)] text-sm font-light flex items-center justify-end min-h-[60px] w-24">
-                {formatTime(hour)}
+              {/* Time label - spans all 4 quarters */}
+              <div
+                className="relative border-r border-[rgba(48,242,242,0.2)] text-sm font-light min-h-[120px] w-24"
+                style={{ gridRow: "span 4" }}
+              >
+                <div className="absolute top-2 right-3 font-medium">
+                  {formatTime(hour)}
+                </div>
               </div>
 
-              {/* Day columns */}
-              {[1, 2, 3].map((day, dayIndex) => {
-                const eventsInSlot = getEventsForTimeSlot(events, hour, day);
-                const eventToRender = eventsInSlot.find(
-                  (event) => event.startTime.getHours() === hour,
-                );
+              {/* 15-minute subdivisions for each day */}
+              {[0, 1, 2, 3].map((quarter) => (
+                <React.Fragment key={`${hour}-${quarter}`}>
+                  {[1, 2, 3].map((day, dayIndex) => {
+                    const eventsInSlot = getEventsForTimeSlot(
+                      events,
+                      hour,
+                      quarter,
+                      day,
+                    );
+                    const eventToRender = eventsInSlot.find((event) => {
+                      const eventStartHour = event.startTime.getHours();
+                      const eventStartMinute = event.startTime.getMinutes();
+                      const eventStartQuarter = Math.floor(
+                        eventStartMinute / 15,
+                      );
+                      return (
+                        eventStartHour === hour && eventStartQuarter === quarter
+                      );
+                    });
 
-                if (eventToRender) {
-                  const rowSpan = getEventRowSpan(eventToRender, hour);
+                    if (eventToRender) {
+                      const quarterSpan = getEventQuarterSpan(
+                        eventToRender,
+                        hour,
+                        quarter,
+                      );
 
-                  return (
-                    <div
-                      key={`${hour}-${day}`}
-                      className={`relative min-h-[90px] border-b border-[rgba(48,242,242,0.2)] bg-[rgba(48,242,242,0.15)] hover:bg-[rgba(48,242,242,0.25)] transition-colors cursor-pointer p-2 ${
-                        dayIndex < 2
-                          ? "border-r border-[rgba(48,242,242,0.2)]"
-                          : ""
-                      }`}
-                      style={{
-                        gridRow: rowSpan > 1 ? `span ${rowSpan}` : "span 1",
-                      }}
-                    >
-                      <div className="flex flex-col h-full">
-                        <div className="font-medium text-white text-sm mb-1 line-clamp-2">
-                          {eventToRender.name}
+                      return (
+                        <div
+                          key={`${hour}-${quarter}-${day}`}
+                          className={`relative min-h-[30px] border-b border-[rgba(48,242,242,0.05)] bg-[rgba(48,242,242,0.15)] hover:bg-[rgba(48,242,242,0.25)] transition-colors cursor-pointer p-1 ${
+                            dayIndex < 2
+                              ? "border-r border-[rgba(48,242,242,0.2)]"
+                              : ""
+                          } ${quarter === 3 ? "border-b-[rgba(48,242,242,0.2)]" : ""}`}
+                          style={{
+                            gridRow:
+                              quarterSpan > 1
+                                ? `span ${quarterSpan}`
+                                : "span 1",
+                          }}
+                        >
+                          <div className="flex flex-col h-full">
+                            <div className="font-medium text-white text-xs mb-1 line-clamp-1">
+                              {eventToRender.name}
+                            </div>
+                            <div className="text-xs text-gray-300 mb-1">
+                              {eventToRender.startTime.toLocaleTimeString(
+                                "en-US",
+                                {
+                                  hour: "numeric",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                },
+                              )}{" "}
+                              -{" "}
+                              {eventToRender.endTime.toLocaleTimeString(
+                                "en-US",
+                                {
+                                  hour: "numeric",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                },
+                              )}
+                            </div>
+                            <div className="text-xs text-gray-400 mt-auto">
+                              Rm. {eventToRender.roomNumber}
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-xs text-gray-300 mb-1">
-                          {eventToRender.startTime.toLocaleTimeString("en-US", {
-                            hour: "numeric",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}{" "}
-                          -{" "}
-                          {eventToRender.endTime.toLocaleTimeString("en-US", {
-                            hour: "numeric",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
-                        </div>
-                        <div className="text-xs text-gray-400 mt-auto">
-                          Rm. {eventToRender.roomNumber}
+                      );
+                    }
+
+                    // Check if this cell is part of a multi-quarter event (skip rendering)
+                    const isPartOfEvent = eventsInSlot.some((event) => {
+                      const eventStartHour = event.startTime.getHours();
+                      const eventStartMinute = event.startTime.getMinutes();
+                      const eventStartQuarter = Math.floor(
+                        eventStartMinute / 15,
+                      );
+                      const eventStartQuarterTotal =
+                        eventStartHour * 4 + eventStartQuarter;
+                      const currentQuarterTotal = hour * 4 + quarter;
+
+                      return eventStartQuarterTotal < currentQuarterTotal;
+                    });
+
+                    if (isPartOfEvent) {
+                      return null; // This cell is covered by the rowspan above
+                    }
+
+                    // Empty cell
+                    return (
+                      <div
+                        key={`${hour}-${quarter}-${day}`}
+                        className={`relative min-h-[30px] border-b border-[rgba(48,242,242,0.05)] hover:bg-[rgba(48,242,242,0.05)] transition-colors ${
+                          dayIndex < 2
+                            ? "border-r border-[rgba(48,242,242,0.2)]"
+                            : ""
+                        } ${quarter === 3 ? "border-b-[rgba(48,242,242,0.2)]" : ""}`}
+                      >
+                        {/* Quarter time marker for debugging */}
+                        <div className="absolute top-0 left-1 text-xs text-gray-500 opacity-30">
+                          {getQuarterMinutes(quarter)}
                         </div>
                       </div>
-                    </div>
-                  );
-                }
-
-                // Check if this cell is part of a multi-hour event (skip rendering)
-                const isPartOfEvent = eventsInSlot.some(
-                  (event) =>
-                    event.startTime.getHours() < hour &&
-                    event.endTime.getHours() > hour,
-                );
-
-                if (isPartOfEvent) {
-                  return null; // This cell is covered by the rowspan above
-                }
-
-                // Empty cell
-                return (
-                  <div
-                    key={`${hour}-${day}`}
-                    className={`relative min-h-[90px] border-b border-[rgba(48,242,242,0.2)] hover:bg-[rgba(48,242,242,0.05)] transition-colors ${
-                      dayIndex < 2
-                        ? "border-r border-[rgba(48,242,242,0.2)]"
-                        : ""
-                    }`}
-                  >
-                    {/* Empty cell for potential future events */}
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </React.Fragment>
+              ))}
             </React.Fragment>
           ))}
         </div>

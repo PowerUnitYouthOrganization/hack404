@@ -83,7 +83,7 @@ export default function AgendaContainer({
           return (
             <div
               key={index}
-              className={`flex flex-col items-start gap-9 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+              className={`flex flex-col items-start gap-9 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] flex-shrink-0`}
             >
               {/* Event Header */}
               <div className="flex justify-between items-start self-stretch">

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Team Formation",
+    "startTime": "2025-07-04T20:00:00",
+    "endTime": "2025-07-04T21:00:00",
+    "roomNumber": "Main Entrance",
+    "day": 1
+  },
+  {
+    "name": "Microhack 1",
+    "startTime": "2025-07-04T21:00:00",
+    "endTime": "2025-07-04T23:00:00",
+    "roomNumber": "Main Entrance",
+    "day": 1
+  },
+  {
+    "name": "Microhack 2",
+    "startTime": "2025-07-05T9:00:00",
+    "endTime": "2025-07-05T11:00:00",
+    "roomNumber": "Main Entrance",
+    "day": 2
+  },
+  {
+    "name": "Microhack 3",
+    "startTime": "2025-07-05T14:00:00",
+    "endTime": "2025-07-05T16:00:00",
+    "roomNumber": "Main Entrance",
+    "day": 2
+  },
+  {
+    "name": "Microhack 4",
+    "startTime": "2025-07-06T20:00:00",
+    "endTime": "2025-07-06T22:00:00",
+    "roomNumber": "Main Entrance",
+    "day": 2
+  }
+]

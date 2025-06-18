@@ -16,8 +16,10 @@ interface CalendarGridProps {
 }
 
 function formatTime(hour: number): string {
+  if (hour === 0) return "12 AM";
   if (hour === 12) return "12 PM";
   if (hour < 12) return `${hour} AM`;
+  if (hour === 24) return "12 AM";
   return `${hour - 12} PM`;
 }
 
@@ -34,9 +36,17 @@ function getEventsForTimeSlot(
     const eventEndMinute = event.endTime.getMinutes();
 
     const eventStartQuarter = Math.floor(eventStartMinute / 15);
-    const eventEndQuarter = eventEndHour * 4 + Math.floor(eventEndMinute / 15);
     const currentQuarter = hour * 4 + quarter;
     const eventStartQuarterTotal = eventStartHour * 4 + eventStartQuarter;
+
+    // Handle events that cross day boundaries (end at midnight of next day)
+    let eventEndQuarter;
+    if (eventEndHour === 0 && eventStartHour > 0 && event.day === day) {
+      // Event ends at midnight of next day, extend to end of current day's grid
+      eventEndQuarter = 24 * 4; // 24:00 = 96 quarters from midnight
+    } else {
+      eventEndQuarter = eventEndHour * 4 + Math.ceil(eventEndMinute / 15);
+    }
 
     return (
       event.day === day &&
@@ -57,9 +67,18 @@ function getEventQuarterSpan(
   const eventEndMinute = event.endTime.getMinutes();
 
   const eventStartQuarter = Math.floor(eventStartMinute / 15);
-  const eventEndQuarter = eventEndHour * 4 + Math.floor(eventEndMinute / 15);
   const eventStartQuarterTotal = eventStartHour * 4 + eventStartQuarter;
   const currentQuarterTotal = currentHour * 4 + currentQuarter;
+
+  // Handle events that cross day boundaries (end at midnight of next day)
+  let eventEndQuarter;
+  if (eventEndHour === 0 && eventStartHour > 0) {
+    // Event ends at midnight of next day, calculate span to end of current day's grid
+    const maxVisibleHour = 24; // Grid shows up to midnight
+    eventEndQuarter = maxVisibleHour * 4;
+  } else {
+    eventEndQuarter = eventEndHour * 4 + Math.ceil(eventEndMinute / 15);
+  }
 
   // If this is the starting quarter for the event, calculate full span
   if (currentQuarterTotal === eventStartQuarterTotal) {
@@ -91,7 +110,7 @@ export default function CalendarGrid({
   events,
   topOffset = 218,
 }: CalendarGridProps) {
-  const hours = Array.from({ length: 16 }, (_, i) => i + 8); // 9am to 9pm
+  const hours = Array.from({ length: 16 }, (_, i) => i + 8); // 8am to midnight
   const days = ["Day 1 - Friday", "Day 2 - Saturday", "Day 3 - Sunday"];
 
   return (
@@ -156,6 +175,25 @@ export default function CalendarGrid({
                       const eventStartQuarter = Math.floor(
                         eventStartMinute / 15,
                       );
+
+                      // Debug logging for midnight events
+                      if (
+                        event.name.includes("Last to Remain") ||
+                        event.name.includes("Karaoke")
+                      ) {
+                        console.log(`Debug ${event.name}:`, {
+                          day: event.day,
+                          currentDay: day,
+                          hour,
+                          quarter,
+                          eventStartHour,
+                          eventStartQuarter,
+                          eventsInSlot: eventsInSlot.length,
+                          startTime: event.startTime.toISOString(),
+                          endTime: event.endTime.toISOString(),
+                        });
+                      }
+
                       return (
                         eventStartHour === hour && eventStartQuarter === quarter
                       );

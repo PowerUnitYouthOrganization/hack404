@@ -143,10 +143,10 @@ export async function POST(req: NextRequest) {
     if (existingApplication.length == 0) {
       // add application
       await db.insert(applications).values(applicationData);
-      // update user image
+      // update user image and stream
       await db
         .update(users)
-        .set({ image: avatarUrl, profileCompleted: true })
+        .set({ image: avatarUrl, profileCompleted: true, stream })
         .where(eq(users.id, userId));
     } else {
       return NextResponse.json(

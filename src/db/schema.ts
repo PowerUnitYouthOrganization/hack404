@@ -31,6 +31,7 @@ export const users = pgTable("user", {
   profileCompleted: boolean("profileCompleted").notNull().default(false),
   firstName: text("firstName"),
   lastName: text("lastName"),
+  stream: text("stream", { enum: ["beginner", "normal"] }),
 });
 
 // Profile info

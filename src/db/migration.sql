@@ -19,3 +19,13 @@ FROM "user"
 WHERE application."userId" = "user".id
   AND "user"."name" IS NOT NULL
   AND "user"."email" IS NOT NULL;
+
+-- SQL script to migrate stream data from application table to user table
+-- This updates existing users with stream data based on userId
+
+UPDATE "user"
+SET
+    "stream" = application."stream"
+FROM application
+WHERE "user".id = application."userId"
+  AND application."stream" IS NOT NULL;

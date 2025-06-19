@@ -31,6 +31,7 @@ export const users = pgTable("user", {
   profileCompleted: boolean("profileCompleted").notNull().default(false),
   firstName: text("firstName"),
   lastName: text("lastName"),
+  stream: text("stream", { enum: ["beginner", "normal"] }),
 });
 
 // Profile info
@@ -154,8 +155,3 @@ export const authenticators = pgTable(
     },
   ],
 );
-
-export const waitlistEmails = pgTable("waitlist_emails", {
-  id: serial("id").primaryKey(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-});

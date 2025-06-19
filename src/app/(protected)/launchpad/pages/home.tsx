@@ -1,9 +1,10 @@
 "use client";
 
-import AgendaContainer from "@/app/(protected)/launchpad/agenda-container";
-import AnnouncementContainer from "@/app/(protected)/launchpad/announcements-container";
+import AgendaContainer from "@/app/(protected)/launchpad/containers/events-container";
+import AnnouncementContainer from "@/app/(protected)/launchpad/containers/announcements-container";
 import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import { useSession } from "next-auth/react";
+import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
 
 // could probably be moved to json or something
@@ -32,7 +33,7 @@ export default function Home() {
 
   useEffect(() => {
     // time until submission deadline or whatever date
-    const targetDate = new Date("2025-06-18T00:00:00");
+    const targetDate = new Date("2025-06-21T00:00:00");
     const interval = setInterval(() => {
       const now = new Date();
       const diff = targetDate.getTime() - now.getTime();
@@ -54,12 +55,16 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const agendaEvents: AgendaEvent[] = [];
+  const agendaEvents: AgendaEvent[] = eventsData.map((event) => ({
+    ...event,
+    startTime: new Date(event.startTime),
+    endTime: new Date(event.endTime),
+  }));
   const announcements: Announcement[] = [];
 
   return (
-    <main className="flex flex-col gap-9 w-full">
-      <div className="flex px-9 justify-between items-end self-stretch">
+    <main className="flex flex-col h-full overflow-hidden gap-6">
+      <div className="flex px-9 justify-between items-end flex-shrink-0 py-4">
         <div className="flex flex-col justify-center items-start">
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
             Hello {firstName}!
@@ -77,7 +82,8 @@ export default function Home() {
           </sub>
         </div>
       </div>
-      <div className="flex px-2 items-start gap-2 flex-1 self-stretch border border-[rgba(48,242,242,0.2)]">
+
+      <div className="flex px-2 items-start gap-2 flex-1 overflow-hidden border border-[rgba(48,242,242,0.2)]">
         <AgendaContainer
           title="Agenda"
           icon={
@@ -107,9 +113,8 @@ export default function Home() {
             </svg>
           }
           events={announcements}
-          topOffset={218}
         />
-        <div className="flex flex-col flex-1 gap-2 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
+        <div className="flex flex-col flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
           <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">
             <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
               <h1 className="flex-1 text-white font-light">

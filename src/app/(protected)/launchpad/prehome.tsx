@@ -173,15 +173,14 @@ export default function Prehome() {
                       : "#30F2F2"
                   }
                   className="text-black w-full"
-                  onClick={handleStartApplication}
-                  disabled={loading || (hasApplication && applicationSubmitted)}
+                  disabled={true}
                 >
                   <p>
                     {loading
                       ? "Checking..."
                       : hasApplication && applicationSubmitted
                         ? "Application Submitted"
-                        : "Start Application"}
+                        : "Applications Closed"}
                   </p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

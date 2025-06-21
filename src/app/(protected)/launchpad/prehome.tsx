@@ -35,7 +35,7 @@ export default function Prehome() {
 
   useEffect(() => {
     // time until submission deadline or whatever date
-    const targetDate = new Date("2025-06-21T00:00:00");
+    const targetDate = new Date("2025-06-26T00:00:00");
     const interval = setInterval(() => {
       const now = new Date();
       const diff = targetDate.getTime() - now.getTime();

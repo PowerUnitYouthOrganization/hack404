@@ -21,9 +21,9 @@ export default function Announcements() {
       if (announcements.length > 0) {
         setLatestAnnouncement(announcements[0]);
       }
-    }
+    }    fetchLatestAnnouncement();
 
-    fetchLatestAnnouncement();
+    let cleanup: (() => void) | undefined;
 
     if (status === 'authenticated') {
       if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -31,6 +31,9 @@ export default function Announcements() {
           .register('/sw.js')
           .then((swReg) => {
             console.log('Service Worker is registered', swReg);
+
+            // Check for service worker updates and store cleanup function
+            cleanup = checkForServiceWorkerUpdate(swReg);
 
             swReg.pushManager.getSubscription().then((subscription) => {
               if (subscription === null) {
@@ -47,6 +50,13 @@ export default function Announcements() {
           });
       }
     }
+
+    // Cleanup function
+    return () => {
+      if (cleanup) {
+        cleanup();
+      }
+    };
   }, [status]);
 
   async function subscribeUser(swReg: ServiceWorkerRegistration) {
@@ -78,7 +88,6 @@ export default function Announcements() {
         console.log('Failed to subscribe the user: ', err);
       });
   }
-
   function urlBase64ToUint8Array(base64String: string) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding)
@@ -92,6 +101,52 @@ export default function Announcements() {
       outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
+  }
+
+  function checkForServiceWorkerUpdate(swReg: ServiceWorkerRegistration) {
+    // Check for updates every 30 seconds when the page is active
+    const checkForUpdates = () => {
+      swReg.update().then(() => {
+        console.log('Checked for service worker updates');
+      }).catch((error) => {
+        console.error('Error checking for service worker updates:', error);
+      });
+    };
+
+    // Initial check
+    checkForUpdates();
+
+    // Set up periodic checking
+    const updateInterval = setInterval(checkForUpdates, 30000);
+
+    // Listen for when a new service worker is found
+    swReg.addEventListener('updatefound', () => {
+      const newWorker = swReg.installing;
+      if (newWorker) {
+        console.log('New service worker found, installing...');
+        
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // New service worker is installed and ready
+            console.log('New service worker installed and ready');
+          }
+        });
+      }
+    });
+
+    // Listen for controlling service worker changes
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      console.log('Service worker controller changed');
+      // Optionally reload the page when the controller changes
+      if (navigator.serviceWorker.controller) {
+        window.location.reload();
+      }
+    });
+
+    // Clean up interval when component unmounts
+    return () => {
+      clearInterval(updateInterval);
+    };
   }
 
   if (!latestAnnouncement) {

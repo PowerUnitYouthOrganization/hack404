@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { isProfileComplete } from "../utils/profileCompletion";
+
 import { useSession, signIn } from "next-auth/react";
 import SimpleHeader from "@/components/simple-header";
 import RoundedButton from "@/components/ui/roundedbutton";
@@ -29,25 +29,26 @@ export default function LoginForm() {
         console.error("Invalid email format");
         return;
       }
-      // Check if email is already registered
-      // if we never find a reason to use this, just delete it lol
-      const emailResponse = await fetch(
-        `/api/email-exists?email=${encodeURIComponent(email)}`,
-      );
-      console.log(emailResponse);
-      const data = await emailResponse.json();
 
-      if (!data.exists) console.log("New email, register: ", email);
-      else console.log("Existing email, login: ", email);
-
-      if (session?.user?.email) {
-        isProfileComplete(session.user.email).then((profileDone) => {
-          if (profileDone) {
-            window.location.href = "/launchpad";
-          } else {
+      if (session?.user) {
+        fetch("/api/profile-done")
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            }
+            return { profileDone: false };
+          })
+          .then((data) => {
+            if (data.profileDone) {
+              window.location.href = "/launchpad";
+            } else {
+              window.location.href = "/profile";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking profile completion:", error);
             window.location.href = "/profile";
-          }
-        });
+          });
       }
 
       await signIn("resend", { email, redirectTo: "/profile" });
@@ -68,14 +69,25 @@ export default function LoginForm() {
   }
 
   if (status === "authenticated") {
-    if (session?.user?.email) {
-      isProfileComplete(session.user.email).then((profileDone) => {
-        if (profileDone) {
-          window.location.href = "/launchpad";
-        } else {
+    if (session?.user) {
+      fetch("/api/profile-done")
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return { profileDone: false };
+        })
+        .then((data) => {
+          if (data.profileDone) {
+            window.location.href = "/launchpad";
+          } else {
+            window.location.href = "/profile";
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking profile completion:", error);
           window.location.href = "/profile";
-        }
-      });
+        });
     }
     return null;
   }

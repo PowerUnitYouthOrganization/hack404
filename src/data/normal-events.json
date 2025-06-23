@@ -3,28 +3,28 @@
     "name": "CGI Workshop",
     "startTime": "2025-07-04T22:00:00",
     "endTime": "2025-07-04T23:00:00",
-    "roomNumber": "Main Entrance",
+    "roomNumber": "MY 580",
     "day": 1
   },
   {
-    "name": "Workshop",
+    "name": "UI/UX Workshop",
     "startTime": "2025-07-05T11:00:00",
     "endTime": "2025-07-05T12:00:00",
-    "roomNumber": "Main Entrance",
+    "roomNumber": "MY 580",
     "day": 2
   },
   {
     "name": "Workshop",
-    "startTime": "2025-07-05T13:30:00",
-    "endTime": "2025-07-05T14:30:00",
-    "roomNumber": "Main Entrance",
+    "startTime": "2025-07-05T13:00:00",
+    "endTime": "2025-07-05T14:00:00",
+    "roomNumber": "MY 580",
     "day": 2
   },
   {
     "name": "Workshop",
     "startTime": "2025-07-05T21:00:00",
     "endTime": "2025-07-05T22:00:00",
-    "roomNumber": "Main Entrance",
+    "roomNumber": "MY 580",
     "day": 2
   }
 ]

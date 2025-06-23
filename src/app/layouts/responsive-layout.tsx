@@ -100,8 +100,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   offset="1.5rem"
                   className="hidden tablet:flex"
                 >
-                  325 Front Street West <br />
-                  2nd floor, Toronto, ON M5V 2Y1
+                  Downtown Toronto <br />
                 </ColSection>
                 <ColSection width={1} offset="1.5rem" />
                 <ColSection width={1} offset="1.5rem" />

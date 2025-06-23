@@ -25,14 +25,6 @@ export default function Prehome() {
   const { hasApplication, applicationSubmitted, loading } =
     useApplicationStatus();
 
-  const handleStartApplication = () => {
-    if (hasApplication && applicationSubmitted) {
-      router.push("/application/thankyou");
-    } else {
-      router.push("/application");
-    }
-  };
-
   useEffect(() => {
     // time until submission deadline or whatever date
     const targetDate = new Date("2025-06-21T00:00:00");

@@ -1,11 +1,10 @@
-import Announcements from '@/components/announcements';
-import CreateAnnouncementForm from '@/components/CreateAnnouncementForm';
+import NotificationHandler from '@/components/Announcements';
 
 export default function AnnouncementsTestPage() {
   return (
     <div>
       <h1>Announcements Test Page</h1>
-      <Announcements />
+      <NotificationHandler />
     </div>
   );
 }

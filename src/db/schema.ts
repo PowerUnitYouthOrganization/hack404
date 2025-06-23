@@ -32,6 +32,7 @@ export const users = pgTable("user", {
   firstName: text("firstName"),
   lastName: text("lastName"),
   stream: text("stream", { enum: ["beginner", "normal"] }),
+  isadmin: boolean("isadmin").notNull().default(false),
 });
 
 // Profile info

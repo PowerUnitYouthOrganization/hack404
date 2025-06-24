@@ -147,7 +147,7 @@ export default function WaitlistEmail() {
             font-weight: 300;
             font-size: 24px;
             line-height: 120%;
-            color: var(--color-wcyan);
+            color: #30F2F2;
             margin-bottom: 30px;
           }
           
@@ -157,7 +157,7 @@ export default function WaitlistEmail() {
             font-size: 24px;
             line-height: 120%;
             margin: 0 0 24px 0;
-            color: var(--color-wcyan);
+            color: #30F2F2;
           }
           
           .white-text {
@@ -299,12 +299,12 @@ export default function WaitlistEmail() {
             font-weight: 300;
             font-size: 20px;
             letter-spacing: -0.6px;
-            color: var(--color-wcyan);
+            color: #30F2F2;
             text-decoration: none;
           }
           
           a {
-            color: var(--color-wcyan);
+            color: #30F2F2;
             text-decoration: underline;
           }
           
@@ -494,7 +494,7 @@ export default function WaitlistEmail() {
                 fontWeight: 300,
                 fontSize: "24px",
                 lineHeight: "120%",
-                color: "var(--color-wcyan)",
+                color: "#30F2F2",
                 marginBottom: "30px",
               }}
             >
@@ -508,7 +508,7 @@ export default function WaitlistEmail() {
                 fontSize: "24px",
                 lineHeight: "120%",
                 margin: "0 0 24px 0",
-                color: "var(--color-wcyan)",
+                color: "#30F2F2",
               }}
             >
               Thank you for signing up for Hack404's information list!
@@ -521,7 +521,7 @@ export default function WaitlistEmail() {
                 fontSize: "24px",
                 lineHeight: "120%",
                 margin: "0 0 24px 0",
-                color: "var(--color-wcyan)",
+                color: "#30F2F2",
               }}
             >
               We're excited for our first iteration happening this July 4-6.
@@ -538,14 +538,14 @@ export default function WaitlistEmail() {
                 fontSize: "24px",
                 lineHeight: "120%",
                 margin: "0 0 24px 0",
-                color: "var(--color-wcyan)",
+                color: "#30F2F2",
               }}
             >
               In the meantime, tell your friends to sign up and check out our
               Instagram -{" "}
               <Link
                 href="https://instagram.com/hack404.dev"
-                style={{ color: "var(--color-wcyan)", textDecoration: "underline" }}
+                style={{ color: "#30F2F2", textDecoration: "underline" }}
               >
                 @hack404.dev
               </Link>
@@ -559,7 +559,7 @@ export default function WaitlistEmail() {
                 fontSize: "24px",
                 lineHeight: "120%",
                 margin: "0 0 24px 0",
-                color: "var(--color-wcyan)",
+                color: "#30F2F2",
               }}
             >
               Sincerely,
@@ -765,7 +765,7 @@ export default function WaitlistEmail() {
                       fontSize: "20px",
                       letterSpacing: "-0.6px",
                       textDecoration: "none",
-                      color: "var(--color-wcyan)",
+                      color: "#30F2F2",
                       display: "inline-block",
                       margin: "0 auto",
                     }}

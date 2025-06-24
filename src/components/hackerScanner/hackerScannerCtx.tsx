@@ -1,10 +1,13 @@
+'use client';
+
+import { User } from "@/db/schema";
 import { createContext, useContext, useState } from "react";
 
 interface HackerScannerContextType {
   isScanning: boolean;
   setIsScanning: (scanning: boolean) => void;
-  lastScanID: string | null;
-  setLastScanID: (id: string | null) => void;
+  lastUser: User | null;
+  setLastUser: (user: User | null) => void;
 }
 
 const HackerScannerContext = createContext<HackerScannerContextType | undefined>(
@@ -17,15 +20,15 @@ export const HackerScannerProvider = ({
   children: React.ReactNode;
 }) => {
   const [isScanning, setIsScanning] = useState(false);
-  const [lastScanID, setLastScanID] = useState<string | null>(null);
+  const [lastUser, setLastUser] = useState<User | null>(null);
 
   return (
     <HackerScannerContext.Provider 
       value={{
         isScanning,
         setIsScanning,
-        lastScanID,
-        setLastScanID,
+        lastUser,
+        setLastUser,
       }}
     >
       {children}

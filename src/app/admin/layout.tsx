@@ -2,6 +2,7 @@ import { db, users } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import AdminHeader from "@/components/admin/AdminHeader";
 
 /**
  * The gatekeeper for protected routes in the application.
@@ -41,5 +42,10 @@ export default async function ProtectedLayout({
     redirect("/");
   }
 
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-background">
+      <AdminHeader />
+      <main>{children}</main>
+    </div>
+  );
 }

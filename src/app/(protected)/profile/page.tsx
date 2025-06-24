@@ -38,15 +38,13 @@ function HackerApplicationContent() {
 
   useEffect(() => {
     const checkProfileCompletion = async () => {
-      if (!session?.user?.email) {
+      if (!session?.user) {
         setIsCheckingProfile(false);
         return;
       }
 
       try {
-        const response = await fetch(
-          `/api/profile-done?email=${encodeURIComponent(session.user.email)}`,
-        );
+        const response = await fetch(`/api/profile-done`);
         if (response.ok) {
           const data = await response.json();
           if (data.profileDone) {

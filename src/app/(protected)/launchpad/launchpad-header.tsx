@@ -11,6 +11,7 @@ import { QrCode } from "lucide-react";
 import QRCode from "react-qr-code";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import ProfileDropdown from "@/components/profile-dropdown";
 
 interface LaunchpadHeaderProps {
   activeTab: string;
@@ -28,7 +29,6 @@ export default function LaunchpadHeader({
   const [showQRModal, setShowQRModal] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isLoadingUserId, setIsLoadingUserId] = useState(false);
-  const [isResettingProfile, setIsResettingProfile] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const qrRef = useRef<HTMLDivElement>(null);
 
@@ -77,7 +77,6 @@ export default function LaunchpadHeader({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   const navItems = [
     { label: "Home", value: "home" },
     { label: "Agenda", value: "agenda" },
@@ -85,43 +84,6 @@ export default function LaunchpadHeader({
     // { label: "Resources", value: "resources" },
     // { label: "Map", value: "map" }
   ];
-
-  const handleRedoProfile = async () => {
-    if (!session?.user?.email) {
-      toast.error("No user session found");
-      return;
-    }
-
-    setIsResettingProfile(true);
-    try {
-      const response = await fetch("/api/reset-profile", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to reset profile");
-      }
-
-      toast.success("Profile reset successfully!");
-      setShowProfileCard(false);
-
-      // Redirect to profile page after a short delay
-      setTimeout(() => {
-        router.push("/profile");
-      }, 1000);
-    } catch (error) {
-      console.error("Error resetting profile:", error);
-      toast.error(
-        error instanceof Error ? error.message : "Failed to reset profile",
-      );
-    } finally {
-      setIsResettingProfile(false);
-    }
-  };
 
   return (
     <header className="flex flex-col gap-3 w-full">
@@ -166,11 +128,12 @@ export default function LaunchpadHeader({
         </div>
         {/* profile and qr code buttons */}
         <div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4] relative">
-          <div ref={profileRef} className="relative">
-            <RoundedButton
+          <div ref={profileRef} className="relative">            <RoundedButton
               color="rgba(48,242,242,0.20)"
               className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"
-              onClick={() => setShowProfileCard(!showProfileCard)}
+              onClick={() => {
+                setShowProfileCard(!showProfileCard);
+              }}
             >
               Profile
               <Avatar className="w-6 h-6 rounded-md">
@@ -183,38 +146,10 @@ export default function LaunchpadHeader({
             </RoundedButton>
 
             {/* Profile dropdown card */}
-            {showProfileCard && (
-              <div className="absolute top-full right-0 mt-2 w-64 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 backdrop-blur-[25px] rounded-lg p-4 z-50">
-                <div className="flex items-center gap-3 mb-4">
-                  <Avatar className="w-12 h-12 rounded-md">
-                    <AvatarImage src={avatarUrl || undefined} />
-                    <AvatarFallback className="bg-wblack/20 text-white">
-                      {firstName.charAt(0)}
-                      {lastName.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-white font-medium">
-                      {firstName} {lastName}
-                    </span>
-                    <span className="text-white/60 text-xs">
-                      {session?.user?.email}
-                    </span>
-                  </div>
-                </div>
-                <div className="border-t border-cyan-400/20 pt-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="bg-wlime w-full text-black border-cyan-400/20 hover:bg-cyan-400/10"
-                    onClick={handleRedoProfile}
-                    disabled={isResettingProfile}
-                  >
-                    {isResettingProfile ? "Resetting..." : "Redo Profile"}
-                  </Button>
-                </div>
-              </div>
-            )}
+            <ProfileDropdown 
+              isVisible={showProfileCard} 
+              onClose={() => setShowProfileCard(false)} 
+            />
           </div>
 
           <div className="relative" ref={qrRef}>
@@ -290,11 +225,14 @@ export default function LaunchpadHeader({
           </Link>
         </div>
 
-        <div ref={profileRef} className="relative">
-          <RoundedButton
+        <div ref={profileRef} className="relative">          <RoundedButton
             color="rgba(48,242,242,0.20)"
             className="flex self-stretch text-wcyan gap-3 pl-3 pr-2 text-sm"
-            onClick={() => setShowProfileCard(!showProfileCard)}
+            onClick={() => {
+              console.log("Mobile Profile button clicked, current showProfileCard:", showProfileCard);
+              setShowProfileCard(!showProfileCard);
+              console.log("Mobile Setting showProfileCard to:", !showProfileCard);
+            }}
           >
             Profile
             <Avatar className="w-5 h-5 rounded-md">
@@ -302,32 +240,14 @@ export default function LaunchpadHeader({
               <AvatarFallback className="bg-wblack/20 text-white text-xs">
                 {firstName.charAt(0)}
                 {lastName.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
+              </AvatarFallback>            </Avatar>
           </RoundedButton>
 
           {/* Profile dropdown card */}
-          {showProfileCard && (
-            <div className="absolute top-full right-0 mt-2 w-64 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 backdrop-blur-[25px] rounded-lg p-4 z-50">
-              <div className="flex items-center gap-3">
-                <Avatar className="w-12 h-12 rounded-md">
-                  <AvatarImage src={avatarUrl || undefined} />
-                  <AvatarFallback className="bg-wblack/20 text-white">
-                    {firstName.charAt(0)}
-                    {lastName.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-white font-medium">
-                    {firstName} {lastName}
-                  </span>
-                  <span className="text-white/60 text-xs">
-                    {session?.user?.email}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
+          <ProfileDropdown 
+            isVisible={showProfileCard} 
+            onClose={() => setShowProfileCard(false)} 
+          />
         </div>
       </div>
     </header>

@@ -32,6 +32,7 @@ export const users = pgTable("user", {
   firstName: text("firstName"),
   lastName: text("lastName"),
   stream: text("stream", { enum: ["beginner", "normal"] }),
+  isadmin: boolean("isadmin").notNull().default(false),
 });
 
 // Profile info
@@ -81,6 +82,24 @@ export const applications = pgTable("application", {
   createdAt: timestamp("createdAt", { mode: "date" })
     .notNull()
     .$defaultFn(() => new Date()),
+});
+
+export const announcements = pgTable("announcements", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  authorId: text("authorId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  createdAt: timestamp("createdAt", { mode: "date" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+export const pushSubscriptions = pgTable("pushSubscriptions", {
+  id: serial("id").primaryKey(),
+  endpoint: text("endpoint").notNull(),
+  p256dh: text("p256dh").notNull(),
+  auth: text("auth").notNull(),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
 });
 
 export const accounts = pgTable(

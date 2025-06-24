@@ -1,6 +1,7 @@
 import { Space_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Provider from "./provider";
 
 // Space Grotesk was defined but not used - removed
 
@@ -65,8 +66,10 @@ export default function RootLayout({
         className={`${dmSans.variable} ${spaceMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        {children}
-        <Toaster />
+        <Provider>
+          {children}
+          <Toaster />
+        </Provider>
       </body>
     </html>
   );

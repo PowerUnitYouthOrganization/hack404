@@ -19,6 +19,10 @@ export interface DefaultUser {
 }
 
 export async function verifyAdminAccess(session?: Session | null): Promise<{ authorized: false; response?: NextResponse; } | { authorized: true; sessions: AdminSession; }> {
+    if (!session) {
+        session = await auth();
+    }
+
     if (!session || !session.user?.id) {
         return { 
             authorized: false, 

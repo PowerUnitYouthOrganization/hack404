@@ -62,9 +62,6 @@ importers:
       '@react-three/fiber':
         specifier: ^9.1.2
         version: 9.1.2(@types/react@19.1.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.176.0)
-      '@types/web-push':
-        specifier: ^3.6.4
-        version: 3.6.4
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -116,6 +113,9 @@ importers:
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.0)
+      react-qr-barcode-scanner:
+        specifier: ^2.1.7
+        version: 2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-qr-code:
         specifier: ^2.0.15
         version: 2.0.16(react@19.1.0)
@@ -165,6 +165,9 @@ importers:
       '@types/three':
         specifier: ^0.176.0
         version: 0.176.0
+      '@types/web-push':
+        specifier: ^3.6.4
+        version: 3.6.4
       drizzle-kit:
         specifier: ^0.31.1
         version: 0.31.1
@@ -2033,6 +2036,13 @@ packages:
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
 
+  '@zxing/library@0.21.3':
+    resolution: {integrity: sha512-hZHqFe2JyH/ZxviJZosZjV+2s6EDSY0O24R+FQmlWZBZXP9IqMo7S3nb3+2LBWxodJQkSurdQGnqE7KXqrYgow==}
+    engines: {node: '>= 10.4.0'}
+
+  '@zxing/text-encoding@0.9.0':
+    resolution: {integrity: sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==}
+
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
     engines: {node: '>= 0.6'}
@@ -3826,6 +3836,12 @@ packages:
   react-promise-suspense@0.3.4:
     resolution: {integrity: sha512-I42jl7L3Ze6kZaq+7zXWSunBa3b1on5yfvUW6Eo/3fFOj6dZ5Bqmcd264nJbTK/gn1HjjILAjSwnZbV4RpSaNQ==}
 
+  react-qr-barcode-scanner@2.1.7:
+    resolution: {integrity: sha512-l3DzM7ezQ9MhFyYgQm3TO1JtPEfwPmvKS+42LS7lmAD871EPwnrieFqyqYBsIKW76bFHP04r1hnYryRn708khA==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
   react-qr-code@2.0.16:
     resolution: {integrity: sha512-8f54aTOo7DxYr1LB47pMeclV5SL/zSbJxkXHIS2a+QnAIa4XDVIdmzYRC+CBCJeDLSCeFHn8gHtltwvwZGJD/w==}
     peerDependencies:
@@ -3881,6 +3897,12 @@ packages:
     peerDependenciesMeta:
       react-dom:
         optional: true
+
+  react-webcam@7.2.0:
+    resolution: {integrity: sha512-xkrzYPqa1ag2DP+2Q/kLKBmCIfEx49bVdgCCCcZf88oF+0NPEbkwYk3/s/C7Zy0mhM8k+hpdNkBLzxg8H0aWcg==}
+    peerDependencies:
+      react: '>=16.2.0'
+      react-dom: '>=16.2.0'
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -4222,6 +4244,10 @@ packages:
     engines: {node: '>=18.12'}
     peerDependencies:
       typescript: '>=4.8.4'
+
+  ts-custom-error@3.3.1:
+    resolution: {integrity: sha512-5OX1tzOjxWEgsr/YEUWSuPrQ00deKLh6D7OTWcvNHm12/7QPyRh8SYpyWvA4IZv8H/+GQWQEh/kwo95Q9OVW1A==}
+    engines: {node: '>=14.0.0'}
 
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
@@ -6168,6 +6194,15 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
+  '@zxing/library@0.21.3':
+    dependencies:
+      ts-custom-error: 3.3.1
+    optionalDependencies:
+      '@zxing/text-encoding': 0.9.0
+
+  '@zxing/text-encoding@0.9.0':
+    optional: true
+
   accepts@2.0.0:
     dependencies:
       mime-types: 3.0.1
@@ -7984,6 +8019,13 @@ snapshots:
     dependencies:
       fast-deep-equal: 2.0.1
 
+  react-qr-barcode-scanner@2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      '@zxing/library': 0.21.3
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-webcam: 7.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+
   react-qr-code@2.0.16(react@19.1.0):
     dependencies:
       prop-types: 15.8.1
@@ -8035,6 +8077,11 @@ snapshots:
     dependencies:
       react: 19.1.0
     optionalDependencies:
+      react-dom: 19.1.0(react@19.1.0)
+
+  react-webcam@7.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
   react@19.1.0: {}
@@ -8455,6 +8502,8 @@ snapshots:
   ts-api-utils@2.1.0(typescript@5.8.3):
     dependencies:
       typescript: 5.8.3
+
+  ts-custom-error@3.3.1: {}
 
   ts-node@10.9.2(@types/node@20.17.40)(typescript@5.8.3):
     dependencies:

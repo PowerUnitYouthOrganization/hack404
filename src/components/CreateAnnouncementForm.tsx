@@ -14,6 +14,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import RoundedButton from './ui/roundedbutton';
+import { ArrowRight } from 'lucide-react';
 
 export default function CreateAnnouncementForm() {
   const [title, setTitle] = useState('');
@@ -82,29 +84,14 @@ export default function CreateAnnouncementForm() {
         </form>
       </CardContent>
       <CardFooter className="pt-6">
-        <div className="flex p-1 items-center gap-1 rounded-[100px] bg-[rgba(48,242,242,0.20)] backdrop-blur-[25px] h-14">
-          <button
+            <RoundedButton
             type="submit"
             form="announcement-form"
-            className="h-12 flex pr-3 py-2 pl-4 justify-center items-center gap-4 text-[16px] rounded-[100px] font-light cursor-pointer text-black transition-all hover:brightness-110"
-            style={{ backgroundColor: "#30F2F2" }}
-          >
-            Create Announcement
-            <svg
-              className="w-5 h-5 text-black"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
+            color="#30F2F2"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-          </button>
-        </div>
+            Create Announcement
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </RoundedButton>
       </CardFooter>
     </Card>
   );

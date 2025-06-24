@@ -88,6 +88,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  
     const authResult = await verifyAdminAccess();
     
     if (!authResult.authorized) {

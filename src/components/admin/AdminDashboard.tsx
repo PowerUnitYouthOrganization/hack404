@@ -10,13 +10,15 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import RoundedButton from '@/components/ui/roundedbutton';
 import { 
   Megaphone,
   Users,
   Settings,
   BarChart3,
   FileText,
-  Shield
+  Shield,
+  QrCode
 } from 'lucide-react';
 
 const adminRoutes = [
@@ -28,40 +30,40 @@ const adminRoutes = [
     color: '#30F2F2'
   },
   {
-    title: 'Users',
+    title: 'HackerScanner',
+    description: 'Scan hackerQR and manage user accounts fast and efficiently',
+    href: '/admin/hackerScanner',
+    icon: QrCode,
+    color: '#30F2F2'
+  },
+  {
+    title: 'Comming Soon',
     description: 'View and manage user accounts',
     href: '/admin/users',
     icon: Users,
     color: '#30F2F2'
   },
   {
-    title: 'Applications',
-    description: 'Review hacker applications',
-    href: '/admin/applications',
-    icon: FileText,
+    title: 'Comming Soon',
+    description: 'View and manage user accounts',
+    href: '/admin/users2',
+    icon: Users,
     color: '#30F2F2'
   },
   {
-    title: 'Analytics',
-    description: 'View platform statistics and metrics',
-    href: '/admin/analytics',
-    icon: BarChart3,
+    title: 'Comming Soon',
+    description: 'View and manage user accounts',
+    href: '/admin/users3',
+    icon: Users,
     color: '#30F2F2'
   },
   {
-    title: 'Permissions',
-    description: 'Manage admin roles and permissions',
-    href: '/admin/permissions',
-    icon: Shield,
+    title: 'Comming Soon',
+    description: 'View and manage user accounts',
+    href: '/admin/users4',
+    icon: Users,
     color: '#30F2F2'
   },
-  {
-    title: 'Settings',
-    description: 'Configure platform settings',
-    href: '/admin/settings',
-    icon: Settings,
-    color: '#30F2F2'
-  }
 ];
 
 export default function AdminDashboard() {
@@ -140,31 +142,14 @@ export default function AdminDashboard() {
                 <CardDescription className="text-white/60 text-sm font-light">
                   {route.description}
                 </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-0">
+              </CardHeader>              <CardContent className="pt-0">
                 <Link href={route.href}>
-                  <div className="flex p-1 items-center gap-1 rounded-[100px] bg-[rgba(48,242,242,0.20)] backdrop-blur-[25px] h-12 hover:bg-[rgba(48,242,242,0.30)] transition-all duration-200">
-                    <button
-                      type="button"
-                      className="h-10 flex pr-3 py-2 pl-4 justify-center items-center gap-2 text-[14px] rounded-[100px] font-light cursor-pointer text-black transition-all hover:brightness-110 w-full"
-                      style={{ backgroundColor: route.color }}
-                    >
-                      Access {route.title}
-                      <svg
-                        className="w-4 h-4 text-black"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                  <RoundedButton
+                    type="button"
+                    color={route.color}
+                  >
+                    Access {route.title}
+                  </RoundedButton>
                 </Link>
               </CardContent>
             </Card>

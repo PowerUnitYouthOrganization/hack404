@@ -15,7 +15,7 @@ interface ProfileDropdownProps {
   onClose: () => void;
 }
 
-export default async function ProfileDropdown({ isVisible, onClose }: ProfileDropdownProps) {
+export default function ProfileDropdown({ isVisible, onClose }: ProfileDropdownProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const avatarUrl = session?.user?.image || null;

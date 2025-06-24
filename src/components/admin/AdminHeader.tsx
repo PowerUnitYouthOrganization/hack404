@@ -9,8 +9,8 @@ import {
   User,
   ChevronRight
 } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
-
+import { useSession } from 'next-auth/react';
+import { handleSignOut } from '@/lib/utils';
 const adminNavItems = [
   { href: '/admin', label: 'Dashboard', icon: Home },
   { href: '/admin/announcements', label: 'Announcements' },
@@ -24,9 +24,6 @@ export default function AdminHeader() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
-  };
 
   // Generate breadcrumb from pathname
   const generateBreadcrumb = () => {

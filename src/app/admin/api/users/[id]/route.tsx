@@ -2,13 +2,16 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db, users } from "@/db/schema";
-import { eq, InferSelectModel } from "drizzle-orm";
-import { useRouter } from "next/router";
+import { eq } from "drizzle-orm";
 import { verifyAdminAccess } from "@/lib/admin-auth";
 
 
 
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  console.log("GET request to /admin/api/users/[id]");
   try {
     const authResult = await verifyAdminAccess();
     
@@ -17,9 +20,7 @@ export async function GET(request: Request) {
     }
     
 
-    const router = useRouter();
-
-    const userId = router.query.id as string;
+    const userId = params.id;
     if (!userId) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 });
     }

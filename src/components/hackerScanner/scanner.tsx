@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic"
 
-const BarcodeScanner = dynamic(
-    () => import("react-qr-barcode-scanner"),
+const Scanner = dynamic(
+    () => import("@yudiel/react-qr-scanner").then(mod => ({ default: mod.Scanner })),
     { ssr: false }
 )
 
@@ -14,29 +14,25 @@ import { toast } from "sonner";
 import { useHackerScanner } from "./hackerScannerCtx";
 import { InferSelectModel, is } from "drizzle-orm";
 import { users } from "@/db/schema";
-import { BarcodeStringFormat } from "react-qr-barcode-scanner/dist/BarcodeStringFormat";
 
 
 
 export default function qrScanner() {
     const { isScanning, setIsScanning, lastUser, setLastUser } = useHackerScanner();
-    const [torch, setTorch] = useState(false);
     const [canStartNewScan, setCanStartNewScan] = useState(true);
 
     const handleStartNewScan = () => {
         setIsScanning(true);
         setCanStartNewScan(false);
-        
     };
-
 
     return (
         <>
         <div
             onClick={canStartNewScan ? handleStartNewScan : undefined}
             onKeyDown={canStartNewScan ? handleStartNewScan : undefined}
-            tabIndex={0} // Make the div focusable for key press to work
-            style={{ outline: 'none' }} // Remove the default focus outline
+            tabIndex={0}
+            style={{ outline: 'none' }}
         >
             {canStartNewScan ? (
                 <div className="flex flex-col items-center justify-center h-64">
@@ -44,36 +40,38 @@ export default function qrScanner() {
                     <p className="text-sm text-gray-500">Click anywhere or press any key to start scanning</p>
                 </div>
             ) : (
-                <BarcodeScanner
-                    onUpdate={(err, result) => {
-                        if (err) {
-                            // console.error(err);
-                            console.log("Code not found", err);
-                            return;
-                        }
-                        if (result && isScanning) {
+                <Scanner
+                    onScan={(detectedCodes) => {
+                        if (detectedCodes.length > 0 && isScanning) {
+                            const result = detectedCodes[0].rawValue;
                             // API call to fetch user data
-                            fetch(`/api/users/${result.getText()}`)
+                            fetch(`/admin/api/users/${result}`)
                                 .then(res => res.json())
                                 .then((data: InferSelectModel<typeof users>) => {
                                     toast.success(`User found: ${data.name}`);
                                     setLastUser(data);
-                                    setCanStartNewScan(true); // Enable new scan after successful scan
+                                    setCanStartNewScan(true);
                                 })
                                 .catch(err => {
                                     console.error(err);
                                     toast.error("Error fetching user data");
-                                    setCanStartNewScan(true); // Enable new scan after error
+                                    setCanStartNewScan(true);
                                 });
                             setIsScanning(false);
                         }
                     }}
-                    torch={torch}
-                    formats={[BarcodeStringFormat.QR_CODE]}
+                    onError={(error) => {
+                        console.log("Scanner error:", error);
+                    }}
+                    formats={['qr_code']}
+                    paused={!isScanning}
+                    components={{
+                        torch: true,
+                        finder: true
+                    }}
                 />
             )}
         </div>
-        
         </>
         
     );

@@ -3,98 +3,91 @@
     "name": "Arrival/Check-in",
     "startTime": "2025-07-04T17:00:00",
     "endTime": "2025-07-04T18:30:00",
-    "roomNumber": "Main Entrance",
+    "roomNumber": "Lobby",
     "day": 1
   },
   {
     "name": "Opening Ceremony",
     "startTime": "2025-07-04T19:00:00",
     "endTime": "2025-07-04T20:00:00",
-    "roomNumber": "Main Hall",
+    "roomNumber": "MY 150",
     "day": 1
   },
   {
     "name": "Dinner",
     "startTime": "2025-07-04T20:00:00",
     "endTime": "2025-07-04T21:00:00",
-    "roomNumber": "Cafeteria",
+    "roomNumber": "Second Floor",
     "day": 1
   },
   {
     "name": "Last to Remain Sitting with Hack the 6ix",
     "startTime": "2025-07-04T23:00:00",
     "endTime": "2025-07-05T00:00:00",
-    "roomNumber": "Game Room",
+    "roomNumber": "MY 580",
     "day": 1
   },
   {
     "name": "Breakfast",
     "startTime": "2025-07-05T08:00:00",
     "endTime": "2025-07-05T09:30:00",
-    "roomNumber": "Cafeteria",
+    "roomNumber": "Second Floor",
     "day": 2
   },
   {
     "name": "Lunch",
     "startTime": "2025-07-05T12:00:00",
     "endTime": "2025-07-05T12:30:00",
-    "roomNumber": "Cafeteria",
-    "day": 2
-  },
-  {
-    "name": "Sunshine Therapy Dogs",
-    "startTime": "2025-07-05T13:00:00",
-    "endTime": "2025-07-05T14:15:00",
-    "roomNumber": "Lounge",
+    "roomNumber": "Second Floor",
     "day": 2
   },
   {
     "name": "Boba Workshop",
     "startTime": "2025-07-05T17:00:00",
     "endTime": "2025-07-05T18:00:00",
-    "roomNumber": "Activity Room",
+    "roomNumber": "MY 330",
     "day": 2
   },
   {
     "name": "Resume Roast",
     "startTime": "2025-07-05T18:00:00",
     "endTime": "2025-07-05T19:00:00",
-    "roomNumber": "Meeting Room",
+    "roomNumber": "MY 580",
     "day": 2
   },
   {
     "name": "Dinner",
     "startTime": "2025-07-05T19:00:00",
     "endTime": "2025-07-05T20:00:00",
-    "roomNumber": "Cafeteria",
+    "roomNumber": "Second Floor",
     "day": 2
   },
   {
     "name": "Fire Ramen Challenge",
     "startTime": "2025-07-05T22:00:00",
     "endTime": "2025-07-05T23:00:00",
-    "roomNumber": "Activity Room",
+    "roomNumber": "MY 580",
     "day": 2
   },
   {
     "name": "Karaoke",
     "startTime": "2025-07-05T23:00:00",
     "endTime": "2025-07-06T00:00:00",
-    "roomNumber": "Entertainment Room",
+    "roomNumber": "MY 580",
     "day": 2
   },
   {
     "name": "Breakfast",
     "startTime": "2025-07-06T08:00:00",
     "endTime": "2025-07-06T09:00:00",
-    "roomNumber": "Cafeteria",
+    "roomNumber": "Second Floor",
     "day": 3
   },
   {
     "name": "Project Submission",
     "startTime": "2025-07-06T09:00:00",
     "endTime": "2025-07-06T09:00:00",
-    "roomNumber": "Online Portal",
+    "roomNumber": "Second Floor",
     "day": 3
   },
   {
@@ -108,21 +101,14 @@
     "name": "Lunch",
     "startTime": "2025-07-06T12:00:00",
     "endTime": "2025-07-06T13:00:00",
-    "roomNumber": "Cafeteria",
+    "roomNumber": "Second Floor",
     "day": 3
   },
   {
     "name": "Closing Ceremonies",
     "startTime": "2025-07-06T14:00:00",
     "endTime": "2025-07-06T14:30:00",
-    "roomNumber": "Main Hall",
-    "day": 3
-  },
-  {
-    "name": "Awards Ceremony",
-    "startTime": "2025-07-06T19:00:00",
-    "endTime": "2025-07-06T21:00:00",
-    "roomNumber": "Main Hall",
+    "roomNumber": "MY 150",
     "day": 3
   }
 ]

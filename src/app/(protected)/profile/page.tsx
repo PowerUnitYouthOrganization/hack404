@@ -246,7 +246,7 @@ function HackerApplicationContent() {
                 )} */}
                 <RoundedButton
                   type="button"
-                  color="#30F2F2"
+                  color="var(--color-wcyan)"
                   className="text-black text-sm font-light"
                   onClick={nextStep}
                   disabled={!validateStep() || isSubmitting}

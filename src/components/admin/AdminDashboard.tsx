@@ -27,42 +27,42 @@ const adminRoutes = [
     description: 'Manage and create announcements for users',
     href: '/admin/announcements',
     icon: Megaphone,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
     title: 'HackerScanner',
     description: 'Scan hackerQR and manage user accounts fast and efficiently',
     href: '/admin/hackerScanner',
     icon: QrCode,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
     title: 'Comming Soon',
     description: 'View and manage user accounts',
     href: '/admin/users',
     icon: Users,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
     title: 'Comming Soon',
     description: 'View and manage user accounts',
     href: '/admin/users2',
     icon: Users,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
     title: 'Comming Soon',
     description: 'View and manage user accounts',
     href: '/admin/users3',
     icon: Users,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
     title: 'Comming Soon',
     description: 'View and manage user accounts',
     href: '/admin/users4',
     icon: Users,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
 ];
 

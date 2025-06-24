@@ -87,7 +87,7 @@ export default function CreateAnnouncementForm() {
             <RoundedButton
             type="submit"
             form="announcement-form"
-            color="#30F2F2"
+            color="var(--color-wcyan)"
             >
             Create Announcement
             <ArrowRight className="w-4 h-4 ml-2" />

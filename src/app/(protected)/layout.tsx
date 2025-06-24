@@ -1,4 +1,4 @@
-import NotificationHandler from "@/components/Announcements";
+import NotificationHandler from "@/components/NotificationHandler";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 

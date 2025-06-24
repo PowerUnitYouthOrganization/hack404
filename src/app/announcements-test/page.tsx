@@ -1,4 +1,4 @@
-import NotificationHandler from '@/components/Announcements';
+import NotificationHandler from '@/components/NotificationHandler';
 
 export default function AnnouncementsTestPage() {
   return (

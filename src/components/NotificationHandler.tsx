@@ -40,9 +40,6 @@ export default function NotificationHandler() {
       setPermissionAsked(true);
     }
   }, []);  useEffect(() => {
-
-    let cleanup: (() => void) | undefined;
-
     if (status === 'authenticated' && !permissionAsked) {
       if ('serviceWorker' in navigator && 'PushManager' in window) {
         // Check if browser notification permission is already denied
@@ -73,9 +70,6 @@ export default function NotificationHandler() {
           .then((swReg) => {
             console.log('Service Worker is registered', swReg);
 
-            // Check for service worker updates and store cleanup function
-            cleanup = checkForServiceWorkerUpdate(swReg);
-
             swReg.pushManager.getSubscription().then((subscription) => {
               if (subscription === null) {
                 // subscribe
@@ -91,15 +85,7 @@ export default function NotificationHandler() {
           });
       }
     }
-
-    // Cleanup function
-    return () => {
-      if (cleanup) {
-        cleanup();
-      }
-    };
   }, [status, permissionAsked]);
-
   const handleAllowNotifications = () => {
     setShowPermissionDialog(false);
     setPermissionAsked(true);
@@ -111,8 +97,6 @@ export default function NotificationHandler() {
         .register('/sw.js')
         .then((swReg) => {
           console.log('Service Worker is registered', swReg);
-
-          const cleanup = checkForServiceWorkerUpdate(swReg);
 
           swReg.pushManager.getSubscription().then((subscription) => {
             if (subscription === null) {
@@ -175,55 +159,10 @@ export default function NotificationHandler() {
 
     for (let i = 0; i < rawData.length; ++i) {
       outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
+    }    return outputArray;
   }
 
-  function checkForServiceWorkerUpdate(swReg: ServiceWorkerRegistration) {
-    // Check for updates every 30 seconds when the page is active
-    const checkForUpdates = () => {
-      swReg.update().then(() => {
-        console.log('Checked for service worker updates');
-      }).catch((error) => {
-        console.error('Error checking for service worker updates:', error);
-      });
-    };
-
-    // Initial check
-    checkForUpdates();
-
-    // Set up periodic checking
-    const updateInterval = setInterval(checkForUpdates, 30000);
-
-    // Listen for when a new service worker is found
-    swReg.addEventListener('updatefound', () => {
-      const newWorker = swReg.installing;
-      if (newWorker) {
-        console.log('New service worker found, installing...');
-        
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            // New service worker is installed and ready
-            console.log('New service worker installed and ready');
-          }
-        });
-      }
-    });
-
-    // Listen for controlling service worker changes
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      console.log('Service worker controller changed');
-      // Optionally reload the page when the controller changes
-      if (navigator.serviceWorker.controller) {
-        window.location.reload();
-      }
-    });
-
-    // Clean up interval when component unmounts
-    return () => {
-      clearInterval(updateInterval);
-    };
-  }  return (
+  return (
     <div>
       <Dialog open={showPermissionDialog && status == 'authenticated'} onOpenChange={setShowPermissionDialog}>
         <DialogContent className="sm:max-w-md bg-[#0c0f14] border-white/10 text-white">

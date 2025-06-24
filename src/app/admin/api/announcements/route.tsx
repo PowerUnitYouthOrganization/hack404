@@ -4,6 +4,7 @@ import { db, users } from '@/db/schema';
 import { announcements, pushSubscriptions } from '@/db/schema';
 import webpush from 'web-push';
 import { desc, eq, inArray } from 'drizzle-orm';
+import { verifyAdminAccess } from '@/lib/admin-auth';
 
 webpush.setVapidDetails(
   'mailto:your-email@example.com',
@@ -12,28 +13,16 @@ webpush.setVapidDetails(
 );
 
 export async function POST(req: NextRequest) {
-    const session = await auth();
+    let session = await auth();
 
-    if (!session || !session.user?.id) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const authResult = await verifyAdminAccess(session);
+    
+    if (!authResult.authorized) {
+        return authResult.response;
     }
 
-    // Check if the user is admin
-    const user = await db
-        .select({ isAdmin: users.isadmin })
-        .from(users)
-        .where(eq(users.id, session.user.id))
-        .limit(1);
 
-    if (!user.length) {
-        return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    if (!user[0].isAdmin) {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
-
-    const authorId = session.user.id;
+    const authorId = authResult.sessions.user.id;
 
     const { title, content } = await req.json();
 
@@ -96,4 +85,39 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(newAnnouncement[0], { status: 201 });
+}
+
+export async function DELETE(req: NextRequest) {
+    const authResult = await verifyAdminAccess();
+    
+    if (!authResult.authorized) {
+        return authResult.response;
+    }
+
+    try {
+        const { searchParams } = new URL(req.url);
+        const announcementId = searchParams.get('id');
+
+        if (!announcementId) {
+            return NextResponse.json({ error: "Announcement ID is required" }, { status: 400 });
+        }
+
+        // Delete the announcement
+        const deletedAnnouncement = await db
+            .delete(announcements)
+            .where(eq(announcements.id, parseInt(announcementId)))
+            .returning();
+
+        if (deletedAnnouncement.length === 0) {
+            return NextResponse.json({ error: "Announcement not found" }, { status: 404 });
+        }
+
+        return NextResponse.json({ 
+            message: "Announcement deleted successfully",
+            deletedAnnouncement: deletedAnnouncement[0] 
+        }, { status: 200 });
+    } catch (error) {
+        console.error('Error deleting announcement:', error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
 }

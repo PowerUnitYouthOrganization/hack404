@@ -2,24 +2,25 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReactNode } from "react";
 
 interface Announcement {
+  id: number;
   title: string;
   content: string;
-  announcer: string;
-  avatarLink: string;
+  author: string;
+  authorId: string;
+  createdAt: string; // This will be a string in JSON format
+  authorImage: string;
 }
 
 interface AnnouncementContainerProps {
   title: string;
   icon?: ReactNode;
   events: Announcement[];
-  topOffset?: number;
 }
 
 export default function AnnouncementContainer({
   title,
   icon,
   events,
-  topOffset = 218,
 }: AnnouncementContainerProps) {
   return (
     <div className="flex flex-col flex-1 h-full border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
@@ -68,13 +69,13 @@ export default function AnnouncementContainer({
               <div className="flex justify-between items-start self-stretch">
                 <div className="flex items-center gap-2">
                   <Avatar>
-                    <AvatarImage src={event.avatarLink} alt={event.announcer} />
+                    <AvatarImage src={event.authorImage} alt={event.author} />
                     <AvatarFallback>
-                      {event.announcer.charAt(0).toUpperCase()}
+                      {event.author.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <p className="font-light">{`From ${event.announcer}`}</p>
+                <p className="font-light">{`From ${event.author}`}</p>
               </div>
             </div>
           );

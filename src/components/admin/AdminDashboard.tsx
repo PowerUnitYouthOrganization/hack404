@@ -79,9 +79,9 @@ export default function AdminDashboard() {
       try {
         // Fetch all stats in parallel
         const [usersResponse, applicationsResponse, announcementsResponse] = await Promise.all([
-          fetch('/admin/api/total-users'),
+          fetch('/admin/api/users/total'),
           fetch('/admin/api/applications'),
-          fetch('/admin/api/announcements-stats')
+          fetch('/admin/api/announcements/stats')
         ]);
 
         if (usersResponse.ok && applicationsResponse.ok && announcementsResponse.ok) {

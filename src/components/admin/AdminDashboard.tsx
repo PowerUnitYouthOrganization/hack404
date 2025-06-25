@@ -108,20 +108,19 @@ export default function AdminDashboard() {
     };
 
     fetchStats();
-  }, []);
-  return (
-    <div className="container mx-auto px-6 py-8">
+  }, []);  return (
+    <div className="w-full px-2 sm:px-4 md:px-6 py-4 sm:py-8 max-w-none">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-2">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-2">
           Admin Dashboard
         </h1>
-        <p className="text-white/60 text-lg font-light">
+        <p className="text-white/60 text-base sm:text-lg font-light">
           Manage your Hack404 platform
         </p>
       </div>
       {/* Admin Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
         {adminRoutes.map((route) => {
           const IconComponent = route.icon;
           

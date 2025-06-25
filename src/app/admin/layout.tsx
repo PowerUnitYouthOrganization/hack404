@@ -41,11 +41,10 @@ export default async function ProtectedLayout({
     console.log("User is not an admin, redirecting to home page");
     redirect("/");
   }
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background w-full min-w-full overflow-x-auto">
       <AdminHeader />
-      <main>{children}</main>
+      <main className="w-full min-w-full">{children}</main>
     </div>
   );
 }

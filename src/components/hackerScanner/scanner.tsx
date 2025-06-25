@@ -70,22 +70,20 @@ export default function qrScanner() {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [canStartNewScan]);
-
-    return (
-        <div className="container mx-auto px-6 py-8">
+    }, [canStartNewScan]);    return (
+        <div className="w-full px-2 sm:px-4 md:px-6 py-4 sm:py-8 max-w-none">
             {/* Header */}
-            <div className="mb-8">
-                <h1 className="text-4xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-2">
+            <div className="mb-6 sm:mb-8">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-2">
                     Hacker Scanner
                 </h1>
-                <p className="text-white/60 text-lg font-light">
+                <p className="text-white/60 text-sm sm:text-base md:text-lg font-light">
                     Scan QR codes and manage user actions efficiently
                 </p>
             </div>
 
             {/* Scanner Card */}
-            <div className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px] p-6">
+            <div className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px] p-3 sm:p-6">
                 <div className="mb-4 w-full">
                     <Select onValueChange={handleActionSelect}>
                         <SelectTrigger className="w-full">

@@ -36,17 +36,17 @@ export default function AnnouncementContainer({
           // Calculate background opacity based on index
           let bgOpacity;
           if (index === 0) {
-            bgOpacity = "bg-[rgba(255,255,255,0.10)]"; // 10% for first
+            bgOpacity = "bg-[rgba(195,247,58,0.10)]"; // 10% for first
           } else if (index === 1) {
-            bgOpacity = "bg-[rgba(255,255,255,0.05)]"; // 5% for second
+            bgOpacity = "bg-[rgba(195,247,58,0.05)]"; // 5% for second
           } else {
-            bgOpacity = "bg-[rgba(255,255,255,0.02)]"; // 2% for subsequent
+            bgOpacity = "bg-[rgba(195,247,58,0.02)]"; // 2% for subsequent
           }
 
           return (
             <div
               key={index}
-              className={`flex flex-col items-start gap-9 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+              className={`flex flex-col items-start gap-7 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
             >
               {/* Event Header */}
               <div className="flex justify-between items-start self-stretch">
@@ -54,15 +54,6 @@ export default function AnnouncementContainer({
                   <h2 className="font-medium">{event.title}</h2>
                   <p className="font-light text-sm">{event.content}</p>
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="20px"
-                  viewBox="0 -960 960 960"
-                  width="20px"
-                  fill="#e3e3e3"
-                >
-                  <path d="M200-200v-240h80v160h160v80H200Zm480-320v-160H520v-80h240v240h-80Z" />
-                </svg>
               </div>
 
               {/* Event Details */}

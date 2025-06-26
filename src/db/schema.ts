@@ -70,7 +70,7 @@ export const applications = pgTable("application", {
   applicationSubmitted: boolean("applicationSubmitted")
     .notNull()
     .default(false),
-  applicationReviewed: boolean("applicationReviewed").notNull().default(false),
+  accepted: boolean("accepted").notNull().default(false),
   stream: text("stream", { enum: ["beginner", "normal"] }).notNull(),
   shortAnswer1: text("shortAnswer1").notNull(),
   shortAnswer2: text("shortAnswer2").notNull(),
@@ -91,7 +91,9 @@ export const announcements = pgTable("announcements", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   content: text("content").notNull(),
-  authorId: text("authorId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  authorId: text("authorId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   createdAt: timestamp("createdAt", { mode: "date" })
     .notNull()
     .$defaultFn(() => new Date()),
@@ -102,7 +104,9 @@ export const pushSubscriptions = pgTable("pushSubscriptions", {
   endpoint: text("endpoint").notNull(),
   p256dh: text("p256dh").notNull(),
   auth: text("auth").notNull(),
-  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
 });
 
 export const accounts = pgTable(

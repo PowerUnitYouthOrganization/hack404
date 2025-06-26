@@ -16,10 +16,13 @@ interface AgendaEvent {
 }
 
 interface Announcement {
+  id: number;
   title: string;
   content: string;
-  announcer: string;
-  avatarLink: string;
+  author: string;
+  authorId: string;
+  createdAt: string; // This will be a string in JSON format
+  authorImage: string;
 }
 
 /**
@@ -30,6 +33,15 @@ export default function Home() {
   const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
+  const [announcementData, setAnnouncementData] = useState<Announcement[]>([]);
+
+  useEffect(() => {
+    fetch("/api/announcements?limit=20&offset=0")
+      .then((response) => response.json())
+      .then((data: Announcement[]) => {
+        setAnnouncementData(data);
+      });
+  }, []);
 
   useEffect(() => {
     // time until submission deadline or whatever date
@@ -55,12 +67,12 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // import agenda events from json
   const agendaEvents: AgendaEvent[] = eventsData.map((event) => ({
     ...event,
     startTime: new Date(event.startTime),
     endTime: new Date(event.endTime),
   }));
-  const announcements: Announcement[] = [];
 
   return (
     <main className="flex flex-col h-full overflow-hidden gap-6">
@@ -112,7 +124,7 @@ export default function Home() {
               <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
             </svg>
           }
-          events={announcements}
+          events={announcementData}
         />
         <div className="flex flex-col flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
           <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">

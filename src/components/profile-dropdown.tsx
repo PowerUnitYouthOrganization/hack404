@@ -1,14 +1,7 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { handleSignOut } from '@/lib/utils';
-import { auth } from "@/lib/auth";
-
+import { handleSignOut } from "@/lib/utils";
 
 interface ProfileDropdownProps {
   isVisible: boolean;
@@ -17,9 +10,7 @@ interface ProfileDropdownProps {
 
 export default function ProfileDropdown({ isVisible, onClose }: ProfileDropdownProps) {
   const { data: session } = useSession();
-  const router = useRouter();
   const avatarUrl = session?.user?.image || null;
-  const [isResettingProfile, setIsResettingProfile] = useState(false);
 
   // Get user's name parts
   const fullName = session?.user?.name || "";
@@ -43,13 +34,11 @@ export default function ProfileDropdown({ isVisible, onClose }: ProfileDropdownP
           <span className="text-white font-medium">
             {firstName} {lastName}
           </span>
-          <span className="text-white/60 text-xs">
-            {session?.user?.email}
-          </span>
+          <span className="text-white/60 text-xs">{session?.user?.email}</span>
         </div>
       </div>
       <div className="border-t border-cyan-400/20 pt-3">
-      {/* TODO: figure out why this is not working */}
+        {/* TODO: figure out why this is not working */}
         <Button
           variant="outline"
           size="sm"

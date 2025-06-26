@@ -127,7 +127,7 @@ const styles = {
     fontWeight: "300",
     fontSize: "22px", // match cyan text size
     lineHeight: "140%",
-    color: "#30f2f2",
+    color: "#30F2F2",
     marginBottom: "32px",
     marginTop: "24px",
   } as CSSProperties,
@@ -137,7 +137,7 @@ const styles = {
     fontSize: "22px", // match cyan text size
     lineHeight: "140%",
     margin: "0 0 32px 0",
-    color: "#30f2f2",
+    color: "#30F2F2",
   } as CSSProperties,
   buttonRow: {
     margin: "32px 0",
@@ -182,7 +182,7 @@ const styles = {
     boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
   } as CSSProperties,
   expires: {
-    color: "#30f2f2",
+    color: "#30F2F2",
     fontFamily: "'DM Sans', Arial, sans-serif",
     fontSize: "22px", // match cyan text size
     margin: "40px 0 0 0",
@@ -224,7 +224,7 @@ const styles = {
     fontWeight: "300",
     fontSize: "20px",
     letterSpacing: "-0.6px",
-    color: "#30f2f2",
+    color: "#30F2F2",
     textDecoration: "none",
   } as CSSProperties,
 };

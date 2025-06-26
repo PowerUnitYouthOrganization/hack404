@@ -7,17 +7,21 @@ import {
   Home,
   LogOut,
   User,
-  ChevronRight
+  ChevronRight,
+  Megaphone,
+  FileText,
+  BarChart3,
+  Cog
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { handleSignOut } from '@/lib/utils';
 const adminNavItems = [
   { href: '/admin', label: 'Dashboard', icon: Home },
-  { href: '/admin/announcements', label: 'Announcements' },
-  { href: '/admin/users', label: 'Users' },
-  { href: '/admin/applications', label: 'Applications' },
-  { href: '/admin/analytics', label: 'Analytics' },
-  { href: '/admin/settings', label: 'Settings' },
+  { href: '/admin/announcements', label: 'Announcements', icon: Megaphone },
+  { href: '/admin/users', label: 'Users', icon: User },
+  { href: '/admin/applications', label: 'Applications', icon: FileText },
+  { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/admin/settings', label: 'Settings', icon: Cog },
 ];
 
 export default function AdminHeader() {
@@ -41,40 +45,39 @@ export default function AdminHeader() {
   };
 
   const breadcrumb = generateBreadcrumb();
-
   return (
-    <header className="bg-[rgba(48,242,242,0.05)] border-b border-cyan-400/20 backdrop-blur-[25px] sticky top-0 z-50">
-      <div className="container mx-auto px-6">
+    <header className="bg-[rgba(48,242,242,0.05)] border-b border-cyan-400/20 backdrop-blur-[25px] sticky top-0 z-50 w-full min-w-full">
+      <div className="w-full px-2 sm:px-4 md:px-6 max-w-none">
         {/* Top Bar */}
-        <div className="flex items-center justify-between py-4">
-          {/* Logo and Title */}
-          <div className="flex items-center gap-4">
-            <Link href="/admin" className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-md bg-[rgba(48,242,242,0.20)] flex items-center justify-center">
-                <Home className="w-5 h-5 text-cyan-300" />
-              </div>
-              <span className="text-xl font-normal font-['FH_Lecturis_Rounded'] text-white">
-                Hack404 Admin
+        <div className="flex items-center justify-between py-2 sm:py-4 min-w-0">          {/* Logo and Title */}
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-shrink-0">
+            <Link href="/admin" className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md bg-[rgba(48,242,242,0.20)] flex items-center justify-center flex-shrink-0">
+                <Home className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-300" />
+              </div>              <span className="text-lg sm:text-xl font-normal font-['FH_Lecturis_Rounded'] text-white truncate">
+                <span className="hidden sm:inline">Hack404 </span>Admin
               </span>
             </Link>
           </div>
 
           {/* User Info and Actions */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-white/80">
-              <User className="w-4 h-4" />
-              <span className="text-sm font-light">
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-4 min-w-0">
+            <div className="hidden sm:flex items-center gap-2 text-white/80 min-w-0">
+              <User className="w-4 h-4 flex-shrink-0" />
+              <span className="text-sm font-light truncate">
                 {session?.user?.name || 'Admin'}
               </span>
             </div>
             
-            <Link href="/">
+            <Link href="/" className="">
               <Button 
                 variant="outline"
                 size="sm"
-                className="text-white border-cyan-400/30 hover:bg-[rgba(48,242,242,0.10)] hover:border-cyan-400/50"
+                className="text-white border-cyan-400/30 hover:bg-[rgba(48,242,242,0.10)] hover:border-cyan-400/50 text-xs sm:text-sm px-2 sm:px-3"
               >
-                View Site
+                {/* Return Icon */}
+                <Home className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+                <span className="inline">View Site</span>
               </Button>
             </Link>
             
@@ -82,21 +85,19 @@ export default function AdminHeader() {
               variant="outline"
               size="sm"
               onClick={handleSignOut}
-              className="text-white border-cyan-400/30 hover:bg-[rgba(48,242,242,0.10)] hover:border-cyan-400/50"
+              className="text-white border-cyan-400/30 hover:bg-[rgba(48,242,242,0.10)] hover:border-cyan-400/50 text-xs sm:text-sm px-2 sm:px-3"
             >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
+              <LogOut className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+              <span className="inline">Sign Out</span>
             </Button>
           </div>
-        </div>
-
-        {/* Breadcrumb Navigation */}
+        </div>        {/* Breadcrumb Navigation */}
         {breadcrumb.length > 1 && (
-          <div className="flex items-center gap-2 pb-4 text-sm">
+          <div className="flex items-center gap-1 sm:gap-2 pb-2 sm:pb-4 text-xs sm:text-sm overflow-x-auto">
             {breadcrumb.map((item, index) => (
-              <div key={item.href} className="flex items-center gap-2">
+              <div key={item.href} className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                 {index > 0 && (
-                  <ChevronRight className="w-4 h-4 text-white/40" />
+                  <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 text-white/40" />
                 )}
                 <Link 
                   href={item.href}
@@ -104,7 +105,7 @@ export default function AdminHeader() {
                     index === breadcrumb.length - 1 
                       ? 'text-cyan-300 font-medium' 
                       : 'text-white/60 hover:text-white/80'
-                  } transition-colors`}
+                  } transition-colors whitespace-nowrap`}
                 >
                   {item.label}
                 </Link>
@@ -114,22 +115,21 @@ export default function AdminHeader() {
         )}
 
         {/* Navigation Tabs */}
-        <nav className="flex gap-1 pb-4">
+        <nav className="flex gap-0 sm:gap-1 pb-2 sm:pb-4 overflow-x-auto">
           {adminNavItems.map((item) => {
             const isActive = pathname === item.href;
             const IconComponent = item.icon;
             
             return (
-              <Link key={item.href} href={item.href}>
+              <Link key={item.href} href={item.href} className="flex-shrink-0">
                 <button
-                  className={`flex items-center gap-2 px-4 py-2 rounded-none text-sm font-light transition-all ${
+                  className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-none text-xs sm:text-sm font-light transition-all whitespace-nowrap ${
                     isActive
                       ? 'bg-[rgba(48,242,242,0.20)] text-cyan-300 border-b-2 border-cyan-300'
                       : 'text-white/70 hover:text-white hover:bg-[rgba(48,242,242,0.10)]'
-                  }`}
-                >
+                  }`}                >
                   {IconComponent && <IconComponent className="w-4 h-4" />}
-                  {item.label}
+                  <span className="hidden sm:inline">{item.label}</span>
                 </button>
               </Link>
             );

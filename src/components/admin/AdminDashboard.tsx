@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { 
   Card, 
   CardContent, 
@@ -9,13 +10,15 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import RoundedButton from '@/components/ui/roundedbutton';
 import { 
   Megaphone,
   Users,
   Settings,
   BarChart3,
   FileText,
-  Shield
+  Shield,
+  QrCode
 } from 'lucide-react';
 
 const adminRoutes = [
@@ -24,59 +27,100 @@ const adminRoutes = [
     description: 'Manage and create announcements for users',
     href: '/admin/announcements',
     icon: Megaphone,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
-    title: 'Users',
+    title: 'HackerScanner',
+    description: 'Scan hackerQR and manage user accounts fast and efficiently',
+    href: '/admin/hackerScanner',
+    icon: QrCode,
+    color: 'var(--color-wcyan)'
+  },
+  {
+    title: 'Comming Soon',
     description: 'View and manage user accounts',
     href: '/admin/users',
     icon: Users,
-    color: '#30F2F2'
+    color: 'var(--color-wcyan)'
   },
   {
-    title: 'Applications',
-    description: 'Review hacker applications',
-    href: '/admin/applications',
-    icon: FileText,
-    color: '#30F2F2'
+    title: 'Comming Soon',
+    description: 'View and manage user accounts',
+    href: '/admin/users2',
+    icon: Users,
+    color: 'var(--color-wcyan)'
   },
   {
-    title: 'Analytics',
-    description: 'View platform statistics and metrics',
-    href: '/admin/analytics',
-    icon: BarChart3,
-    color: '#30F2F2'
+    title: 'Comming Soon',
+    description: 'View and manage user accounts',
+    href: '/admin/users3',
+    icon: Users,
+    color: 'var(--color-wcyan)'
   },
   {
-    title: 'Permissions',
-    description: 'Manage admin roles and permissions',
-    href: '/admin/permissions',
-    icon: Shield,
-    color: '#30F2F2'
+    title: 'Comming Soon',
+    description: 'View and manage user accounts',
+    href: '/admin/users4',
+    icon: Users,
+    color: 'var(--color-wcyan)'
   },
-  {
-    title: 'Settings',
-    description: 'Configure platform settings',
-    href: '/admin/settings',
-    icon: Settings,
-    color: '#30F2F2'
-  }
 ];
 
 export default function AdminDashboard() {
-  return (
-    <div className="container mx-auto px-6 py-8">
+  const [stats, setStats] = useState({
+    totalUsers: '--',
+    totalApplications: '--',
+    totalAnnouncements: '--',
+    isLoading: true
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // Fetch all stats in parallel
+        const [usersResponse, applicationsResponse, announcementsResponse] = await Promise.all([
+          fetch('/admin/api/users/total'),
+          fetch('/admin/api/applications'),
+          fetch('/admin/api/announcements/stats')
+        ]);
+
+        if (usersResponse.ok && applicationsResponse.ok && announcementsResponse.ok) {
+          const [usersData, applicationsData, announcementsData] = await Promise.all([
+            usersResponse.json(),
+            applicationsResponse.json(),
+            announcementsResponse.json()
+          ]);
+
+          setStats({
+            totalUsers: usersData.totalUsers || 0,
+            totalApplications: applicationsData.totalApplications || 0,
+            totalAnnouncements: announcementsData.totalAnnouncements || 0,
+            isLoading: false
+          });
+        } else {
+          console.error('Failed to fetch admin statistics');
+          setStats(prev => ({ ...prev, isLoading: false }));
+        }
+      } catch (error) {
+        console.error('Error fetching admin statistics:', error);
+        setStats(prev => ({ ...prev, isLoading: false }));
+      }
+    };
+
+    fetchStats();
+  }, []);  return (
+    <div className="w-full px-2 sm:px-4 md:px-6 py-4 sm:py-8 max-w-none">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-2">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-2">
           Admin Dashboard
         </h1>
-        <p className="text-white/60 text-lg font-light">
+        <p className="text-white/60 text-base sm:text-lg font-light">
           Manage your Hack404 platform
         </p>
       </div>
       {/* Admin Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
         {adminRoutes.map((route) => {
           const IconComponent = route.icon;
           
@@ -97,31 +141,14 @@ export default function AdminDashboard() {
                 <CardDescription className="text-white/60 text-sm font-light">
                   {route.description}
                 </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-0">
+              </CardHeader>              <CardContent className="pt-0">
                 <Link href={route.href}>
-                  <div className="flex p-1 items-center gap-1 rounded-[100px] bg-[rgba(48,242,242,0.20)] backdrop-blur-[25px] h-12 hover:bg-[rgba(48,242,242,0.30)] transition-all duration-200">
-                    <button
-                      type="button"
-                      className="h-10 flex pr-3 py-2 pl-4 justify-center items-center gap-2 text-[14px] rounded-[100px] font-light cursor-pointer text-black transition-all hover:brightness-110 w-full"
-                      style={{ backgroundColor: route.color }}
-                    >
-                      Access {route.title}
-                      <svg
-                        className="w-4 h-4 text-black"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                  <RoundedButton
+                    type="button"
+                    color={route.color}
+                  >
+                    Access {route.title}
+                  </RoundedButton>
                 </Link>
               </CardContent>
             </Card>
@@ -132,23 +159,28 @@ export default function AdminDashboard() {
       <div className="mt-12">
         <h2 className="text-2xl font-normal font-['FH_Lecturis_Rounded'] text-white mb-6">
           Quick Overview
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        </h2>        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px]">
             <CardContent className="p-6 text-center">
-              <div className="text-2xl font-bold text-cyan-300 mb-1">--</div>
+              <div className="text-2xl font-bold text-cyan-300 mb-1">
+                {stats.isLoading ? '--' : stats.totalUsers}
+              </div>
               <div className="text-white/60 text-sm">Total Users</div>
             </CardContent>
           </Card>
           <Card className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px]">
             <CardContent className="p-6 text-center">
-              <div className="text-2xl font-bold text-cyan-300 mb-1">--</div>
+              <div className="text-2xl font-bold text-cyan-300 mb-1">
+                {stats.isLoading ? '--' : stats.totalApplications}
+              </div>
               <div className="text-white/60 text-sm">Applications</div>
             </CardContent>
           </Card>
           <Card className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px]">
             <CardContent className="p-6 text-center">
-              <div className="text-2xl font-bold text-cyan-300 mb-1">--</div>
+              <div className="text-2xl font-bold text-cyan-300 mb-1">
+                {stats.isLoading ? '--' : stats.totalAnnouncements}
+              </div>
               <div className="text-white/60 text-sm">Announcements</div>
             </CardContent>
           </Card>

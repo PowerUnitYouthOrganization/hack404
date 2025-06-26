@@ -101,7 +101,7 @@ void main() {
     float t = (noise + 1.0) * 0.5;
 
     vec3 color1 = vec3(0.369, 0.290, 0.890); // #5e4ae3 blue
-    vec3 color2 = vec3(0.188, 0.949, 0.949); // #30f2f2 cyan
+    vec3 color2 = vec3(0.188, 0.949, 0.949); // var(--color-wcyan) cyan
     vec3 color3 = vec3(0.765, 0.969, 0.227); // #c3f73a lime
 
     // color blending

@@ -28,7 +28,7 @@ export default function ThankYouPage() {
           </p>
           <Link href="/launchpad" className="inline-block mt-4 md:mt-8">
             <RoundedButton
-              color="#30F2F2"
+              color="var(--color-wcyan)"
               type="submit"
               className="text-black px-8 py-3 rounded-[100px] font-medium text-lg transition-all duration-200 flex items-center gap-2"
             >

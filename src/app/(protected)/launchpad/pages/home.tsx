@@ -6,6 +6,7 @@ import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import { useSession } from "next-auth/react";
 import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
+import { PAGINATION_LIMIT } from "@/lib/config";
 
 // could probably be moved to json or something
 interface AgendaEvent {
@@ -31,6 +32,8 @@ interface AnnouncementResponse {
   hasMore: boolean;
 }
 
+
+
 /**
  * This component serves as the main layout for the hacker dashboard page.
  * @returns Launchpad component
@@ -44,7 +47,7 @@ export default function Home() {
   const [hasMoreAnnouncements, setHasMoreAnnouncements] = useState<boolean>(true);
   const [isLoadingAnnouncements, setIsLoadingAnnouncements] = useState<boolean>(false);
   useEffect(() => {
-    fetch("/api/announcements?limit=5")
+    fetch(`/api/announcements?limit=${PAGINATION_LIMIT}`)
       .then((response) => response.json())
       .then((data: AnnouncementResponse) => {
         setAnnouncementData(data.data);
@@ -59,7 +62,7 @@ export default function Home() {
     setIsLoadingAnnouncements(true);
     try {
       const response = await fetch(
-        `/api/announcements?limit=20&cursor=${nextCursor}`,
+        `/api/announcements?limit=${PAGINATION_LIMIT}&cursor=${nextCursor}`,
       );
       const data: AnnouncementResponse = await response.json();
 

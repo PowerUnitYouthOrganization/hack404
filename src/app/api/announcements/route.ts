@@ -11,10 +11,10 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const limit = searchParams.get("limit");
   const cursor = searchParams.get("cursor");
-  const limitNumber = parseInt(limit || "10", 10) || 50;
+  const limitNumber = parseInt(limit || "10") || 50;
 
-  // Ensure minimum values
-  const safeLimitNumber = Math.max(limitNumber, 1);
+  // Ensure minimum and maximum values
+  const safeLimitNumber = Math.min(Math.max(limitNumber, 1), 20);
 
   // Build the base query
   const baseQuery = db

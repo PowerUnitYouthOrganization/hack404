@@ -25,6 +25,12 @@ interface Announcement {
   authorImage: string;
 }
 
+interface AnnouncementResponse {
+  data: Announcement[];
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
 /**
  * This component serves as the main layout for the hacker dashboard page.
  * @returns Launchpad component
@@ -34,14 +40,38 @@ export default function Home() {
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
   const [announcementData, setAnnouncementData] = useState<Announcement[]>([]);
-
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [hasMoreAnnouncements, setHasMoreAnnouncements] = useState<boolean>(true);
+  const [isLoadingAnnouncements, setIsLoadingAnnouncements] = useState<boolean>(false);
   useEffect(() => {
-    fetch("/api/announcements?limit=20&offset=0")
+    fetch("/api/announcements?limit=5")
       .then((response) => response.json())
-      .then((data: Announcement[]) => {
-        setAnnouncementData(data);
+      .then((data: AnnouncementResponse) => {
+        setAnnouncementData(data.data);
+        setNextCursor(data.nextCursor);
+        setHasMoreAnnouncements(data.hasMore);
       });
   }, []);
+
+  const loadMoreAnnouncements = async () => {
+    if (!nextCursor || isLoadingAnnouncements) return;
+
+    setIsLoadingAnnouncements(true);
+    try {
+      const response = await fetch(
+        `/api/announcements?limit=20&cursor=${nextCursor}`,
+      );
+      const data: AnnouncementResponse = await response.json();
+
+      setAnnouncementData((prev) => [...prev, ...data.data]);
+      setNextCursor(data.nextCursor);
+      setHasMoreAnnouncements(data.hasMore);
+    } catch (error) {
+      console.error("Failed to load more announcements:", error);
+    } finally {
+      setIsLoadingAnnouncements(false);
+    }
+  };
 
   useEffect(() => {
     // time until submission deadline or whatever date
@@ -60,7 +90,12 @@ export default function Home() {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         setTimeLeft(
-          `${days.toString().padStart(2, "0")}d ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`,
+          `${days.toString().padStart(2, "0")}d ${hours.toString().padStart(
+            2,
+            "0",
+          )}h ${minutes.toString().padStart(2, "0")}m ${seconds
+            .toString()
+            .padStart(2, "0")}s`,
         );
       }
     }, 1000);
@@ -110,8 +145,7 @@ export default function Home() {
             </svg>
           }
           events={agendaEvents}
-        />
-        <AnnouncementContainer
+        />        <AnnouncementContainer
           title="Announcements"
           icon={
             <svg
@@ -125,6 +159,9 @@ export default function Home() {
             </svg>
           }
           events={announcementData}
+          onLoadMore={loadMoreAnnouncements}
+          hasMore={hasMoreAnnouncements}
+          isLoading={isLoadingAnnouncements}
         />
         <div className="flex flex-col flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
           <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">
@@ -135,7 +172,7 @@ export default function Home() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="20px"
-                viewBox="0 -960 960 960"
+                viewBox="http://www.w3.org/2000/svg"
                 width="20px"
                 fill="#e3e3e3"
               >

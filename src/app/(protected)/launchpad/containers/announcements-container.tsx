@@ -15,12 +15,18 @@ interface AnnouncementContainerProps {
   title: string;
   icon?: ReactNode;
   events: Announcement[];
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+  isLoading?: boolean;
 }
 
 export default function AnnouncementContainer({
   title,
   icon,
   events,
+  onLoadMore,
+  hasMore = false,
+  isLoading = false,
 }: AnnouncementContainerProps) {
   return (
     <div className="flex flex-col flex-1 h-full border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
@@ -70,12 +76,23 @@ export default function AnnouncementContainer({
               </div>
             </div>
           );
-        })}
-
-        {/* No events message */}
-        {events.length === 0 && (
+        })}        {/* No events message */}
+        {events.length === 0 && !isLoading && (
           <div className="flex items-center justify-center flex-1 self-stretch">
             <p className="">No announcements</p>
+          </div>
+        )}
+
+        {/* Load More Button */}
+        {hasMore && onLoadMore && (
+          <div className="flex items-center justify-center self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] last:border-b-0">
+            <button
+              onClick={onLoadMore}
+              disabled={isLoading}
+              className="px-4 py-2 bg-[rgba(48,242,242,0.1)] border border-[rgba(48,242,242,0.3)] rounded text-white font-light hover:bg-[rgba(48,242,242,0.2)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
           </div>
         )}
       </div>

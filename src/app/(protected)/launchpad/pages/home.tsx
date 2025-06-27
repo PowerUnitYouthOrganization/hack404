@@ -6,6 +6,8 @@ import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
 import { useSession } from "next-auth/react";
 import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
+import { PAGINATION_LIMIT } from "@/lib/config";
+import useSWRInfinite from "swr/infinite";
 
 // could probably be moved to json or something
 interface AgendaEvent {
@@ -25,6 +27,29 @@ interface Announcement {
   authorImage: string;
 }
 
+interface AnnouncementResponse {
+  data: Announcement[];
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+const getKey = (
+  pageIndex: number,
+  previousPageData: AnnouncementResponse | null,
+) => {
+  // reached the end
+  if (previousPageData && !previousPageData.hasMore) return null;
+
+  // first page, we don't have `previousPageData`
+  if (pageIndex === 0) return `/api/announcements?limit=${PAGINATION_LIMIT}`;
+
+  // add the cursor to the API endpoint
+  if (!previousPageData?.nextCursor) return null;
+  return `/api/announcements?limit=${PAGINATION_LIMIT}&cursor=${previousPageData.nextCursor}`;
+};
+
 /**
  * This component serves as the main layout for the hacker dashboard page.
  * @returns Launchpad component
@@ -33,15 +58,29 @@ export default function Home() {
   const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
-  const [announcementData, setAnnouncementData] = useState<Announcement[]>([]);
+  const {
+    data: announcementPages,
+    size,
+    setSize,
+    isValidating,
+  } = useSWRInfinite<AnnouncementResponse>(getKey, fetcher, {
+    refreshInterval: 5000, // Refresh every 5 seconds for live-ish updates
+    revalidateFirstPage: false,
+  });
 
-  useEffect(() => {
-    fetch("/api/announcements?limit=20&offset=0")
-      .then((response) => response.json())
-      .then((data: Announcement[]) => {
-        setAnnouncementData(data);
-      });
-  }, []);
+  const announcementData: Announcement[] = announcementPages
+    ? announcementPages.flatMap((page) => page.data)
+    : [];
+  const isLoadingAnnouncements = isValidating;
+  const hasMoreAnnouncements = announcementPages
+    ? announcementPages[announcementPages.length - 1]?.hasMore ?? false
+    : true;
+
+  const loadMoreAnnouncements = () => {
+    if (!isLoadingAnnouncements) {
+      setSize(size + 1);
+    }
+  };
 
   useEffect(() => {
     // time until submission deadline or whatever date
@@ -60,7 +99,12 @@ export default function Home() {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         setTimeLeft(
-          `${days.toString().padStart(2, "0")}d ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`,
+          `${days.toString().padStart(2, "0")}d ${hours.toString().padStart(
+            2,
+            "0",
+          )}h ${minutes.toString().padStart(2, "0")}m ${seconds
+            .toString()
+            .padStart(2, "0")}s`,
         );
       }
     }, 1000);
@@ -102,7 +146,7 @@ export default function Home() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="20px"
-              viewBox="0 -960 960 960"
+              viewBox="http://www.w3.org/2000/svg"
               width="20px"
               fill="#e3e3e3"
             >
@@ -110,14 +154,13 @@ export default function Home() {
             </svg>
           }
           events={agendaEvents}
-        />
-        <AnnouncementContainer
+        />        <AnnouncementContainer
           title="Announcements"
           icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="20px"
-              viewBox="0 -960 960 960"
+              viewBox="http://www.w3.org/2000/svg"
               width="20px"
               fill="#e3e3e3"
             >
@@ -125,6 +168,9 @@ export default function Home() {
             </svg>
           }
           events={announcementData}
+          onLoadMore={loadMoreAnnouncements}
+          hasMore={hasMoreAnnouncements}
+          isLoading={isLoadingAnnouncements}
         />
         <div className="flex flex-col flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
           <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">
@@ -135,7 +181,7 @@ export default function Home() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="20px"
-                viewBox="0 -960 960 960"
+                viewBox="http://www.w3.org/2000/svg"
                 width="20px"
                 fill="#e3e3e3"
               >

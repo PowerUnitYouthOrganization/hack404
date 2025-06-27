@@ -52,8 +52,10 @@ export default function NotificationHandler() {
           return;
         }
         
-        // Show dialog first before registering service worker
-        setShowPermissionDialog(true);
+        if (Notification.permission !== 'granted') {
+          // Show permission dialog if not already granted
+          setShowPermissionDialog(true);
+        }
       }
     } else if (status === 'authenticated' && permissionAsked) {
       // Only proceed with service worker registration if user didn't decline

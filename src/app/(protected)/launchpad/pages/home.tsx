@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
 import { PAGINATION_LIMIT } from "@/lib/config";
+import useSWRInfinite from "swr/infinite";
 
 // could probably be moved to json or something
 interface AgendaEvent {
@@ -32,7 +33,22 @@ interface AnnouncementResponse {
   hasMore: boolean;
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+const getKey = (
+  pageIndex: number,
+  previousPageData: AnnouncementResponse | null,
+) => {
+  // reached the end
+  if (previousPageData && !previousPageData.hasMore) return null;
+
+  // first page, we don't have `previousPageData`
+  if (pageIndex === 0) return `/api/announcements?limit=${PAGINATION_LIMIT}`;
+
+  // add the cursor to the API endpoint
+  if (!previousPageData?.nextCursor) return null;
+  return `/api/announcements?limit=${PAGINATION_LIMIT}&cursor=${previousPageData.nextCursor}`;
+};
 
 /**
  * This component serves as the main layout for the hacker dashboard page.
@@ -42,37 +58,27 @@ export default function Home() {
   const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
-  const [announcementData, setAnnouncementData] = useState<Announcement[]>([]);
-  const [nextCursor, setNextCursor] = useState<string | null>(null);
-  const [hasMoreAnnouncements, setHasMoreAnnouncements] = useState<boolean>(true);
-  const [isLoadingAnnouncements, setIsLoadingAnnouncements] = useState<boolean>(false);
-  useEffect(() => {
-    fetch(`/api/announcements?limit=${PAGINATION_LIMIT}`)
-      .then((response) => response.json())
-      .then((data: AnnouncementResponse) => {
-        setAnnouncementData(data.data);
-        setNextCursor(data.nextCursor);
-        setHasMoreAnnouncements(data.hasMore);
-      });
-  }, []);
+  const {
+    data: announcementPages,
+    size,
+    setSize,
+    isValidating,
+  } = useSWRInfinite<AnnouncementResponse>(getKey, fetcher, {
+    refreshInterval: 5000, // Refresh every 5 seconds for live-ish updates
+    revalidateFirstPage: false,
+  });
 
-  const loadMoreAnnouncements = async () => {
-    if (!nextCursor || isLoadingAnnouncements) return;
+  const announcementData: Announcement[] = announcementPages
+    ? announcementPages.flatMap((page) => page.data)
+    : [];
+  const isLoadingAnnouncements = isValidating;
+  const hasMoreAnnouncements = announcementPages
+    ? announcementPages[announcementPages.length - 1]?.hasMore ?? false
+    : true;
 
-    setIsLoadingAnnouncements(true);
-    try {
-      const response = await fetch(
-        `/api/announcements?limit=${PAGINATION_LIMIT}&cursor=${nextCursor}`,
-      );
-      const data: AnnouncementResponse = await response.json();
-
-      setAnnouncementData((prev) => [...prev, ...data.data]);
-      setNextCursor(data.nextCursor);
-      setHasMoreAnnouncements(data.hasMore);
-    } catch (error) {
-      console.error("Failed to load more announcements:", error);
-    } finally {
-      setIsLoadingAnnouncements(false);
+  const loadMoreAnnouncements = () => {
+    if (!isLoadingAnnouncements) {
+      setSize(size + 1);
     }
   };
 
@@ -140,7 +146,7 @@ export default function Home() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="20px"
-              viewBox="0 -960 960 960"
+              viewBox="http://www.w3.org/2000/svg"
               width="20px"
               fill="#e3e3e3"
             >
@@ -154,7 +160,7 @@ export default function Home() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="20px"
-              viewBox="0 -960 960 960"
+              viewBox="http://www.w3.org/2000/svg"
               width="20px"
               fill="#e3e3e3"
             >

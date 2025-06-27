@@ -76,7 +76,13 @@ export default function AnnouncementContainer({
               </div>
             </div>
           );
-        })}        {/* No events message */}
+        })}
+        {isLoading && events.length === 0 && (
+          <div className="flex items-center justify-center flex-1 self-stretch">
+            <p className="">Loading announcements...</p>
+          </div>
+        )}
+        {/* No events message */}
         {events.length === 0 && !isLoading && (
           <div className="flex items-center justify-center flex-1 self-stretch">
             <p className="">No announcements</p>

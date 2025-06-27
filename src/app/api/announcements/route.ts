@@ -7,6 +7,8 @@ import { desc, eq, lt } from "drizzle-orm";
 // /api/announcements?limit=10
 // /api/announcements?limit=5&cursor=2023-12-01T10:30:00.000Z
 
+export const revalidate = 5;
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const limit = searchParams.get("limit");

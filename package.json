@@ -48,6 +48,7 @@
     "react-qr-code": "^2.0.15",
     "resend": "^4.5.1",
     "sonner": "^2.0.3",
+    "swr": "^2.3.3",
     "tailwind-merge": "^3.3.0",
     "three": "^0.176.0",
     "ts-node": "^10.9.2",

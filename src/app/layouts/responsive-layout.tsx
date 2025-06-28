@@ -100,7 +100,11 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   offset="1.5rem"
                   className="hidden tablet:flex"
                 >
-                  Downtown Toronto <br />
+                  Myhal Centre for Engineering Innovation and Entrepreneurship
+                  <br />
+                  55 St George St
+                  <br />
+                  Toronto, Ontario
                 </ColSection>
                 <ColSection width={1} offset="1.5rem" />
                 <ColSection width={1} offset="1.5rem" />

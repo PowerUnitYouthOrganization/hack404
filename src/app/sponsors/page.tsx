@@ -32,9 +32,13 @@ const SponsorsPage: FC = () => {
         {/* Main Content */}
         <div className="desktop:pl-[64px] flex flex-1 flex-col items-start pl-6 text-left text-white">
           <div className="w-full">
-            {/* Partners Title Section */}
-            <div className="py-[70px]">
+            {/* Partners Title and Socials Section */}
+            <div className="py-[70px] flex justify-between items-center w-full">
               <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">Partners</h1>
+              <div className="flex items-center gap-8">
+                <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+                <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
+              </div>
             </div>
 
             <HBorder />
@@ -51,6 +55,8 @@ const SponsorsPage: FC = () => {
             </div>
 
             <HBorder />
+
+
 
             {/* Sponsors Title Section */}
             <div className="py-[70px]">
@@ -99,20 +105,11 @@ const SponsorsPage: FC = () => {
             <HBorder />
 
             {/* Contact Section */}
-            <div className="py-[70px] grid grid-cols-2 gap-8">
-              <div>
-                <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">Contact</h2>
-                <div className="text-2xl font-(family-name:--font-heading-light) gradient-text leading-relaxed">
-                  <p>emma.xing@power-unit.org</p>
-                  <p>another_email@powerunit.org</p>
-                  <p>perhaps(000)000-0000</p>
-                </div>
-              </div>
-              <div>
-                <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">Link to our socials</h2>
-                <div className="flex gap-6">
-                  <InstagramButton url="https://www.instagram.com/hack404.dev/" />
-                  <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
+            <div className="py-[70px] flex flex-col items-start gap-8">
+              <div className="flex flex-col items-start gap-8">
+                <h2 className="font-(family-name:--font-heading) text-6xl leading-[1.1]">Contact</h2>
+                <div className="text-4xl font-(family-name:--font-heading-light) gradient-text leading-relaxed">
+                  <p>support@hack404.dev</p>
                 </div>
               </div>
             </div>

@@ -99,7 +99,7 @@ const SponsorsPage: FC = () => {
             <HBorder />
 
             {/* Contact Section */}
-            <div className="grid grid-cols-2 gap-8 mt-16">
+            <div className="py-[70px] grid grid-cols-2 gap-8">
               <div>
                 <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">Contact</h2>
                 <div className="text-2xl font-(family-name:--font-heading-light) gradient-text leading-relaxed">

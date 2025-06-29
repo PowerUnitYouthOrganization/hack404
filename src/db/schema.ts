@@ -11,7 +11,9 @@ import {
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import type { AdapterAccountType } from "next-auth/adapters";
-import { InferSelectModel } from "drizzle-orm";
+import { InferSelectModel, sql } from "drizzle-orm";
+import { table } from "console";
+import { check } from "drizzle-orm/gel-core";
 
 const pool = postgres(process.env.DATABASE_URL!, {
   max: 1,
@@ -36,7 +38,12 @@ export const users = pgTable("user", {
   lastName: text("lastName"),
   stream: text("stream", { enum: ["beginner", "normal"] }),
   isadmin: boolean("isadmin").notNull().default(false),
-});
+  microhackscomplete: integer("microhackscomplete").notNull().default(0)
+  },
+  (table) => [
+    check("microhackscomplete", sql`${table.microhackscomplete} >= 0`),
+  ]
+);
 
 // Profile info
 export const profiles = pgTable("profile", {

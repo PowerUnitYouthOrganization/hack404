@@ -14,13 +14,20 @@ export async function GET(req: NextRequest) {
 
     // Get user ID from session
     const user = await db
-      .select({ id: users.id })
+      .select({ id: users.id, isAdmin: users.isadmin })
       .from(users)
       .where(eq(users.email, session.user.email))
       .limit(1);
 
     if (!user.length) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    if (user[0].isAdmin) {
+      return NextResponse.json({
+        applied: true,
+        accepted: true,
+      });
     }
 
     const userId = user[0].id;
@@ -53,7 +60,7 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json({
-      applied: true,
+      applied: false,
       accepted: false,
     });
   } catch (error) {

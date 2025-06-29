@@ -28,7 +28,11 @@ export default function Launchpad() {
           if (data.accepted) {
             setActiveTab("home");
           } else {
-            setActiveTab("rejected");
+            if (data.applied) {
+              setActiveTab("rejected");
+            } else {
+              setActiveTab("unapplied");
+            }
           }
         } else {
           console.error("Failed to fetch acceptance status");
@@ -49,7 +53,7 @@ export default function Launchpad() {
         {/* Master container that stretches to 24px from bottom */}
         <div className="flex flex-col h-[calc(100vh-24px)] tablet:h-[calc(100dvh-24px)] gap-3">
           <div className="flex-shrink-0">
-            {activeTab !== "rejected" && (
+            {activeTab !== "rejected" && activeTab !== "unapplied" && (
               <LaunchpadHeader
                 activeTab={activeTab}
                 tabChangeAction={setActiveTab}

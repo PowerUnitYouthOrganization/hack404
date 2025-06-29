@@ -34,11 +34,26 @@ export async function GET(req: NextRequest) {
 
     if (accepted.length > 0) {
       return NextResponse.json({
+        applied: true,
         accepted: true,
       });
     }
 
+    const applied = await db
+      .select()
+      .from(applications)
+      .where(eq(applications.userId, userId))
+      .limit(1);
+
+    if (applied.length > 0) {
+      return NextResponse.json({
+        applied: true,
+        accepted: false,
+      });
+    }
+
     return NextResponse.json({
+      applied: true,
       accepted: false,
     });
   } catch (error) {

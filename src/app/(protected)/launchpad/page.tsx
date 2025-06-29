@@ -9,6 +9,7 @@ import GradientBackgroundStatic from "@/components/gradient-background-static";
 import Home from "./pages/home";
 import Agenda from "./pages/agenda";
 import Rejected from "./pages/rejected";
+import Unapplied from "./pages/unapplied";
 
 /**
  * This component serves as the main layout for the hacker dashboard page.
@@ -60,6 +61,7 @@ export default function Launchpad() {
             {activeTab === "home" && <Home />}
             {activeTab === "agenda" && <Agenda />}
             {activeTab === "rejected" && <Rejected />}
+            {activeTab === "unapplied" && <Unapplied />}
           </div>
 
           <div className="flex-shrink-0">

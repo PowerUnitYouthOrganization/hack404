@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 export const metadata = {
   title: "Hack404",
   description:
-    "Hack404 is a Toronto-based hackathon launching Summer 2025. Join the waitlist and be part of the innovation.",
+    "Hack404 is a Toronto-based hackathon open to students of all skill levels.",
   keywords: [
     "hackathon",
     "coding",
@@ -30,12 +30,13 @@ export const metadata = {
     "hack404",
     "toronto hackathons",
     "2025 hackathons",
+    "july 2025",
   ],
   authors: [{ name: "Hack404 Team" }],
   openGraph: {
     title: "Hack404",
     description:
-      "Hack404 is a Toronto-based hackathon launching Summer 2025. Join the waitlist and be part of the innovation.",
+      "Hack404 is a Toronto-based hackathon open to students of all skill levels.",
     url: "https://hack404.dev",
     siteName: "Hack404",
     images: [

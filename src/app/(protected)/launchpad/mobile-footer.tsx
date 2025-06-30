@@ -48,9 +48,9 @@ export default function MobileFooter({
   const navItems = [
     { label: "Home", value: "home", icon: Home },
     { label: "Agenda", value: "agenda", icon: Calendar },
-    { label: "Mentor", value: "mentor", icon: Users },
-    { label: "Resources", value: "resources", icon: BookOpen },
-    { label: "Map", value: "map", icon: Map },
+    // { label: "Mentor", value: "mentor", icon: Users },
+    // { label: "Resources", value: "resources", icon: BookOpen },
+    // { label: "Map", value: "map", icon: Map },
   ];
 
   return (

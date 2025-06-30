@@ -112,11 +112,13 @@ export default function CalendarGrid({
   const days = ["Day 1 - Friday", "Day 2 - Saturday", "Day 3 - Sunday"];
 
   return (
-    <div className="flex flex-col flex-1 h-full min-w-[66vw] border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
+    <div className="hidden tablet:flex flex-col flex-1 h-full min-w-[66vw] border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>
-        <p className="font-light text-wcyan"></p>
+        <p className="font-light text-wcyan">
+          Hacking lasts from Friday 9:00PM to Sunday 9:00AM
+        </p>
         {icon && <div className="text-white h-5 w-5">{icon}</div>}
       </div>
 

@@ -116,9 +116,7 @@ export default function CalendarGrid({
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>
-        <p className="font-light text-wcyan">
-          Sleeping accomodations open at 12AM and close at 12PM
-        </p>
+        <p className="font-light text-wcyan"></p>
         {icon && <div className="text-white h-5 w-5">{icon}</div>}
       </div>
 

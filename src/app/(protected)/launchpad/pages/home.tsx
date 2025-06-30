@@ -8,6 +8,8 @@ import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
 import { PAGINATION_LIMIT } from "@/lib/config";
 import useSWRInfinite from "swr/infinite";
+import RoundedButton from "@/components/ui/roundedbutton";
+import { ExternalLink } from "lucide-react";
 
 // could probably be moved to json or something
 interface AgendaEvent {
@@ -73,7 +75,7 @@ export default function Home() {
     : [];
   const isLoadingAnnouncements = isValidating;
   const hasMoreAnnouncements = announcementPages
-    ? announcementPages[announcementPages.length - 1]?.hasMore ?? false
+    ? (announcementPages[announcementPages.length - 1]?.hasMore ?? false)
     : true;
 
   const loadMoreAnnouncements = () => {
@@ -84,12 +86,12 @@ export default function Home() {
 
   useEffect(() => {
     // time until submission deadline or whatever date
-    const targetDate = new Date("2025-06-21T00:00:00");
+    const targetDate = new Date("2025-07-06T10:00:00");
     const interval = setInterval(() => {
       const now = new Date();
       const diff = targetDate.getTime() - now.getTime();
       if (diff <= 0) {
-        setTimeLeft("00d 00h 00m 00s");
+        setTimeLeft("00d 00h 00m 00s"); // Or "00h 00m 00s" if no days remaining
         clearInterval(interval);
       } else {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -98,14 +100,16 @@ export default function Home() {
         );
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        setTimeLeft(
-          `${days.toString().padStart(2, "0")}d ${hours.toString().padStart(
-            2,
-            "0",
-          )}h ${minutes.toString().padStart(2, "0")}m ${seconds
-            .toString()
-            .padStart(2, "0")}s`,
-        );
+
+        let timeLeftString = "";
+        if (days > 0) {
+          timeLeftString = `${days.toString().padStart(2, "0")}d `;
+        }
+        timeLeftString += `${hours.toString().padStart(2, "0")}h ${minutes
+          .toString()
+          .padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
+
+        setTimeLeft(timeLeftString);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -120,8 +124,28 @@ export default function Home() {
 
   return (
     <main className="flex flex-col h-full overflow-hidden gap-6">
-      <div className="flex px-9 justify-between items-end flex-shrink-0 py-4">
-        <div className="flex flex-col justify-center items-start">
+      <div className="tablet:hidden self-stretch p-6 bg-neutral-900/20 border-t border-b border-cyan-400/20 inline-flex justify-between items-center">
+        <div className="inline-flex flex-col justify-start items-start">
+          <h1 className="text-2xl leading-normal font-(family-name:--font-heading-light)">
+            {timeLeft}
+          </h1>
+          <sub className="text-center justify-start text-cyan-400 text-sm font-light font-['DM_Sans']">
+            until submission deadline
+          </sub>
+        </div>
+        <RoundedButton
+          color={"var(--color-wcyan)"}
+          className="text-black w-full"
+          onClick={() => {
+            window.open("https://devpost.com/hack404", "_blank"); // Link to an external Devpost page
+          }}
+        >
+          <p>Details</p>
+          <ExternalLink className="w-5 h-5" />
+        </RoundedButton>
+      </div>
+      <div className="flex flex-col tablet:flex-row px-4 tablet:px-9 justify-between items-center tablet:items-end flex-shrink-0 py-4 gap-4">
+        <div className="flex flex-col justify-center items-center tablet:items-start">
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
             Hello {firstName}!
           </h1>
@@ -129,7 +153,7 @@ export default function Home() {
             Welcome to Hack404
           </sub>
         </div>
-        <div className="flex flex-col justify-center items-end">
+        <div className="hidden tablet:flex tablet:flex-col tablet:justify-center tablet:items-end">
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading-light)">
             {timeLeft}
           </h1>
@@ -139,7 +163,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex px-2 items-start gap-2 flex-1 overflow-hidden border border-[rgba(48,242,242,0.2)]">
+      <div className="flex flex-col tablet:flex-row tablet:px-2 px-0 items-stretch tablet:items-start gap-2 flex-1 overflow-y-auto tablet:overflow-hidden border-t border-b tablet:border-x border-[rgba(48,242,242,0.2)]">
         <AgendaContainer
           title="Agenda"
           icon={
@@ -154,7 +178,8 @@ export default function Home() {
             </svg>
           }
           events={agendaEvents}
-        />        <AnnouncementContainer
+        />
+        <AnnouncementContainer
           title="Announcements"
           icon={
             <svg
@@ -172,7 +197,7 @@ export default function Home() {
           hasMore={hasMoreAnnouncements}
           isLoading={isLoadingAnnouncements}
         />
-        <div className="flex flex-col flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
+        <div className="hidden tablet:flex flex-col tablet:flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
           <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">
             <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
               <h1 className="flex-1 text-white font-light">
@@ -202,8 +227,6 @@ export default function Home() {
               <div className="flex justify-between items-end self-stretch"></div>
             </div>
           </div>
-
-          <Leaderboard />
         </div>
       </div>
     </main>

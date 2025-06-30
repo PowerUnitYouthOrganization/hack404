@@ -20,8 +20,10 @@ export default async function ProtectedLayout({
   }
 
   console.log("Authenticated as user:", session.user?.email);
-  return <>
-    <NotificationHandler />
-    {children}
-  </>;
+  return (
+    <div className="scrollbar-none">
+      <NotificationHandler />
+      {children}
+    </div>
+  );
 }

@@ -88,7 +88,7 @@ export default function LaunchpadHeader({
   return (
     <header className="flex flex-col gap-3 w-full">
       {/* Desktop Layout */}
-      <div className="hidden md:grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
+      <div className="hidden tablet:grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
         <div className="flex px-3 items-center gap-5 flex-1 self-stretch row-[1/2] col-[1/2]">
           <Link href="/">
             <Image
@@ -128,7 +128,9 @@ export default function LaunchpadHeader({
         </div>
         {/* profile and qr code buttons */}
         <div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4] relative">
-          <div ref={profileRef} className="relative">            <RoundedButton
+          <div ref={profileRef} className="relative">
+            {" "}
+            <RoundedButton
               color="rgba(48,242,242,0.20)"
               className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"
               onClick={() => {
@@ -144,11 +146,10 @@ export default function LaunchpadHeader({
                 </AvatarFallback>
               </Avatar>
             </RoundedButton>
-
             {/* Profile dropdown card */}
-            <ProfileDropdown 
-              isVisible={showProfileCard} 
-              onClose={() => setShowProfileCard(false)} 
+            <ProfileDropdown
+              isVisible={showProfileCard}
+              onClose={() => setShowProfileCard(false)}
             />
           </div>
 
@@ -207,7 +208,7 @@ export default function LaunchpadHeader({
       </div>
 
       {/* Mobile Layout */}
-      <div className="md:hidden flex justify-between items-center">
+      <div className="tablet:hidden flex justify-between items-center p-6">
         <div className="flex items-center gap-5">
           <Link href="/">
             <Image
@@ -225,13 +226,21 @@ export default function LaunchpadHeader({
           </Link>
         </div>
 
-        <div ref={profileRef} className="relative">          <RoundedButton
+        <div ref={profileRef} className="relative">
+          {" "}
+          <RoundedButton
             color="rgba(48,242,242,0.20)"
             className="flex self-stretch text-wcyan gap-3 pl-3 pr-2 text-sm"
             onClick={() => {
-              console.log("Mobile Profile button clicked, current showProfileCard:", showProfileCard);
+              console.log(
+                "Mobile Profile button clicked, current showProfileCard:",
+                showProfileCard,
+              );
               setShowProfileCard(!showProfileCard);
-              console.log("Mobile Setting showProfileCard to:", !showProfileCard);
+              console.log(
+                "Mobile Setting showProfileCard to:",
+                !showProfileCard,
+              );
             }}
           >
             Profile
@@ -240,13 +249,13 @@ export default function LaunchpadHeader({
               <AvatarFallback className="bg-wblack/20 text-white text-xs">
                 {firstName.charAt(0)}
                 {lastName.charAt(0)}
-              </AvatarFallback>            </Avatar>
+              </AvatarFallback>{" "}
+            </Avatar>
           </RoundedButton>
-
           {/* Profile dropdown card */}
-          <ProfileDropdown 
-            isVisible={showProfileCard} 
-            onClose={() => setShowProfileCard(false)} 
+          <ProfileDropdown
+            isVisible={showProfileCard}
+            onClose={() => setShowProfileCard(false)}
           />
         </div>
       </div>

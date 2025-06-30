@@ -51,7 +51,7 @@ export default function Launchpad() {
         <GradientBackgroundStatic />
 
         {/* Master container that stretches to 24px from bottom */}
-        <div className="flex flex-col h-[calc(100vh-24px)] tablet:h-[calc(100dvh-24px)] gap-3">
+        <div className="flex flex-col tablet:h-[calc(100dvh-24px)] tablet:gap-3">
           <div className="flex-shrink-0">
             {activeTab !== "rejected" && activeTab !== "unapplied" && (
               <LaunchpadHeader

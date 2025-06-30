@@ -1,18 +1,49 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { FC } from 'react'
-import Grid from "@/components/grid"
-import Header from "@/components/header"
-import SmallHeader from "@/components/small-header"
-import HBorder from "@/components/h-border"
-import { InstagramButton, LinkedInButton } from "@/components/social-button"
+import { FC } from "react";
+import Grid from "@/components/grid";
+import Header from "@/components/header";
+import SmallHeader from "@/components/small-header";
+import HBorder from "@/components/h-border";
+import ColSection from "@/components/col-section";
+import { GridColWidthProvider } from "@/app/contexts/GridCtx";
+import { InstagramButton, LinkedInButton } from "@/components/social-button";
+import SponsorSection from "@/components/SponsorSection";
+
+const partners = [
+  {
+    name: "UTMIST",
+    description:
+      "UTMIST is Canada's largest student-lead organization for Artificial Intelligence and Machine Learning. ",
+    imageUrl: "utmist.png",
+  },
+];
+
+const sponsors = [
+  {
+    name: "CGI",
+    description:
+      "CGI is one of the largest IT and business consulting services firms in the world. Combining human ingenuity with the power of technology, we help clients accelerate ROI-led digital transformation.",
+    imageUrl: "cgi.png",
+  },
+  {
+    name: "Vitasoy",
+    description:
+      "Vitasoy is a company that produces and sells plant-based products, such as soy, oat and tea drinks, for health and environmental benefits.",
+    imageUrl: "vitasoy.png",
+  },
+  {
+    name: "The Remington Group",
+    description:
+      "The Remington Group is a real estate developer that builds and operates a vast portfolio of residential, retail and commercial properties across Ontario.",
+    imageUrl: "remington.png",
+  },
+];
 
 const SponsorsPage: FC = () => {
   return (
-    <div className="relative">
-      <div className="relative flex min-h-screen flex-col">
+    <GridColWidthProvider>
+      <div className="min-h-screen flex flex-col">
         {/* Header */}
         <div className="desktop:block hidden">
           <Header />
@@ -29,95 +60,99 @@ const SponsorsPage: FC = () => {
 
         <HBorder />
 
-        {/* Main Content */}
-        <div className="desktop:pl-[64px] flex flex-1 flex-col items-start pl-6 text-left text-white">
-          <div className="w-full">
-            {/* Partners Title and Socials Section */}
-            <div className="py-[70px] flex justify-between items-center w-full">
-              <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">Partners</h1>
-              <div className="flex items-center gap-8">
+        {/* Partners Title Section */}
+        <div className="py-[70px] px-6 tablet:px-16 flex justify-between items-center w-full">
+          <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+            Partners
+          </h1>
+        </div>
+
+        {partners.map((partner) => (
+          <div key={partner.name}>
+            <HBorder />
+            <SponsorSection
+              name={partner.name}
+              description={partner.description}
+              imageUrl={partner.imageUrl}
+            />
+          </div>
+        ))}
+
+        <HBorder />
+
+        {/* Sponsors Title Section */}
+        <div className="py-[70px] px-6 tablet:px-16 flex justify-between items-center w-full">
+          <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+            Sponsors
+          </h1>
+        </div>
+
+        {sponsors.map((sponsor) => (
+          <div key={sponsor.name}>
+            <HBorder />
+            <SponsorSection
+              name={sponsor.name}
+              description={sponsor.description}
+              imageUrl={sponsor.imageUrl}
+            />
+          </div>
+        ))}
+
+        <HBorder />
+
+        {/* Contact Section */}
+
+        {/* Desktop & Tablet Layout */}
+        <div className="hidden tablet:flex px-16 py-[70px] items-center justify-between gap-6">
+          <ColSection width={2}>
+            <div className="flex flex-col items-start gap-6">
+              <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                Contact
+              </h1>
+              <a
+                href="mailto:support@hack404.dev"
+                className="text-3xl font-(family-name:--font-heading-light) gradient-text leading-loose hover:opacity-80 transition-opacity"
+              >
+                support@hack404.dev
+              </a>
+            </div>
+          </ColSection>
+          <ColSection width={2}>
+            <div className="flex flex-col items-start gap-6">
+              <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">
+                Link to our socials
+              </h1>
+              <div className="flex gap-6">
                 <InstagramButton url="https://www.instagram.com/hack404.dev/" />
                 <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
               </div>
             </div>
+          </ColSection>
+        </div>
 
-            <HBorder />
+        {/* Mobile Layout */}
+        <div className="tablet:hidden px-6 py-[70px]">
+          <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+            Contact
+          </h2>
+          <a
+            href="mailto:support@hack404.dev"
+            className="text-2xl font-(family-name:--font-heading-light) gradient-text leading-relaxed hover:opacity-80 transition-opacity block mb-8"
+          >
+            support@hack404.dev
+          </a>
 
-            {/* UTMIST Section */}
-            <div className="py-[70px]">
-              <h2 className="font-(family-name:--font-heading-light) text-4xl leading-relaxed mb-4">UTMIST</h2>
-              <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed text-gray-400 mb-4">Sponsor description can go here</p>
-              <div className="h-64 bg-black/30 flex items-center justify-center rounded-lg">
-                <div className="w-96 h-24 bg-black/20 flex items-center justify-center">
-                  [UTMIST Logo Placeholder]
-                </div>
-              </div>
-            </div>
-
-            <HBorder />
-
-
-
-            {/* Sponsors Title Section */}
-            <div className="py-[70px]">
-              <h1 className="font-(family-name:--font-heading) text-5xl leading-[52.80px]">Sponsors</h1>
-            </div>
-
-            <HBorder />
-
-            {/* CGI Section */}
-            <div className="py-[70px]">
-              <h2 className="font-(family-name:--font-heading-light) text-4xl leading-relaxed mb-4">CGI</h2>
-              <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed text-gray-400 mb-4">Sponsor description can go here</p>
-              <div className="h-64 bg-black/30 flex items-center justify-center rounded-lg">
-                <div className="w-96 h-24 bg-black/20 flex items-center justify-center">
-                  [CGI Logo Placeholder]
-                </div>
-              </div>
-            </div>
-
-            <HBorder />
-
-            {/* Vitasoy Section */}
-            <div className="py-[70px]">
-              <h2 className="font-(family-name:--font-heading-light) text-4xl leading-relaxed mb-4">Vitasoy</h2>
-              <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed text-gray-400 mb-4">Sponsor description can go here</p>
-              <div className="h-64 bg-black/30 flex items-center justify-center rounded-lg">
-                <div className="w-96 h-24 bg-black/20 flex items-center justify-center">
-                  [Vitasoy Logo Placeholder]
-                </div>
-              </div>
-            </div>
-
-            <HBorder />
-
-            {/* The Remington Group Section */}
-            <div className="py-[70px]">
-              <h2 className="font-(family-name:--font-heading-light) text-4xl leading-relaxed mb-4">The Remington Group</h2>
-              <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed text-gray-400 mb-4">Sponsor description can go here</p>
-              <div className="h-64 bg-black/30 flex items-center justify-center rounded-lg">
-                <div className="w-96 h-24 bg-black/20 flex items-center justify-center">
-                  [Remington Group Logo Placeholder]
-                </div>
-              </div>
-            </div>
-
-            <HBorder />
-
-            {/* Contact Section */}
-            <div className="py-[70px] flex flex-col items-start gap-8">
-              <div className="flex flex-col items-start gap-8">
-                <h2 className="font-(family-name:--font-heading) text-6xl leading-[1.1]">Contact</h2>
-                <div className="text-4xl font-(family-name:--font-heading-light) gradient-text leading-relaxed">
-                  <p>support@hack404.dev</p>
-                </div>
-              </div>
-            </div>
+          <h2 className="font-(family-name:--font-heading) text-5xl leading-[52.80px] mb-6">
+            Link to our socials
+          </h2>
+          <div className="flex gap-6">
+            <InstagramButton url="https://www.instagram.com/hack404.dev/" />
+            <LinkedInButton url="https://www.linkedin.com/company/hack404/" />
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </GridColWidthProvider>
+  );
+};
 
-export default SponsorsPage
+export default SponsorsPage;

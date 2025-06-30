@@ -70,16 +70,29 @@ export default function Agenda() {
     endTime: new Date(event.endTime),
   }));
 
-  const fullEvents: AgendaEvent[] = [...calendarEvents, ...agendaEvents].sort(
+  const combinedEvents = [...calendarEvents, ...agendaEvents];
+  const seenEventKeys = new Set<string>();
+  const uniqueFullEvents: AgendaEvent[] = [];
+
+  for (const event of combinedEvents) {
+    // Create a unique key for each event to check for duplicates
+    // Using a combination of key properties that should uniquely identify an event
+    const key = `${event.name}|${event.startTime.getTime()}|${event.endTime.getTime()}|${event.roomNumber}|${event.day}`;
+
+    if (!seenEventKeys.has(key)) {
+      seenEventKeys.add(key);
+      uniqueFullEvents.push(event);
+    }
+  }
+
+  const fullEvents: AgendaEvent[] = uniqueFullEvents.sort(
     (a, b) => a.startTime.getTime() - b.startTime.getTime(),
   );
 
   return (
-    <main className="flex flex-col h-full overflow-hidden ">
-      <div className="flex tablet:px-2 h-[calc(100dvh-24px)] items-start gap-2 flex-1 overflow-hidden border border-[rgba(48,242,242,0.2)] ">
-        <div className="hidden tablet:block">
-          <CalendarGrid title="Event Calendar" events={calendarEvents} />
-        </div>
+    <main className="flex flex-col h-full overflow-hidden">
+      <div className="flex px-2 items-start gap-2 flex-1 overflow-hidden border border-[rgba(48,242,242,0.2)]">
+        <CalendarGrid title="Event Calendar" events={calendarEvents} />
         <AgendaContainer
           title="Your Events"
           events={fullEvents}

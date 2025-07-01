@@ -7,7 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { QrCode } from "lucide-react";
+import { QrCode, Home, Calendar, Map } from "lucide-react";
 import QRCode from "react-qr-code";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -78,9 +78,9 @@ export default function LaunchpadHeader({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   const navItems = [
-    { label: "Home", value: "home" },
-    { label: "Agenda", value: "agenda" },
-    { label: "Map", value: "map" },
+    { label: "Home", value: "home", icon: <Home size={16} /> },
+    { label: "Agenda", value: "agenda", icon: <Calendar size={16} /> },
+    { label: "Map", value: "map", icon: <Map size={16} /> },
     // { label: "Mentor", value: "mentor" },
     // { label: "Resources", value: "resources" },
     // { label: "Map", value: "map" }
@@ -121,7 +121,9 @@ export default function LaunchpadHeader({
                     : "launchpad-inactive"
                 }
                 onClick={() => tabChangeAction(item.value)}
+                className="flex items-center gap-2"
               >
+                {item.icon} {/* icon for each nav item */}
                 {item.label}
               </Button>
             ))}

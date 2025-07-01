@@ -1,7 +1,7 @@
 // Takes a user ID and returns the user data
 import { NextRequest, NextResponse } from "next/server";
 import { db, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { verifyAdminAccess } from "@/lib/admin-auth";
 import { UserActions } from "./actions";
 
@@ -64,17 +64,20 @@ export async function PUT(
       );
     }
 
-    const data = await request.json();
+    // Set the "checkedIn" column to true for the specified user
+    const result = await db
+      .update(users)
+      .set({ checkedin: true })
+      .where(and(eq(users.id, userId), eq(users.rsvp, true)));
 
-    if (data.action in UserActions) {
-      await UserActions[data.action as keyof typeof UserActions](userId);
-    } else {
-      return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    if (!result.length) {
+      // It's possible the user ID didn't match any records
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "Action completed successfully" });
+    return NextResponse.json({ message: "User checked in successfully" });
   } catch (error) {
-    console.error("Error processing user action:", error);
+    console.error("Error checking in user:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

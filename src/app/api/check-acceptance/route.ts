@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
       .where(eq(applications.userId, userId))
       .limit(1);
 
-    if (accepted.length > 0) {
+    if (accepted[0].accepted) {
       return NextResponse.json({
         applied: true,
         accepted: true,

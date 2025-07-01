@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifyAdminAccess } from "@/lib/admin-auth";
-import { UserActions } from "./actions";
+import { type UserAction, UserActions } from "./actions";
 
 export async function GET(
   request: NextRequest,
@@ -64,15 +64,30 @@ export async function PUT(
       );
     }
 
-    const data = await request.json();
+    const body = await request.json();
+    const action = body.action as UserAction;
 
-    if (data.action in UserActions) {
-      await UserActions[data.action as keyof typeof UserActions](userId);
-    } else {
-      return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    if (!action || !(action in UserActions)) {
+      return NextResponse.json(
+        { error: "Invalid action provided" },
+        { status: 400 },
+      );
     }
 
-    return NextResponse.json({ message: "Action completed successfully" });
+    await UserActions[action](userId);
+
+    // Fetch the updated user data to return to the client
+    const updatedUser = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+
+    if (!updatedUser.length) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedUser[0]);
   } catch (error) {
     console.error("Error processing user action:", error);
     return NextResponse.json(

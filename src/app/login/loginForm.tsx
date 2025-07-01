@@ -107,9 +107,7 @@ export default function LoginForm() {
                 Launchpad
               </p>
             </div>
-            <p className="justify-start text-white text-base font-extralight font-['DM_Sans']">
-              Applications close June 25
-            </p>
+            <p className="justify-start text-white text-base font-extralight font-['DM_Sans']"></p>
           </div>
           <div className="flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col gap-5 tablet:justify-between items-start overflow-hidden">
             <div className="self-stretch flex flex-col justify-start items-start gap-12">

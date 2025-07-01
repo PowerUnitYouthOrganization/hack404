@@ -37,8 +37,10 @@ export default function qrScanner() {
     useHackerScanner();
   const [canStartNewScan, setCanStartNewScan] = useState(true);
   const [selectedAction, setSelectedAction] = useState<UserAction | null>(null);
+  const [scanError, setScanError] = useState<string | null>(null);
 
   const handleStartNewScan = () => {
+    setScanError(null);
     setIsScanning(true);
     setCanStartNewScan(false);
   };
@@ -128,7 +130,18 @@ export default function qrScanner() {
                   ? lastUser.firstName?.trim() + " " + lastUser.lastName?.trim()
                   : "..."}
               </b>
+              <br />
+              Email: {lastUser ? lastUser.email?.trim() : "..."}
+              <br />
+              Stream: {lastUser ? lastUser.stream?.trim() : "..."}
+              <br />
+              Meal status: {lastUser ? (lastUser.meal ? "Yes" : "No") : "..."}
             </p>
+            {scanError && (
+              <p className="my-2 rounded-md bg-red-900 p-3 font-semibold text-red-400">
+                {scanError}
+              </p>
+            )}
             <p className="text-sm text-white/60">
               Tap anywhere or press any key to start scanning
             </p>
@@ -170,6 +183,7 @@ export default function qrScanner() {
                       error instanceof Error
                         ? error.message
                         : "An unknown error occurred";
+                    setScanError(errorMessage);
                     toast.error(`Scan failed: ${errorMessage}`);
                   } finally {
                     setCanStartNewScan(true);

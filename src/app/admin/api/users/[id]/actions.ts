@@ -1,6 +1,13 @@
 import { db, users, applications } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 
+export class UserActionError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UserActionError";
+  }
+}
+
 async function makeAdmin(userId: string) {
   console.log(`Making user ${userId} an admin`);
   const result = await db
@@ -17,15 +24,15 @@ async function checkinUser(userId: string) {
   const [userStatus] = await db
     .select({
       rsvp: users.rsvp,
-      accepted: applications.accepted,
     })
     .from(users)
-    .leftJoin(applications, eq(users.id, applications.userId))
     .where(eq(users.id, userId));
 
-  // Only tick the checkin box if both RSVP and application acceptance are true
-  if (userStatus && userStatus.rsvp && userStatus.accepted) {
+  // Only tick the checkin box if RSVP is true
+  if (userStatus && userStatus.rsvp) {
     await db.update(users).set({ checkedin: true }).where(eq(users.id, userId));
+  } else {
+    throw new UserActionError("User has not RSVPed");
   }
 }
 

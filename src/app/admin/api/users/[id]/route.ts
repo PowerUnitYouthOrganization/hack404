@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifyAdminAccess } from "@/lib/admin-auth";
-import { type UserAction, UserActions } from "./actions";
+import { type UserAction, UserActions, UserActionError } from "./actions";
 
 export async function GET(
   request: NextRequest,
@@ -90,6 +90,9 @@ export async function PUT(
     return NextResponse.json(updatedUser[0]);
   } catch (error) {
     console.error("Error processing user action:", error);
+    if (error instanceof UserActionError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

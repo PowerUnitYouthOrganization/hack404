@@ -51,25 +51,27 @@ export default function qrScanner() {
     }
   };
 
-  const performUserAction = async (userId: string, action: UserAction) => {
-    try {
-      const response = await fetch(`/admin/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ action }),
-      });
+  const performScanAction = async (
+    userId: string,
+    action: UserAction | null,
+  ) => {
+    const requestOptions: RequestInit = action
+      ? {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action }),
+        }
+      : { method: "GET" };
 
-      if (response.ok) {
-        toast.success(`${action} completed successfully`);
-      } else {
-        toast.error(`Failed to perform ${action}`);
-      }
-    } catch (error) {
-      console.error("Error performing action:", error);
-      toast.error(`Error performing ${action}`);
+    const response = await fetch(`/admin/api/users/${userId}`, requestOptions);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.error || `Request failed with status ${response.status}`,
+      );
     }
+    return response.json();
   };
 
   useEffect(() => {
@@ -141,29 +143,37 @@ export default function qrScanner() {
         ) : (
           <div className="w-full flex flex-col items-center">
             <Scanner
-              onScan={(detectedCodes) => {
+              onScan={async (detectedCodes) => {
                 if (detectedCodes.length > 0 && isScanning) {
-                  const result = detectedCodes[0].rawValue;
-                  // API call to fetch user data
-                  fetch(`/admin/api/users/${result}`)
-                    .then((res) => res.json())
-                    .then((data: InferSelectModel<typeof users>) => {
-                      toast.success(`User found: ${data.name}`);
-                      setLastUser(data);
+                  const userId = detectedCodes[0].rawValue;
+                  setIsScanning(false); // Stop scanning immediately
 
-                      // Perform action if one is selected
-                      if (selectedAction) {
-                        performUserAction(result, selectedAction);
-                      }
+                  try {
+                    const userData: InferSelectModel<typeof users> =
+                      await performScanAction(userId, selectedAction);
+                    setLastUser(userData);
 
-                      setCanStartNewScan(true);
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                      toast.error("Error fetching user data");
-                      setCanStartNewScan(true);
-                    });
-                  setIsScanning(false);
+                    const userName = `${userData.firstName?.trim() || ""} ${
+                      userData.lastName?.trim() || ""
+                    }`.trim();
+
+                    if (selectedAction) {
+                      toast.success(
+                        `'${selectedAction}' completed for ${userName}`,
+                      );
+                    } else {
+                      toast.success(`User found: ${userName}`);
+                    }
+                  } catch (error) {
+                    console.error("Scan error:", error);
+                    const errorMessage =
+                      error instanceof Error
+                        ? error.message
+                        : "An unknown error occurred";
+                    toast.error(`Scan failed: ${errorMessage}`);
+                  } finally {
+                    setCanStartNewScan(true);
+                  }
                 }
               }}
               onError={(error) => {

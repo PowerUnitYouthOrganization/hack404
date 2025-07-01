@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import GradientBackgroundStatic from "@/components/gradient-background-static";
 import Home from "./pages/home";
 import Agenda from "./pages/agenda";
+import Map from "./pages/map";
 import Rejected from "./pages/rejected";
 import Unapplied from "./pages/unapplied";
 
@@ -64,6 +65,7 @@ export default function Launchpad() {
           <div className="flex-1 overflow-hidden">
             {activeTab === "home" && <Home />}
             {activeTab === "agenda" && <Agenda />}
+            {activeTab === "map" && <Map />}
             {activeTab === "rejected" && <Rejected />}
             {activeTab === "unapplied" && <Unapplied />}
           </div>

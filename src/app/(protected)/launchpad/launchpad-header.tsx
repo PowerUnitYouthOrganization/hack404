@@ -80,6 +80,7 @@ export default function LaunchpadHeader({
   const navItems = [
     { label: "Home", value: "home" },
     { label: "Agenda", value: "agenda" },
+    { label: "Map", value: "map" },
     // { label: "Mentor", value: "mentor" },
     // { label: "Resources", value: "resources" },
     // { label: "Map", value: "map" }

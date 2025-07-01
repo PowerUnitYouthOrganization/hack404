@@ -133,6 +133,8 @@ export default function qrScanner() {
               <br />
               Email: {lastUser ? lastUser.email?.trim() : "..."}
               <br />
+              Stream: {lastUser ? lastUser.stream?.trim() : "..."}
+              <br />
               Meal status: {lastUser ? (lastUser.meal ? "Yes" : "No") : "..."}
             </p>
             {scanError && (

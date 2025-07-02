@@ -26,11 +26,11 @@ export default function SideMenu({ open, onClose }: SideMenuProps) {
             {/* This is the key container */}
             <div className="flex w-full flex-1 flex-col items-start justify-between p-[48px_24px]">
               <div className="z-10 flex flex-col gap-6 text-left text-2xl text-white">
-                <a href="#about-us" onClick={onClose}>
+                <a href="https://hack404.dev/#about-us" onClick={onClose}>
                   About us
                 </a>
                 <a href="https://www.instagram.com/hack404.dev/">Instagram</a>
-                <a href="Hack404 Sponsorship Package.pdf">Sponsor us</a>
+                <a href="/sponsors">Sponsors</a>
                 <a href="https://power-unit.org">PUYO</a>
               </div>
 

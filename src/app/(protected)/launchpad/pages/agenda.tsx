@@ -58,19 +58,34 @@ export default function Agenda() {
 
   // Combine general events with user-specific events for calendar
   const userEvents = getEventsForUser();
-  const combinedEventsData = [...eventsData, ...userEvents];
-  const calendarEvents: AgendaEvent[] = combinedEventsData.map((event) => ({
+
+  // Create a Set to track unique events and avoid duplicates
+  const eventSet = new Set();
+  const uniqueEvents = [];
+
+  // Add events from each source, checking for duplicates
+  for (const event of [...eventsData, ...openEventsData, ...userEvents]) {
+    const eventKey = `${event.name}-${event.startTime}-${event.endTime}-${event.roomNumber}`;
+    if (!eventSet.has(eventKey)) {
+      eventSet.add(eventKey);
+      uniqueEvents.push(event);
+    }
+  }
+
+  const calendarEvents: AgendaEvent[] = uniqueEvents.map((event) => ({
     ...event,
     startTime: new Date(event.startTime),
     endTime: new Date(event.endTime),
   }));
 
   // Import events from appropriate JSON file for agenda container based on user stream
-  const agendaEvents: AgendaEvent[] = getEventsForUser().map((event) => ({
-    ...event,
-    startTime: new Date(event.startTime),
-    endTime: new Date(event.endTime),
-  }));
+  const agendaEvents: AgendaEvent[] = getEventsForUser()
+    .map((event) => ({
+      ...event,
+      startTime: new Date(event.startTime),
+      endTime: new Date(event.endTime),
+    }))
+    .sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
 
   return (
     <main className="flex flex-col h-full overflow-hidden">

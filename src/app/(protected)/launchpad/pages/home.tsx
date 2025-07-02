@@ -67,7 +67,7 @@ export default function Home() {
     isValidating,
   } = useSWRInfinite<AnnouncementResponse>(getKey, fetcher, {
     refreshInterval: 5000, // Refresh every 5 seconds for live-ish updates
-    revalidateFirstPage: false,
+    revalidateFirstPage: true,
   });
 
   const announcementData: Announcement[] = announcementPages

@@ -7,6 +7,13 @@
     "day": 1
   },
   {
+    "name": "Sponsor Booth",
+    "startTime": "2025-07-04T17:00:00",
+    "endTime": "2025-07-04T18:30:00",
+    "roomNumber": "TBA",
+    "day": 1
+  },
+  {
     "name": "Opening Ceremony",
     "startTime": "2025-07-04T19:00:00",
     "endTime": "2025-07-04T20:00:00",
@@ -21,7 +28,7 @@
     "day": 1
   },
   {
-    "name": "Last to Remain Sitting with Hack the 6ix",
+    "name": "Musical Chairs with Hack the 6ix",
     "startTime": "2025-07-04T20:30:00",
     "endTime": "2025-07-05T21:30:00",
     "roomNumber": "TBA",
@@ -93,7 +100,7 @@
   {
     "name": "Judging",
     "startTime": "2025-07-06T10:00:00",
-    "endTime": "2025-07-06T11:30:00",
+    "endTime": "2025-07-06T12:30:00",
     "roomNumber": "TBA",
     "day": 3
   },
@@ -106,8 +113,8 @@
   },
   {
     "name": "Closing Ceremonies",
-    "startTime": "2025-07-06T14:00:00",
-    "endTime": "2025-07-06T14:30:00",
+    "startTime": "2025-07-06T13:00:00",
+    "endTime": "2025-07-06T14:00:00",
     "roomNumber": "TBA",
     "day": 3
   }

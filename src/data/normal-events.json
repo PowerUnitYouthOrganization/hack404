@@ -1,5 +1,12 @@
 [
   {
+    "name": "Team Formation",
+    "startTime": "2025-07-04T20:00:00",
+    "endTime": "2025-07-04T21:00:00",
+    "roomNumber": "TBA",
+    "day": 1
+  },
+  {
     "name": "Careers in IT Consulting",
     "startTime": "2025-07-04T22:00:00",
     "endTime": "2025-07-04T23:00:00",
@@ -24,6 +31,13 @@
     "name": "From Hackathons to Hired",
     "startTime": "2025-07-05T16:00:00",
     "endTime": "2025-07-05T17:00:00",
+    "roomNumber": "TBA",
+    "day": 2
+  },
+  {
+    "name": "Nodalli Workshop",
+    "startTime": "2025-07-05T21:00:00",
+    "endTime": "2025-07-05T22:00:00",
     "roomNumber": "TBA",
     "day": 2
   }

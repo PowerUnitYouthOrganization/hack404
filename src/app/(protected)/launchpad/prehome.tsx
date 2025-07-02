@@ -26,8 +26,8 @@ export default function Prehome() {
     useApplicationStatus();
 
   useEffect(() => {
-    // time until submission deadline or whatever date
-    const targetDate = new Date("2025-06-26T00:00:00");
+    // time until major event
+    const targetDate = new Date("2025-07-06T10:00:00");
     const interval = setInterval(() => {
       const now = new Date();
       const diff = targetDate.getTime() - now.getTime();
@@ -144,7 +144,7 @@ export default function Prehome() {
             {timeLeft}
           </h1>
           <sub className="text-wcyan font-light text-xs tablet:text-sm">
-            until submission deadline
+            until hackathon starts
           </sub>
         </div>
       </div>

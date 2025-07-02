@@ -50,7 +50,7 @@ export default function MobileFooter({
     { label: "Agenda", value: "agenda", icon: Calendar },
     // { label: "Mentor", value: "mentor", icon: Users },
     // { label: "Resources", value: "resources", icon: BookOpen },
-    // { label: "Map", value: "map", icon: Map },
+    { label: "Map", value: "map", icon: Map },
   ];
 
   return (

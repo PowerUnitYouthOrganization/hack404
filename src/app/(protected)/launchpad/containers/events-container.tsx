@@ -60,7 +60,7 @@ export default function AgendaContainer({
   topOffset = 218,
 }: AgendaContainerProps) {
   return (
-    <div className="flex flex-col flex-1 h-full tablet:border-x mobile:border-t mobile:border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
+    <div className="flex flex-col flex-1 h-full border-x mobile:border-t mobile:border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>

@@ -168,7 +168,7 @@ export default function Home() {
 
       <div className="flex flex-col tablet:flex-row tablet:px-2 px-0 items-stretch tablet:items-start gap-2 flex-1 overflow-y-auto tablet:overflow-hidden border-t border-b tablet:border-x border-[rgba(48,242,242,0.2)]">
         <AgendaContainer
-          className="hidden tablet:block"
+          className="hidden tablet:flex"
           title="Agenda"
           icon={
             <svg

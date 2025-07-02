@@ -24,7 +24,7 @@ const sponsors = [
     name: "CGI",
     description:
       "CGI is one of the largest IT and business consulting services firms in the world. Combining human ingenuity with the power of technology, we help clients accelerate ROI-led digital transformation.",
-    imageUrl: "cgi.png",
+    imageUrl: "CGI.png",
   },
   {
     name: "Vitasoy",

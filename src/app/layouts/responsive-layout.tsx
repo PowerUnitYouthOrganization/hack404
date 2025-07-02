@@ -111,7 +111,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 <ColSection width={1}>
                   <p className="text-right">
                     Presented by <br />
-                    Power Unit Youth Organization
+                    Power Unit Youth Organization x UTMIST
                   </p>
                 </ColSection>
               </div>

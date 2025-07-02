@@ -181,3 +181,53 @@ function findPushEventHandler() {
     self.registration.showNotification(`${data.author}: ${data.title}`, options);
   };
 }
+
+
+// Script for mocking push notifications in the browser console
+
+/* 
+
+// Console script to mock a push notification - run this in the browser's DevTools console
+
+(async () => {
+  try {
+    // Check if service worker is registered
+    const registration = await navigator.serviceWorker.ready;
+    
+    if (!registration.active) {
+      console.error('No active service worker found');
+      return;
+    }
+    
+    console.log('Found active service worker, sending mock push...');
+    
+    // Create mock push data
+    const mockPushData = {
+      title: 'Test Notification',
+      author: 'DevTools',
+      content: 'This is a test notification. Click to open the launchpad!',
+    };
+    
+    // Convert data to string
+    const dataStr = JSON.stringify(mockPushData);
+    
+    // Create a MessageChannel for communication
+    const messageChannel = new MessageChannel();
+    
+    // Listen for responses
+    messageChannel.port1.onmessage = (event) => {
+      console.log('Response from service worker:', event.data);
+    };
+    
+    // Send the mock push message to the service worker
+    registration.active.postMessage({
+      type: 'mockPush',
+      data: dataStr
+    }, [messageChannel.port2]);
+    
+  } catch (error) {
+    console.error('Error sending mock push:', error);
+  }
+})();
+
+*/

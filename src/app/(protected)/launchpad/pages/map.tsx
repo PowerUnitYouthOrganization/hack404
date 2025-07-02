@@ -30,7 +30,7 @@ export default function Map() {
         </nav>
       </div>
 
-      <div className="flex-1 border border-[rgba(48,242,242,0.2)] tablet:mx-2 rounded-lg overflow-hidden backdrop-blur-[25px]">
+      <div className="flex-1 grow border border-[rgba(48,242,242,0.2)] tablet:mx-2 rounded-lg overflow-hidden backdrop-blur-[25px] w-full h-full">
         {activeTab === "myhal" && (
           <iframe // Myhal Centre map embed
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2491.7714118906033!2d-79.39918712382281!3d43.6607348711018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b3507c2ae5979%3A0x877d95bac233a7f5!2sMyhal%20Centre%20for%20Engineering%20Innovation%20and%20Entrepreneurship%20(MY)!5e1!3m2!1sen!2sca!4v1751324907357!5m2!1sen!2sca"

@@ -11,6 +11,8 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const userId = session.user.id;
+
     // Get user stream from database
     const user = await db
       .select({ stream: users.stream })
@@ -27,7 +29,7 @@ export async function GET() {
     console.error("Error retrieving user stream:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

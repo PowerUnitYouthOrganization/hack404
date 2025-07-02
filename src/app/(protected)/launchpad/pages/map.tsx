@@ -12,7 +12,9 @@ export default function Map() {
       <div className="flex justify-center">
         <nav className="flex p-1 items-center gap-[4px] rounded-[8px] bg-[rgba(48,242,242,0.20)] backdrop-blur-[25px]">
           <Button
-            variant={activeTab === "myhal" ? "launchpad-active" : "launchpad-inactive"}
+            variant={
+              activeTab === "myhal" ? "launchpad-active" : "launchpad-inactive"
+            }
             onClick={() => setActiveTab("myhal")}
             className="flex items-center gap-2"
           >
@@ -20,7 +22,11 @@ export default function Map() {
             Myhal Centre
           </Button>
           <Button
-            variant={activeTab === "parking" ? "launchpad-active" : "launchpad-inactive"}
+            variant={
+              activeTab === "parking"
+                ? "launchpad-active"
+                : "launchpad-inactive"
+            }
             onClick={() => setActiveTab("parking")}
             className="flex items-center gap-2"
           >

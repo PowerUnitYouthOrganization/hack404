@@ -56,8 +56,10 @@ export default function Agenda() {
     return eventsData;
   };
 
-  // Import events from general events.json for calendar
-  const calendarEvents: AgendaEvent[] = eventsData.map((event) => ({
+  // Combine general events with user-specific events for calendar
+  const userEvents = getEventsForUser();
+  const combinedEventsData = [...eventsData, ...userEvents];
+  const calendarEvents: AgendaEvent[] = combinedEventsData.map((event) => ({
     ...event,
     startTime: new Date(event.startTime),
     endTime: new Date(event.endTime),
@@ -70,32 +72,13 @@ export default function Agenda() {
     endTime: new Date(event.endTime),
   }));
 
-  const combinedEvents = [...calendarEvents, ...agendaEvents];
-  const seenEventKeys = new Set<string>();
-  const uniqueFullEvents: AgendaEvent[] = [];
-
-  for (const event of combinedEvents) {
-    // Create a unique key for each event to check for duplicates
-    // Using a combination of key properties that should uniquely identify an event
-    const key = `${event.name}|${event.startTime.getTime()}|${event.endTime.getTime()}|${event.roomNumber}|${event.day}`;
-
-    if (!seenEventKeys.has(key)) {
-      seenEventKeys.add(key);
-      uniqueFullEvents.push(event);
-    }
-  }
-
-  const fullEvents: AgendaEvent[] = uniqueFullEvents.sort(
-    (a, b) => a.startTime.getTime() - b.startTime.getTime(),
-  );
-
   return (
     <main className="flex flex-col h-full overflow-hidden">
       <div className="flex px-2 items-start gap-2 flex-1 overflow-hidden border border-[rgba(48,242,242,0.2)]">
         <CalendarGrid title="Event Calendar" events={calendarEvents} />
         <AgendaContainer
           title="Your Events"
-          events={fullEvents}
+          events={window.innerWidth < 768 ? calendarEvents : agendaEvents}
           icon={<CalendarDays />}
         />
       </div>

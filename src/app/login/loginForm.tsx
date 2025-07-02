@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { isProfileComplete } from "../utils/profileCompletion";
+
 import { useSession, signIn } from "next-auth/react";
 import SimpleHeader from "@/components/simple-header";
 import RoundedButton from "@/components/ui/roundedbutton";
+import { ArrowRight } from "lucide-react";
 
 /**
  * LoginForm component handles user login via email.
@@ -29,25 +30,26 @@ export default function LoginForm() {
         console.error("Invalid email format");
         return;
       }
-      // Check if email is already registered
-      // if we never find a reason to use this, just delete it lol
-      const emailResponse = await fetch(
-        `/api/email-exists?email=${encodeURIComponent(email)}`,
-      );
-      console.log(emailResponse);
-      const data = await emailResponse.json();
 
-      if (!data.exists) console.log("New email, register: ", email);
-      else console.log("Existing email, login: ", email);
-
-      if (session?.user?.email) {
-        isProfileComplete(session.user.email).then((profileDone) => {
-          if (profileDone) {
-            window.location.href = "/launchpad";
-          } else {
+      if (session?.user) {
+        fetch("/api/profile-done")
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            }
+            return { profileDone: false };
+          })
+          .then((data) => {
+            if (data.profileDone) {
+              window.location.href = "/launchpad";
+            } else {
+              window.location.href = "/profile";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking profile completion:", error);
             window.location.href = "/profile";
-          }
-        });
+          });
       }
 
       await signIn("resend", { email, redirectTo: "/profile" });
@@ -68,14 +70,25 @@ export default function LoginForm() {
   }
 
   if (status === "authenticated") {
-    if (session?.user?.email) {
-      isProfileComplete(session.user.email).then((profileDone) => {
-        if (profileDone) {
-          window.location.href = "/launchpad";
-        } else {
+    if (session?.user) {
+      fetch("/api/profile-done")
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return { profileDone: false };
+        })
+        .then((data) => {
+          if (data.profileDone) {
+            window.location.href = "/launchpad";
+          } else {
+            window.location.href = "/profile";
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking profile completion:", error);
           window.location.href = "/profile";
-        }
-      });
+        });
     }
     return null;
   }
@@ -94,37 +107,7 @@ export default function LoginForm() {
                 Launchpad
               </p>
             </div>
-            <div className="flex flex-col justify-start items-start gap-3">
-              <div className="flex flex-col justify-start items-start gap-2">
-                <p className="text-white text-sm font-light">
-                  Looking for Volunteer Applications?
-                </p>
-                <a
-                  href="https://forms.gle/nVj9aCjzKiny2KYU6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 text-sm font-normal hover:text-cyan-300 transition-colors underline"
-                >
-                  Apply to Volunteer for 2025
-                </a>
-              </div>
-              <div className="flex flex-col justify-start items-start gap-2">
-                <p className="text-white text-sm font-light">
-                  Looking for Mentor Applications?
-                </p>
-                <a
-                  href="https://forms.gle/ubQiXpMT1osZJ4dj7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 text-sm font-normal hover:text-cyan-300 transition-colors underline"
-                >
-                  Apply to Mentor for 2025
-                </a>
-              </div>
-            </div>
-            <p className="justify-start text-white text-base font-extralight font-['DM_Sans']">
-              Applications close June 25
-            </p>
+            <p className="justify-start text-white text-base font-extralight font-['DM_Sans']"></p>
           </div>
           <div className="flex-1 self-stretch p-6 bg-cyan-400/0 border border-cyan-400/20 backdrop-blur-xl flex flex-col gap-5 tablet:justify-between items-start overflow-hidden">
             <div className="self-stretch flex flex-col justify-start items-start gap-12">
@@ -159,15 +142,7 @@ export default function LoginForm() {
                     disabled={isLoading}
                   >
                     {isLoading ? "Loading..." : "Continue"}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="20px"
-                      viewBox="http://www.w3.org/2000/svg"
-                      width="20px"
-                      fill="#1C1B1F"
-                    >
-                      <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-                    </svg>
+                    <ArrowRight />
                   </RoundedButton>
                 </div>
               </form>

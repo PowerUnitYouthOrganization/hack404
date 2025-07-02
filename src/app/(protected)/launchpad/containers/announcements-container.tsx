@@ -2,30 +2,34 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReactNode } from "react";
 
 interface Announcement {
+  id: number;
   title: string;
   content: string;
-  announcer: string;
-  avatarLink: string;
+  author: string;
+  authorId: string;
+  createdAt: string; // This will be a string in JSON format
+  authorImage: string;
 }
 
 interface AnnouncementContainerProps {
   title: string;
   icon?: ReactNode;
   events: Announcement[];
-  topOffset?: number;
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+  isLoading?: boolean;
 }
 
 export default function AnnouncementContainer({
   title,
   icon,
   events,
-  topOffset = 218,
+  onLoadMore,
+  hasMore = false,
+  isLoading = false,
 }: AnnouncementContainerProps) {
   return (
-    <div
-      className="flex flex-col max-h-[calc(100dvh-200px)] flex-1 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white"
-      style={{ height: `calc(100dvh - ${topOffset}px)` }}
-    >
+    <div className="flex flex-col flex-1 h-full tablet:border-x tablet:border-t-0 tablet:border-b-0 border-t border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>
@@ -38,17 +42,17 @@ export default function AnnouncementContainer({
           // Calculate background opacity based on index
           let bgOpacity;
           if (index === 0) {
-            bgOpacity = "bg-[rgba(255,255,255,0.10)]"; // 10% for first
+            bgOpacity = "bg-[rgba(195,247,58,0.10)]"; // 10% for first
           } else if (index === 1) {
-            bgOpacity = "bg-[rgba(255,255,255,0.05)]"; // 5% for second
+            bgOpacity = "bg-[rgba(195,247,58,0.05)]"; // 5% for second
           } else {
-            bgOpacity = "bg-[rgba(255,255,255,0.02)]"; // 2% for subsequent
+            bgOpacity = "bg-[rgba(195,247,58,0.02)]"; // 2% for subsequent
           }
 
           return (
             <div
               key={index}
-              className={`flex flex-col items-start gap-9 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+              className={`flex flex-col items-start gap-7 self-stretch p-6 border-b  border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
             >
               {/* Event Header */}
               <div className="flex justify-between items-start self-stretch">
@@ -56,37 +60,45 @@ export default function AnnouncementContainer({
                   <h2 className="font-medium">{event.title}</h2>
                   <p className="font-light text-sm">{event.content}</p>
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="20px"
-                  viewBox="0 -960 960 960"
-                  width="20px"
-                  fill="#e3e3e3"
-                >
-                  <path d="M200-200v-240h80v160h160v80H200Zm480-320v-160H520v-80h240v240h-80Z" />
-                </svg>
               </div>
 
               {/* Event Details */}
               <div className="flex justify-between items-start self-stretch">
                 <div className="flex items-center gap-2">
                   <Avatar>
-                    <AvatarImage src={event.avatarLink} alt={event.announcer} />
+                    <AvatarImage src={event.authorImage} alt={event.author} />
                     <AvatarFallback>
-                      {event.announcer.charAt(0).toUpperCase()}
+                      {event.author.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <p className="font-light">{`From ${event.announcer}`}</p>
+                <p className="font-light">{`From ${event.author}`}</p>
               </div>
             </div>
           );
         })}
-
+        {isLoading && events.length === 0 && (
+          <div className="flex items-center justify-center flex-1 self-stretch">
+            <p className="">Loading announcements...</p>
+          </div>
+        )}
         {/* No events message */}
-        {events.length === 0 && (
+        {events.length === 0 && !isLoading && (
           <div className="flex items-center justify-center flex-1 self-stretch">
             <p className="">No announcements</p>
+          </div>
+        )}
+
+        {/* Load More Button */}
+        {hasMore && onLoadMore && (
+          <div className="flex items-center justify-center self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] last:border-b-0">
+            <button
+              onClick={onLoadMore}
+              disabled={isLoading}
+              className="px-4 py-2 bg-[rgba(48,242,242,0.1)] border border-[rgba(48,242,242,0.3)] rounded text-white font-light hover:bg-[rgba(48,242,242,0.2)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
           </div>
         )}
       </div>

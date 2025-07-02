@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Team Formation",
+    "startTime": "2025-07-04T20:00:00",
+    "endTime": "2025-07-04T21:00:00",
+    "roomNumber": "TBA",
+    "day": 1
+  },
+  {
+    "name": "Microhack 1",
+    "startTime": "2025-07-04T21:00:00",
+    "endTime": "2025-07-04T22:00:00",
+    "roomNumber": "TBA",
+    "day": 1
+  },
+  {
+    "name": "Microhack 2",
+    "startTime": "2025-07-05T10:00:00",
+    "endTime": "2025-07-05T11:00:00",
+    "roomNumber": "TBA",
+    "day": 2
+  },
+  {
+    "name": "Microhack 3",
+    "startTime": "2025-07-05T15:00:00",
+    "endTime": "2025-07-05T16:00:00",
+    "roomNumber": "TBA",
+    "day": 2
+  },
+  {
+    "name": "3D Modelling Microhack",
+    "startTime": "2025-07-05T16:00:00",
+    "endTime": "2025-07-05T17:00:00",
+    "roomNumber": "TBA",
+    "day": 2
+  },
+  {
+    "name": "UI/UX Microhack",
+    "startTime": "2025-07-05T20:00:00",
+    "endTime": "2025-07-05T22:00:00",
+    "roomNumber": "TBA",
+    "day": 2
+  }
+]

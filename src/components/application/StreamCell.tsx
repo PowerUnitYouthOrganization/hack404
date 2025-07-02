@@ -31,7 +31,7 @@ export default function StreamCell({
       {/* Bottom right button */}
       <div className="mt-6 flex justify-end">
         <RoundedButton
-          color="#30F2F2"
+          color="var(--color-wcyan)"
           className="text-black px-6 font-light group"
           onClick={onClick}
         >

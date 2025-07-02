@@ -38,15 +38,13 @@ function HackerApplicationContent() {
 
   useEffect(() => {
     const checkProfileCompletion = async () => {
-      if (!session?.user?.email) {
+      if (!session?.user) {
         setIsCheckingProfile(false);
         return;
       }
 
       try {
-        const response = await fetch(
-          `/api/profile-done?email=${encodeURIComponent(session.user.email)}`,
-        );
+        const response = await fetch(`/api/profile-done`);
         if (response.ok) {
           const data = await response.json();
           if (data.profileDone) {
@@ -246,7 +244,7 @@ function HackerApplicationContent() {
                 )} */}
                 <RoundedButton
                   type="button"
-                  color="#30F2F2"
+                  color="var(--color-wcyan)"
                   className="text-black text-sm font-light"
                   onClick={nextStep}
                   disabled={!validateStep() || isSubmitting}

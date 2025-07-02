@@ -1,3 +1,4 @@
+import NotificationHandler from "@/components/NotificationHandler";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -19,5 +20,10 @@ export default async function ProtectedLayout({
   }
 
   console.log("Authenticated as user:", session.user?.email);
-  return <>{children}</>;
+  return (
+    <div className="scrollbar-none">
+      <NotificationHandler />
+      {children}
+    </div>
+  );
 }

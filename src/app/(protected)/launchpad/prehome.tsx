@@ -162,7 +162,7 @@ export default function Prehome() {
                   color={
                     hasApplication && applicationSubmitted
                       ? "#299b9b"
-                      : "#30F2F2"
+                      : "var(--color-wcyan)"
                   }
                   className="text-black w-full"
                   disabled={true}

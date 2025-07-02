@@ -23,12 +23,17 @@ function formatTime(date: Date): string {
   });
 }
 
-function getTimeUntilEvent(startTime: Date): string {
+function getTimeUntilEvent(startTime: Date, endTime: Date): string {
   const now = new Date();
   const diffMs = startTime.getTime() - now.getTime();
 
-  if (diffMs <= 0) {
+  if (
+    endTime.getTime() > now.getTime() &&
+    now.getTime() > startTime.getTime()
+  ) {
     return "happening now";
+  } else if (diffMs <= 0) {
+    return "ended";
   }
 
   const diffMinutes = Math.floor(diffMs / (1000 * 60));
@@ -55,10 +60,7 @@ export default function AgendaContainer({
   topOffset = 218,
 }: AgendaContainerProps) {
   return (
-    <div
-      className="flex flex-col max-h-[calc(100dvh-200px)] flex-1 self-stretch border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white"
-      style={{ height: `calc(100dvh - ${topOffset}px)` }}
-    >
+    <div className="flex flex-col flex-1 h-full tablet:border-x mobile:border-t mobile:border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>
@@ -81,17 +83,16 @@ export default function AgendaContainer({
           return (
             <div
               key={index}
-              className={`flex flex-col items-start gap-9 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+              className={`flex flex-col items-start gap-9 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] flex-shrink-0`}
             >
               {/* Event Header */}
               <div className="flex justify-between items-start self-stretch">
                 <div className="flex flex-col items-start gap-2">
                   <h2 className="font-medium">{event.name}</h2>
                   <p className="font-light text-sm">
-                    {getTimeUntilEvent(event.startTime)}
+                    {getTimeUntilEvent(event.startTime, event.endTime)}
                   </p>
                 </div>
-                <ArrowOutwardIcon className="cursor-pointer transition-colors h-5 w-auto" />
               </div>
 
               {/* Event Details */}

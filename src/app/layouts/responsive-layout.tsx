@@ -264,6 +264,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
             <TextSection
               titleWidth={1}
               contentWidth={4}
+              id="faq"
               className="pb-2 tablet:pb-2 desktop:pb-2"
             >
               <TextSectionTitle>FAQ</TextSectionTitle>

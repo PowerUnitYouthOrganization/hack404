@@ -1,7 +1,9 @@
-import { PiDiscordLogo, PiNotionLogo } from "react-icons/pi";
+import { FaDiscord } from "react-icons/fa";
+import { RxDiscordLogo } from "react-icons/rx";
 
 import RoundedButton from "@/components/ui/roundedbutton";
 import React from "react";
+import { BookOpenText } from "lucide-react";
 
 export default function InfoContainer() {
   return (
@@ -67,7 +69,7 @@ export default function InfoContainer() {
               }}
             >
               <p>Discord Server</p>
-              <PiDiscordLogo className="w-6 h-6" />
+              <RxDiscordLogo className="w-6 h-6" />
             </RoundedButton>
             <RoundedButton
               color={"var(--color-wlime)"}
@@ -80,8 +82,8 @@ export default function InfoContainer() {
                 ); // Link to an external Devpost page
               }}
             >
-              <p>Hacker Package</p>
-              <PiNotionLogo className="w-6 h-6" />
+              <BookOpenText className="w-6 h-6" />
+              <p>Hacker Handbook</p>
             </RoundedButton>
           </div>
           {/* Event Details */}

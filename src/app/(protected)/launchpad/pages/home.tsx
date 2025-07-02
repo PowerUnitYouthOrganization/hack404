@@ -2,7 +2,7 @@
 
 import AgendaContainer from "@/app/(protected)/launchpad/containers/events-container";
 import AnnouncementContainer from "@/app/(protected)/launchpad/containers/announcements-container";
-import Leaderboard from "@/app/(protected)/launchpad/leaderboard";
+import InfoContainer from "@/app/(protected)/launchpad/containers/info-container";
 import { useSession } from "next-auth/react";
 import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
@@ -75,7 +75,7 @@ export default function Home() {
     : [];
   const isLoadingAnnouncements = isValidating;
   const hasMoreAnnouncements = announcementPages
-    ? announcementPages[announcementPages.length - 1]?.hasMore ?? false
+    ? (announcementPages[announcementPages.length - 1]?.hasMore ?? false)
     : true;
 
   const loadMoreAnnouncements = () => {
@@ -86,12 +86,12 @@ export default function Home() {
 
   useEffect(() => {
     // time until submission deadline or whatever date
-    const targetDate = new Date("2025-06-21T00:00:00");
+    const targetDate = new Date("2025-07-06T10:00:00");
     const interval = setInterval(() => {
       const now = new Date();
       const diff = targetDate.getTime() - now.getTime();
       if (diff <= 0) {
-        setTimeLeft("00d 00h 00m 00s");
+        setTimeLeft("00d 00h 00m 00s"); // Or "00h 00m 00s" if no days remaining
         clearInterval(interval);
       } else {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -100,14 +100,16 @@ export default function Home() {
         );
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        setTimeLeft(
-          `${days.toString().padStart(2, "0")}d ${hours.toString().padStart(
-            2,
-            "0",
-          )}h ${minutes.toString().padStart(2, "0")}m ${seconds
-            .toString()
-            .padStart(2, "0")}s`,
-        );
+
+        let timeLeftString = "";
+        if (days > 0) {
+          timeLeftString = `${days.toString().padStart(2, "0")}d `;
+        }
+        timeLeftString += `${hours.toString().padStart(2, "0")}h ${minutes
+          .toString()
+          .padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
+
+        setTimeLeft(timeLeftString);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -128,7 +130,7 @@ export default function Home() {
             {timeLeft}
           </h1>
           <sub className="text-center justify-start text-cyan-400 text-sm font-light font-['DM_Sans']">
-            until hackathon starts
+            until submission deadline
           </sub>
         </div>
         <RoundedButton
@@ -154,7 +156,7 @@ export default function Home() {
             Welcome to Hack404
           </sub>
         </div>
-        <div className="flex flex-col justify-center items-end">
+        <div className="hidden tablet:flex tablet:flex-col tablet:justify-center tablet:items-end">
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading-light)">
             {timeLeft}
           </h1>
@@ -164,7 +166,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex px-2 items-start gap-2 flex-1 overflow-hidden border border-[rgba(48,242,242,0.2)]">
+      <div className="flex flex-col tablet:flex-row tablet:px-2 px-0 items-stretch tablet:items-start gap-2 flex-1 overflow-y-auto tablet:overflow-hidden border-t border-b tablet:border-x border-[rgba(48,242,242,0.2)]">
         <AgendaContainer
           title="Agenda"
           icon={
@@ -179,57 +181,15 @@ export default function Home() {
             </svg>
           }
           events={agendaEvents}
-        />        <AnnouncementContainer
+        />
+        <AnnouncementContainer
           title="Announcements"
-          icon={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="20px"
-              viewBox="http://www.w3.org/2000/svg"
-              width="20px"
-              fill="#e3e3e3"
-            >
-              <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
-            </svg>
-          }
           events={announcementData}
           onLoadMore={loadMoreAnnouncements}
           hasMore={hasMoreAnnouncements}
           isLoading={isLoadingAnnouncements}
         />
-        <div className="flex flex-col flex-1 gap-2 overflow-hidden border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white">
-          <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">
-            <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
-              <h1 className="flex-1 text-white font-light">
-                Project Submission
-              </h1>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20px"
-                viewBox="http://www.w3.org/2000/svg"
-                width="20px"
-                fill="#e3e3e3"
-              >
-                <path d="M480-200v-360H120v-80h440v440h-80Zm200-200v-360H320v-80h440v440h-80Z" />
-              </svg>
-            </div>
-            <div
-              className={`flex flex-col items-start justify-between self-stretch p-6 border-b border-[rgba(48, 242, 242, 0.20)] bg-[rgba(48, 242, 242, 0.10)] backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
-            >
-              {/* Event Header */}
-              <div className="flex justify-between items-start self-stretch">
-                <div className="flex flex-col items-start gap-2">
-                  <h2 className="font-medium">Coming soon!</h2>
-                  <p className="font-light text-sm"></p>
-                </div>
-              </div>
-              {/* Event Details */}
-              <div className="flex justify-between items-end self-stretch"></div>
-            </div>
-          </div>
-
-          <Leaderboard />
-        </div>
+        <InfoContainer />
       </div>
     </main>
   );

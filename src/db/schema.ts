@@ -11,7 +11,9 @@ import {
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import type { AdapterAccountType } from "next-auth/adapters";
-import { InferSelectModel } from "drizzle-orm";
+import { InferSelectModel, sql } from "drizzle-orm";
+import { table } from "console";
+import { check } from "drizzle-orm/gel-core";
 
 const pool = postgres(process.env.DATABASE_URL!, {
   max: 1,
@@ -23,20 +25,30 @@ export const db = drizzle(pool);
 export type User = InferSelectModel<typeof users>;
 
 // User info
-export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  name: text("name"),
-  email: text("email").unique(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image"),
-  profileCompleted: boolean("profileCompleted").notNull().default(false),
-  firstName: text("firstName"),
-  lastName: text("lastName"),
-  stream: text("stream", { enum: ["beginner", "normal"] }),
-  isadmin: boolean("isadmin").notNull().default(false),
-});
+export const users = pgTable(
+  "user",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    name: text("name"),
+    email: text("email").unique(),
+    emailVerified: timestamp("emailVerified", { mode: "date" }),
+    image: text("image"),
+    profileCompleted: boolean("profileCompleted").notNull().default(false),
+    firstName: text("firstName"),
+    lastName: text("lastName"),
+    stream: text("stream", { enum: ["beginner", "normal"] }),
+    isadmin: boolean("isadmin").notNull().default(false),
+    checkedin: boolean("checkedin").notNull().default(false),
+    rsvp: boolean("rsvp").notNull().default(false),
+    meal: boolean("meal").notNull().default(false),
+    microhackscomplete: integer("microhackscomplete").notNull().default(0),
+  },
+  (table) => [
+    check("microhackscomplete", sql`${table.microhackscomplete} >= 0`),
+  ],
+);
 
 // Profile info
 export const profiles = pgTable("profile", {

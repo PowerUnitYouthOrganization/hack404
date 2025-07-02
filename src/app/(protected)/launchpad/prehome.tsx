@@ -25,14 +25,6 @@ export default function Prehome() {
   const { hasApplication, applicationSubmitted, loading } =
     useApplicationStatus();
 
-  const handleStartApplication = () => {
-    if (hasApplication && applicationSubmitted) {
-      router.push("/application/thankyou");
-    } else {
-      router.push("/application");
-    }
-  };
-
   useEffect(() => {
     // time until major event
     const targetDate = new Date("2025-07-06T10:00:00");
@@ -173,15 +165,14 @@ export default function Prehome() {
                       : "var(--color-wcyan)"
                   }
                   className="text-black w-full"
-                  onClick={handleStartApplication}
-                  disabled={loading || (hasApplication && applicationSubmitted)}
+                  disabled={true}
                 >
                   <p>
                     {loading
                       ? "Checking..."
                       : hasApplication && applicationSubmitted
                         ? "Application Submitted"
-                        : "Start Application"}
+                        : "Applications Closed"}
                   </p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

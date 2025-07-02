@@ -7,7 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { QrCode } from "lucide-react";
+import { QrCode, Home, Calendar, Map } from "lucide-react";
 import QRCode from "react-qr-code";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -78,8 +78,9 @@ export default function LaunchpadHeader({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   const navItems = [
-    { label: "Home", value: "home" },
-    { label: "Agenda", value: "agenda" },
+    { label: "Home", value: "home", icon: <Home size={16} /> },
+    { label: "Agenda", value: "agenda", icon: <Calendar size={16} /> },
+    { label: "Map", value: "map", icon: <Map size={16} /> },
     // { label: "Mentor", value: "mentor" },
     // { label: "Resources", value: "resources" },
     // { label: "Map", value: "map" }
@@ -88,7 +89,7 @@ export default function LaunchpadHeader({
   return (
     <header className="flex flex-col gap-3 w-full">
       {/* Desktop Layout */}
-      <div className="hidden md:grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
+      <div className="hidden tablet:grid h-24 p-6 gap-x-2.5 gap-y-2.5 flex-shrink-0 self-stretch grid-rows-1 grid-cols-[minmax(0,1fr)_700px_minmax(0,1fr)]">
         <div className="flex px-3 items-center gap-5 flex-1 self-stretch row-[1/2] col-[1/2]">
           <Link href="/">
             <Image
@@ -120,7 +121,9 @@ export default function LaunchpadHeader({
                     : "launchpad-inactive"
                 }
                 onClick={() => tabChangeAction(item.value)}
+                className="flex items-center gap-2"
               >
+                {item.icon} {/* icon for each nav item */}
                 {item.label}
               </Button>
             ))}
@@ -128,7 +131,9 @@ export default function LaunchpadHeader({
         </div>
         {/* profile and qr code buttons */}
         <div className="flex justify-end items-center gap-1 flex-1 self-stretch row-[1/2] col-[3/4] relative">
-          <div ref={profileRef} className="relative">            <RoundedButton
+          <div ref={profileRef} className="relative">
+            {" "}
+            <RoundedButton
               color="rgba(48,242,242,0.20)"
               className="flex self-stretch text-wcyan gap-4 pl-4 pr-2"
               onClick={() => {
@@ -144,11 +149,10 @@ export default function LaunchpadHeader({
                 </AvatarFallback>
               </Avatar>
             </RoundedButton>
-
             {/* Profile dropdown card */}
-            <ProfileDropdown 
-              isVisible={showProfileCard} 
-              onClose={() => setShowProfileCard(false)} 
+            <ProfileDropdown
+              isVisible={showProfileCard}
+              onClose={() => setShowProfileCard(false)}
             />
           </div>
 
@@ -207,7 +211,7 @@ export default function LaunchpadHeader({
       </div>
 
       {/* Mobile Layout */}
-      <div className="md:hidden flex justify-between items-center">
+      <div className="tablet:hidden flex justify-between items-center p-6">
         <div className="flex items-center gap-5">
           <Link href="/">
             <Image
@@ -225,13 +229,21 @@ export default function LaunchpadHeader({
           </Link>
         </div>
 
-        <div ref={profileRef} className="relative">          <RoundedButton
+        <div ref={profileRef} className="relative">
+          {" "}
+          <RoundedButton
             color="rgba(48,242,242,0.20)"
             className="flex self-stretch text-wcyan gap-3 pl-3 pr-2 text-sm"
             onClick={() => {
-              console.log("Mobile Profile button clicked, current showProfileCard:", showProfileCard);
+              console.log(
+                "Mobile Profile button clicked, current showProfileCard:",
+                showProfileCard,
+              );
               setShowProfileCard(!showProfileCard);
-              console.log("Mobile Setting showProfileCard to:", !showProfileCard);
+              console.log(
+                "Mobile Setting showProfileCard to:",
+                !showProfileCard,
+              );
             }}
           >
             Profile
@@ -240,13 +252,13 @@ export default function LaunchpadHeader({
               <AvatarFallback className="bg-wblack/20 text-white text-xs">
                 {firstName.charAt(0)}
                 {lastName.charAt(0)}
-              </AvatarFallback>            </Avatar>
+              </AvatarFallback>{" "}
+            </Avatar>
           </RoundedButton>
-
           {/* Profile dropdown card */}
-          <ProfileDropdown 
-            isVisible={showProfileCard} 
-            onClose={() => setShowProfileCard(false)} 
+          <ProfileDropdown
+            isVisible={showProfileCard}
+            onClose={() => setShowProfileCard(false)}
           />
         </div>
       </div>

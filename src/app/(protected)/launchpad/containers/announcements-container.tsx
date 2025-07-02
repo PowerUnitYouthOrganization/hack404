@@ -29,7 +29,7 @@ export default function AnnouncementContainer({
   isLoading = false,
 }: AnnouncementContainerProps) {
   return (
-    <div className="flex flex-col flex-1 h-full border-x border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
+    <div className="flex flex-col flex-1 h-full tablet:border-x tablet:border-t-0 tablet:border-b-0 border-t border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
       <div className="flex px-6 py-6 justify-center items-center gap-2.5 self-stretch bg-inherit backdrop-blur-[25px] border-b border-[rgba(48,242,242,0.2)] sticky top-0 z-10 flex-shrink-0">
         <h1 className="flex-1 text-white font-light">{title}</h1>
@@ -52,7 +52,7 @@ export default function AnnouncementContainer({
           return (
             <div
               key={index}
-              className={`flex flex-col items-start gap-7 self-stretch p-6 border-b border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+              className={`flex flex-col items-start gap-7 self-stretch p-6 border-b  border-[rgba(48,242,242,0.2)] ${bgOpacity} backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
             >
               {/* Event Header */}
               <div className="flex justify-between items-start self-stretch">

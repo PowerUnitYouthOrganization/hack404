@@ -5,12 +5,48 @@ import { announcements, pushSubscriptions } from '@/db/schema';
 import webpush from 'web-push';
 import { desc, eq, inArray } from 'drizzle-orm';
 import { verifyAdminAccess } from '@/lib/admin-auth';
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v9';
 
 webpush.setVapidDetails(
   'mailto:your-email@example.com',
   process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
   process.env.VAPID_PRIVATE_KEY!
 );
+
+// Function to send Discord announcement with embed
+async function sendDiscordAnnouncement(title: string, content: string, author: any) {
+  try {
+    const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN!);
+    
+    const authorName = (author?.firstName || 'Unknown').trim();
+    
+    const embed = {
+      title: title,
+      description: content,
+      color: 0x3498db, // Blue color
+      author: {
+        name: authorName,
+        icon_url: author?.profileImageUrl || undefined
+      },
+      timestamp: new Date().toISOString()
+    };
+    
+    await rest.post(
+      Routes.channelMessages(process.env.ANNOUNCEMENT_CHANNEL_ID!),
+      {
+        body: {
+          content: "@everyone",
+          embeds: [embed]
+        }
+      }
+    );
+    
+    console.log('Discord announcement sent successfully');
+  } catch (error) {
+    console.error('Error sending Discord announcement:', error);
+  }
+}
 
 export async function POST(req: NextRequest) {
     let session = await auth();
@@ -20,7 +56,6 @@ export async function POST(req: NextRequest) {
     if (!authResult.authorized) {
         return authResult.response;
     }
-
 
     const authorId = authResult.sessions.user.id;
 
@@ -35,16 +70,20 @@ export async function POST(req: NextRequest) {
     const subscriptions = await db.select().from(pushSubscriptions);
 
     const author = await db
-      .select({ firstName: users.firstName })
+      .select()
       .from(users)
       .where(eq(users.id, authorId))
       .limit(1);
+
+
+    // Send announcement to Discord with full author object
+    await sendDiscordAnnouncement(title, content, author[0]);
 
     const notificationPayload = JSON.stringify({ 
       title, 
       content, 
       author: (author[0]?.firstName || 'Unknown').trim(), 
-    });    console.log(notificationPayload)
+    });
 
     // Send notifications and collect failed subscription IDs
     const failedSubscriptionIds: number[] = [];

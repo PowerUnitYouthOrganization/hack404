@@ -38,6 +38,9 @@ export default function qrScanner() {
   const [canStartNewScan, setCanStartNewScan] = useState(true);
   const [selectedAction, setSelectedAction] = useState<UserAction | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
+  const [userBeforeAction, setUserBeforeAction] = useState<InferSelectModel<
+    typeof users
+  > | null>(null);
 
   const handleStartNewScan = () => {
     setScanError(null);
@@ -57,23 +60,37 @@ export default function qrScanner() {
     userId: string,
     action: UserAction | null,
   ) => {
-    const requestOptions: RequestInit = action
-      ? {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action }),
-        }
-      : { method: "GET" };
-
-    const response = await fetch(`/admin/api/users/${userId}`, requestOptions);
-
-    if (!response.ok) {
-      const errorData = await response.json();
+    // First, get the user data before any action
+    const getUserResponse = await fetch(`/admin/api/users/${userId}`, {
+      method: "GET",
+    });
+    if (!getUserResponse.ok) {
+      const errorData = await getUserResponse.json();
       throw new Error(
-        errorData.error || `Request failed with status ${response.status}`,
+        errorData.error ||
+          `Request failed with status ${getUserResponse.status}`,
       );
     }
-    return response.json();
+    const userBeforeAction = await getUserResponse.json();
+
+    // If there's an action to perform, do it now
+    if (action) {
+      const actionResponse = await fetch(`/admin/api/users/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+
+      if (!actionResponse.ok) {
+        const errorData = await actionResponse.json();
+        throw new Error(
+          errorData.error ||
+            `Request failed with status ${actionResponse.status}`,
+        );
+      }
+    }
+
+    return userBeforeAction;
   };
 
   useEffect(() => {
@@ -122,36 +139,79 @@ export default function qrScanner() {
         </div>
 
         {canStartNewScan ? (
-          <div className="flex flex-col items-center justify-center h-64 gap-4 text-center">
-            <p className="text-lg md:text-2xl text-white">
-              Last scan was{" "}
-              <b>
-                {lastUser
-                  ? lastUser.firstName?.trim() + " " + lastUser.lastName?.trim()
-                  : "..."}
-              </b>
-              <br />
-              Email: {lastUser ? lastUser.email?.trim() : "..."}
-              <br />
-              Stream: {lastUser ? lastUser.stream?.trim() : "..."}
-              <br />
-              Meal status: {lastUser ? (lastUser.meal ? "Yes" : "No") : "..."}
-            </p>
+          <div className="flex flex-col items-center justify-center min-h-64 gap-4 text-center">
+            <div className="bg-[rgba(48,242,242,0.05)] border border-cyan-400/10 rounded-lg p-4 w-full max-w-md">
+              <h3 className="text-lg font-medium text-white mb-3">
+                Last Scan Result
+              </h3>
+              <div className="space-y-2 text-sm md:text-base text-white">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Name:</span>
+                  <span className="font-medium text-right break-words">
+                    {userBeforeAction
+                      ? userBeforeAction.firstName?.trim() +
+                        " " +
+                        userBeforeAction.lastName?.trim()
+                      : "..."}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Email:</span>
+                  <span className="text-right break-all text-xs md:text-sm max-w-48">
+                    {userBeforeAction ? userBeforeAction.email?.trim() : "..."}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Stream:</span>
+                  <span className="capitalize">
+                    {userBeforeAction ? userBeforeAction.stream?.trim() : "..."}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Meal Status:</span>
+                  <span
+                    className={`font-medium ${userBeforeAction?.meal ? "text-red-400" : "text-green-400"}`}
+                  >
+                    {userBeforeAction
+                      ? userBeforeAction.meal
+                        ? "Already eaten"
+                        : "Not eaten"
+                      : "..."}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Checked In:</span>
+                  <span
+                    className={`font-medium ${userBeforeAction?.checkedin ? "text-green-400" : "text-red-400"}`}
+                  >
+                    {userBeforeAction
+                      ? userBeforeAction.checkedin
+                        ? "Yes"
+                        : "No"
+                      : "..."}
+                  </span>
+                </div>
+              </div>
+            </div>
             {scanError && (
-              <p className="my-2 rounded-md bg-red-900 p-3 font-semibold text-red-400">
-                {scanError}
-              </p>
+              <div className="w-full max-w-md">
+                <p className="rounded-md bg-red-900/20 border border-red-400/20 p-3 font-medium text-red-400 text-sm">
+                  {scanError}
+                </p>
+              </div>
             )}
-            <p className="text-sm text-white/60">
-              Tap anywhere or press any key to start scanning
-            </p>
-            <Button
-              onClick={handleStartNewScan}
-              variant={"outline"}
-              className="rounded-md px-6 py-3 text-lg md:text-2xl text-cyan-300 border-cyan-300 hover:bg-cyan-300/10"
-            >
-              Tap Here to Start Scanning
-            </Button>
+            <div className="flex flex-col items-center gap-3 mt-4">
+              <p className="text-sm text-white/60">
+                Tap anywhere or press any key to start scanning
+              </p>
+              <Button
+                onClick={handleStartNewScan}
+                variant={"outline"}
+                className="rounded-md px-6 py-3 text-base md:text-lg text-cyan-300 border-cyan-300 hover:bg-cyan-300/10"
+              >
+                Start Scanning
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="w-full flex flex-col items-center">
@@ -164,6 +224,7 @@ export default function qrScanner() {
                   try {
                     const userData: InferSelectModel<typeof users> =
                       await performScanAction(userId, selectedAction);
+                    setUserBeforeAction(userData);
                     setLastUser(userData);
 
                     const userName = `${userData.firstName?.trim() || ""} ${

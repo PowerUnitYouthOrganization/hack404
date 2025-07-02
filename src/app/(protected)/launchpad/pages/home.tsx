@@ -8,6 +8,8 @@ import eventsData from "@/data/events.json";
 import { useEffect, useState } from "react";
 import { PAGINATION_LIMIT } from "@/lib/config";
 import useSWRInfinite from "swr/infinite";
+import RoundedButton from "@/components/ui/roundedbutton";
+import { ExternalLink } from "lucide-react";
 
 // could probably be moved to json or something
 interface AgendaEvent {
@@ -120,8 +122,31 @@ export default function Home() {
 
   return (
     <main className="flex flex-col h-full overflow-hidden gap-6">
-      <div className="flex px-9 justify-between items-end flex-shrink-0 py-4">
-        <div className="flex flex-col justify-center items-start">
+      <div className="tablet:hidden self-stretch p-6 bg-neutral-900/20 border-t border-b border-cyan-400/20 inline-flex justify-between items-center">
+        <div className="inline-flex flex-col justify-start items-start">
+          <h1 className="text-2xl leading-normal font-(family-name:--font-heading-light)">
+            {timeLeft}
+          </h1>
+          <sub className="text-center justify-start text-cyan-400 text-sm font-light font-['DM_Sans']">
+            until hackathon starts
+          </sub>
+        </div>
+        <RoundedButton
+          color={"var(--color-wcyan)"}
+          className="text-black w-full"
+          onClick={() => {
+            window.open(
+              "https://shiny-heliotrope-909.notion.site/Hack404-Hacker-Handbook-221892007b0a809ba0eacd66541648fd",
+              "_blank",
+            ); // Link to an external Devpost page
+          }}
+        >
+          <p>Details</p>
+          <ExternalLink className="w-5 h-5" />
+        </RoundedButton>
+      </div>
+      <div className="flex flex-col tablet:flex-row px-4 tablet:px-9 justify-between items-center tablet:items-end flex-shrink-0 py-4 gap-4">
+        <div className="flex flex-col justify-center items-center tablet:items-start">
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading)">
             Hello {firstName}!
           </h1>
@@ -134,7 +159,7 @@ export default function Home() {
             {timeLeft}
           </h1>
           <sub className="text-wcyan font-light text-sm">
-            until submission deadline
+            until hackathon starts
           </sub>
         </div>
       </div>

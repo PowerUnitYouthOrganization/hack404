@@ -161,7 +161,7 @@ export default function Home() {
             {timeLeft}
           </h1>
           <sub className="text-wcyan font-light text-sm">
-            until submission deadline
+            until hackathon starts
           </sub>
         </div>
       </div>

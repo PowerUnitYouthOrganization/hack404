@@ -87,6 +87,10 @@ export default function UsersPage() {
   const [streamFilter, setStreamFilter] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [statusPopup, setStatusPopup] = useState<{
+    userId: string;
+    position: { x: number; y: number };
+  } | null>(null);
 
   // Fetch statistics
   useEffect(() => {
@@ -193,6 +197,34 @@ export default function UsersPage() {
     return user.name || user.email || "Unknown User";
   };
 
+  const handleStatusHeaderClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    setStatusPopup({
+      userId: "legend", // Special ID for legend
+      position: {
+        x: rect.left + rect.width / 2,
+        y: rect.top - 10,
+      },
+    });
+  };
+
+  const closeStatusPopup = () => {
+    setStatusPopup(null);
+  };
+
+  // Close popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (statusPopup) {
+        closeStatusPopup();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [statusPopup]);
+
   return (
     <div className="w-full px-2 sm:px-4 md:px-6 py-4 sm:py-8 max-w-none">
       {/* Header */}
@@ -248,7 +280,7 @@ export default function UsersPage() {
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 onKeyPress={handleSearchKeyPress}
-                className="px-6 py-2 bg-[rgba(48,242,242,0.10)] border-cyan-400/20 text-white placeholder:text-white/40"
+                className="p-2 bg-[rgba(48,242,242,0.10)] border-cyan-400/20 text-white placeholder:text-white/40"
               />
             </div>
             <Button
@@ -314,19 +346,23 @@ export default function UsersPage() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-cyan-400/20">
-                      <th className="text-left px-4 py-2 text-white/80 font-medium">
+                      <th className="text-left p-2 text-white/80 font-medium">
                         User
                       </th>
-                      <th className="text-left px-4 py-2 text-white/80 font-medium">
+                      <th className="text-left p-2 text-white/80 font-medium hidden sm:table-cell">
                         Email
                       </th>
                       <th className="text-left px-4 py-2 text-white/80 font-medium">
                         Stream
                       </th>
-                      <th className="text-center px-4 py-2 text-white/80 font-medium">
+                      <th
+                        className="text-center px-4 py-2 text-white/80 font-medium cursor-pointer hover:text-cyan-300 transition-colors"
+                        onClick={handleStatusHeaderClick}
+                        title="Click for status legend"
+                      >
                         Status
                       </th>
-                      <th className="text-center px-4 py-2 text-white/80 font-medium">
+                      <th className="text-center p-2 text-white/80 font-medium">
                         Actions
                       </th>
                     </tr>
@@ -337,27 +373,20 @@ export default function UsersPage() {
                         key={user.id}
                         className="border-b border-cyan-400/10 hover:bg-[rgba(48,242,242,0.05)]"
                       >
-                        <td className="p-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center">
-                              <span className="text-cyan-300 text-sm font-medium">
-                                {getDisplayName(user).charAt(0).toUpperCase()}
-                              </span>
+                        <td className="py-4 px-2">
+                          <div>
+                            <div className="text-white font-medium">
+                              {getDisplayName(user)}
                             </div>
-                            <div>
-                              <div className="text-white font-medium">
-                                {getDisplayName(user)}
+                            {user.isadmin && (
+                              <div className="text-xs text-cyan-300 flex items-center gap-1">
+                                <Settings className="w-3 h-3" />
+                                Admin
                               </div>
-                              {user.isadmin && (
-                                <div className="text-xs text-cyan-300 flex items-center gap-1">
-                                  <Settings className="w-3 h-3" />
-                                  Admin
-                                </div>
-                              )}
-                            </div>
+                            )}
                           </div>
                         </td>
-                        <td className="p-4">
+                        <td className="p-4 hidden sm:table-cell">
                           <div className="flex items-center gap-2">
                             <span className="text-white/80">{user.email}</span>
                             {user.emailVerified && (
@@ -382,15 +411,15 @@ export default function UsersPage() {
                           <div className="flex justify-center gap-2">
                             <div
                               className={`w-2 h-2 rounded-full ${
-                                user.rsvp ? "bg-blue-400" : "bg-gray-400"
-                              }`}
-                              title={`RSVP ${user.rsvp ? "Yes" : "No"}`}
-                            />
-                            <div
-                              className={`w-2 h-2 rounded-full ${
                                 user.checkedin ? "bg-green-400" : "bg-gray-400"
                               }`}
                               title={`Checked ${user.checkedin ? "In" : "Out"}`}
+                            />
+                            <div
+                              className={`w-2 h-2 rounded-full ${
+                                user.meal ? "bg-blue-400" : "bg-gray-400"
+                              }`}
+                              title={`${user.meal ? "Already eaten" : "Has not eaten"}`}
                             />
                           </div>
                         </td>
@@ -476,6 +505,38 @@ export default function UsersPage() {
           </div>
         )}
       </div>
+
+      {/* Status Popup */}
+      {statusPopup && (
+        <div
+          className="fixed z-50 bg-[rgba(0,0,0,0.9)] border border-cyan-400/30 rounded-md p-4 backdrop-blur-md"
+          style={{
+            left: statusPopup.position.x,
+            top: statusPopup.position.y,
+            transform: "translateX(-50%) translateY(-100%)",
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="text-white text-sm space-y-3 min-w-[200px]">
+            <h3 className="text-cyan-300 font-medium mb-3">Status Legend</h3>
+
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+              <span>Checked In</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-blue-400" />
+              <span>Meal Received</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-gray-400" />
+              <span>Inactive/Not Done</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

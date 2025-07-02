@@ -56,8 +56,10 @@ export default function Agenda() {
     return eventsData;
   };
 
-  // Import events from general events.json for calendar
-  const calendarEvents: AgendaEvent[] = eventsData.map((event) => ({
+  // Combine general events with user-specific events for calendar
+  const userEvents = getEventsForUser();
+  const combinedEventsData = [...eventsData, ...userEvents];
+  const calendarEvents: AgendaEvent[] = combinedEventsData.map((event) => ({
     ...event,
     startTime: new Date(event.startTime),
     endTime: new Date(event.endTime),
@@ -76,7 +78,7 @@ export default function Agenda() {
         <CalendarGrid title="Event Calendar" events={calendarEvents} />
         <AgendaContainer
           title="Your Events"
-          events={agendaEvents}
+          events={window.innerWidth < 768 ? calendarEvents : agendaEvents}
           icon={<CalendarDays />}
         />
       </div>

@@ -138,7 +138,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 <p className="text-right text-white text-base font-normal font-['DM_Sans'] leading-none">
                   Presented by
                   <br />
-                  Power Unit Youth Organization
+                  Power Unit Youth Organization x UTMIST
                 </p>
               </div>
 

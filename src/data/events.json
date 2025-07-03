@@ -36,15 +36,15 @@
   },
   {
     "name": "Breakfast",
-    "startTime": "2025-07-05T08:00:00",
-    "endTime": "2025-07-05T09:30:00",
+    "startTime": "2025-07-05T09:00:00",
+    "endTime": "2025-07-05T10:00:00",
     "roomNumber": "Second Floor",
     "day": 2
   },
   {
     "name": "Lunch",
     "startTime": "2025-07-05T12:00:00",
-    "endTime": "2025-07-05T12:30:00",
+    "endTime": "2025-07-05T13:00:00",
     "roomNumber": "Second Floor",
     "day": 2
   },
@@ -85,8 +85,8 @@
   },
   {
     "name": "Breakfast",
-    "startTime": "2025-07-06T08:00:00",
-    "endTime": "2025-07-06T09:00:00",
+    "startTime": "2025-07-06T09:00:00",
+    "endTime": "2025-07-06T10:00:00",
     "roomNumber": "Second Floor",
     "day": 3
   },

@@ -58,6 +58,9 @@ const getKey = (
  */
 export default function Home() {
   const [timeLeft, setTimeLeft] = useState<string>("00d 00h 00m 00s");
+  const [countdownText, setCountdownText] = useState<string>(
+    "until hacking starts",
+  );
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "Hacker";
   const {
@@ -85,14 +88,26 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // time until submission deadline or whatever date
-    const targetDate = new Date("2025-07-06T10:00:00");
+    const hackingStartDate = new Date("2025-07-04T21:00:00");
+    const submissionDeadlineDate = new Date("2025-07-06T09:00:00");
+
     const interval = setInterval(() => {
       const now = new Date();
+      let targetDate = hackingStartDate;
+      let currentCountdownText = "until hacking starts";
+
+      // Check if hacking has started
+      if (now.getTime() >= hackingStartDate.getTime()) {
+        targetDate = submissionDeadlineDate;
+        currentCountdownText = "until submission deadline";
+      }
+
       const diff = targetDate.getTime() - now.getTime();
       if (diff <= 0) {
-        setTimeLeft("00d 00h 00m 00s"); // Or "00h 00m 00s" if no days remaining
-        clearInterval(interval);
+        setTimeLeft("00d 00h 00m 00s");
+        if (now.getTime() >= submissionDeadlineDate.getTime()) {
+          setCountdownText("submission deadline passed");
+        }
       } else {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor(
@@ -110,6 +125,7 @@ export default function Home() {
           .padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
 
         setTimeLeft(timeLeftString);
+        setCountdownText(currentCountdownText);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -132,7 +148,7 @@ export default function Home() {
             {timeLeft}
           </h1>
           <sub className="text-center justify-start text-cyan-400 text-sm font-light font-['DM_Sans']">
-            until submission deadline
+            {countdownText}
           </sub>
         </div>
         <RoundedButton
@@ -162,9 +178,7 @@ export default function Home() {
           <h1 className="text-[40px] leading-normal font-(family-name:--font-heading-light)">
             {timeLeft}
           </h1>
-          <sub className="text-wcyan font-light text-sm">
-            until hackathon starts
-          </sub>
+          <sub className="text-wcyan font-light text-sm">{countdownText}</sub>
         </div>
       </div>
 

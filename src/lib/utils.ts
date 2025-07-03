@@ -7,5 +7,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const handleSignOut = async () => {
-  await signOut({ callbackUrl: "/" });
-}
+  try {
+    console.log("handleSignOut called");
+    await signOut({ redirectTo: "/" });
+    console.log("signOut completed");
+  } catch (error) {
+    console.error("Error during signOut:", error);
+  }
+};

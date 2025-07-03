@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Card,
@@ -7,35 +7,35 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import RoundedButton from './ui/roundedbutton';
-import { ArrowRight } from 'lucide-react';
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { toast } from "sonner";
+import RoundedButton from "./ui/roundedbutton";
+import { ArrowRight } from "lucide-react";
 
 export default function CreateAnnouncementForm() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch('/admin/api/announcements', {
-      method: 'POST',
+    const response = await fetch("/admin/api/announcements", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ title, content }),
     });
 
     if (response.ok) {
-      toast.success('Announcement created successfully!');
-      setTitle('');
-      setContent('');
+      toast.success("Announcement created successfully!");
+      setTitle("");
+      setContent("");
     } else {
       const data = await response.json();
       toast.error(`Error: ${data.message}`);
@@ -55,7 +55,10 @@ export default function CreateAnnouncementForm() {
         <form onSubmit={handleSubmit} id="announcement-form">
           <div className="grid w-full items-center gap-6">
             <div className="flex flex-col space-y-2">
-              <Label htmlFor="title" className="text-white text-base font-normal">
+              <Label
+                htmlFor="title"
+                className="text-white text-base font-normal"
+              >
                 Title
               </Label>
               <Input
@@ -68,7 +71,10 @@ export default function CreateAnnouncementForm() {
               />
             </div>
             <div className="flex flex-col space-y-2">
-              <Label htmlFor="content" className="text-white text-base font-normal">
+              <Label
+                htmlFor="content"
+                className="text-white text-base font-normal"
+              >
                 Content
               </Label>
               <Textarea
@@ -84,14 +90,14 @@ export default function CreateAnnouncementForm() {
         </form>
       </CardContent>
       <CardFooter className="pt-6">
-            <RoundedButton
-            type="submit"
-            form="announcement-form"
-            color="var(--color-wcyan)"
-            >
-            Create Announcement
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </RoundedButton>
+        <RoundedButton
+          type="submit"
+          form="announcement-form"
+          color="var(--color-wcyan)"
+        >
+          Create Announcement
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </RoundedButton>
       </CardFooter>
     </Card>
   );

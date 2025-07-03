@@ -32,7 +32,8 @@ async function checkinUser(userId: string) {
   if (userStatus && userStatus.rsvp) {
     await db.update(users).set({ checkedin: true }).where(eq(users.id, userId));
   } else {
-    throw new UserActionError("User has not RSVPed");
+    // Return without error - this will be handled as a notification in the response
+    return { notification: "User has not RSVPed and cannot be checked in" };
   }
 }
 

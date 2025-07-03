@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { User } from "@/db/schema";
 import { createContext, useContext, useState } from "react";
@@ -10,9 +10,9 @@ interface HackerScannerContextType {
   setLastUser: (user: User | null) => void;
 }
 
-const HackerScannerContext = createContext<HackerScannerContextType | undefined>(
-  undefined
-);
+const HackerScannerContext = createContext<
+  HackerScannerContextType | undefined
+>(undefined);
 
 export const HackerScannerProvider = ({
   children,
@@ -23,7 +23,7 @@ export const HackerScannerProvider = ({
   const [lastUser, setLastUser] = useState<User | null>(null);
 
   return (
-    <HackerScannerContext.Provider 
+    <HackerScannerContext.Provider
       value={{
         isScanning,
         setIsScanning,
@@ -39,7 +39,9 @@ export const HackerScannerProvider = ({
 export const useHackerScanner = () => {
   const context = useContext(HackerScannerContext);
   if (context === undefined) {
-    throw new Error("useHackerScanner must be used within a HackerScannerProvider");
+    throw new Error(
+      "useHackerScanner must be used within a HackerScannerProvider",
+    );
   }
   return context;
 };

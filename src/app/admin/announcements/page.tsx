@@ -11,7 +11,7 @@ export default function AnnouncementsPage() {
           Create and manage announcements for the Hack404 platform
         </p>
       </div>
-      
+
       <div className="w-full max-w-2xl">
         <CreateAnnouncementForm />
       </div>

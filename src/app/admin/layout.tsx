@@ -20,7 +20,7 @@ export default async function ProtectedLayout({
     console.log("User is not authenticated, redirecting to login");
     redirect("/login");
   }
-  
+
   if (!session.user?.id) {
     console.log("User ID is not available, redirecting to login");
     redirect("/login");

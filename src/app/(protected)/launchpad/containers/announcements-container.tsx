@@ -28,6 +28,16 @@ export default function AnnouncementContainer({
   hasMore = false,
   isLoading = false,
 }: AnnouncementContainerProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
   return (
     <div className="flex flex-col flex-1 h-full tablet:border-x tablet:border-t-0 tablet:border-b-0 border-t border-b border-[rgba(48,242,242,0.2)] backdrop-blur-[25px] text-white overflow-hidden">
       {/* Fixed Header */}
@@ -58,6 +68,9 @@ export default function AnnouncementContainer({
               <div className="flex justify-between items-start self-stretch">
                 <div className="flex flex-col items-start gap-2">
                   <h2 className="font-medium">{event.title}</h2>
+                  <p className="font-light text-xs text-[rgba(255,255,255,0.7)]">
+                    {formatDate(event.createdAt)}
+                  </p>
                   <p className="font-light text-sm">{event.content}</p>
                 </div>
               </div>

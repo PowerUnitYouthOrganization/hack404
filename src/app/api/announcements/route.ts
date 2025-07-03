@@ -48,13 +48,14 @@ export async function GET(req: NextRequest) {
   const allAnnouncements = await query;
 
   // Calculate next cursor
-  const nextCursor = allAnnouncements.length > 0 
-    ? allAnnouncements[allAnnouncements.length - 1].createdAt?.toISOString()
-    : null;
+  const nextCursor =
+    allAnnouncements.length > 0
+      ? allAnnouncements[allAnnouncements.length - 1].createdAt?.toISOString()
+      : null;
 
   return NextResponse.json({
     data: allAnnouncements,
     nextCursor: nextCursor,
-    hasMore: allAnnouncements.length === safeLimitNumber
+    hasMore: allAnnouncements.length === safeLimitNumber,
   });
 }

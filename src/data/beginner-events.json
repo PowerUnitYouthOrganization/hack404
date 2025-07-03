@@ -3,42 +3,42 @@
     "name": "Team Formation",
     "startTime": "2025-07-04T20:00:00",
     "endTime": "2025-07-04T21:00:00",
-    "roomNumber": "TBA",
+    "roomNumber": "MY 330",
     "day": 1
   },
   {
     "name": "Microhack 1: Web",
     "startTime": "2025-07-04T21:00:00",
     "endTime": "2025-07-04T22:00:00",
-    "roomNumber": "TBA",
+    "roomNumber": "MY 330",
     "day": 1
   },
   {
     "name": "Microhack 2: AI Agents",
     "startTime": "2025-07-05T10:00:00",
     "endTime": "2025-07-05T12:00:00",
-    "roomNumber": "TBA",
+    "roomNumber": "MY 330",
     "day": 2
   },
   {
     "name": "Microhack 3: Crypto",
     "startTime": "2025-07-05T15:00:00",
     "endTime": "2025-07-05T17:00:00",
-    "roomNumber": "TBA",
+    "roomNumber": "MY 330",
     "day": 2
   },
   {
     "name": "Microhack 4: 3D Modelling",
     "startTime": "2025-07-05T18:00:00",
     "endTime": "2025-07-05T19:00:00",
-    "roomNumber": "TBA",
+    "roomNumber": "MY 330",
     "day": 2
   },
   {
     "name": "Microhack 5: UI/UX",
     "startTime": "2025-07-05T20:00:00",
     "endTime": "2025-07-05T21:00:00",
-    "roomNumber": "TBA",
+    "roomNumber": "MY 330",
     "day": 2
   }
 ]

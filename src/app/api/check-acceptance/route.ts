@@ -65,9 +65,9 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Error checking application:", error);
-    return NextResponse.json(
-      { error: "Failed to check application" },
-      { status: 500 },
-    );
+    return NextResponse.json({
+      applied: false,
+      accepted: false,
+    });
   }
 }

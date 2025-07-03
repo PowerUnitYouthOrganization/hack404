@@ -116,11 +116,13 @@ export default function Home() {
   }, []);
 
   // import agenda events from json
-  const agendaEvents: AgendaEvent[] = eventsData.map((event) => ({
-    ...event,
-    startTime: new Date(event.startTime),
-    endTime: new Date(event.endTime),
-  }));
+  const agendaEvents: AgendaEvent[] = eventsData
+    .map((event) => ({
+      ...event,
+      startTime: new Date(event.startTime),
+      endTime: new Date(event.endTime),
+    }))
+    .sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
 
   return (
     <main className="flex flex-col h-full overflow-hidden gap-6">

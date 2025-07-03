@@ -72,11 +72,13 @@ export default function Agenda() {
     }
   }
 
-  const calendarEvents: AgendaEvent[] = uniqueEvents.map((event) => ({
-    ...event,
-    startTime: new Date(event.startTime),
-    endTime: new Date(event.endTime),
-  }));
+  const calendarEvents: AgendaEvent[] = uniqueEvents
+    .map((event) => ({
+      ...event,
+      startTime: new Date(event.startTime),
+      endTime: new Date(event.endTime),
+    }))
+    .sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
 
   // Import events from appropriate JSON file for agenda container based on user stream
   const agendaEvents: AgendaEvent[] = getEventsForUser()

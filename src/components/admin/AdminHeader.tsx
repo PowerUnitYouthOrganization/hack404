@@ -21,9 +21,9 @@ const adminNavItems = [
   { href: "/admin/hackerScanner", label: "Scanner", icon: QrCode },
   { href: "/admin/announcements", label: "Announcements", icon: Megaphone },
   { href: "/admin/users", label: "Users", icon: User },
-  { href: "/admin/applications", label: "Applications", icon: FileText },
-  { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/admin/settings", label: "Settings", icon: Cog },
+  // { href: "/admin/applications", label: "Applications", icon: FileText },
+  // { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+  // { href: "/admin/settings", label: "Settings", icon: Cog },
 ];
 
 export default function AdminHeader() {

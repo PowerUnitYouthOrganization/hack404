@@ -91,6 +91,11 @@ export default function UsersPage() {
     userId: string;
     position: { x: number; y: number };
   } | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [actionNotification, setActionNotification] = useState<string | null>(
+    null,
+  );
+  const [bulkActionLoading, setBulkActionLoading] = useState(false);
 
   // Fetch statistics
   useEffect(() => {
@@ -160,6 +165,8 @@ export default function UsersPage() {
 
   const handleUserAction = async (userId: string, action: string) => {
     try {
+      setActionError(null); // Clear any previous errors
+      setActionNotification(null); // Clear any previous notifications
       const response = await fetch(`/admin/api/users/${userId}`, {
         method: "PUT",
         headers: {
@@ -169,6 +176,13 @@ export default function UsersPage() {
       });
 
       if (response.ok) {
+        const responseData = await response.json();
+
+        // Check if there's a notification in the response
+        if (responseData.notification) {
+          setActionNotification(responseData.notification);
+        }
+
         // Refresh the user list
         const params = new URLSearchParams({
           page: currentPage.toString(),
@@ -184,9 +198,16 @@ export default function UsersPage() {
           const data: UserListResponse = await refreshResponse.json();
           setUsers(data.users);
         }
+      } else {
+        // Handle error response
+        const errorData = await response.json();
+        setActionError(
+          errorData.error || "An error occurred while performing the action",
+        );
       }
     } catch (error) {
       console.error("Error performing user action:", error);
+      setActionError("Network error occurred while performing the action");
     }
   };
 
@@ -211,6 +232,59 @@ export default function UsersPage() {
 
   const closeStatusPopup = () => {
     setStatusPopup(null);
+  };
+
+  const handleResetAllMeals = async () => {
+    if (
+      !confirm(
+        "Are you sure you want to reset meal status for ALL users? This cannot be undone.",
+      )
+    ) {
+      return;
+    }
+
+    setBulkActionLoading(true);
+    try {
+      setActionError(null);
+      setActionNotification(null);
+
+      const response = await fetch("/admin/api/users/bulk-actions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "resetAllMeals" }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setActionNotification(data.message);
+
+        // Refresh the user list
+        const params = new URLSearchParams({
+          page: currentPage.toString(),
+          limit: "20",
+          search,
+          stream: streamFilter,
+          sortBy,
+          sortOrder,
+        });
+
+        const refreshResponse = await fetch(`/admin/api/users?${params}`);
+        if (refreshResponse.ok) {
+          const userData = await refreshResponse.json();
+          setUsers(userData.users);
+        }
+      } else {
+        const errorData = await response.json();
+        setActionError(errorData.error || "Failed to reset meals");
+      }
+    } catch (error) {
+      console.error("Error resetting meals:", error);
+      setActionError("Network error occurred while resetting meals");
+    } finally {
+      setBulkActionLoading(false);
+    }
   };
 
   // Close popup when clicking outside
@@ -300,16 +374,65 @@ export default function UsersPage() {
               </Button>
             )}
           </div>
-          <select
-            value={streamFilter}
-            onChange={(e) => setStreamFilter(e.target.value)}
-            className="px-3 py-2 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 text-white rounded-md"
-          >
-            <option value="">All Streams</option>
-            <option value="beginner">Beginner</option>
-            <option value="normal">Normal</option>
-          </select>
+          <div className="flex gap-2">
+            <select
+              value={streamFilter}
+              onChange={(e) => setStreamFilter(e.target.value)}
+              className="px-4 bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 text-white rounded-md"
+            >
+              <option value="">All Streams</option>
+              <option value="beginner">Beginner</option>
+              <option value="normal">Normal</option>
+            </select>
+            <Button
+              onClick={handleResetAllMeals}
+              disabled={bulkActionLoading}
+              className="px-4 rounded-none bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 disabled:opacity-50"
+              variant="outline"
+            >
+              {bulkActionLoading ? "Resetting..." : "Reset All Meals"}
+            </Button>
+          </div>
         </div>
+
+        {/* Error Message */}
+        {actionError && (
+          <div className="mb-4 p-3 bg-red-400/10 border border-red-400/20 rounded-md">
+            <div className="flex items-center justify-between">
+              <span className="text-red-300 text-sm">
+                <span className="font-medium">Error:</span> {actionError}
+              </span>
+              <Button
+                onClick={() => setActionError(null)}
+                size="sm"
+                variant="ghost"
+                className="text-red-300 hover:text-red-200 h-auto p-1"
+              >
+                <X className="w-3 h-3" />
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Notification Message */}
+        {actionNotification && (
+          <div className="mb-4 p-3 bg-yellow-400/10 border border-yellow-400/20 rounded-md">
+            <div className="flex items-center justify-between">
+              <span className="text-yellow-300 text-sm">
+                <span className="font-medium">Notice:</span>{" "}
+                {actionNotification}
+              </span>
+              <Button
+                onClick={() => setActionNotification(null)}
+                size="sm"
+                variant="ghost"
+                className="text-yellow-300 hover:text-yellow-200 h-auto p-1"
+              >
+                <X className="w-3 h-3" />
+              </Button>
+            </div>
+          </div>
+        )}
 
         {/* Active Search Indicator */}
         {search && (
@@ -425,6 +548,7 @@ export default function UsersPage() {
                         </td>
                         <td className="p-4">
                           <div className="flex justify-center gap-2">
+                            {/* Check In Button - only for users who RSVP'd and aren't checked in */}
                             {!user.checkedin && user.rsvp && (
                               <Button
                                 size="sm"
@@ -437,6 +561,23 @@ export default function UsersPage() {
                                 Check In
                               </Button>
                             )}
+
+                            {/* Check In Button - for users who haven't RSVP'd but can still attempt */}
+                            {!user.checkedin && !user.rsvp && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  handleUserAction(user.id, "checkin")
+                                }
+                                className="text-xs bg-yellow-500/20 text-yellow-300 border-yellow-500/30 hover:bg-yellow-500/30"
+                                title="User hasn't RSVP'd - will show notification"
+                              >
+                                Check In
+                              </Button>
+                            )}
+
+                            {/* Check Out Button */}
                             {user.checkedin && (
                               <Button
                                 size="sm"
@@ -449,6 +590,22 @@ export default function UsersPage() {
                                 Check Out
                               </Button>
                             )}
+
+                            {/* Meal Button - only for checked in users */}
+                            {user.checkedin && !user.meal && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  handleUserAction(user.id, "meal")
+                                }
+                                className="text-xs bg-orange-500/20 text-orange-300 border-orange-500/30 hover:bg-orange-500/30"
+                              >
+                                Record Meal
+                              </Button>
+                            )}
+
+                            {/* Make Admin Button */}
                             {!user.isadmin && (
                               <Button
                                 size="sm"

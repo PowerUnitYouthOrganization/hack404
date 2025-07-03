@@ -74,7 +74,7 @@ export async function PUT(
       );
     }
 
-    await UserActions[action](userId);
+    const actionResult = await UserActions[action](userId);
 
     // Fetch the updated user data to return to the client
     const updatedUser = await db
@@ -87,7 +87,15 @@ export async function PUT(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json(updatedUser[0]);
+    // Include notification if present
+    const response = {
+      ...updatedUser[0],
+      ...(actionResult?.notification && {
+        notification: actionResult.notification,
+      }),
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Error processing user action:", error);
     if (error instanceof UserActionError) {

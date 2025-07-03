@@ -191,6 +191,18 @@ export default function qrScanner() {
                       : "..."}
                   </span>
                 </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">RSVP:</span>
+                  <span
+                    className={`font-medium ${userBeforeAction?.checkedin ? "text-green-400" : "text-red-400"}`}
+                  >
+                    {userBeforeAction
+                      ? userBeforeAction.rsvp
+                        ? "Yes (yippe yay)"
+                        : "No (DO NOT LET THIS PERSON IN)"
+                      : "..."}
+                  </span>
+                </div>
               </div>
             </div>
             {scanError && (

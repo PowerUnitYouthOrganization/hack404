@@ -534,6 +534,12 @@ export default function UsersPage() {
                           <div className="flex justify-center gap-2">
                             <div
                               className={`w-2 h-2 rounded-full ${
+                                user.rsvp ? "bg-purple-400" : "bg-gray-400"
+                              }`}
+                              title={`${user.rsvp ? "RSVP'd" : "Not RSVP'd"}`}
+                            />
+                            <div
+                              className={`w-2 h-2 rounded-full ${
                                 user.checkedin ? "bg-green-400" : "bg-gray-400"
                               }`}
                               title={`Checked ${user.checkedin ? "In" : "Out"}`}
@@ -548,6 +554,20 @@ export default function UsersPage() {
                         </td>
                         <td className="p-4">
                           <div className="flex justify-center gap-2">
+                            {/* Manual RSVP Button - for users who haven't RSVP'd */}
+                            {!user.rsvp && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  handleUserAction(user.id, "rsvp")
+                                }
+                                className="text-xs bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30 hover:text-purple-50"
+                              >
+                                RSVP
+                              </Button>
+                            )}
+
                             {/* Check In Button - only for users who RSVP'd and aren't checked in */}
                             {!user.checkedin && user.rsvp && (
                               <Button
@@ -675,6 +695,11 @@ export default function UsersPage() {
         >
           <div className="text-white text-sm space-y-3 min-w-[200px]">
             <h3 className="text-cyan-300 font-medium mb-3">Status Legend</h3>
+
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-purple-400" />
+              <span>RSVP'd</span>
+            </div>
 
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 rounded-full bg-green-400" />

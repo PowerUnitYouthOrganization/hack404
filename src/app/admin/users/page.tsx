@@ -604,8 +604,7 @@ export default function UsersPage() {
                                 Record Meal
                               </Button>
                             )}
-
-                            {/* Make Admin Button */}
+                            {/*
                             {!user.isadmin && (
                               <Button
                                 size="sm"
@@ -617,7 +616,7 @@ export default function UsersPage() {
                               >
                                 Make Admin
                               </Button>
-                            )}
+                            )} */}
                           </div>
                         </td>
                       </tr>

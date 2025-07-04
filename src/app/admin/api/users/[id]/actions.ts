@@ -52,6 +52,10 @@ async function recordMicrohack(userId: string) {
     .where(eq(users.id, userId));
 }
 
+async function manualRsvp(userId: string) {
+  await db.update(users).set({ rsvp: true }).where(eq(users.id, userId));
+}
+
 export const UserActions = {
   makeAdmin,
   removeAdmin,
@@ -59,6 +63,7 @@ export const UserActions = {
   checkout: checkoutUser,
   meal: recordMeal,
   microhack: recordMicrohack, // Renamed from workshop
+  rsvp: manualRsvp,
 } as const;
 
 export type UserAction = keyof typeof UserActions;

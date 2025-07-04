@@ -1,5 +1,6 @@
 import { FaDiscord } from "react-icons/fa";
 import { RxDiscordLogo } from "react-icons/rx";
+import { ExternalLink } from "lucide-react";
 
 import RoundedButton from "@/components/ui/roundedbutton";
 import React from "react";
@@ -22,24 +23,23 @@ export default function InfoContainer() {
           </svg>
         </div>
         <div
-          className={`flex flex-col items-start justify-between self-stretch p-6 border-b border-[rgba(48, 242, 242, 0.20)] bg-[rgba(48, 242, 242, 0.10)] backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
+          className={`flex flex-col items-start justify-between h-40 self-stretch p-6 border-b border-[rgba(48, 242, 242, 0.20)] bg-[rgba(48, 242, 242, 0.10)] backdrop-blur-[25px] last:border-b-0 flex-shrink-0`}
         >
-          {/* <div className="flex justify-between items-start self-stretch font-extralight">
-                  Due 7:00AM Saturday
-                </div>
-                <div className="flex justify-between items-end self-stretch">
-                  <RoundedButton
-                    color={"var(--color-wcyan)"}
-                    className="text-black w-full"
-                    onClick={() => {
-                      window.open("https://devpost.com/hack404", "_blank"); // Link to an external Devpost page
-                    }}
-                  >
-                    <p>Submit on Devpost</p>
-                    <ExternalLink className="w-5 h-5" />
-                  </RoundedButton>
-                </div> */}
-          Coming soon!
+          <div className="flex justify-between items-start self-stretch">
+            Due 9:00AM Sunday
+          </div>
+          <div className="flex justify-between items-end self-stretch">
+            <RoundedButton
+              color={"var(--color-wcyan)"}
+              className="text-black w-full"
+              onClick={() => {
+                window.open("https://hack404-2025.devpost.com/", "_blank"); // Link to an external Devpost page
+              }}
+            >
+              <p>Submit on Devpost</p>
+              <ExternalLink className="w-5 h-5" />
+            </RoundedButton>
+          </div>
         </div>
       </div>
       <div className="flex flex-col items-start self-stretch border-b border-[rgba(48,242,242,0.2)]">

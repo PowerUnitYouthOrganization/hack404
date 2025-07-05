@@ -62,18 +62,12 @@
     "roomNumber": "Lobby",
     "day": 2
   },  {
-    "name": "Fire Ramen Challenge",
+    "name": "Karaoke and Fire Ramen",
     "startTime": "2025-07-05T22:00:00",
     "endTime": "2025-07-05T23:00:00",
-    "roomNumber": "MY 360",
+    "roomNumber": "Auditorium (MY 150)",
     "day": 2
-  },  {
-    "name": "Karaoke",
-    "startTime": "2025-07-05T23:00:00",
-    "endTime": "2025-07-06T00:00:00",
-    "roomNumber": "Auditorium",
-    "day": 2
-  },  {
+  },{
     "name": "Breakfast",
     "startTime": "2025-07-06T09:00:00",
     "endTime": "2025-07-06T10:00:00",

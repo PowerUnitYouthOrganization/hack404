@@ -19,6 +19,7 @@ import {
   FileText,
   Shield,
   QrCode,
+  UserPlus,
 } from "lucide-react";
 
 const adminRoutes = [
@@ -27,6 +28,13 @@ const adminRoutes = [
     description: "Manage and create announcements for users",
     href: "/admin/announcements",
     icon: Megaphone,
+    color: "var(--color-wcyan)",
+  },
+  {
+    title: "Manual Application",
+    description: "Manually create applications for users based on email",
+    href: "/admin/manual-application",
+    icon: UserPlus,
     color: "var(--color-wcyan)",
   },
   {

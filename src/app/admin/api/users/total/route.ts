@@ -30,17 +30,22 @@ export async function GET(req: NextRequest) {
     const beginnerStreamResult = await db
       .select({ count: count() })
       .from(users)
-      .where(eq(users.stream, "beginner"));
-
-    const normalStreamResult = await db
+      .where(eq(users.stream, "beginner"));    const normalStreamResult = await db
       .select({ count: count() })
       .from(users)
       .where(eq(users.stream, "normal"));
+
+    // Get checked-in users (present hackers)
+    const checkedInUsersResult = await db
+      .select({ count: count() })
+      .from(users)
+      .where(eq(users.checkedin, true));
 
     const response = {
       totalUsers: totalUsersResult[0].count,
       completedProfiles: completedProfilesResult[0].count,
       adminUsers: adminUsersResult[0].count,
+      checkedInUsers: checkedInUsersResult[0].count,
       streams: {
         beginner: beginnerStreamResult[0].count,
         normal: normalStreamResult[0].count,

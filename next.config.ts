@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import withPWA from "next-pwa";
+import type { Configuration } from "webpack";
+
 
 const nextConfig: NextConfig = {
   eslint: {
@@ -14,7 +17,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  webpack(config: import("webpack").Configuration) {
+  webpack(config: Configuration) {
     config.module?.rules?.push({
       test: /^.*\.glsl$/,
       use: "raw-loader",
@@ -23,4 +26,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+})(nextConfig);

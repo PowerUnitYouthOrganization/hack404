@@ -19,7 +19,7 @@ export default function Header() {
           Sponsors
         </a>
         <a
-          href=""
+          href="/"
           className="flex flex-1 flex-col items-center justify-center gap-[10px] self-stretch"
         >
           <img

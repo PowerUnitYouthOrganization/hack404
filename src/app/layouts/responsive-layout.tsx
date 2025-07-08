@@ -69,7 +69,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 alt="hack404 big label"
                 className="h-auto w-full"
               />
-              <div className="flex items-start justify-between self-stretch">
+              <div className="flex items-start justify-between self-stretch mb-4">
                 <ColSection width={1}>
                   <img src="whitesmall.png" alt="" className="h-auto w-14" />
                 </ColSection>
@@ -83,12 +83,12 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 </ColSection>
                 <ColSection width={1} />
                 <ColSection width={1}>
-                  <CutButton
+                  {/* <CutButton
                     text="Sign up now"
                     onClick={handleSubmit}
                     disabled={false}
                     className="rounded-l-sm w-full"
-                  />
+                  /> */}
                 </ColSection>
               </div>
               <div className="flex items-start self-stretch">
@@ -142,14 +142,14 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                 </p>
               </div>
 
-              <div className="self-stretch">
+              {/* <div className="self-stretch">
                 <CutButton
                   text="Sign up now"
                   onClick={handleSubmit}
                   disabled={false}
                   className="rounded-l-sm w-full"
                 />
-              </div>
+              </div> */}
 
               <div className="self-stretch flex justify-between items-start">
                 <div className="flex-1">

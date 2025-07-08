@@ -19,6 +19,7 @@ import {
   FileText,
   Shield,
   QrCode,
+  UserPlus,
 } from "lucide-react";
 
 const adminRoutes = [
@@ -27,6 +28,13 @@ const adminRoutes = [
     description: "Manage and create announcements for users",
     href: "/admin/announcements",
     icon: Megaphone,
+    color: "var(--color-wcyan)",
+  },
+  {
+    title: "Manual Application",
+    description: "Manually create applications for users based on email",
+    href: "/admin/manual-application",
+    icon: UserPlus,
     color: "var(--color-wcyan)",
   },
   {
@@ -45,11 +53,11 @@ const adminRoutes = [
   },
 ];
 
-export default function AdminDashboard() {
-  const [stats, setStats] = useState({
+export default function AdminDashboard() {  const [stats, setStats] = useState({
     totalUsers: "--",
     totalApplications: "--",
     totalAnnouncements: "--",
+    presentHackers: "--",
     isLoading: true,
   });
 
@@ -74,12 +82,11 @@ export default function AdminDashboard() {
               usersResponse.json(),
               applicationsResponse.json(),
               announcementsResponse.json(),
-            ]);
-
-          setStats({
+            ]);          setStats({
             totalUsers: usersData.totalUsers || 0,
             totalApplications: applicationsData.totalApplications || 0,
             totalAnnouncements: announcementsData.totalAnnouncements || 0,
+            presentHackers: usersData.checkedInUsers || 0,
             isLoading: false,
           });
         } else {
@@ -168,11 +175,12 @@ export default function AdminDashboard() {
               </div>
               <div className="text-white/60 text-sm">Announcements</div>
             </CardContent>
-          </Card>
-          <Card className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px]">
+          </Card>          <Card className="bg-[rgba(48,242,242,0.10)] border border-cyan-400/20 shadow-none rounded-none backdrop-blur-[25px]">
             <CardContent className="p-6 text-center">
-              <div className="text-2xl font-bold text-cyan-300 mb-1">--</div>
-              <div className="text-white/60 text-sm">Active Sessions</div>
+              <div className="text-2xl font-bold text-cyan-300 mb-1">
+                {stats.isLoading ? "--" : stats.presentHackers}
+              </div>
+              <div className="text-white/60 text-sm">Present Hackers</div>
             </CardContent>
           </Card>
         </div>

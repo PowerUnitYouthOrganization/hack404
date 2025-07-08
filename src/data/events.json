@@ -19,75 +19,59 @@
     "endTime": "2025-07-04T20:00:00",
     "roomNumber": "MY 150",
     "day": 1
-  },
-  {
+  },  {
     "name": "Dinner",
     "startTime": "2025-07-04T20:00:00",
     "endTime": "2025-07-04T21:00:00",
-    "roomNumber": "Second Floor",
+    "roomNumber": "Lobby",
     "day": 1
-  },
-  {
+  },  {
     "name": "Musical Chairs with Hack the 6ix",
     "startTime": "2025-07-04T20:30:00",
     "endTime": "2025-07-05T21:30:00",
-    "roomNumber": "MY 580",
+    "roomNumber": "MY 360",
     "day": 1
-  },
-  {
+  },{
     "name": "Breakfast",
     "startTime": "2025-07-05T09:00:00",
     "endTime": "2025-07-05T10:00:00",
-    "roomNumber": "Second Floor",
+    "roomNumber": "Lobby",
     "day": 2
-  },
-  {
+  },  {
     "name": "Lunch",
     "startTime": "2025-07-05T12:00:00",
     "endTime": "2025-07-05T13:00:00",
-    "roomNumber": "Second Floor",
+    "roomNumber": "Lobby",
     "day": 2
-  },
-  {
+  },  {
     "name": "Card Games",
     "startTime": "2025-07-05T14:00:00",
     "endTime": "2025-07-05T15:00:00",
-    "roomNumber": "MY 580",
+    "roomNumber": "MY 360",
     "day": 2
-  },
-  {
+  },  {
     "name": "Resume Roast",
     "startTime": "2025-07-05T18:00:00",
     "endTime": "2025-07-05T19:00:00",
-    "roomNumber": "MY 580",
+    "roomNumber": "MY 360",
     "day": 2
-  },
-  {
+  },  {
     "name": "Dinner",
     "startTime": "2025-07-05T19:00:00",
     "endTime": "2025-07-05T20:00:00",
-    "roomNumber": "Second Floor",
+    "roomNumber": "Lobby",
     "day": 2
-  },
-  {
-    "name": "Fire Ramen Challenge",
+  },  {
+    "name": "Karaoke and Fire Ramen",
     "startTime": "2025-07-05T22:00:00",
     "endTime": "2025-07-05T23:00:00",
-    "roomNumber": "MY 580",
+    "roomNumber": "Auditorium (MY 150)",
     "day": 2
-  },
-  {
-    "name": "Karaoke",
-    "startTime": "2025-07-05T23:00:00",
-    "endTime": "2025-07-06T00:00:00",
-    "roomNumber": "MY 580",
-    "day": 2
-  },
-  {
+  },{
     "name": "Breakfast",
     "startTime": "2025-07-06T09:00:00",
     "endTime": "2025-07-06T10:00:00",
-    "roomNumber": "Second Floor",
+    "roomNumber": "Lobby",
     "day": 3
   },
   {
@@ -103,12 +87,11 @@
     "endTime": "2025-07-06T12:00:00",
     "roomNumber": "MY 150",
     "day": 3
-  },
-  {
+  },  {
     "name": "Lunch",
     "startTime": "2025-07-06T12:00:00",
     "endTime": "2025-07-06T13:00:00",
-    "roomNumber": "Second Floor",
+    "roomNumber": "Lobby",
     "day": 3
   },
   {

@@ -1,4 +1,4 @@
-# hack404: The All-in-One Hackathon Platform
+# hack404
 
 ![hack404](httpst://user-images.githubusercontent.com/8325999/149839293-66a15e33-d731-4176-b673-b4d2417b9b1e.png)
 

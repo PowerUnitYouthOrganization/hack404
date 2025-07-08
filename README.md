@@ -1,5 +1,5 @@
 # hack404
 
-![hack404](https://user-images.githubusercontent.com/8325999/149839293-66a15e33-d731-4176-b673-b4d2417b9b1e.png)
+![hack404](https://github.com/PowerUnitYouthOrganization/hack404-2025/blob/master/public/whitefull.png?raw=true)
 
 This is the repository for [hack404's](https://hack404.dev/) 2025 website. Built with Next.js.

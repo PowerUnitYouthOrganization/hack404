@@ -15,7 +15,7 @@ const partners = [
     name: "UTMIST",
     description:
       "UTMIST is Canada's largest student-lead organization for Artificial Intelligence and Machine Learning. ",
-    imageUrl: "utmist.png",
+    imageUrl: "/utmist.png",
   },
 ];
 
@@ -24,19 +24,19 @@ const sponsors = [
     name: "CGI",
     description:
       "CGI is one of the largest IT and business consulting services firms in the world. Combining human ingenuity with the power of technology, we help clients accelerate ROI-led digital transformation.",
-    imageUrl: "CGI.png",
+    imageUrl: "/CGI.png",
   },
   {
     name: "Vitasoy",
     description:
       "Vitasoy is a company that produces and sells plant-based products, such as soy, oat and tea drinks, for health and environmental benefits.",
-    imageUrl: "vitasoy.png",
+    imageUrl: "/vitasoy.png",
   },
   {
     name: "The Remington Group",
     description:
       "The Remington Group is a real estate developer that builds and operates a vast portfolio of residential, retail and commercial properties across Ontario.",
-    imageUrl: "remington.png",
+    imageUrl: "/remington.png",
   },
 ];
 

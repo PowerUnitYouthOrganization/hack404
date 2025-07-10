@@ -31,6 +31,7 @@ export default function SideMenu({ open, onClose }: SideMenuProps) {
                 </a>
                 <a href="https://www.instagram.com/hack404.dev/">Instagram</a>
                 <a href="/sponsors">Sponsors</a>
+                <a href="/Hack404 Sponsorship Package.pdf">Sponsor Us</a>
                 <a href="https://power-unit.org">PUYO</a>
               </div>
 

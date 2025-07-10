@@ -1,9 +1,6 @@
 import { Space_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import Provider from "./provider";
-
-// Space Grotesk was defined but not used - removed
 
 const spaceMono = Space_Mono({
   weight: "400",
@@ -64,21 +61,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#18181b" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body
         className={`${dmSans.variable} ${spaceMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        <Provider>
-          {children}
-          <Toaster />
-        </Provider>
+        {children}
+        <Toaster />
       </body>
     </html>
   );

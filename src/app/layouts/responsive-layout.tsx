@@ -4,7 +4,6 @@ import SmallHeader from "@/components/small-header";
 import Grid from "@/components/grid";
 import HBorder from "@/components/h-border";
 import GradientBackground from "@/components/gradient-background";
-import CutButton from "@/components/cut-button";
 import {
   TextSection,
   TextSectionTitle,
@@ -13,10 +12,6 @@ import {
 import { InstagramButton, LinkedInButton } from "@/components/social-button";
 import Link from "next/link";
 import faqData from "@/data/faq.json";
-
-type LayoutProps = {
-  handleSubmit: () => void | Promise<void>;
-};
 
 const renderFaqAnswer = (faqItem: any) => {
   if (faqItem.hasLink) {
@@ -37,7 +32,7 @@ const renderFaqAnswer = (faqItem: any) => {
   return faqItem.answer;
 };
 
-export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
+export default function ResponsiveLayout() {
   return (
     <>
       {/* First Screen */}
@@ -82,14 +77,7 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   </p>
                 </ColSection>
                 <ColSection width={1} />
-                <ColSection width={1}>
-                  {/* <CutButton
-                    text="Sign up now"
-                    onClick={handleSubmit}
-                    disabled={false}
-                    className="rounded-l-sm w-full"
-                  /> */}
-                </ColSection>
+                <ColSection width={1}></ColSection>
               </div>
               <div className="flex items-start self-stretch">
                 <ColSection width={1} offset="1.5rem">
@@ -141,15 +129,6 @@ export default function ResponsiveLayout({ handleSubmit }: LayoutProps) {
                   Power Unit Youth Organization x UTMIST
                 </p>
               </div>
-
-              {/* <div className="self-stretch">
-                <CutButton
-                  text="Sign up now"
-                  onClick={handleSubmit}
-                  disabled={false}
-                  className="rounded-l-sm w-full"
-                />
-              </div> */}
 
               <div className="self-stretch flex justify-between items-start">
                 <div className="flex-1">

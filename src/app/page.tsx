@@ -9,14 +9,6 @@ import { GridColWidthProvider } from "@/app/contexts/GridCtx";
  * @returns the desktop view.
  */
 export default function Home() {
-  const handleSubmit = async () => {
-    window.location.href = "/login";
-  };
-
-  const layoutProps = {
-    handleSubmit,
-  };
-
   return (
     <>
       <Head>
@@ -24,7 +16,7 @@ export default function Home() {
         <meta name="twitter:image" content="thumbnail.png" />
       </Head>
       <GridColWidthProvider>
-        <ResponsiveLayout {...layoutProps} />
+        <ResponsiveLayout />
       </GridColWidthProvider>
     </>
   );

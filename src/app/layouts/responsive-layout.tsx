@@ -1,6 +1,7 @@
 import Header from "@/components/header";
 import ColSection from "@/components/col-section";
 import SmallHeader from "@/components/small-header";
+
 import Grid from "@/components/grid";
 import HBorder from "@/components/h-border";
 import GradientBackground from "@/components/gradient-background";
@@ -11,10 +12,21 @@ import {
 } from "@/components/text-section";
 import { InstagramButton, LinkedInButton } from "@/components/social-button";
 import Link from "next/link";
-import faqData from "@/data/faq.json";
 
-const renderFaqAnswer = (faqItem: any) => {
-  if (faqItem.hasLink) {
+interface FaqItem {
+  question: string;
+  answer: string;
+  hasLink?: boolean;
+  linkText?: string;
+  linkUrl?: string;
+}
+
+type FaqData = Record<string, FaqItem[]>;
+import _faqData from "@/data/faq.json";
+const faqData: FaqData = _faqData;
+
+const renderFaqAnswer = (faqItem: FaqItem) => {
+  if (faqItem.hasLink && faqItem.linkText && faqItem.linkUrl) {
     const parts = faqItem.answer.split(faqItem.linkText);
     return (
       <>
@@ -73,7 +85,7 @@ export default function ResponsiveLayout() {
                     A 36-hour hackathon based in Toronto where secondary and
                     post-secondary students, from first-time hackers to seasoned
                     builders, team up to solve real-world problems and shape
-                    tomorrow's technology.
+                    tomorrow&apos;s technology.
                   </p>
                 </ColSection>
                 <ColSection width={1} />
@@ -118,7 +130,7 @@ export default function ResponsiveLayout() {
                   A 36-hour hackathon based in Toronto where secondary and
                   post-secondary students, from first-time hackers to seasoned
                   builders, team up to solve real-world problems and shape
-                  tomorrow's technology.
+                  tomorrow&apos;s technology.
                 </p>
               </div>
 
@@ -179,10 +191,11 @@ export default function ResponsiveLayout() {
                 hack404?
               </TextSectionTitle>
               <TextSectionContent>
-                Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
-                bring together 200 students who are passionate about learning
-                and building to create projects that excite them. We're focused
-                on our three pillars: education, innovation, and community.
+                Hack404 is a 36-hour hackathon in Toronto, ON. We&apos;re hoping
+                to bring together 200 students who are passionate about learning
+                and building to create projects that excite them. We&apos;re
+                focused on our three pillars: education, innovation, and
+                community.
               </TextSectionContent>
             </TextSection>
 
@@ -203,10 +216,10 @@ export default function ResponsiveLayout() {
               </TextSectionTitle>
               <TextSectionContent>
                 Beginner teams will attend 3-5 workshops throughout the weekend,
-                creating 'mini-hacks' rather than a single large project. Then,
-                they'll be judged portfolio-style, where they showcase their top
-                3 mini-hacks and are evaluated based on their technical
-                execution, creativity, and innovation.
+                creating &apos;mini-hacks&apos; rather than a single large
+                project. Then, they&apos;ll be judged portfolio-style, where
+                they showcase their top 3 mini-hacks and are evaluated based on
+                their technical execution, creativity, and innovation.
               </TextSectionContent>
             </TextSection>
 
@@ -218,7 +231,7 @@ export default function ResponsiveLayout() {
                 Hackers will have 36 hours to create an innovative project in
                 line with our three pillars—education, innovation, and
                 community—and a problem statement that will be announced during
-                opening ceremonies. We'll also be hosting activities and
+                opening ceremonies. We&apos;ll also be hosting activities and
                 workshops throughout the weekend!
               </TextSectionContent>
             </TextSection>
@@ -229,11 +242,11 @@ export default function ResponsiveLayout() {
             <TextSection titleWidth={1} contentWidth={4}>
               <TextSectionTitle>Who can participate?</TextSectionTitle>
               <TextSectionContent>
-                Hack404 is for students, by students. Whether you're a beginner
-                hacker or have been to 10+ hackathons, we'd love for you to
-                continue to innovate at Hack404. We welcome applications from
-                high school and post-secondary students, as well as those who
-                graduated in 2025.
+                Hack404 is for students, by students. Whether you&apos;re a
+                beginner hacker or have been to 10+ hackathons, we&apos;d love
+                for you to continue to innovate at Hack404. We welcome
+                applications from high school and post-secondary students, as
+                well as those who graduated in 2025.
               </TextSectionContent>
             </TextSection>
 
@@ -314,10 +327,11 @@ export default function ResponsiveLayout() {
                 hack404?
               </TextSectionTitle>
               <TextSectionContent>
-                Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
-                bring together 200 students who are passionate about learning
-                and building to create projects that excite them. We're focused
-                on our three pillars: education, innovation, and community.
+                Hack404 is a 36-hour hackathon in Toronto, ON. We&apos;re hoping
+                to bring together 200 students who are passionate about learning
+                and building to create projects that excite them. We&apos;re
+                focused on our three pillars: education, innovation, and
+                community.
               </TextSectionContent>
             </TextSection>
 
@@ -338,10 +352,10 @@ export default function ResponsiveLayout() {
               </TextSectionTitle>
               <TextSectionContent>
                 Beginner teams will attend 3-5 workshops throughout the weekend,
-                creating 'mini-hacks' rather than a single large project. Then,
-                they'll be judged portfolio-style, where they showcase their top
-                3 mini-hacks and are evaluated based on their technical
-                execution, creativity, and innovation.
+                creating &apos;mini-hacks&apos; rather than a single large
+                project. Then, they&apos;ll be judged portfolio-style, where
+                they showcase their top 3 mini-hacks and are evaluated based on
+                their technical execution, creativity, and innovation.
               </TextSectionContent>
             </TextSection>
 
@@ -353,7 +367,7 @@ export default function ResponsiveLayout() {
                 Hackers will have 36 hours to create an innovative project in
                 line with our three pillars—education, innovation, and
                 community—and a problem statement that will be announced during
-                opening ceremonies. We'll also be hosting activities and
+                opening ceremonies. We&apos;ll also be hosting activities and
                 workshops throughout the weekend!
               </TextSectionContent>
             </TextSection>
@@ -366,11 +380,11 @@ export default function ResponsiveLayout() {
                 Who can participate?
               </TextSectionTitle>
               <TextSectionContent>
-                Hack404 is for students, by students. Whether you're a beginner
-                hacker or have been to 10+ hackathons, we'd love for you to
-                continue to innovate at Hack404. We welcome applications from
-                high school and post-secondary students, as well as those who
-                graduated in 2025.
+                Hack404 is for students, by students. Whether you&apos;re a
+                beginner hacker or have been to 10+ hackathons, we&apos;d love
+                for you to continue to innovate at Hack404. We welcome
+                applications from high school and post-secondary students, as
+                well as those who graduated in 2025.
               </TextSectionContent>
             </TextSection>
 
@@ -450,10 +464,11 @@ export default function ResponsiveLayout() {
                 hack404?
               </h2>
               <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
-                Hack404 is a 36-hour hackathon in Toronto, ON. We're hoping to
-                bring together 200 students who are passionate about learning
-                and building to create projects that excite them. We're focused
-                on our three pillars: education, innovation, and community.
+                Hack404 is a 36-hour hackathon in Toronto, ON. We&apos;re hoping
+                to bring together 200 students who are passionate about learning
+                and building to create projects that excite them. We&apos;re
+                focused on our three pillars: education, innovation, and
+                community.
               </p>
             </div>
 
@@ -470,10 +485,11 @@ export default function ResponsiveLayout() {
                 </h3>
                 <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
                   Beginner teams will attend 3-5 workshops throughout the
-                  weekend, creating 'mini-hacks' rather than a single large
-                  project. Then, they'll be judged portfolio-style, where they
-                  showcase their top 3 mini-hacks and are evaluated based on
-                  their technical execution, creativity, and innovation.
+                  weekend, creating &apos;mini-hacks&apos; rather than a single
+                  large project. Then, they&apos;ll be judged portfolio-style,
+                  where they showcase their top 3 mini-hacks and are evaluated
+                  based on their technical execution, creativity, and
+                  innovation.
                 </p>
               </div>
               <div>
@@ -484,8 +500,8 @@ export default function ResponsiveLayout() {
                   Hackers will have 36 hours to create an innovative project in
                   line with our three pillars—education, innovation, and
                   community—and a problem statement that will be announced
-                  during opening ceremonies. We'll also be hosting activities
-                  and workshops throughout the weekend!
+                  during opening ceremonies. We&apos;ll also be hosting
+                  activities and workshops throughout the weekend!
                 </p>
               </div>
             </div>
@@ -498,11 +514,11 @@ export default function ResponsiveLayout() {
                 Who can participate?
               </h2>
               <p className="text-2xl font-(family-name:--font-heading-light) leading-relaxed">
-                Hack404 is for students, by students. Whether you're a beginner
-                hacker or have been to 10+ hackathons, we'd love for you to
-                continue to innovate at Hack404. We welcome applications from
-                high school and post-secondary students, as well as those who
-                graduated in 2025.
+                Hack404 is for students, by students. Whether you&apos;re a
+                beginner hacker or have been to 10+ hackathons, we&apos;d love
+                for you to continue to innovate at Hack404. We welcome
+                applications from high school and post-secondary students, as
+                well as those who graduated in 2025.
               </p>
             </div>
 

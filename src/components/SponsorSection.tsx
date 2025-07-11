@@ -1,4 +1,5 @@
 import React from "react";
+
 import ColSection from "./col-section";
 
 interface SponsorSectionProps {
@@ -6,6 +7,7 @@ interface SponsorSectionProps {
   description: string;
   imageUrl: string;
   imageAlt?: string;
+  href: string;
 }
 
 const SponsorSection: React.FC<SponsorSectionProps> = ({
@@ -13,6 +15,7 @@ const SponsorSection: React.FC<SponsorSectionProps> = ({
   description,
   imageUrl,
   imageAlt = `Logo for ${name}`,
+  href,
 }) => {
   return (
     <>
@@ -30,11 +33,13 @@ const SponsorSection: React.FC<SponsorSectionProps> = ({
         </ColSection>
 
         <div className="flex-1 h-64 flex items-center justify-center rounded-lg">
-          <img
-            className="max-w-full max-h-56 object-contain"
-            src={imageUrl}
-            alt={imageAlt}
-          />
+          <a href={href}>
+            <img
+              className="max-w-full max-h-56 object-contain"
+              src={imageUrl}
+              alt={imageAlt}
+            />
+          </a>
         </div>
       </div>
 
